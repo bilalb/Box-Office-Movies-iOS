@@ -20,11 +20,11 @@
 
 import UIKit
 
+//swiftlint:disable force_cast
 class MasterViewController: UITableViewController {
 
-    var detailViewController: DetailViewController? = nil
+    var detailViewController: DetailViewController?
     var objects = [Any]()
-
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -97,6 +97,4 @@ class MasterViewController: UITableViewController {
         }
     }
 
-
 }
-
