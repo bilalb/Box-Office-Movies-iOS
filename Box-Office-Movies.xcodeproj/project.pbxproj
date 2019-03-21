@@ -14,6 +14,12 @@
 		9CDC95E32243FFB30051925E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9CDC95E22243FFB30051925E /* Assets.xcassets */; };
 		9CDC95E62243FFB30051925E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9CDC95E42243FFB30051925E /* LaunchScreen.storyboard */; };
 		9CDC95F12243FFB30051925E /* Box_Office_MoviesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CDC95F02243FFB30051925E /* Box_Office_MoviesTests.swift */; };
+		9CDC960D2244034B0051925E /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CDC96002244034A0051925E /* Constants.swift */; };
+		9CDC960E2244034B0051925E /* MovieNetworkController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CDC96022244034A0051925E /* MovieNetworkController.swift */; };
+		9CDC960F2244034B0051925E /* NetworkController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CDC96032244034A0051925E /* NetworkController.swift */; };
+		9CDC96102244034B0051925E /* NetworkRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CDC96042244034A0051925E /* NetworkRequest.swift */; };
+		9CDC96112244034B0051925E /* MovieManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CDC96062244034A0051925E /* MovieManager.swift */; };
+		9CDC96122244034B0051925E /* ManagerProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CDC96072244034A0051925E /* ManagerProvider.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,6 +44,12 @@
 		9CDC95EC2243FFB30051925E /* Box-Office-MoviesTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Box-Office-MoviesTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9CDC95F02243FFB30051925E /* Box_Office_MoviesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Box_Office_MoviesTests.swift; sourceTree = "<group>"; };
 		9CDC95F22243FFB30051925E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9CDC96002244034A0051925E /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		9CDC96022244034A0051925E /* MovieNetworkController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovieNetworkController.swift; sourceTree = "<group>"; };
+		9CDC96032244034A0051925E /* NetworkController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkController.swift; sourceTree = "<group>"; };
+		9CDC96042244034A0051925E /* NetworkRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkRequest.swift; sourceTree = "<group>"; };
+		9CDC96062244034A0051925E /* MovieManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovieManager.swift; sourceTree = "<group>"; };
+		9CDC96072244034A0051925E /* ManagerProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManagerProvider.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,12 +92,13 @@
 			isa = PBXGroup;
 			children = (
 				9CDC95D92243FFB10051925E /* AppDelegate.swift */,
-				9CDC95DB2243FFB10051925E /* MasterViewController.swift */,
-				9CDC95DD2243FFB10051925E /* DetailViewController.swift */,
-				9CDC95DF2243FFB10051925E /* Main.storyboard */,
 				9CDC95E22243FFB30051925E /* Assets.xcassets */,
-				9CDC95E42243FFB30051925E /* LaunchScreen.storyboard */,
+				9CDC95FF2244034A0051925E /* Core */,
+				9CDC95DD2243FFB10051925E /* DetailViewController.swift */,
 				9CDC95E72243FFB30051925E /* Info.plist */,
+				9CDC95E42243FFB30051925E /* LaunchScreen.storyboard */,
+				9CDC95DF2243FFB10051925E /* Main.storyboard */,
+				9CDC95DB2243FFB10051925E /* MasterViewController.swift */,
 			);
 			path = "Box-Office-Movies";
 			sourceTree = "<group>";
@@ -97,6 +110,43 @@
 				9CDC95F22243FFB30051925E /* Info.plist */,
 			);
 			path = "Box-Office-MoviesTests";
+			sourceTree = "<group>";
+		};
+		9CDC95FF2244034A0051925E /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				9CDC96002244034A0051925E /* Constants.swift */,
+				9CDC96012244034A0051925E /* Network */,
+				9CDC96052244034A0051925E /* Manager */,
+				9CDC96082244034B0051925E /* Model */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		9CDC96012244034A0051925E /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				9CDC96022244034A0051925E /* MovieNetworkController.swift */,
+				9CDC96032244034A0051925E /* NetworkController.swift */,
+				9CDC96042244034A0051925E /* NetworkRequest.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		9CDC96052244034A0051925E /* Manager */ = {
+			isa = PBXGroup;
+			children = (
+				9CDC96062244034A0051925E /* MovieManager.swift */,
+				9CDC96072244034A0051925E /* ManagerProvider.swift */,
+			);
+			path = Manager;
+			sourceTree = "<group>";
+		};
+		9CDC96082244034B0051925E /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -222,9 +272,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9CDC96112244034B0051925E /* MovieManager.swift in Sources */,
+				9CDC960F2244034B0051925E /* NetworkController.swift in Sources */,
+				9CDC960E2244034B0051925E /* MovieNetworkController.swift in Sources */,
+				9CDC96122244034B0051925E /* ManagerProvider.swift in Sources */,
 				9CDC95DE2243FFB10051925E /* DetailViewController.swift in Sources */,
 				9CDC95DC2243FFB10051925E /* MasterViewController.swift in Sources */,
 				9CDC95DA2243FFB10051925E /* AppDelegate.swift in Sources */,
+				9CDC96102244034B0051925E /* NetworkRequest.swift in Sources */,
+				9CDC960D2244034B0051925E /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
