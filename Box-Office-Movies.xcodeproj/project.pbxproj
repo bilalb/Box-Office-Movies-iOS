@@ -20,6 +20,10 @@
 		9CDC96102244034B0051925E /* NetworkRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CDC96042244034A0051925E /* NetworkRequest.swift */; };
 		9CDC96112244034B0051925E /* MovieManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CDC96062244034A0051925E /* MovieManager.swift */; };
 		9CDC96122244034B0051925E /* ManagerProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CDC96072244034A0051925E /* ManagerProvider.swift */; };
+		9CDC9618224546CA0051925E /* Movie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CDC9617224546CA0051925E /* Movie.swift */; };
+		9CDC961A22454D780051925E /* MovieDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CDC961922454D780051925E /* MovieDetails.swift */; };
+		9CDC961C2245500C0051925E /* NowPlayingMoviesNetworkRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CDC961B2245500C0051925E /* NowPlayingMoviesNetworkRequest.swift */; };
+		9CDC961E224550240051925E /* MovieDetailsNetworkRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CDC961D224550240051925E /* MovieDetailsNetworkRequest.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,6 +54,10 @@
 		9CDC96042244034A0051925E /* NetworkRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkRequest.swift; sourceTree = "<group>"; };
 		9CDC96062244034A0051925E /* MovieManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovieManager.swift; sourceTree = "<group>"; };
 		9CDC96072244034A0051925E /* ManagerProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManagerProvider.swift; sourceTree = "<group>"; };
+		9CDC9617224546CA0051925E /* Movie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Movie.swift; sourceTree = "<group>"; };
+		9CDC961922454D780051925E /* MovieDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetails.swift; sourceTree = "<group>"; };
+		9CDC961B2245500C0051925E /* NowPlayingMoviesNetworkRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NowPlayingMoviesNetworkRequest.swift; sourceTree = "<group>"; };
+		9CDC961D224550240051925E /* MovieDetailsNetworkRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailsNetworkRequest.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -128,7 +136,7 @@
 			children = (
 				9CDC96022244034A0051925E /* MovieNetworkController.swift */,
 				9CDC96032244034A0051925E /* NetworkController.swift */,
-				9CDC96042244034A0051925E /* NetworkRequest.swift */,
+				9CDC961F224550360051925E /* NetworkRequest */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -145,8 +153,20 @@
 		9CDC96082244034B0051925E /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				9CDC9617224546CA0051925E /* Movie.swift */,
+				9CDC961922454D780051925E /* MovieDetails.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		9CDC961F224550360051925E /* NetworkRequest */ = {
+			isa = PBXGroup;
+			children = (
+				9CDC96042244034A0051925E /* NetworkRequest.swift */,
+				9CDC961B2245500C0051925E /* NowPlayingMoviesNetworkRequest.swift */,
+				9CDC961D224550240051925E /* MovieDetailsNetworkRequest.swift */,
+			);
+			path = NetworkRequest;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -276,6 +296,10 @@
 				9CDC960F2244034B0051925E /* NetworkController.swift in Sources */,
 				9CDC960E2244034B0051925E /* MovieNetworkController.swift in Sources */,
 				9CDC96122244034B0051925E /* ManagerProvider.swift in Sources */,
+				9CDC9618224546CA0051925E /* Movie.swift in Sources */,
+				9CDC961E224550240051925E /* MovieDetailsNetworkRequest.swift in Sources */,
+				9CDC961C2245500C0051925E /* NowPlayingMoviesNetworkRequest.swift in Sources */,
+				9CDC961A22454D780051925E /* MovieDetails.swift in Sources */,
 				9CDC95DE2243FFB10051925E /* DetailViewController.swift in Sources */,
 				9CDC95DC2243FFB10051925E /* MasterViewController.swift in Sources */,
 				9CDC95DA2243FFB10051925E /* AppDelegate.swift in Sources */,
