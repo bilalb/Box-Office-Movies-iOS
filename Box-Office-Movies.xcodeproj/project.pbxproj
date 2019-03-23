@@ -24,6 +24,14 @@
 		9CDC961A22454D780051925E /* MovieDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CDC961922454D780051925E /* MovieDetails.swift */; };
 		9CDC961C2245500C0051925E /* NowPlayingMoviesNetworkRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CDC961B2245500C0051925E /* NowPlayingMoviesNetworkRequest.swift */; };
 		9CDC961E224550240051925E /* MovieDetailsNetworkRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CDC961D224550240051925E /* MovieDetailsNetworkRequest.swift */; };
+		9CDC9625224647F40051925E /* Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CDC9624224647F40051925E /* Environment.swift */; };
+		9CDC962722464AAF0051925E /* TheMovieDatabaseAPIConfigurationNetworkRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CDC962622464AAF0051925E /* TheMovieDatabaseAPIConfigurationNetworkRequest.swift */; };
+		9CDC962922464B020051925E /* TheMovieDatabaseAPIConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CDC962822464B020051925E /* TheMovieDatabaseAPIConfiguration.swift */; };
+		9CDC962F224650590051925E /* PosterNetworkRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CDC962E224650590051925E /* PosterNetworkRequest.swift */; };
+		9CDC9631224650B70051925E /* CastingNetworkRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CDC9630224650B70051925E /* CastingNetworkRequest.swift */; };
+		9CDC9633224651770051925E /* Casting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CDC9632224651770051925E /* Casting.swift */; };
+		9CDC96352246531C0051925E /* SimilarMoviesNetworkRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CDC96342246531C0051925E /* SimilarMoviesNetworkRequest.swift */; };
+		9CDC963922468F120051925E /* PaginatedMovieList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CDC963822468F120051925E /* PaginatedMovieList.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,6 +66,14 @@
 		9CDC961922454D780051925E /* MovieDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetails.swift; sourceTree = "<group>"; };
 		9CDC961B2245500C0051925E /* NowPlayingMoviesNetworkRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NowPlayingMoviesNetworkRequest.swift; sourceTree = "<group>"; };
 		9CDC961D224550240051925E /* MovieDetailsNetworkRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailsNetworkRequest.swift; sourceTree = "<group>"; };
+		9CDC9624224647F40051925E /* Environment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Environment.swift; sourceTree = "<group>"; };
+		9CDC962622464AAF0051925E /* TheMovieDatabaseAPIConfigurationNetworkRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TheMovieDatabaseAPIConfigurationNetworkRequest.swift; sourceTree = "<group>"; };
+		9CDC962822464B020051925E /* TheMovieDatabaseAPIConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TheMovieDatabaseAPIConfiguration.swift; sourceTree = "<group>"; };
+		9CDC962E224650590051925E /* PosterNetworkRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PosterNetworkRequest.swift; sourceTree = "<group>"; };
+		9CDC9630224650B70051925E /* CastingNetworkRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CastingNetworkRequest.swift; sourceTree = "<group>"; };
+		9CDC9632224651770051925E /* Casting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Casting.swift; sourceTree = "<group>"; };
+		9CDC96342246531C0051925E /* SimilarMoviesNetworkRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimilarMoviesNetworkRequest.swift; sourceTree = "<group>"; };
+		9CDC963822468F120051925E /* PaginatedMovieList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaginatedMovieList.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -134,6 +150,7 @@
 		9CDC96012244034A0051925E /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				9CDC9624224647F40051925E /* Environment.swift */,
 				9CDC96022244034A0051925E /* MovieNetworkController.swift */,
 				9CDC96032244034A0051925E /* NetworkController.swift */,
 				9CDC961F224550360051925E /* NetworkRequest */,
@@ -153,8 +170,11 @@
 		9CDC96082244034B0051925E /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				9CDC9632224651770051925E /* Casting.swift */,
 				9CDC9617224546CA0051925E /* Movie.swift */,
 				9CDC961922454D780051925E /* MovieDetails.swift */,
+				9CDC963822468F120051925E /* PaginatedMovieList.swift */,
+				9CDC962822464B020051925E /* TheMovieDatabaseAPIConfiguration.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -162,9 +182,13 @@
 		9CDC961F224550360051925E /* NetworkRequest */ = {
 			isa = PBXGroup;
 			children = (
+				9CDC9630224650B70051925E /* CastingNetworkRequest.swift */,
+				9CDC961D224550240051925E /* MovieDetailsNetworkRequest.swift */,
 				9CDC96042244034A0051925E /* NetworkRequest.swift */,
 				9CDC961B2245500C0051925E /* NowPlayingMoviesNetworkRequest.swift */,
-				9CDC961D224550240051925E /* MovieDetailsNetworkRequest.swift */,
+				9CDC962E224650590051925E /* PosterNetworkRequest.swift */,
+				9CDC96342246531C0051925E /* SimilarMoviesNetworkRequest.swift */,
+				9CDC962622464AAF0051925E /* TheMovieDatabaseAPIConfigurationNetworkRequest.swift */,
 			);
 			path = NetworkRequest;
 			sourceTree = "<group>";
@@ -293,8 +317,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				9CDC96112244034B0051925E /* MovieManager.swift in Sources */,
+				9CDC9625224647F40051925E /* Environment.swift in Sources */,
 				9CDC960F2244034B0051925E /* NetworkController.swift in Sources */,
+				9CDC962922464B020051925E /* TheMovieDatabaseAPIConfiguration.swift in Sources */,
 				9CDC960E2244034B0051925E /* MovieNetworkController.swift in Sources */,
+				9CDC96352246531C0051925E /* SimilarMoviesNetworkRequest.swift in Sources */,
+				9CDC962722464AAF0051925E /* TheMovieDatabaseAPIConfigurationNetworkRequest.swift in Sources */,
 				9CDC96122244034B0051925E /* ManagerProvider.swift in Sources */,
 				9CDC9618224546CA0051925E /* Movie.swift in Sources */,
 				9CDC961E224550240051925E /* MovieDetailsNetworkRequest.swift in Sources */,
@@ -303,7 +331,11 @@
 				9CDC95DE2243FFB10051925E /* DetailViewController.swift in Sources */,
 				9CDC95DC2243FFB10051925E /* MasterViewController.swift in Sources */,
 				9CDC95DA2243FFB10051925E /* AppDelegate.swift in Sources */,
+				9CDC962F224650590051925E /* PosterNetworkRequest.swift in Sources */,
 				9CDC96102244034B0051925E /* NetworkRequest.swift in Sources */,
+				9CDC9631224650B70051925E /* CastingNetworkRequest.swift in Sources */,
+				9CDC9633224651770051925E /* Casting.swift in Sources */,
+				9CDC963922468F120051925E /* PaginatedMovieList.swift in Sources */,
 				9CDC960D2244034B0051925E /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

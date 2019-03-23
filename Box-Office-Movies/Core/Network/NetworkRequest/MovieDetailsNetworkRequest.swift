@@ -22,7 +22,8 @@ class MovieDetailsNetworkRequest: NetworkRequest {
         let path = String(format: Constants.MovieDetailsNetworkRequest.path,
                           identifier,
                           languageCode,
-                          regionCode)
-        return environment.baseURL.appending(path)
+                          regionCode,
+                          environment.theMovieDatabaseAPIKey)
+        return environment.theMovieDatabaseAPIBaseUrl.appending(path)
     }
 }

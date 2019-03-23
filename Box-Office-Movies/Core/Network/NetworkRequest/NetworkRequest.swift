@@ -5,10 +5,6 @@
 
 import Foundation
 
-struct Environment {
-    let baseURL: String
-}
-
 class NetworkRequest {
     
     let environment: Environment
@@ -22,10 +18,7 @@ class NetworkRequest {
     }
     
     var urlRequest: URLRequest? {
-        let apiKeyParameter = String(format: Constants.Environment.apiKeyParameter, Constants.Environment.apiKey)
-        let string = urlString().appending("&\(apiKeyParameter)")
-        
-        if let url = URL(string: string) {
+        if let url = URL(string: urlString()) {
             return URLRequest(url: url)
         }
         return nil

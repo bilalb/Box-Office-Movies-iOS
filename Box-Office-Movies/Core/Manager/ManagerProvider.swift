@@ -17,7 +17,7 @@ class ManagerProvider: ManagerProviding {
     var movieManager: MovieManager!
     
     init() {
-        let environment = Environment(baseURL: Constants.Environment.theMovieDatabaseAPIBaseUrl)
+        let environment = Environment(theMovieDatabaseAPIBaseUrl: Constants.Environment.theMovieDatabaseAPIBaseUrl, theMovieDatabaseAPIKey: Constants.Environment.theMovieDatabaseAPIKey)
         let movieNetworkController = MovieNetworkController(environment: environment)
         movieManager = MovieManager(networkController: movieNetworkController)
     }

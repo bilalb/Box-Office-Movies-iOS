@@ -1,30 +1,27 @@
 //
-//  NowPlayingMoviesNetworkRequest.swift
+//  SimilarMoviesNetworkRequest.swift
 //  Box-Office-Movies
 //
 
 import Foundation
 
-class NowPlayingMoviesNetworkRequest: NetworkRequest {
+class SimilarMoviesNetworkRequest: NetworkRequest {
     
+    let identifier: Int
     let languageCode: String
-    let regionCode: String
     let page: Int
     
-    init(environment: Environment, languageCode: String, regionCode: String, page: Int) {
-        // As a reminder :
-        // Locale.current.languageCode
-        // Locale.current.regionCode
+    init(environment: Environment, identifier: Int, languageCode: String, page: Int) {
+        self.identifier = identifier
         self.languageCode = languageCode
-        self.regionCode = regionCode
         self.page = page
         super.init(environment: environment)
     }
     
     override func urlString() -> String {
-        let path = String(format: Constants.NowPlayingMoviesNetworkRequest.path,
+        let path = String(format: Constants.SimilarMoviesNetworkRequest.path,
+                          identifier,
                           languageCode,
-                          regionCode,
                           page,
                           environment.theMovieDatabaseAPIKey)
         return environment.theMovieDatabaseAPIBaseUrl.appending(path)
