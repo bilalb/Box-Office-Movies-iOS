@@ -12,6 +12,7 @@
 import UIKit
 
 protocol NowPlayingMoviesDataStore {
+    var paginatedMovieLists: [PaginatedMovieList] { get }
 }
 
 protocol NowPlayingMoviesBusinessLogic {

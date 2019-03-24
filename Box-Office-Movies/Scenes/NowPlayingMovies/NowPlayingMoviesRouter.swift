@@ -17,35 +17,51 @@ class NowPlayingMoviesRouter: NSObject, NowPlayingMoviesDataPassing {
     var dataStore: NowPlayingMoviesDataStore?
 }
 
-// MARK: - Private Functions
-private extension NowPlayingMoviesRouter {
-//    func navigateToSomewhere(source: NowPlayingMoviesViewController, destination: SomewhereViewController) {
-//        source.show(destination, sender: nil)
-//    }
-//
-//    func passDataToSomewhere(source: NowPlayingMoviesDataStore, destination: inout SomewhereDataStore) {
-//        destination.name = source.name
-//    }
-}
-
 @objc protocol NowPlayingMoviesRoutingLogic {
-    //func routeToSomewhere(segue: UIStoryboardSegue?)
+    func routeToMovieDetails(segue: UIStoryboardSegue?)
 }
 
 extension NowPlayingMoviesRouter: NowPlayingMoviesRoutingLogic {
-//    func routeToSomewhere(segue: UIStoryboardSegue?) {
-//        if let segue = segue,
-//            let destinationVC = segue.destination as? SomewhereViewController,
-//            var destinationDS = destinationVC.router?.dataStore {
-//
-//            passDataToSomewhere(source: dataStore, destination: &destinationDS)
-//        } else {
+    
+    func routeToMovieDetails(segue: UIStoryboardSegue?) {
+        if let segue = segue,
+            let destinationVC = (segue.destination as? UINavigationController)?.topViewController as? MovieDetailsViewController,
+            var destinationDS = destinationVC.router?.dataStore,
+            let dataStore = dataStore {
+            passDataToMovieDetails(source: dataStore, destination: &destinationDS)
+        } else {
 //            let storyboard = UIStoryboard(name: "Main", bundle: nil)
 //            if let destinationVC = storyboard.instantiateViewController(withIdentifier: "SomewhereViewController") as? SomewhereViewController,
 //                var destinationDS = destinationVC.router?.dataStore {
 //                passDataToSomewhere(source: dataStore, destination: &destinationDS)
 //                navigateToSomewhere(source: viewController, destination: destinationVC)
 //            }
-//        }
+        }
+    }
+}
+
+// MARK: - Private Functions
+private extension NowPlayingMoviesRouter {
+    
+    func passDataToMovieDetails(source: NowPlayingMoviesDataStore, destination: inout MovieDetailsDataStore) {
+        var movies = [Movie]()
+        source.paginatedMovieLists.forEach({ (paginatedMovieList) in
+            paginatedMovieList.movies.forEach({ (movie) in
+                movies.append(movie)
+            })
+        })
+        
+        guard
+            let selectedRow = viewController?.nowPlayingMoviesTableView.indexPathForSelectedRow?.row,
+            movies.indices.contains(selectedRow)
+        else {
+            return
+        }
+        
+        destination.movieIdentifier = movies[selectedRow].identifier
+    }
+    
+//    func navigateToMovieDetails(source: NowPlayingMoviesViewController, destination: MovieDetailsViewController) {
+//        source.show(destination, sender: nil)
 //    }
 }
