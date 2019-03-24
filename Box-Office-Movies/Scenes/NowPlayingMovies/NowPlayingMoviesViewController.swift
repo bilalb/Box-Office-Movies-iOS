@@ -91,7 +91,6 @@ extension NowPlayingMoviesViewController: UITableViewDataSource {
             return UITableViewCell()
         }
         
-        UIApplication.shared.isNetworkActivityIndicatorVisible = true
         movieTableViewCell.titleLabel.text = movieItem.title
         
         return movieTableViewCell
