@@ -15,9 +15,6 @@ class NowPlayingMoviesNetworkRequest: NetworkRequest {
     let page: Int
     
     init(environment: Environment, languageCode: String, regionCode: String, page: Int) {
-        // As a reminder :
-        // Locale.current.languageCode
-        // Locale.current.regionCode
         self.languageCode = languageCode
         self.regionCode = regionCode
         self.page = page

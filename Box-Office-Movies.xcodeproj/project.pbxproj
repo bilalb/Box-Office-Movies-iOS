@@ -32,6 +32,15 @@
 		9CDC9633224651770051925E /* Casting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CDC9632224651770051925E /* Casting.swift */; };
 		9CDC96352246531C0051925E /* SimilarMoviesNetworkRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CDC96342246531C0051925E /* SimilarMoviesNetworkRequest.swift */; };
 		9CDC963922468F120051925E /* PaginatedMovieList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CDC963822468F120051925E /* PaginatedMovieList.swift */; };
+		9CDC96512247C2DE0051925E /* NowPlayingMovies+SceneSetup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CDC964B2247C2DE0051925E /* NowPlayingMovies+SceneSetup.swift */; };
+		9CDC96522247C2DE0051925E /* NowPlayingMoviesPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CDC964C2247C2DE0051925E /* NowPlayingMoviesPresenter.swift */; };
+		9CDC96532247C2DE0051925E /* NowPlayingMoviesRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CDC964D2247C2DE0051925E /* NowPlayingMoviesRouter.swift */; };
+		9CDC96542247C2DE0051925E /* NowPlayingMoviesModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CDC964E2247C2DE0051925E /* NowPlayingMoviesModels.swift */; };
+		9CDC96552247C2DE0051925E /* NowPlayingMoviesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CDC964F2247C2DE0051925E /* NowPlayingMoviesViewController.swift */; };
+		9CDC96562247C2DE0051925E /* NowPlayingMoviesInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CDC96502247C2DE0051925E /* NowPlayingMoviesInteractor.swift */; };
+		9CDC96582247CA510051925E /* MovieTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CDC96572247CA510051925E /* MovieTableViewCell.swift */; };
+		9CDC965C2247CAB70051925E /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CDC965A2247CAB70051925E /* UIView.swift */; };
+		9CDC965D2247CAB70051925E /* UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CDC965B2247CAB70051925E /* UIViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -74,6 +83,15 @@
 		9CDC9632224651770051925E /* Casting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Casting.swift; sourceTree = "<group>"; };
 		9CDC96342246531C0051925E /* SimilarMoviesNetworkRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimilarMoviesNetworkRequest.swift; sourceTree = "<group>"; };
 		9CDC963822468F120051925E /* PaginatedMovieList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaginatedMovieList.swift; sourceTree = "<group>"; };
+		9CDC964B2247C2DE0051925E /* NowPlayingMovies+SceneSetup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NowPlayingMovies+SceneSetup.swift"; sourceTree = "<group>"; };
+		9CDC964C2247C2DE0051925E /* NowPlayingMoviesPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NowPlayingMoviesPresenter.swift; sourceTree = "<group>"; };
+		9CDC964D2247C2DE0051925E /* NowPlayingMoviesRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NowPlayingMoviesRouter.swift; sourceTree = "<group>"; };
+		9CDC964E2247C2DE0051925E /* NowPlayingMoviesModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NowPlayingMoviesModels.swift; sourceTree = "<group>"; };
+		9CDC964F2247C2DE0051925E /* NowPlayingMoviesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NowPlayingMoviesViewController.swift; sourceTree = "<group>"; };
+		9CDC96502247C2DE0051925E /* NowPlayingMoviesInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NowPlayingMoviesInteractor.swift; sourceTree = "<group>"; };
+		9CDC96572247CA510051925E /* MovieTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieTableViewCell.swift; sourceTree = "<group>"; };
+		9CDC965A2247CAB70051925E /* UIView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
+		9CDC965B2247CAB70051925E /* UIViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -119,10 +137,12 @@
 				9CDC95E22243FFB30051925E /* Assets.xcassets */,
 				9CDC95FF2244034A0051925E /* Core */,
 				9CDC95DD2243FFB10051925E /* DetailViewController.swift */,
+				9CDC96592247CAB70051925E /* Extensions */,
 				9CDC95E72243FFB30051925E /* Info.plist */,
 				9CDC95E42243FFB30051925E /* LaunchScreen.storyboard */,
 				9CDC95DF2243FFB10051925E /* Main.storyboard */,
 				9CDC95DB2243FFB10051925E /* MasterViewController.swift */,
+				9CDC96492247C2B20051925E /* Scenes */,
 			);
 			path = "Box-Office-Movies";
 			sourceTree = "<group>";
@@ -191,6 +211,37 @@
 				9CDC962622464AAF0051925E /* TheMovieDatabaseAPIConfigurationNetworkRequest.swift */,
 			);
 			path = NetworkRequest;
+			sourceTree = "<group>";
+		};
+		9CDC96492247C2B20051925E /* Scenes */ = {
+			isa = PBXGroup;
+			children = (
+				9CDC964A2247C2D20051925E /* NowPlayingMovies */,
+			);
+			path = Scenes;
+			sourceTree = "<group>";
+		};
+		9CDC964A2247C2D20051925E /* NowPlayingMovies */ = {
+			isa = PBXGroup;
+			children = (
+				9CDC96572247CA510051925E /* MovieTableViewCell.swift */,
+				9CDC964B2247C2DE0051925E /* NowPlayingMovies+SceneSetup.swift */,
+				9CDC96502247C2DE0051925E /* NowPlayingMoviesInteractor.swift */,
+				9CDC964E2247C2DE0051925E /* NowPlayingMoviesModels.swift */,
+				9CDC964C2247C2DE0051925E /* NowPlayingMoviesPresenter.swift */,
+				9CDC964D2247C2DE0051925E /* NowPlayingMoviesRouter.swift */,
+				9CDC964F2247C2DE0051925E /* NowPlayingMoviesViewController.swift */,
+			);
+			path = NowPlayingMovies;
+			sourceTree = "<group>";
+		};
+		9CDC96592247CAB70051925E /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				9CDC965A2247CAB70051925E /* UIView.swift */,
+				9CDC965B2247CAB70051925E /* UIViewController.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -318,21 +369,30 @@
 			files = (
 				9CDC96112244034B0051925E /* MovieManager.swift in Sources */,
 				9CDC9625224647F40051925E /* Environment.swift in Sources */,
+				9CDC96582247CA510051925E /* MovieTableViewCell.swift in Sources */,
 				9CDC960F2244034B0051925E /* NetworkController.swift in Sources */,
+				9CDC965C2247CAB70051925E /* UIView.swift in Sources */,
 				9CDC962922464B020051925E /* TheMovieDatabaseAPIConfiguration.swift in Sources */,
 				9CDC960E2244034B0051925E /* MovieNetworkController.swift in Sources */,
 				9CDC96352246531C0051925E /* SimilarMoviesNetworkRequest.swift in Sources */,
 				9CDC962722464AAF0051925E /* TheMovieDatabaseAPIConfigurationNetworkRequest.swift in Sources */,
 				9CDC96122244034B0051925E /* ManagerProvider.swift in Sources */,
 				9CDC9618224546CA0051925E /* Movie.swift in Sources */,
+				9CDC96522247C2DE0051925E /* NowPlayingMoviesPresenter.swift in Sources */,
 				9CDC961E224550240051925E /* MovieDetailsNetworkRequest.swift in Sources */,
 				9CDC961C2245500C0051925E /* NowPlayingMoviesNetworkRequest.swift in Sources */,
+				9CDC965D2247CAB70051925E /* UIViewController.swift in Sources */,
+				9CDC96562247C2DE0051925E /* NowPlayingMoviesInteractor.swift in Sources */,
+				9CDC96512247C2DE0051925E /* NowPlayingMovies+SceneSetup.swift in Sources */,
 				9CDC961A22454D780051925E /* MovieDetails.swift in Sources */,
+				9CDC96542247C2DE0051925E /* NowPlayingMoviesModels.swift in Sources */,
+				9CDC96552247C2DE0051925E /* NowPlayingMoviesViewController.swift in Sources */,
 				9CDC95DE2243FFB10051925E /* DetailViewController.swift in Sources */,
 				9CDC95DC2243FFB10051925E /* MasterViewController.swift in Sources */,
 				9CDC95DA2243FFB10051925E /* AppDelegate.swift in Sources */,
 				9CDC962F224650590051925E /* PosterNetworkRequest.swift in Sources */,
 				9CDC96102244034B0051925E /* NetworkRequest.swift in Sources */,
+				9CDC96532247C2DE0051925E /* NowPlayingMoviesRouter.swift in Sources */,
 				9CDC9631224650B70051925E /* CastingNetworkRequest.swift in Sources */,
 				9CDC9633224651770051925E /* Casting.swift in Sources */,
 				9CDC963922468F120051925E /* PaginatedMovieList.swift in Sources */,

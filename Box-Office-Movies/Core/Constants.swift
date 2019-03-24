@@ -38,4 +38,9 @@ struct Constants {
     struct SimilarMoviesNetworkRequest {
         static let path = "movie/%d/similar?language=%@&page=%d&api_key=%@"
     }
+    
+    struct Fallback {
+        static let languageCode = "en-US"
+        static let regionCode = "US"
+    }
 }
