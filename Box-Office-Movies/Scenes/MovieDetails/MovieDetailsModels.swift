@@ -15,6 +15,7 @@ enum MovieDetailsScene {
         struct Request { }
         
         struct Response {
+            let apiConfiguration: TheMovieDatabaseAPIConfiguration?
             let movieDetails: MovieDetails?
         }
         
@@ -58,7 +59,26 @@ enum MovieDetailsScene {
     }
 }
 
+enum DetailItem {
     
+    case title(title: String)
+    case additionalInformation(posterImageURL: URL?, releaseDate: String?, voteAverage: String?)
+    case synopsis(synopsis: String?)
+    case casting(actors: String?)
+    case similarMovies(similarMovies: String?)
+    
+    var cellIdentifier: String {
+        switch self {
+        case .title:
+            return Constants.CellIdentifier.titleTableViewCell
+        case .additionalInformation:
+            return AdditionalInformationTableViewCell.identifier
+        case .synopsis:
+            return Constants.CellIdentifier.synopsisTableViewCell
+        case .casting:
+            return Constants.CellIdentifier.castingTableViewCell
+        case .similarMovies:
+            return Constants.CellIdentifier.similarMoviesTableViewCell
         }
     }
 }

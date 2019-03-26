@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9C4935EA224A95CD00359378 /* AdditionalInformationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C4935E9224A95CD00359378 /* AdditionalInformationTableViewCell.swift */; };
 		9CDC95DA2243FFB10051925E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CDC95D92243FFB10051925E /* AppDelegate.swift */; };
 		9CDC95DC2243FFB10051925E /* MasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CDC95DB2243FFB10051925E /* MasterViewController.swift */; };
 		9CDC95DE2243FFB10051925E /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CDC95DD2243FFB10051925E /* DetailViewController.swift */; };
@@ -61,6 +62,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9C4935E9224A95CD00359378 /* AdditionalInformationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdditionalInformationTableViewCell.swift; sourceTree = "<group>"; };
 		9CDC95D62243FFB10051925E /* Box-Office-Movies.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Box-Office-Movies.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9CDC95D92243FFB10051925E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9CDC95DB2243FFB10051925E /* MasterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterViewController.swift; sourceTree = "<group>"; };
@@ -263,6 +265,7 @@
 		9CDC965E2247DA3F0051925E /* MovieDetails */ = {
 			isa = PBXGroup;
 			children = (
+				9C4935E9224A95CD00359378 /* AdditionalInformationTableViewCell.swift */,
 				9CDC965F2247DA510051925E /* MovieDetails+SceneSetup.swift */,
 				9CDC96642247DA510051925E /* MovieDetailsInteractor.swift */,
 				9CDC96622247DA510051925E /* MovieDetailsModels.swift */,
@@ -425,6 +428,7 @@
 				9CDC95DA2243FFB10051925E /* AppDelegate.swift in Sources */,
 				9CDC966C2247E49E0051925E /* String.swift in Sources */,
 				9CDC962F224650590051925E /* PosterNetworkRequest.swift in Sources */,
+				9C4935EA224A95CD00359378 /* AdditionalInformationTableViewCell.swift in Sources */,
 				9CDC96102244034B0051925E /* NetworkRequest.swift in Sources */,
 				9CDC96652247DA510051925E /* MovieDetails+SceneSetup.swift in Sources */,
 				9CDC96532247C2DE0051925E /* NowPlayingMoviesRouter.swift in Sources */,

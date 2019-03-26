@@ -33,11 +33,13 @@ extension MovieDetailsInteractor: MovieDetailsBusinessLogic {
         guard let movieIdentifier = movieIdentifier else {
             return
         }
-        let languageCode = Locale.current.languageCode ?? Constants.Fallback.languageCode
-        let regionCode = Locale.current.regionCode ?? Constants.Fallback.regionCode
-        ManagerProvider.sharedInstance.movieManager.movieDetails(identifier: movieIdentifier, languageCode: languageCode, regionCode: regionCode) { [weak self] (movieDetails, _) in
-            let response = MovieDetailsScene.FetchMovieDetails.Response(movieDetails: movieDetails)
-            self?.presenter?.presentMovieDetails(response: response)
+        ManagerProvider.sharedInstance.movieManager.theMovieDatabaseAPIConfiguration { (apiConfiguration, _) in
+            let languageCode = Locale.current.languageCode ?? Constants.Fallback.languageCode
+            let regionCode = Locale.current.regionCode ?? Constants.Fallback.regionCode
+            ManagerProvider.sharedInstance.movieManager.movieDetails(identifier: movieIdentifier, languageCode: languageCode, regionCode: regionCode) { [weak self] (movieDetails, _) in
+                let response = MovieDetailsScene.FetchMovieDetails.Response(apiConfiguration: apiConfiguration, movieDetails: movieDetails)
+                self?.presenter?.presentMovieDetails(response: response)
+            }
         }
     }
     

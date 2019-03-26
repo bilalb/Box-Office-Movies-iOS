@@ -25,7 +25,21 @@ extension MovieDetailsPresenter: MovieDetailsPresentationLogic {
             guard let movieDetails = response.movieDetails else {
                 return
             }
+            
             let titleItem = DetailItem.title(title: movieDetails.title)
+            
+            var posterImageURL: URL? {
+                if let posterPath = movieDetails.posterPath, let apiConfiguration = response.apiConfiguration {
+                    var posterImagePath = apiConfiguration.imageData.secureBaseUrl
+                    posterImagePath.append(Constants.Fallback.posterImageSize)
+                    posterImagePath.append(posterPath)
+                    
+                    return URL(string: posterImagePath)
+                } else {
+                    return nil
+                }
+            }
+            let additionalInformationItem = DetailItem.additionalInformation(posterImageURL: posterImageURL, releaseDate: movieDetails.releaseDate, voteAverage: movieDetails.formattedVoteAverage)
             let synopsisItem = DetailItem.synopsis(synopsis: movieDetails.synopsis)
             let basicItems = [titleItem, additionalInformationItem, reviewMovieItem, synopsisItem]
             let viewModel = MovieDetailsScene.FetchMovieDetails.ViewModel(basicItems: basicItems)
@@ -57,5 +71,22 @@ extension MovieDetailsPresenter: MovieDetailsPresentationLogic {
             let viewModel = MovieDetailsScene.FetchSimilarMovies.ViewModel(similarMoviesItem: similarMoviesItem)
             self.viewController?.displaySimilarMovies(viewModel: viewModel)
         }
+    }
+
+extension MovieDetails {
+    
+    var formattedVoteAverage: String {
+        let numberOfStars = 5
+        let highestPossibleValueOfVoteAverage = 10
+        let numberOfFullStars: Int = Int(voteAverage) * numberOfStars / highestPossibleValueOfVoteAverage
+        let numberOfEmptyStars = numberOfStars - numberOfFullStars
+        var stars = ""
+        for _ in 0 ..< numberOfFullStars {
+            stars.append("★")
+        }
+        for _ in 0 ..< numberOfEmptyStars {
+            stars.append("☆")
+        }
+        return stars
     }
 }

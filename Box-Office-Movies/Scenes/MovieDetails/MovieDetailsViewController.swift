@@ -111,6 +111,14 @@ extension MovieDetailsViewController: UITableViewDataSource {
         switch detailItem {
         case .title(let title):
             cell.textLabel?.text = title
+        case .additionalInformation(_, let releaseDate, let voteAverage):
+            if let cell = cell as? AdditionalInformationTableViewCell {
+                // TODO: install SDWebImage
+//                cell.posterImageView.sd_setImage(with: posterImageURL) { (_, _, _, _) in
+//                    UIApplication.shared.isNetworkActivityIndicatorVisible = false
+//                }
+                cell.releaseDateLabel?.text = releaseDate
+                cell.voteAverageLabel?.text = voteAverage
             }
         case .synopsis(let synopsis):
             cell.textLabel?.text = synopsis
