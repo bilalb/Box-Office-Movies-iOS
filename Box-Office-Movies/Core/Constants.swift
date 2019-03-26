@@ -42,10 +42,12 @@ struct Constants {
     struct Fallback {
         static let languageCode = "en-US"
         static let regionCode = "US"
+        static let posterImageSize = "w342"
     }
     
     struct CellIdentifier {
         static let titleTableViewCell = "TitleTableViewCell"
+        static let reviewMovieTableViewCell = "ReviewMovieTableViewCell"
         static let synopsisTableViewCell = "SynopsisTableViewCell"
         static let castingTableViewCell =  "CastingTableViewCell"
         static let similarMoviesTableViewCell = "SimilarMoviesTableViewCell"

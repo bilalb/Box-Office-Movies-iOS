@@ -16,6 +16,8 @@ protocol MovieDetailsBusinessLogic {
     func fetchMovieDetails(request: MovieDetailsScene.FetchMovieDetails.Request)
     func fetchCasting(request: MovieDetailsScene.FetchCasting.Request)
     func fetchSimilarMovies(request: MovieDetailsScene.FetchSimilarMovies.Request)
+    func loadMovieReviews(request: MovieDetailsScene.LoadMovieReviews.Request)
+    func reviewMovie(request: MovieDetailsScene.ReviewMovie.Request)
 }
 
 class MovieDetailsInteractor: MovieDetailsDataStore {
@@ -74,5 +76,16 @@ extension MovieDetailsInteractor: MovieDetailsBusinessLogic {
             let response = MovieDetailsScene.FetchSimilarMovies.Response(paginatedMovieLists: self?.paginatedMovieLists)
             self?.presenter?.presentSimilarMovies(response: response)
         }
+    }
+    
+    func loadMovieReviews(request: MovieDetailsScene.LoadMovieReviews.Request) {
+        let response = MovieDetailsScene.LoadMovieReviews.Response(movieReviews: MovieReview.allCases)
+        presenter?.presentMovieReviews(response: response)
+    }
+    
+    func reviewMovie(request: MovieDetailsScene.ReviewMovie.Request) {
+        // TODO: to implement
+        let response = MovieDetailsScene.ReviewMovie.Response()
+        presenter?.presentReviewMovie(response: response)
     }
 }

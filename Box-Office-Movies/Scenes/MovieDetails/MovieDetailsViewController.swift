@@ -12,6 +12,8 @@ protocol MovieDetailsDisplayLogic: class {
     func displayMovieDetails(viewModel: MovieDetailsScene.FetchMovieDetails.ViewModel)
     func displayCasting(viewModel: MovieDetailsScene.FetchCasting.ViewModel)
     func displaySimilarMovies(viewModel: MovieDetailsScene.FetchSimilarMovies.ViewModel)
+    func displayMovieReviews(viewModel: MovieDetailsScene.LoadMovieReviews.ViewModel)
+    func displayReviewMovie(viewModel: MovieDetailsScene.ReviewMovie.ViewModel)
 }
 
 class MovieDetailsViewController: UIViewController {
@@ -71,6 +73,16 @@ private extension MovieDetailsViewController {
         let request = MovieDetailsScene.FetchSimilarMovies.Request()
         interactor?.fetchSimilarMovies(request: request)
     }
+    
+    func loadMovieReviews() {
+        let request = MovieDetailsScene.LoadMovieReviews.Request()
+        interactor?.loadMovieReviews(request: request)
+    }
+    
+    func reviewMovie(with movieReview: MovieReview) {
+        let request = MovieDetailsScene.ReviewMovie.Request(movieReview: movieReview)
+        interactor?.reviewMovie(request: request)
+    }
 }
 
 // MARK: - Display Logic
@@ -90,6 +102,23 @@ extension MovieDetailsViewController: MovieDetailsDisplayLogic {
     
     func displaySimilarMovies(viewModel: MovieDetailsScene.FetchSimilarMovies.ViewModel) {
         detailItems.append(viewModel.similarMoviesItem)
+    }
+    
+    func displayMovieReviews(viewModel: MovieDetailsScene.LoadMovieReviews.ViewModel) {
+        let actionSheet = UIAlertController(title: viewModel.alertControllerTitle, message: viewModel.alertControllerMessage, preferredStyle: viewModel.alertControllerPreferredStyle)
+        viewModel.actions.forEach({ (alertAction, movieReview) in
+            let action = UIAlertAction(title: alertAction.title, style: alertAction.style, handler: { [weak self] _ in
+                if let movieReview = movieReview {
+                    self?.reviewMovie(with: movieReview)
+                }
+            })
+            actionSheet.addAction(action)
+        })
+        present(actionSheet, animated: true)
+    }
+    
+    func displayReviewMovie(viewModel: MovieDetailsScene.ReviewMovie.ViewModel) {
+        
     }
 }
 
@@ -126,11 +155,28 @@ extension MovieDetailsViewController: UITableViewDataSource {
             cell.textLabel?.text = actors
         case .similarMovies(let similarMovies):
             cell.textLabel?.text = similarMovies
+        default:
+            break
         }
         
         return cell
+    }
+}
+
+// MARK: - UITableViewDelegate
+extension MovieDetailsViewController: UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard detailItems.indices.contains(indexPath.row) else {
+            return
         }
+        let detailItem = detailItems[indexPath.row]
         
+        switch detailItem {
+        case .reviewMovie:
+            loadMovieReviews()
+        default:
+            break
         }
     }
 }

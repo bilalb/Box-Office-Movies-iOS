@@ -12,6 +12,8 @@ protocol MovieDetailsPresentationLogic {
     func presentMovieDetails(response: MovieDetailsScene.FetchMovieDetails.Response)
     func presentCasting(response: MovieDetailsScene.FetchCasting.Response)
     func presentSimilarMovies(response: MovieDetailsScene.FetchSimilarMovies.Response)
+    func presentMovieReviews(response: MovieDetailsScene.LoadMovieReviews.Response)
+    func presentReviewMovie(response: MovieDetailsScene.ReviewMovie.Response)
 }
 
 class MovieDetailsPresenter {
@@ -40,6 +42,8 @@ extension MovieDetailsPresenter: MovieDetailsPresentationLogic {
                 }
             }
             let additionalInformationItem = DetailItem.additionalInformation(posterImageURL: posterImageURL, releaseDate: movieDetails.releaseDate, voteAverage: movieDetails.formattedVoteAverage)
+            
+            let reviewMovieItem = DetailItem.reviewMovie
             let synopsisItem = DetailItem.synopsis(synopsis: movieDetails.synopsis)
             let basicItems = [titleItem, additionalInformationItem, reviewMovieItem, synopsisItem]
             let viewModel = MovieDetailsScene.FetchMovieDetails.ViewModel(basicItems: basicItems)
@@ -72,6 +76,23 @@ extension MovieDetailsPresenter: MovieDetailsPresentationLogic {
             self.viewController?.displaySimilarMovies(viewModel: viewModel)
         }
     }
+    
+    func presentMovieReviews(response: MovieDetailsScene.LoadMovieReviews.Response) {
+        var actions = response.movieReviews.compactMap { (movieReview) -> (UIAlertAction, MovieReview?) in
+            let alertAction = UIAlertAction(title: movieReview.description, style: .default, handler: nil)
+            return (alertAction, movieReview)
+        }
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        actions.append((cancelAction, nil))
+        let viewModel = MovieDetailsScene.LoadMovieReviews.ViewModel(alertControllerTitle: "Review the movie", alertControllerMessage: nil, alertControllerPreferredStyle: .actionSheet, actions: actions)
+        viewController?.displayMovieReviews(viewModel: viewModel)
+    }
+    
+    func presentReviewMovie(response: MovieDetailsScene.ReviewMovie.Response) {
+        let viewModel = MovieDetailsScene.ReviewMovie.ViewModel()
+        viewController?.displayReviewMovie(viewModel: viewModel)
+    }
+}
 
 extension MovieDetails {
     
