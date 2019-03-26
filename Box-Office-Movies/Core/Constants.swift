@@ -43,4 +43,11 @@ struct Constants {
         static let languageCode = "en-US"
         static let regionCode = "US"
     }
+    
+    struct CellIdentifier {
+        static let titleTableViewCell = "TitleTableViewCell"
+        static let synopsisTableViewCell = "SynopsisTableViewCell"
+        static let castingTableViewCell =  "CastingTableViewCell"
+        static let similarMoviesTableViewCell = "SimilarMoviesTableViewCell"
+    }
 }

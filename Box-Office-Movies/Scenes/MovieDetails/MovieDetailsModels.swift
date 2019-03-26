@@ -19,7 +19,7 @@ enum MovieDetailsScene {
         }
         
         struct ViewModel {
-            let basicItems: [BasicItem]?
+            let basicItems: [DetailItem]?
         }
     }
     
@@ -32,7 +32,7 @@ enum MovieDetailsScene {
         }
         
         struct ViewModel {
-            let castingItem: CastingItem
+            let castingItem: DetailItem
         }
     }
     
@@ -45,52 +45,22 @@ enum MovieDetailsScene {
         }
         
         struct ViewModel {
-            let similarMoviesItem: SimilarMoviesItem
+            let similarMoviesItem: DetailItem
         }
     }
-}
-
-extension MovieDetailsScene.FetchMovieDetails.ViewModel {
     
-    enum BasicItem: DetailItem {
-        case title(value: String)
-        case synopsis(value: String?)
         
-        var cellIdentifier: String {
-            switch self {
-            case .title:
-                return "TitleTableViewCell"
-            case .synopsis:
-                return "SynopsisTableViewCell"
-            }
         }
     }
-}
-
-extension MovieDetailsScene.FetchCasting.ViewModel {
     
-    struct CastingItem: DetailItem {
         
-        var actors: String?
-        
-        var cellIdentifier: String {
-            return "CastingTableViewCell"
         }
     }
 }
 
-extension MovieDetailsScene.FetchSimilarMovies.ViewModel {
     
-    struct SimilarMoviesItem: DetailItem {
-        
-        var similarMovies: String?
-        
-        var cellIdentifier: String {
-            return "SimilarMoviesTableViewCell"
         }
     }
 }
 
-protocol DetailItem {
-    var cellIdentifier: String { get }
 }

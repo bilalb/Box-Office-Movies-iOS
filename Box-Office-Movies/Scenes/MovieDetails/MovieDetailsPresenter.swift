@@ -25,9 +25,9 @@ extension MovieDetailsPresenter: MovieDetailsPresentationLogic {
             guard let movieDetails = response.movieDetails else {
                 return
             }
-            let titleItem = MovieDetailsScene.FetchMovieDetails.ViewModel.BasicItem.title(value: movieDetails.title)
-            let synopsisItem = MovieDetailsScene.FetchMovieDetails.ViewModel.BasicItem.synopsis(value: movieDetails.synopsis)
-            let basicItems = [titleItem, synopsisItem]
+            let titleItem = DetailItem.title(title: movieDetails.title)
+            let synopsisItem = DetailItem.synopsis(synopsis: movieDetails.synopsis)
+            let basicItems = [titleItem, additionalInformationItem, reviewMovieItem, synopsisItem]
             let viewModel = MovieDetailsScene.FetchMovieDetails.ViewModel(basicItems: basicItems)
             self.viewController?.displayMovieDetails(viewModel: viewModel)
         }
@@ -39,7 +39,7 @@ extension MovieDetailsPresenter: MovieDetailsPresentationLogic {
             response.casting?.actors.forEach({ (actor) in
                 actors.append(withSeparator: ", ", other: actor.name)
             })
-            let castingItem = MovieDetailsScene.FetchCasting.ViewModel.CastingItem(actors: actors)
+            let castingItem = DetailItem.casting(actors: actors)
             let viewModel = MovieDetailsScene.FetchCasting.ViewModel(castingItem: castingItem)
             self.viewController?.displayCasting(viewModel: viewModel)
         }
@@ -53,7 +53,7 @@ extension MovieDetailsPresenter: MovieDetailsPresentationLogic {
                     similarMovies.append(withSeparator: ", ", other: movie.title)
                 })
             })
-            let similarMoviesItem = MovieDetailsScene.FetchSimilarMovies.ViewModel.SimilarMoviesItem(similarMovies: similarMovies)
+            let similarMoviesItem = DetailItem.similarMovies(similarMovies: similarMovies)
             let viewModel = MovieDetailsScene.FetchSimilarMovies.ViewModel(similarMoviesItem: similarMoviesItem)
             self.viewController?.displaySimilarMovies(viewModel: viewModel)
         }

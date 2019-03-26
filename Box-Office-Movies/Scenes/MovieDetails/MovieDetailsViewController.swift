@@ -108,23 +108,21 @@ extension MovieDetailsViewController: UITableViewDataSource {
         let cellIdentifier = detailItem.cellIdentifier
         let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath)
         
-        if let basicItem = detailItem as? MovieDetailsScene.FetchMovieDetails.ViewModel.BasicItem {
-            switch basicItem {
-            case .title(let value):
-                cell.textLabel?.text = value
-            case .synopsis(let value):
-                cell.textLabel?.text = value
+        switch detailItem {
+        case .title(let title):
+            cell.textLabel?.text = title
             }
-        }
-        
-        if let castingItem = detailItem as? MovieDetailsScene.FetchCasting.ViewModel.CastingItem {
-            cell.textLabel?.text = castingItem.actors
-        }
-        
-        if let similarMoviesItem = detailItem as? MovieDetailsScene.FetchSimilarMovies.ViewModel.SimilarMoviesItem {
-            cell.textLabel?.text = similarMoviesItem.similarMovies
+        case .synopsis(let synopsis):
+            cell.textLabel?.text = synopsis
+        case .casting(let actors):
+            cell.textLabel?.text = actors
+        case .similarMovies(let similarMovies):
+            cell.textLabel?.text = similarMovies
         }
         
         return cell
+        }
+        
+        }
     }
 }
