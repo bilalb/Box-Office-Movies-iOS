@@ -327,9 +327,11 @@
 				TargetAttributes = {
 					9CDC95D52243FFB10051925E = {
 						CreatedOnToolsVersion = 10.1;
+						LastSwiftMigration = 1020;
 					};
 					9CDC95EB2243FFB30051925E = {
 						CreatedOnToolsVersion = 10.1;
+						LastSwiftMigration = 1020;
 						TestTargetID = 9CDC95D52243FFB10051925E;
 					};
 				};
@@ -606,7 +608,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "fr.boxotop.Box-Office-Movies";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -623,7 +625,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "fr.boxotop.Box-Office-Movies";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -642,7 +644,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "fr.boxotop.Box-Office-MoviesTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Box-Office-Movies.app/Box-Office-Movies";
 			};
@@ -662,7 +664,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "fr.boxotop.Box-Office-MoviesTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Box-Office-Movies.app/Box-Office-Movies";
 			};
