@@ -112,38 +112,26 @@ final class MovieManager: MovieManagement {
     }
     
     func nowPlayingMovies(languageCode: String, regionCode: String, page: Int, completionHandler: NowPlayingMoviesCompletionHandler?) {
-        networkController.nowPlayingMovies(languageCode: languageCode, regionCode: regionCode, page: page) { (movies, error) in
-            completionHandler?(movies, error)
-        }
+        networkController.nowPlayingMovies(languageCode: languageCode, regionCode: regionCode, page: page, completionHandler: completionHandler)
     }
     
     func movieDetails(identifier: Int, languageCode: String, regionCode: String, completionHandler: MovieDetailsCompletionHandler?) {
-        networkController.movieDetails(identifier: identifier, languageCode: languageCode, regionCode: regionCode) { (movieDetails, error) in
-            completionHandler?(movieDetails, error)
-        }
+        networkController.movieDetails(identifier: identifier, languageCode: languageCode, regionCode: regionCode, completionHandler: completionHandler)
     }
     
     func theMovieDatabaseAPIConfiguration(completionHandler: TheMovieDatabaseAPIConfigurationCompletionHandler?) {
-        networkController.theMovieDatabaseAPIConfiguration { (configuration, error) in
-            completionHandler?(configuration, error)
-        }
+        networkController.theMovieDatabaseAPIConfiguration(completionHandler: completionHandler)
     }
     
     func poster(imageSecureBaseURL: String, posterSize: String, posterPath: String, completionHandler: PosterCompletionHandler?) {
-        networkController.poster(imageSecureBaseURL: imageSecureBaseURL, posterSize: posterSize, posterPath: posterPath) { (poster, error) in
-            completionHandler?(poster, error)
-        }
+        networkController.poster(imageSecureBaseURL: imageSecureBaseURL, posterSize: posterSize, posterPath: posterPath, completionHandler: completionHandler)
     }
     
     func casting(identifier: Int, completionHandler: CastingCompletionHandler?) {
-        networkController.casting(identifier: identifier) { (casting, error) in
-            completionHandler?(casting, error)
-        }
+        networkController.casting(identifier: identifier, completionHandler: completionHandler)
     }
     
     func similarMovies(identifier: Int, languageCode: String, page: Int, completionHandler: SimilarMoviesCompletionHandler?) {
-        networkController.similarMovies(identifier: identifier, languageCode: languageCode, page: page) { (movies, error) in
-            completionHandler?(movies, error)
-        }
+        networkController.similarMovies(identifier: identifier, languageCode: languageCode, page: page, completionHandler: completionHandler)
     }
 }
