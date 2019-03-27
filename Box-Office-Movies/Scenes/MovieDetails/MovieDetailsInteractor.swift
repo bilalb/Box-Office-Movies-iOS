@@ -85,7 +85,7 @@ extension MovieDetailsInteractor: MovieDetailsBusinessLogic {
     
     func reviewMovie(request: MovieDetailsScene.ReviewMovie.Request) {
         // TODO: to implement
-        let response = MovieDetailsScene.ReviewMovie.Response()
+        let response = MovieDetailsScene.ReviewMovie.Response(movieReview: request.movieReview)
         presenter?.presentReviewMovie(response: response)
     }
 }

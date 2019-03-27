@@ -118,7 +118,18 @@ extension MovieDetailsViewController: MovieDetailsDisplayLogic {
     }
     
     func displayReviewMovie(viewModel: MovieDetailsScene.ReviewMovie.ViewModel) {
-        
+        let indexOfItemToReplace = detailItems.firstIndex { detailItem -> Bool in
+            if case .reviewMovie = detailItem {
+                return true
+            } else if case .userMovieReview = detailItem {
+                return true
+            } else {
+                return false
+            }
+        }
+        if let indexOfItemToReplace = indexOfItemToReplace {
+            detailItems[indexOfItemToReplace] = viewModel.userMovieReview
+        }
     }
 }
 
@@ -149,14 +160,16 @@ extension MovieDetailsViewController: UITableViewDataSource {
                 cell.releaseDateLabel?.text = releaseDate
                 cell.voteAverageLabel?.text = voteAverage
             }
+        case .reviewMovie:
+            break
+        case .userMovieReview(let review):
+            cell.textLabel?.text = review
         case .synopsis(let synopsis):
             cell.textLabel?.text = synopsis
         case .casting(let actors):
             cell.textLabel?.text = actors
         case .similarMovies(let similarMovies):
             cell.textLabel?.text = similarMovies
-        default:
-            break
         }
         
         return cell
@@ -173,7 +186,7 @@ extension MovieDetailsViewController: UITableViewDelegate {
         let detailItem = detailItems[indexPath.row]
         
         switch detailItem {
-        case .reviewMovie:
+        case .reviewMovie, .userMovieReview:
             loadMovieReviews()
         default:
             break

@@ -89,7 +89,8 @@ extension MovieDetailsPresenter: MovieDetailsPresentationLogic {
     }
     
     func presentReviewMovie(response: MovieDetailsScene.ReviewMovie.Response) {
-        let viewModel = MovieDetailsScene.ReviewMovie.ViewModel()
+        let userMovieReview = DetailItem.userMovieReview(review: response.movieReview.description)
+        let viewModel = MovieDetailsScene.ReviewMovie.ViewModel(userMovieReview: userMovieReview)
         viewController?.displayReviewMovie(viewModel: viewModel)
     }
 }
