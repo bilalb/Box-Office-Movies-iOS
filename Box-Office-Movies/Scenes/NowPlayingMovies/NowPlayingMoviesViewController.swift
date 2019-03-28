@@ -48,12 +48,18 @@ class NowPlayingMoviesViewController: UIViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        indexPathForSelectedRow = nowPlayingMoviesTableView.indexPathForSelectedRow
         if let scene = segue.identifier {
             let selector = NSSelectorFromString("routeTo\(scene)WithSegue:")
             if let router = router, router.responds(to: selector) {
                 router.perform(selector, with: segue)
             }
         }
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        selectFirstItemIfNeeded()
     }
 }
 
@@ -77,7 +83,7 @@ private extension NowPlayingMoviesViewController {
                 return
             }
             nowPlayingMoviesTableView.selectRow(at: indexPathForFirstRow, animated: true, scrollPosition: .top)
-            indexPathForSelectedRow = indexPathForFirstRow
+            indexPathForSelectedRow = nowPlayingMoviesTableView.indexPathForSelectedRow
             performSegue(withIdentifier: Constants.SegueIdentifier.movieDetails, sender: nil)
         }
     }
