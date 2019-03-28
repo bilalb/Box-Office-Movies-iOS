@@ -26,7 +26,8 @@ class MovieDetailsViewController: UIViewController {
     }
     
     @IBOutlet weak var detailItemsTableView: UITableView!
-    
+    @IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!
+
     // MARK: Object Life Cycle
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -80,6 +81,7 @@ extension MovieDetailsViewController: MovieDetailsDisplayLogic {
         if let items = viewModel.detailItems {
             detailItems.append(contentsOf: items)
         }
+        activityIndicatorView.stopAnimating()
     }
     
     func displayMovieReviews(viewModel: MovieDetailsScene.LoadMovieReviews.ViewModel) {
