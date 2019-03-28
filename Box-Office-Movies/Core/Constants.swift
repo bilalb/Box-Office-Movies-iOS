@@ -53,4 +53,8 @@ struct Constants {
         static let castingTableViewCell =  "CastingTableViewCell"
         static let similarMoviesTableViewCell = "SimilarMoviesTableViewCell"
     }
+    
+    struct SegueIdentifier {
+        static let movieDetails = "MovieDetails"
+    }
 }

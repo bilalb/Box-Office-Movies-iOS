@@ -20,8 +20,13 @@ class NowPlayingMoviesViewController: UIViewController {
     var viewModel: NowPlayingMovies.FetchNowPlayingMovies.ViewModel? {
         didSet {
             nowPlayingMoviesTableView.reloadData()
+            DispatchQueue.main.async {
+                self.selectFirstItemIfNeeded()
+            }
         }
     }
+    
+    var indexPathForSelectedRow: IndexPath?
     
     @IBOutlet weak var nowPlayingMoviesTableView: UITableView!
     
@@ -63,6 +68,18 @@ private extension NowPlayingMoviesViewController {
     
     func fetchNextPage() {
         fetchNowPlayingMovies()
+    }
+    
+    func selectFirstItemIfNeeded() {
+        if UIScreen.main.traitCollection.horizontalSizeClass == .regular && indexPathForSelectedRow == nil {
+            let indexPathForFirstRow = IndexPath(row: 0, section: 0)
+            guard viewModel?.movieItems?.indices.contains(indexPathForFirstRow.row) == true else {
+                return
+            }
+            nowPlayingMoviesTableView.selectRow(at: indexPathForFirstRow, animated: true, scrollPosition: .top)
+            indexPathForSelectedRow = indexPathForFirstRow
+            performSegue(withIdentifier: Constants.SegueIdentifier.movieDetails, sender: nil)
+        }
     }
 }
 
