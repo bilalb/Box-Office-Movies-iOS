@@ -105,16 +105,21 @@ extension MovieDetailsViewController: MovieDetailsDisplayLogic {
     }
     
     func displayMovieReviews(viewModel: MovieDetailsScene.LoadMovieReviews.ViewModel) {
-        let actionSheet = UIAlertController(title: viewModel.alertControllerTitle, message: viewModel.alertControllerMessage, preferredStyle: viewModel.alertControllerPreferredStyle)
+        let alertController = UIAlertController(title: viewModel.alertControllerTitle, message: viewModel.alertControllerMessage, preferredStyle: viewModel.alertControllerPreferredStyle)
         viewModel.actions.forEach({ (alertAction, movieReview) in
             let action = UIAlertAction(title: alertAction.title, style: alertAction.style, handler: { [weak self] _ in
                 if let movieReview = movieReview {
                     self?.reviewMovie(with: movieReview)
                 }
             })
-            actionSheet.addAction(action)
+            alertController.addAction(action)
         })
-        present(actionSheet, animated: true)
+        if let popoverController = alertController.popoverPresentationController {
+            popoverController.sourceView = view
+            popoverController.sourceRect = CGRect(x: view.bounds.midX, y: view.bounds.midY, width: 0, height: 0)
+            popoverController.permittedArrowDirections = []
+        }
+        navigationController?.present(alertController, animated: true)
     }
     
     func displayReviewMovie(viewModel: MovieDetailsScene.ReviewMovie.ViewModel) {
