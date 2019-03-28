@@ -10,8 +10,6 @@ import UIKit
 
 protocol MovieDetailsDisplayLogic: class {
     func displayMovieDetails(viewModel: MovieDetailsScene.FetchMovieDetails.ViewModel)
-    func displayCasting(viewModel: MovieDetailsScene.FetchCasting.ViewModel)
-    func displaySimilarMovies(viewModel: MovieDetailsScene.FetchSimilarMovies.ViewModel)
     func displayMovieReviews(viewModel: MovieDetailsScene.LoadMovieReviews.ViewModel)
     func displayReviewMovie(viewModel: MovieDetailsScene.ReviewMovie.ViewModel)
 }
@@ -64,16 +62,6 @@ private extension MovieDetailsViewController {
         interactor?.fetchMovieDetails(request: request)
     }
     
-    func fetchCasting() {
-        let request = MovieDetailsScene.FetchCasting.Request()
-        interactor?.fetchCasting(request: request)
-    }
-    
-    func fetchSimilarMovies() {
-        let request = MovieDetailsScene.FetchSimilarMovies.Request()
-        interactor?.fetchSimilarMovies(request: request)
-    }
-    
     func loadMovieReviews() {
         let request = MovieDetailsScene.LoadMovieReviews.Request()
         interactor?.loadMovieReviews(request: request)
@@ -89,19 +77,9 @@ private extension MovieDetailsViewController {
 extension MovieDetailsViewController: MovieDetailsDisplayLogic {
     
     func displayMovieDetails(viewModel: MovieDetailsScene.FetchMovieDetails.ViewModel) {
-        if let basicItems = viewModel.basicItems {
-            detailItems.append(contentsOf: basicItems)
+        if let items = viewModel.detailItems {
+            detailItems.append(contentsOf: items)
         }
-        fetchCasting()
-    }
-    
-    func displayCasting(viewModel: MovieDetailsScene.FetchCasting.ViewModel) {
-        detailItems.append(viewModel.castingItem)
-        fetchSimilarMovies()
-    }
-    
-    func displaySimilarMovies(viewModel: MovieDetailsScene.FetchSimilarMovies.ViewModel) {
-        detailItems.append(viewModel.similarMoviesItem)
     }
     
     func displayMovieReviews(viewModel: MovieDetailsScene.LoadMovieReviews.ViewModel) {

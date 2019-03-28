@@ -10,8 +10,6 @@ import UIKit
 
 protocol MovieDetailsPresentationLogic {
     func presentMovieDetails(response: MovieDetailsScene.FetchMovieDetails.Response)
-    func presentCasting(response: MovieDetailsScene.FetchCasting.Response)
-    func presentSimilarMovies(response: MovieDetailsScene.FetchSimilarMovies.Response)
     func presentMovieReviews(response: MovieDetailsScene.LoadMovieReviews.Response)
     func presentReviewMovie(response: MovieDetailsScene.ReviewMovie.Response)
 }
@@ -45,26 +43,13 @@ extension MovieDetailsPresenter: MovieDetailsPresentationLogic {
             
             let reviewMovieItem = DetailItem.reviewMovie
             let synopsisItem = DetailItem.synopsis(synopsis: movieDetails.synopsis)
-            let basicItems = [titleItem, additionalInformationItem, reviewMovieItem, synopsisItem]
-            let viewModel = MovieDetailsScene.FetchMovieDetails.ViewModel(basicItems: basicItems)
-            self.viewController?.displayMovieDetails(viewModel: viewModel)
-        }
-    }
-    
-    func presentCasting(response: MovieDetailsScene.FetchCasting.Response) {
-        DispatchQueue.main.async {
+            
             var actors = ""
             response.casting?.actors.forEach({ (actor) in
                 actors.append(withSeparator: ", ", other: actor.name)
             })
             let castingItem = DetailItem.casting(actors: actors)
-            let viewModel = MovieDetailsScene.FetchCasting.ViewModel(castingItem: castingItem)
-            self.viewController?.displayCasting(viewModel: viewModel)
-        }
-    }
-    
-    func presentSimilarMovies(response: MovieDetailsScene.FetchSimilarMovies.Response) {
-        DispatchQueue.main.async {
+            
             var similarMovies = ""
             response.paginatedMovieLists?.forEach({ (paginatedMovieList) in
                 paginatedMovieList.movies.forEach({ (movie) in
@@ -72,8 +57,10 @@ extension MovieDetailsPresenter: MovieDetailsPresentationLogic {
                 })
             })
             let similarMoviesItem = DetailItem.similarMovies(similarMovies: similarMovies)
-            let viewModel = MovieDetailsScene.FetchSimilarMovies.ViewModel(similarMoviesItem: similarMoviesItem)
-            self.viewController?.displaySimilarMovies(viewModel: viewModel)
+            
+            let detailItems = [titleItem, additionalInformationItem, reviewMovieItem, synopsisItem, castingItem, similarMoviesItem]
+            let viewModel = MovieDetailsScene.FetchMovieDetails.ViewModel(detailItems: detailItems)
+            self.viewController?.displayMovieDetails(viewModel: viewModel)
         }
     }
     

@@ -14,8 +14,6 @@ protocol MovieDetailsDataStore {
 
 protocol MovieDetailsBusinessLogic {
     func fetchMovieDetails(request: MovieDetailsScene.FetchMovieDetails.Request)
-    func fetchCasting(request: MovieDetailsScene.FetchCasting.Request)
-    func fetchSimilarMovies(request: MovieDetailsScene.FetchSimilarMovies.Request)
     func loadMovieReviews(request: MovieDetailsScene.LoadMovieReviews.Request)
     func reviewMovie(request: MovieDetailsScene.ReviewMovie.Request)
 }
@@ -32,49 +30,22 @@ class MovieDetailsInteractor: MovieDetailsDataStore {
 extension MovieDetailsInteractor: MovieDetailsBusinessLogic {
     
     func fetchMovieDetails(request: MovieDetailsScene.FetchMovieDetails.Request) {
-        guard let movieIdentifier = movieIdentifier else {
-            return
-        }
-        ManagerProvider.sharedInstance.movieManager.theMovieDatabaseAPIConfiguration { (apiConfiguration, _) in
-            let languageCode = Locale.current.languageCode ?? Constants.Fallback.languageCode
-            let regionCode = Locale.current.regionCode ?? Constants.Fallback.regionCode
-            ManagerProvider.sharedInstance.movieManager.movieDetails(identifier: movieIdentifier, languageCode: languageCode, regionCode: regionCode) { [weak self] (movieDetails, _) in
-                let response = MovieDetailsScene.FetchMovieDetails.Response(apiConfiguration: apiConfiguration, movieDetails: movieDetails)
-                self?.presenter?.presentMovieDetails(response: response)
+        fetchAPIConfiguration { [weak self] (apiConfiguration, _) in
+            self?.fetchDetails { [weak self] (movieDetails, _) in
+                self?.fetchCasting { [weak self] (casting, _) in
+                    self?.fetchSimilarMovies { [weak self] (paginatedMovieList, _) in
+                        if let paginatedMovieList = paginatedMovieList {
+                            self?.paginatedMovieLists.append(paginatedMovieList)
+                            self?.similarMoviePage += 1
+                        }
+                        let response = MovieDetailsScene.FetchMovieDetails.Response(apiConfiguration: apiConfiguration,
+                                                                                    movieDetails: movieDetails,
+                                                                                    casting: casting,
+                                                                                    paginatedMovieLists: self?.paginatedMovieLists)
+                        self?.presenter?.presentMovieDetails(response: response)
+                    }
+                }
             }
-        }
-    }
-    
-    func fetchCasting(request: MovieDetailsScene.FetchCasting.Request) {
-        guard let movieIdentifier = movieIdentifier else {
-            return
-        }
-        ManagerProvider.sharedInstance.movieManager.casting(identifier: movieIdentifier) { [weak self] (casting, _) in
-            let response = MovieDetailsScene.FetchCasting.Response(casting: casting)
-            self?.presenter?.presentCasting(response: response)
-        }
-    }
-    
-    func fetchSimilarMovies(request: MovieDetailsScene.FetchSimilarMovies.Request) {
-        var shouldFetch = paginatedMovieLists.isEmpty
-        if let totalPages = paginatedMovieLists.last?.totalPages {
-            shouldFetch = similarMoviePage <= totalPages
-        }
-        
-        guard shouldFetch,
-            let movieIdentifier = movieIdentifier
-        else {
-            return
-        }
-        
-        let languageCode = Locale.current.languageCode ?? Constants.Fallback.languageCode
-        ManagerProvider.sharedInstance.movieManager.similarMovies(identifier: movieIdentifier, languageCode: languageCode, page: similarMoviePage) { [weak self] (paginatedMovieList, error) in
-            if let paginatedMovieList = paginatedMovieList, error == nil {
-                self?.paginatedMovieLists.append(paginatedMovieList)
-                self?.similarMoviePage += 1
-            }
-            let response = MovieDetailsScene.FetchSimilarMovies.Response(paginatedMovieLists: self?.paginatedMovieLists)
-            self?.presenter?.presentSimilarMovies(response: response)
         }
     }
     
@@ -87,5 +58,44 @@ extension MovieDetailsInteractor: MovieDetailsBusinessLogic {
         // TODO: to implement
         let response = MovieDetailsScene.ReviewMovie.Response(movieReview: request.movieReview)
         presenter?.presentReviewMovie(response: response)
+    }
+}
+
+extension MovieDetailsInteractor {
+    
+    func fetchAPIConfiguration(completionHandler: TheMovieDatabaseAPIConfigurationCompletionHandler?) {
+        ManagerProvider.sharedInstance.movieManager.theMovieDatabaseAPIConfiguration(completionHandler: completionHandler)
+    }
+    
+    func fetchDetails(completionHandler: MovieDetailsCompletionHandler?) {
+        guard let movieIdentifier = movieIdentifier else {
+            return
+        }
+        let languageCode = Locale.current.languageCode ?? Constants.Fallback.languageCode
+        let regionCode = Locale.current.regionCode ?? Constants.Fallback.regionCode
+        ManagerProvider.sharedInstance.movieManager.movieDetails(identifier: movieIdentifier, languageCode: languageCode, regionCode: regionCode, completionHandler: completionHandler)
+    }
+    
+    func fetchCasting(completionHandler: CastingCompletionHandler?) {
+        guard let movieIdentifier = movieIdentifier else {
+            return
+        }
+        ManagerProvider.sharedInstance.movieManager.casting(identifier: movieIdentifier, completionHandler: completionHandler)
+    }
+    
+    func fetchSimilarMovies(completionHandler: SimilarMoviesCompletionHandler?) {
+        var shouldFetch = paginatedMovieLists.isEmpty
+        if let totalPages = paginatedMovieLists.last?.totalPages {
+            shouldFetch = similarMoviePage <= totalPages
+        }
+        
+        guard shouldFetch,
+            let movieIdentifier = movieIdentifier
+        else {
+            return
+        }
+        
+        let languageCode = Locale.current.languageCode ?? Constants.Fallback.languageCode
+        ManagerProvider.sharedInstance.movieManager.similarMovies(identifier: movieIdentifier, languageCode: languageCode, page: similarMoviePage, completionHandler: completionHandler)
     }
 }

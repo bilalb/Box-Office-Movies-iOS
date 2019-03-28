@@ -17,36 +17,12 @@ enum MovieDetailsScene {
         struct Response {
             let apiConfiguration: TheMovieDatabaseAPIConfiguration?
             let movieDetails: MovieDetails?
-        }
-        
-        struct ViewModel {
-            let basicItems: [DetailItem]?
-        }
-    }
-    
-    enum FetchCasting {
-        
-        struct Request { }
-        
-        struct Response {
             let casting: Casting?
-        }
-        
-        struct ViewModel {
-            let castingItem: DetailItem
-        }
-    }
-    
-    enum FetchSimilarMovies {
-        
-        struct Request { }
-        
-        struct Response {
             let paginatedMovieLists: [PaginatedMovieList]?
         }
         
         struct ViewModel {
-            let similarMoviesItem: DetailItem
+            let detailItems: [DetailItem]?
         }
     }
     
