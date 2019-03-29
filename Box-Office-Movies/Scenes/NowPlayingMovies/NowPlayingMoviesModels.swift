@@ -19,7 +19,7 @@ enum NowPlayingMovies {
         }
         
         struct ViewModel {
-            let movieItems: [MovieItem]?
+            var movieItems: [MovieItem]?
         }
     }
 }

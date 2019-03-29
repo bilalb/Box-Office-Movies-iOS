@@ -17,7 +17,7 @@ class NowPlayingMoviesViewController: UIViewController {
     var interactor: NowPlayingMoviesBusinessLogic?
     var router: (NSObjectProtocol & NowPlayingMoviesRoutingLogic & NowPlayingMoviesDataPassing)?
     
-    var viewModel: NowPlayingMovies.FetchNowPlayingMovies.ViewModel? {
+    var viewModel = NowPlayingMovies.FetchNowPlayingMovies.ViewModel(movieItems: nil) {
         didSet {
             nowPlayingMoviesTableView.reloadData()
             DispatchQueue.main.async {
@@ -26,8 +26,17 @@ class NowPlayingMoviesViewController: UIViewController {
         }
     }
     
-    var indexPathForSelectedRow: IndexPath?
+    var movieItems: [NowPlayingMovies.FetchNowPlayingMovies.ViewModel.MovieItem]? {
+        didSet {
+            viewModel.movieItems = movieItems
+        }
+    }
     
+    var filteredMovieItems: [NowPlayingMovies.FetchNowPlayingMovies.ViewModel.MovieItem]?
+    
+    var indexPathForSelectedRow: IndexPath?
+    let searchController = UISearchController(searchResultsController: nil)
+
     @IBOutlet weak var nowPlayingMoviesTableView: UITableView!
     
     // MARK: Object Life Cycle
@@ -44,7 +53,17 @@ class NowPlayingMoviesViewController: UIViewController {
     // MARK: View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        configureSearchController()
         fetchNowPlayingMovies()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        if splitViewController?.isCollapsed == true {
+            if let indexPathForSelectedRow = nowPlayingMoviesTableView.indexPathForSelectedRow {
+                nowPlayingMoviesTableView.deselectRow(at: indexPathForSelectedRow, animated: animated)
+            }
+        }
+        super.viewWillAppear(animated)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -66,6 +85,28 @@ class NowPlayingMoviesViewController: UIViewController {
 // MARK: - Private Functions
 private extension NowPlayingMoviesViewController {
     
+    func configureSearchController() {
+        searchController.searchResultsUpdater = self
+        
+        if #available(iOS 11.0, *) {
+            navigationItem.searchController = searchController
+            navigationItem.hidesSearchBarWhenScrolling = false
+        } else {
+            nowPlayingMoviesTableView.tableHeaderView = searchController.searchBar
+        }
+        
+        definesPresentationContext = true
+    }
+    
+    func filterMovieItems(with searchText: String) {
+        filteredMovieItems = movieItems?.filter { movieItem -> Bool in
+            return movieItem.title?.lowercased().contains(searchText.lowercased()) == true
+        }
+        
+        let isFiltering = searchController.isActive && searchController.searchBar.text?.isEmpty == false
+        viewModel.movieItems = isFiltering ? filteredMovieItems : movieItems
+    }
+    
     func fetchNowPlayingMovies() {
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
         let request = NowPlayingMovies.FetchNowPlayingMovies.Request()
@@ -79,7 +120,7 @@ private extension NowPlayingMoviesViewController {
     func selectFirstItemIfNeeded() {
         if UIScreen.main.traitCollection.horizontalSizeClass == .regular && indexPathForSelectedRow == nil {
             let indexPathForFirstRow = IndexPath(row: 0, section: 0)
-            guard viewModel?.movieItems?.indices.contains(indexPathForFirstRow.row) == true else {
+            guard viewModel.movieItems?.indices.contains(indexPathForFirstRow.row) == true else {
                 return
             }
             nowPlayingMoviesTableView.selectRow(at: indexPathForFirstRow, animated: true, scrollPosition: .top)
@@ -93,7 +134,7 @@ private extension NowPlayingMoviesViewController {
 extension NowPlayingMoviesViewController: NowPlayingMoviesDisplayLogic {
     
     func displayNowPlayingMovies(viewModel: NowPlayingMovies.FetchNowPlayingMovies.ViewModel) {
-        self.viewModel = viewModel
+        movieItems = viewModel.movieItems
         UIApplication.shared.isNetworkActivityIndicatorVisible = false
     }
 }
@@ -102,14 +143,14 @@ extension NowPlayingMoviesViewController: NowPlayingMoviesDisplayLogic {
 extension NowPlayingMoviesViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel?.movieItems?.count ?? 0
+        return viewModel.movieItems?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard
             let movieTableViewCell = tableView.dequeueReusableCell(withIdentifier: MovieTableViewCell.identifier, for: indexPath) as? MovieTableViewCell,
-            viewModel?.movieItems?.indices.contains(indexPath.row) == true,
-            let movieItem = viewModel?.movieItems?[indexPath.row]
+            viewModel.movieItems?.indices.contains(indexPath.row) == true,
+            let movieItem = viewModel.movieItems?[indexPath.row]
         else {
             return UITableViewCell()
         }
@@ -124,9 +165,20 @@ extension NowPlayingMoviesViewController: UITableViewDataSource {
 extension NowPlayingMoviesViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        guard let movieItems = viewModel?.movieItems else { return }
+        guard let movieItems = viewModel.movieItems else { return }
         if (tableView.isTracking || tableView.isDecelerating), indexPath.row == (movieItems.count - 1) {
             fetchNextPage()
         }
+    }
+}
+
+// MARK: - UISearchResultsUpdating
+extension NowPlayingMoviesViewController: UISearchResultsUpdating {
+    
+    func updateSearchResults(for searchController: UISearchController) {
+        guard let searchText = searchController.searchBar.text else {
+            return
+        }
+        filterMovieItems(with: searchText)
     }
 }
