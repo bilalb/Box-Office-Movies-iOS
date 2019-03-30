@@ -30,6 +30,9 @@ class MovieDetailsInteractor: MovieDetailsDataStore {
 extension MovieDetailsInteractor: MovieDetailsBusinessLogic {
     
     func fetchMovieDetails(request: MovieDetailsScene.FetchMovieDetails.Request) {
+        guard movieIdentifier != nil else {
+            return
+        }
         fetchAPIConfiguration { [weak self] (apiConfiguration, _) in
             self?.fetchDetails { [weak self] (movieDetails, _) in
                 self?.fetchCasting { [weak self] (casting, _) in
