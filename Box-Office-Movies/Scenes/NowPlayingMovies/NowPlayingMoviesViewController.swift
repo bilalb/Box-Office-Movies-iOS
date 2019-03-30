@@ -21,7 +21,7 @@ class NowPlayingMoviesViewController: UIViewController {
         didSet {
             nowPlayingMoviesTableView.reloadData()
             DispatchQueue.main.async {
-                self.selectFirstItemIfNeeded()
+                self.selectFirstItem()
             }
         }
     }
@@ -58,12 +58,8 @@ class NowPlayingMoviesViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        if splitViewController?.isCollapsed == true {
-            if let indexPathForSelectedRow = nowPlayingMoviesTableView.indexPathForSelectedRow {
-                nowPlayingMoviesTableView.deselectRow(at: indexPathForSelectedRow, animated: animated)
-            }
-        }
         super.viewWillAppear(animated)
+        deselectItem(animated)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -78,7 +74,7 @@ class NowPlayingMoviesViewController: UIViewController {
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
-        selectFirstItemIfNeeded()
+        selectFirstItem()
     }
 }
 
@@ -117,7 +113,7 @@ private extension NowPlayingMoviesViewController {
         fetchNowPlayingMovies()
     }
     
-    func selectFirstItemIfNeeded() {
+    func selectFirstItem() {
         if UIScreen.main.traitCollection.horizontalSizeClass == .regular && indexPathForSelectedRow == nil {
             let indexPathForFirstRow = IndexPath(row: 0, section: 0)
             guard viewModel.movieItems?.indices.contains(indexPathForFirstRow.row) == true else {
@@ -126,6 +122,14 @@ private extension NowPlayingMoviesViewController {
             nowPlayingMoviesTableView.selectRow(at: indexPathForFirstRow, animated: true, scrollPosition: .top)
             indexPathForSelectedRow = nowPlayingMoviesTableView.indexPathForSelectedRow
             performSegue(withIdentifier: Constants.SegueIdentifier.movieDetails, sender: nil)
+        }
+    }
+    
+    func deselectItem(_ animated: Bool) {
+        if splitViewController?.isCollapsed == true {
+            if let indexPathForSelectedRow = nowPlayingMoviesTableView.indexPathForSelectedRow {
+                nowPlayingMoviesTableView.deselectRow(at: indexPathForSelectedRow, animated: animated)
+            }
         }
     }
 }
