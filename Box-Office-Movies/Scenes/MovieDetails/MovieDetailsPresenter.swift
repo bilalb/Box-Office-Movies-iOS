@@ -28,35 +28,41 @@ extension MovieDetailsPresenter: MovieDetailsPresentationLogic {
             
             let titleItem = DetailItem.title(title: movieDetails.title)
             
-            var posterImageURL: URL? {
-                if let posterPath = movieDetails.posterPath, let apiConfiguration = response.apiConfiguration {
-                    var posterImagePath = apiConfiguration.imageData.secureBaseUrl
-                    posterImagePath.append(Constants.Fallback.posterImageSize)
-                    posterImagePath.append(posterPath)
-                    
-                    return URL(string: posterImagePath)
-                } else {
-                    return nil
+            var additionalInformationItem: DetailItem {
+                var posterImageURL: URL? {
+                    if let posterPath = movieDetails.posterPath, let apiConfiguration = response.apiConfiguration {
+                        var posterImagePath = apiConfiguration.imageData.secureBaseUrl
+                        posterImagePath.append(Constants.Fallback.posterImageSize)
+                        posterImagePath.append(posterPath)
+                        
+                        return URL(string: posterImagePath)
+                    } else {
+                        return nil
+                    }
                 }
+                return DetailItem.additionalInformation(posterImageURL: posterImageURL, releaseDate: movieDetails.releaseDate, voteAverage: movieDetails.formattedVoteAverage)
             }
-            let additionalInformationItem = DetailItem.additionalInformation(posterImageURL: posterImageURL, releaseDate: movieDetails.releaseDate, voteAverage: movieDetails.formattedVoteAverage)
             
             let reviewMovieItem = DetailItem.reviewMovie
             let synopsisItem = DetailItem.synopsis(synopsis: movieDetails.synopsis)
             
-            var actors = ""
-            response.casting?.actors.forEach({ (actor) in
-                actors.append(withSeparator: ", ", other: actor.name)
-            })
-            let castingItem = DetailItem.casting(actors: actors)
-            
-            var similarMovies = ""
-            response.paginatedMovieLists?.forEach({ (paginatedMovieList) in
-                paginatedMovieList.movies.forEach({ (movie) in
-                    similarMovies.append(withSeparator: ", ", other: movie.title)
+            var castingItem: DetailItem {
+                var actors = ""
+                response.casting?.actors.forEach({ (actor) in
+                    actors.append(withSeparator: ", ", other: actor.name)
                 })
-            })
-            let similarMoviesItem = DetailItem.similarMovies(similarMovies: similarMovies)
+                return DetailItem.casting(actors: actors)
+            }
+            
+            var similarMoviesItem: DetailItem {
+                var similarMovies = ""
+                response.paginatedMovieLists?.forEach({ (paginatedMovieList) in
+                    paginatedMovieList.movies.forEach({ (movie) in
+                        similarMovies.append(withSeparator: ", ", other: movie.title)
+                    })
+                })
+                return DetailItem.similarMovies(similarMovies: similarMovies)
+            }
             
             let detailItems = [titleItem, additionalInformationItem, reviewMovieItem, synopsisItem, castingItem, similarMoviesItem]
             let viewModel = MovieDetailsScene.FetchMovieDetails.ViewModel(detailItems: detailItems)
