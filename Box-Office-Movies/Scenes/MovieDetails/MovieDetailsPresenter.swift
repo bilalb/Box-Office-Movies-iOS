@@ -43,7 +43,7 @@ extension MovieDetailsPresenter: MovieDetailsPresentationLogic {
                 return DetailItem.additionalInformation(posterImageURL: posterImageURL, releaseDate: movieDetails.releaseDate, voteAverage: movieDetails.formattedVoteAverage)
             }
             
-            let reviewMovieItem = DetailItem.reviewMovie
+            let reviewMovieItem = DetailItem.reviewMovie(review: "Review")
             let synopsisItem = DetailItem.synopsis(synopsis: movieDetails.synopsis)
             
             var castingItem: DetailItem {
@@ -82,8 +82,8 @@ extension MovieDetailsPresenter: MovieDetailsPresentationLogic {
     }
     
     func presentReviewMovie(response: MovieDetailsScene.ReviewMovie.Response) {
-        let userMovieReview = DetailItem.userMovieReview(review: response.movieReview.description)
-        let viewModel = MovieDetailsScene.ReviewMovie.ViewModel(userMovieReview: userMovieReview)
+        let reviewMovieItem = DetailItem.reviewMovie(review: response.movieReview.description)
+        let viewModel = MovieDetailsScene.ReviewMovie.ViewModel(reviewMovieItem: reviewMovieItem)
         viewController?.displayReviewMovie(viewModel: viewModel)
     }
 }

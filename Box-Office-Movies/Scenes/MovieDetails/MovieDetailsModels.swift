@@ -53,7 +53,7 @@ enum MovieDetailsScene {
         }
         
         struct ViewModel {
-            let userMovieReview: DetailItem
+            let reviewMovieItem: DetailItem
         }
     }
 }
@@ -63,8 +63,7 @@ enum DetailItem {
     case title(title: String)
     case additionalInformation(posterImageURL: URL?, releaseDate: String?, voteAverage: String?)
     case synopsis(synopsis: String?)
-    case reviewMovie
-    case userMovieReview(review: String?)
+    case reviewMovie(review: String?)
     case casting(actors: String?)
     case similarMovies(similarMovies: String?)
     
@@ -76,8 +75,6 @@ enum DetailItem {
             return AdditionalInformationTableViewCell.identifier
         case .reviewMovie:
             return Constants.CellIdentifier.reviewMovieTableViewCell
-        case .userMovieReview:
-            return Constants.CellIdentifier.userMovieReviewTableViewCell
         case .synopsis:
             return Constants.CellIdentifier.synopsisTableViewCell
         case .casting:
