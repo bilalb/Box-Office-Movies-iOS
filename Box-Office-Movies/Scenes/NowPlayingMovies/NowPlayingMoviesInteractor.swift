@@ -10,10 +10,14 @@ import UIKit
 
 protocol NowPlayingMoviesDataStore {
     var paginatedMovieLists: [PaginatedMovieList] { get }
+    var movies: [Movie] { get }
+    var filteredMovies: [Movie] { get }
+    var isFiltering: Bool { get }
 }
 
 protocol NowPlayingMoviesBusinessLogic {
     func fetchNowPlayingMovies(request: NowPlayingMovies.FetchNowPlayingMovies.Request)
+    func filterMovies(request: NowPlayingMovies.FilterMovies.Request)
 }
 
 class NowPlayingMoviesInteractor: NowPlayingMoviesDataStore {
@@ -22,6 +26,9 @@ class NowPlayingMoviesInteractor: NowPlayingMoviesDataStore {
     
     var page = 1
     var paginatedMovieLists = [PaginatedMovieList]()
+    var movies = [Movie]()
+    var filteredMovies = [Movie]()
+    var isFiltering = false
 }
 
 extension NowPlayingMoviesInteractor: NowPlayingMoviesBusinessLogic {
@@ -44,8 +51,27 @@ extension NowPlayingMoviesInteractor: NowPlayingMoviesBusinessLogic {
                 self?.paginatedMovieLists.append(paginatedMovieList)
                 self?.page += 1
             }
-            let response = NowPlayingMovies.FetchNowPlayingMovies.Response(paginatedMovieLists: self?.paginatedMovieLists)
+            self?.movies.removeAll()
+            self?.paginatedMovieLists.forEach({ (paginatedMovieList) in
+                self?.movies.append(contentsOf: paginatedMovieList.movies)
+            })
+            let response = NowPlayingMovies.FetchNowPlayingMovies.Response(movies: self?.movies)
             self?.presenter?.presentNowPlayingMovies(response: response)
         }
+    }
+    
+    func filterMovies(request: NowPlayingMovies.FilterMovies.Request) {
+        isFiltering = request.isSearchControllerActive && !request.searchText.isEmpty
+        
+        if isFiltering {
+            filteredMovies = movies.filter { movie -> Bool in
+                return movie.title.lowercased().contains(request.searchText.lowercased()) == true
+            }
+        } else {
+            filteredMovies = movies
+        }
+        
+        let response = NowPlayingMovies.FilterMovies.Response(movies: filteredMovies)
+        presenter?.presentFilterMovies(response: response)
     }
 }

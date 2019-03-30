@@ -10,6 +10,7 @@ import UIKit
 
 protocol NowPlayingMoviesPresentationLogic {
     func presentNowPlayingMovies(response: NowPlayingMovies.FetchNowPlayingMovies.Response)
+    func presentFilterMovies(response: NowPlayingMovies.FilterMovies.Response)
 }
 
 class NowPlayingMoviesPresenter {
@@ -20,15 +21,19 @@ extension NowPlayingMoviesPresenter: NowPlayingMoviesPresentationLogic {
     
     func presentNowPlayingMovies(response: NowPlayingMovies.FetchNowPlayingMovies.Response) {
         DispatchQueue.main.async {
-            var movieItems = [NowPlayingMovies.FetchNowPlayingMovies.ViewModel.MovieItem]()
-            response.paginatedMovieLists?.forEach({ (paginatedMovieList) in
-                let currentMovieItems = paginatedMovieList.movies.compactMap({ (movie) -> NowPlayingMovies.FetchNowPlayingMovies.ViewModel.MovieItem? in
-                    return NowPlayingMovies.FetchNowPlayingMovies.ViewModel.MovieItem(title: movie.title)
-                })
-                movieItems.append(contentsOf: currentMovieItems)
+            let movieItems = response.movies?.compactMap({ movie -> MovieItem in
+                return MovieItem(title: movie.title)
             })
             let viewModel = NowPlayingMovies.FetchNowPlayingMovies.ViewModel(movieItems: movieItems)
             self.viewController?.displayNowPlayingMovies(viewModel: viewModel)
         }
+    }
+    
+    func presentFilterMovies(response: NowPlayingMovies.FilterMovies.Response) {
+        let movieItems = response.movies?.compactMap({ movie -> MovieItem in
+            return MovieItem(title: movie.title)
+        })
+        let viewModel = NowPlayingMovies.FilterMovies.ViewModel(movieItems: movieItems)
+        viewController?.displayFilterMovies(viewModel: viewModel)
     }
 }

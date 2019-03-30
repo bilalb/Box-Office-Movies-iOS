@@ -10,6 +10,7 @@ import UIKit
 
 protocol NowPlayingMoviesDisplayLogic: class {
     func displayNowPlayingMovies(viewModel: NowPlayingMovies.FetchNowPlayingMovies.ViewModel)
+    func displayFilterMovies(viewModel: NowPlayingMovies.FilterMovies.ViewModel)
 }
 
 class NowPlayingMoviesViewController: UIViewController {
@@ -17,7 +18,7 @@ class NowPlayingMoviesViewController: UIViewController {
     var interactor: NowPlayingMoviesBusinessLogic?
     var router: (NSObjectProtocol & NowPlayingMoviesRoutingLogic & NowPlayingMoviesDataPassing)?
     
-    var viewModel = NowPlayingMovies.FetchNowPlayingMovies.ViewModel(movieItems: nil) {
+    var movieItems: [MovieItem]? {
         didSet {
             nowPlayingMoviesTableView.reloadData()
             DispatchQueue.main.async {
@@ -25,14 +26,6 @@ class NowPlayingMoviesViewController: UIViewController {
             }
         }
     }
-    
-    var movieItems: [NowPlayingMovies.FetchNowPlayingMovies.ViewModel.MovieItem]? {
-        didSet {
-            viewModel.movieItems = movieItems
-        }
-    }
-    
-    var filteredMovieItems: [NowPlayingMovies.FetchNowPlayingMovies.ViewModel.MovieItem]?
     
     var indexPathForSelectedRow: IndexPath?
     let searchController = UISearchController(searchResultsController: nil)
@@ -83,6 +76,7 @@ private extension NowPlayingMoviesViewController {
     
     func configureSearchController() {
         searchController.searchResultsUpdater = self
+        searchController.dimsBackgroundDuringPresentation = false
         
         if #available(iOS 11.0, *) {
             navigationItem.searchController = searchController
@@ -94,13 +88,9 @@ private extension NowPlayingMoviesViewController {
         definesPresentationContext = true
     }
     
-    func filterMovieItems(with searchText: String) {
-        filteredMovieItems = movieItems?.filter { movieItem -> Bool in
-            return movieItem.title?.lowercased().contains(searchText.lowercased()) == true
-        }
-        
-        let isFiltering = searchController.isActive && searchController.searchBar.text?.isEmpty == false
-        viewModel.movieItems = isFiltering ? filteredMovieItems : movieItems
+    func filterMovies(with searchText: String) {
+        let request = NowPlayingMovies.FilterMovies.Request(searchText: searchText, isSearchControllerActive: searchController.isActive)
+        interactor?.filterMovies(request: request)
     }
     
     func fetchNowPlayingMovies() {
@@ -116,7 +106,7 @@ private extension NowPlayingMoviesViewController {
     func selectFirstItem() {
         if UIScreen.main.traitCollection.horizontalSizeClass == .regular && indexPathForSelectedRow == nil {
             let indexPathForFirstRow = IndexPath(row: 0, section: 0)
-            guard viewModel.movieItems?.indices.contains(indexPathForFirstRow.row) == true else {
+            guard movieItems?.indices.contains(indexPathForFirstRow.row) == true else {
                 return
             }
             nowPlayingMoviesTableView.selectRow(at: indexPathForFirstRow, animated: true, scrollPosition: .top)
@@ -141,20 +131,24 @@ extension NowPlayingMoviesViewController: NowPlayingMoviesDisplayLogic {
         movieItems = viewModel.movieItems
         UIApplication.shared.isNetworkActivityIndicatorVisible = false
     }
+    
+    func displayFilterMovies(viewModel: NowPlayingMovies.FilterMovies.ViewModel) {
+        self.movieItems = viewModel.movieItems
+    }
 }
 
 // MARK: - UITableViewDataSource
 extension NowPlayingMoviesViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel.movieItems?.count ?? 0
+        return movieItems?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard
             let movieTableViewCell = tableView.dequeueReusableCell(withIdentifier: MovieTableViewCell.identifier, for: indexPath) as? MovieTableViewCell,
-            viewModel.movieItems?.indices.contains(indexPath.row) == true,
-            let movieItem = viewModel.movieItems?[indexPath.row]
+            movieItems?.indices.contains(indexPath.row) == true,
+            let movieItem = movieItems?[indexPath.row]
         else {
             return UITableViewCell()
         }
@@ -169,7 +163,7 @@ extension NowPlayingMoviesViewController: UITableViewDataSource {
 extension NowPlayingMoviesViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        guard let movieItems = viewModel.movieItems else { return }
+        guard let movieItems = movieItems else { return }
         if (tableView.isTracking || tableView.isDecelerating), indexPath.row == (movieItems.count - 1) {
             fetchNextPage()
         }
@@ -183,6 +177,6 @@ extension NowPlayingMoviesViewController: UISearchResultsUpdating {
         guard let searchText = searchController.searchBar.text else {
             return
         }
-        filterMovieItems(with: searchText)
+        filterMovies(with: searchText)
     }
 }

@@ -15,18 +15,31 @@ enum NowPlayingMovies {
         struct Request { }
         
         struct Response {
-            let paginatedMovieLists: [PaginatedMovieList]?
+            let movies: [Movie]?
         }
         
         struct ViewModel {
             var movieItems: [MovieItem]?
         }
     }
+    
+    enum FilterMovies {
+        
+        struct Request {
+            let searchText: String
+            let isSearchControllerActive: Bool
+        }
+        
+        struct Response {
+            let movies: [Movie]?
+        }
+        
+        struct ViewModel {
+            let movieItems: [MovieItem]?
+        }
+    }
 }
 
-extension NowPlayingMovies.FetchNowPlayingMovies.ViewModel {
-    
-    struct MovieItem {
-        let title: String?
-    }
+struct MovieItem {
+    let title: String?
 }

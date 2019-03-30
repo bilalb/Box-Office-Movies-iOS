@@ -29,13 +29,6 @@ extension NowPlayingMoviesRouter: NowPlayingMoviesRoutingLogic {
             var destinationDS = destinationVC.router?.dataStore,
             let dataStore = dataStore {
             passDataToMovieDetails(source: dataStore, destination: &destinationDS)
-        } else {
-//            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-//            if let destinationVC = storyboard.instantiateViewController(withIdentifier: "SomewhereViewController") as? SomewhereViewController,
-//                var destinationDS = destinationVC.router?.dataStore {
-//                passDataToSomewhere(source: dataStore, destination: &destinationDS)
-//                navigateToSomewhere(source: viewController, destination: destinationVC)
-//            }
         }
     }
 }
@@ -44,24 +37,15 @@ extension NowPlayingMoviesRouter: NowPlayingMoviesRoutingLogic {
 private extension NowPlayingMoviesRouter {
     
     func passDataToMovieDetails(source: NowPlayingMoviesDataStore, destination: inout MovieDetailsDataStore) {
-        var movies = [Movie]()
-        source.paginatedMovieLists.forEach({ (paginatedMovieList) in
-            paginatedMovieList.movies.forEach({ (movie) in
-                movies.append(movie)
-            })
-        })
+        let movies = source.isFiltering ? source.filteredMovies : source.movies
         
         guard
-            let selectedRow = viewController?.nowPlayingMoviesTableView.indexPathForSelectedRow?.row,
-            movies.indices.contains(selectedRow)
+            let indexForSelectedRow = viewController?.nowPlayingMoviesTableView.indexPathForSelectedRow?.row,
+            movies.indices.contains(indexForSelectedRow)
         else {
             return
         }
         
-        destination.movieIdentifier = movies[selectedRow].identifier
+        destination.movieIdentifier = movies[indexForSelectedRow].identifier
     }
-    
-//    func navigateToMovieDetails(source: NowPlayingMoviesViewController, destination: MovieDetailsViewController) {
-//        source.show(destination, sender: nil)
-//    }
 }
