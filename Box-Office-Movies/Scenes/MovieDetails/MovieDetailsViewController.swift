@@ -146,11 +146,11 @@ extension MovieDetailsViewController: UITableViewDataSource {
         case .reviewMovie(let review):
             cell.detailTextLabel?.text = review
         case .synopsis(let synopsis):
-            cell.textLabel?.text = synopsis
+            cell.detailTextLabel?.text = synopsis
         case .casting(let actors):
-            cell.textLabel?.text = actors
+            cell.detailTextLabel?.text = actors
         case .similarMovies(let similarMovies):
-            cell.textLabel?.text = similarMovies
+            cell.detailTextLabel?.text = similarMovies
         }
         
         return cell
