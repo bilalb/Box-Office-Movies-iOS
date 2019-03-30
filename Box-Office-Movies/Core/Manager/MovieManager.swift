@@ -58,7 +58,7 @@ protocol MovieManagement {
     /// - Parameters:
     ///   - languageCode: Language code in ISO 639-1 format.
     ///   - regionCode: Region code in ISO 3166-1 format.
-    ///   - page: Page to query (minimum: 1, maximum: 1000).
+    ///   - page: Page to query (minimum: `1`, maximum: `1000`).
     ///   - completionHandler: The completion handler to call when the request is complete.
     func nowPlayingMovies(languageCode: String, regionCode: String, page: Int, completionHandler: NowPlayingMoviesCompletionHandler?)
     
@@ -98,7 +98,7 @@ protocol MovieManagement {
     /// - Parameters:
     ///   - identifier: Identifier of the movie.
     ///   - languageCode: Language code in ISO 639-1 format.
-    ///   - page: Page to query (minimum: 1, maximum: 1000).
+    ///   - page: Page to query (minimum: `1`, maximum: `1000`).
     ///   - completionHandler: The completion handler to call when the request is complete.
     func similarMovies(identifier: Int, languageCode: String, page: Int, completionHandler: SimilarMoviesCompletionHandler?)
 }
