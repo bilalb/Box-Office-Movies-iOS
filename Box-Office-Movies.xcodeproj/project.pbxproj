@@ -9,8 +9,6 @@
 /* Begin PBXBuildFile section */
 		9C4935EA224A95CD00359378 /* AdditionalInformationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C4935E9224A95CD00359378 /* AdditionalInformationTableViewCell.swift */; };
 		9CDC95DA2243FFB10051925E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CDC95D92243FFB10051925E /* AppDelegate.swift */; };
-		9CDC95DC2243FFB10051925E /* MasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CDC95DB2243FFB10051925E /* MasterViewController.swift */; };
-		9CDC95DE2243FFB10051925E /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CDC95DD2243FFB10051925E /* DetailViewController.swift */; };
 		9CDC95E12243FFB10051925E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9CDC95DF2243FFB10051925E /* Main.storyboard */; };
 		9CDC95E32243FFB30051925E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9CDC95E22243FFB30051925E /* Assets.xcassets */; };
 		9CDC95E62243FFB30051925E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9CDC95E42243FFB30051925E /* LaunchScreen.storyboard */; };
@@ -64,8 +62,6 @@
 		9C4935E9224A95CD00359378 /* AdditionalInformationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdditionalInformationTableViewCell.swift; sourceTree = "<group>"; };
 		9CDC95D62243FFB10051925E /* Box-Office-Movies.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Box-Office-Movies.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9CDC95D92243FFB10051925E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		9CDC95DB2243FFB10051925E /* MasterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterViewController.swift; sourceTree = "<group>"; };
-		9CDC95DD2243FFB10051925E /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		9CDC95E02243FFB10051925E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		9CDC95E22243FFB30051925E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9CDC95E52243FFB30051925E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -151,12 +147,10 @@
 				9CDC95E22243FFB30051925E /* Assets.xcassets */,
 				9CDC96002244034A0051925E /* Constants.swift */,
 				9CDC95FF2244034A0051925E /* Core */,
-				9CDC95DD2243FFB10051925E /* DetailViewController.swift */,
 				9CDC96592247CAB70051925E /* Extensions */,
 				9CDC95E72243FFB30051925E /* Info.plist */,
 				9CDC95E42243FFB30051925E /* LaunchScreen.storyboard */,
 				9CDC95DF2243FFB10051925E /* Main.storyboard */,
-				9CDC95DB2243FFB10051925E /* MasterViewController.swift */,
 				9CDC96492247C2B20051925E /* Scenes */,
 			);
 			path = "Box-Office-Movies";
@@ -174,9 +168,9 @@
 		9CDC95FF2244034A0051925E /* Core */ = {
 			isa = PBXGroup;
 			children = (
-				9CDC96012244034A0051925E /* Network */,
 				9CDC96052244034A0051925E /* Manager */,
 				9CDC96082244034B0051925E /* Model */,
+				9CDC96012244034A0051925E /* Network */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -420,9 +414,7 @@
 				9CDC96542247C2DE0051925E /* NowPlayingMoviesModels.swift in Sources */,
 				9CDC96552247C2DE0051925E /* NowPlayingMoviesViewController.swift in Sources */,
 				9CDC96662247DA510051925E /* MovieDetailsPresenter.swift in Sources */,
-				9CDC95DE2243FFB10051925E /* DetailViewController.swift in Sources */,
 				9CDC966A2247DA510051925E /* MovieDetailsInteractor.swift in Sources */,
-				9CDC95DC2243FFB10051925E /* MasterViewController.swift in Sources */,
 				9CDC95DA2243FFB10051925E /* AppDelegate.swift in Sources */,
 				9CDC966C2247E49E0051925E /* String.swift in Sources */,
 				9CDC962F224650590051925E /* PosterNetworkRequest.swift in Sources */,
