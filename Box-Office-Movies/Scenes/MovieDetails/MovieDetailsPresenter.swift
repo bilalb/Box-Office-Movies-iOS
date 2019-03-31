@@ -29,12 +29,12 @@ extension MovieDetailsPresenter: MovieDetailsPresentationLogic {
             let titleItem = DetailItem.title(title: movieDetails.title)
             
             var additionalInformationItem: DetailItem {
-                let releaseDate = "Release date\n\(movieDetails.releaseDate)"
-                let voteAverage = "Average vote\n\(movieDetails.formattedVoteAverage)"
+                let releaseDate = "\(NSLocalizedString("releaseDate", comment: "releaseDate"))\n\(movieDetails.releaseDate)"
+                let voteAverage = "\(NSLocalizedString("averageVote", comment: "averageVote"))\n\(movieDetails.formattedVoteAverage)"
                 return DetailItem.additionalInformation(posterImage: response.posterImage, releaseDate: releaseDate, voteAverage: voteAverage)
             }
             
-            let reviewMovieItem = DetailItem.reviewMovie(review: "Review")
+            let reviewMovieItem = DetailItem.reviewMovie(review: NSLocalizedString("review", comment: "review"))
             let synopsisItem = DetailItem.synopsis(synopsis: movieDetails.synopsis)
             
             var castingItem: DetailItem {
@@ -66,9 +66,12 @@ extension MovieDetailsPresenter: MovieDetailsPresentationLogic {
             let alertAction = UIAlertAction(title: movieReview.description, style: .default, handler: nil)
             return (alertAction, movieReview)
         }
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        let cancelAction = UIAlertAction(title: NSLocalizedString("cancel", comment: "cancel"), style: .cancel, handler: nil)
         actions.append((cancelAction, nil))
-        let viewModel = MovieDetailsScene.LoadMovieReviews.ViewModel(alertControllerTitle: "Review the movie", alertControllerMessage: nil, alertControllerPreferredStyle: .actionSheet, actions: actions)
+        let viewModel = MovieDetailsScene.LoadMovieReviews.ViewModel(alertControllerTitle: NSLocalizedString("reviewTheMovie", comment: "reviewTheMovie"),
+                                                                     alertControllerMessage: nil,
+                                                                     alertControllerPreferredStyle: .actionSheet,
+                                                                     actions: actions)
         viewController?.displayMovieReviews(viewModel: viewModel)
     }
     

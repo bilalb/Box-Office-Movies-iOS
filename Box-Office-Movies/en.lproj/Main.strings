@@ -1,0 +1,39 @@
+
+/* Class = "UILabel"; text = "My review"; ObjectID = "0if-sx-CqV"; */
+"0if-sx-CqV.text" = "My review";
+
+/* Class = "UILabel"; text = "Similar movies"; ObjectID = "56C-sN-fTI"; */
+"56C-sN-fTI.text" = "Similar movies";
+
+/* Class = "UILabel"; text = "Title"; ObjectID = "5Ba-rA-JbP"; */
+"5Ba-rA-JbP.text" = "Title";
+
+/* Class = "UILabel"; text = "Subtitle"; ObjectID = "5sj-fL-Jv4"; */
+"5sj-fL-Jv4.text" = "Subtitle";
+
+/* Class = "UILabel"; text = "Subtitle"; ObjectID = "CO9-da-apb"; */
+"CO9-da-apb.text" = "Subtitle";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "KPh-6A-3Ak"; */
+"KPh-6A-3Ak.text" = "Label";
+
+/* Class = "UILabel"; text = "Title"; ObjectID = "NUz-Y3-dxt"; */
+"NUz-Y3-dxt.text" = "Title";
+
+/* Class = "UILabel"; text = "Casting"; ObjectID = "Pfo-g9-MFM"; */
+"Pfo-g9-MFM.text" = "Casting";
+
+/* Class = "UINavigationController"; title = "Master"; ObjectID = "RMx-3f-FxP"; */
+"RMx-3f-FxP.title" = "Master";
+
+/* Class = "UILabel"; text = "Label ★★★☆☆"; ObjectID = "fon-6G-AUB"; */
+"fon-6G-AUB.text" = "Label ★★★☆☆";
+
+/* Class = "UILabel"; text = "Synopsis"; ObjectID = "pdg-T3-AuE"; */
+"pdg-T3-AuE.text" = "Synopsis";
+
+/* Class = "UILabel"; text = "Subtitle"; ObjectID = "u14-h6-MNI"; */
+"u14-h6-MNI.text" = "Subtitle";
+
+/* Class = "UILabel"; text = "Subtitle"; ObjectID = "xIb-RQ-EYc"; */
+"xIb-RQ-EYc.text" = "Subtitle";

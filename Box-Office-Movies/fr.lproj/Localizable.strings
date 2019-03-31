@@ -1,0 +1,14 @@
+//
+//  Localizable.strings
+//  Box-Office-Movies
+//
+//  Created by Bilal Benlarbi on 31.03.19.
+//  Copyrights © 2019 Bilal Benlarbi. All rights reserved.
+//
+
+// MARK: - Details scene
+"releaseDate" = "Date de sortie";
+"averageVote" = "Note moyenne";
+"review" = "Noter";
+"reviewTheMovie" = "Noter le film";
+"cancel" = "Annuler";
