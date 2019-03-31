@@ -23,6 +23,11 @@ class NowPlayingMoviesViewController: UIViewController {
             nowPlayingMoviesTableView.reloadData()
             DispatchQueue.main.async {
                 self.selectFirstItem()
+                
+                let shouldFetchNextPage = self.nowPlayingMoviesTableView.visibleCells.count == self.movieItems?.count
+                if shouldFetchNextPage {
+                    self.fetchNextPage()
+                }
             }
         }
     }
