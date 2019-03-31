@@ -156,9 +156,9 @@
 				9CDC96592247CAB70051925E /* Extensions */,
 				9CDC95E72243FFB30051925E /* Info.plist */,
 				9CDC95E42243FFB30051925E /* LaunchScreen.storyboard */,
+				9C90009722510AE600399CF3 /* Localizable.strings */,
 				9CDC95DF2243FFB10051925E /* Main.storyboard */,
 				9CDC96492247C2B20051925E /* Scenes */,
-				9C90009722510AE600399CF3 /* Localizable.strings */,
 			);
 			path = "Box-Office-Movies";
 			sourceTree = "<group>";

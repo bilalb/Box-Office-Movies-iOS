@@ -35,27 +35,51 @@ extension MovieDetailsPresenter: MovieDetailsPresentationLogic {
             }
             
             let reviewMovieItem = DetailItem.reviewMovie(review: NSLocalizedString("review", comment: "review"))
-            let synopsisItem = DetailItem.synopsis(synopsis: movieDetails.synopsis)
             
-            var castingItem: DetailItem {
+            var detailItems = [titleItem, additionalInformationItem, reviewMovieItem]
+            
+            var synopsisItem: DetailItem? {
+                guard let synopsis = movieDetails.synopsis,
+                    !synopsis.isEmpty
+                else {
+                    return nil
+                }
+                return DetailItem.synopsis(synopsis: synopsis)
+            }
+            if let synopsisItem = synopsisItem {
+                detailItems.append(synopsisItem)
+            }
+            
+            var castingItem: DetailItem? {
                 var actors = ""
                 response.casting?.actors.forEach({ (actor) in
                     actors.append(withSeparator: ", ", other: actor.name)
                 })
+                guard !actors.isEmpty else {
+                    return nil
+                }
                 return DetailItem.casting(actors: actors)
             }
+            if let castingItem = castingItem {
+                detailItems.append(castingItem)
+            }
             
-            var similarMoviesItem: DetailItem {
+            var similarMoviesItem: DetailItem? {
                 var similarMovies = ""
                 response.paginatedSimilarMovieLists?.forEach({ (paginatedSimilarMovieList) in
                     paginatedSimilarMovieList.movies.forEach({ (movie) in
                         similarMovies.append(withSeparator: ", ", other: movie.title)
                     })
                 })
+                guard !similarMovies.isEmpty else {
+                    return nil
+                }
                 return DetailItem.similarMovies(similarMovies: similarMovies)
             }
+            if let similarMoviesItem = similarMoviesItem {
+                detailItems.append(similarMoviesItem)
+            }
             
-            let detailItems = [titleItem, additionalInformationItem, reviewMovieItem, synopsisItem, castingItem, similarMoviesItem]
             let viewModel = MovieDetailsScene.FetchMovieDetails.ViewModel(detailItems: detailItems)
             self.viewController?.displayMovieDetails(viewModel: viewModel)
         }

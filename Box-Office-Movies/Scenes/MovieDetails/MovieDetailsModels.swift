@@ -62,10 +62,10 @@ enum DetailItem {
     
     case title(title: String)
     case additionalInformation(posterImage: UIImage?, releaseDate: String?, voteAverage: String?)
-    case synopsis(synopsis: String?)
-    case reviewMovie(review: String?)
-    case casting(actors: String?)
-    case similarMovies(similarMovies: String?)
+    case synopsis(synopsis: String)
+    case reviewMovie(review: String)
+    case casting(actors: String)
+    case similarMovies(similarMovies: String)
     
     var cellIdentifier: String {
         switch self {
