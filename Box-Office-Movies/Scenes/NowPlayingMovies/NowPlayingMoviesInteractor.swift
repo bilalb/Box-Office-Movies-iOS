@@ -38,7 +38,7 @@ extension NowPlayingMoviesInteractor: NowPlayingMoviesBusinessLogic {
             shouldFetch = page <= totalPages
         }
         
-        guard shouldFetch else {
+        guard shouldFetch, !isFiltering else {
             UIApplication.shared.isNetworkActivityIndicatorVisible = false
             return
         }
