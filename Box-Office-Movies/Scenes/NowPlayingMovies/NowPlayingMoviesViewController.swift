@@ -104,7 +104,7 @@ private extension NowPlayingMoviesViewController {
     }
     
     func selectFirstItem() {
-        if UIScreen.main.traitCollection.horizontalSizeClass == .regular && indexPathForSelectedRow == nil {
+        if splitViewController?.isCollapsed == false && indexPathForSelectedRow == nil {
             let indexPathForFirstRow = IndexPath(row: 0, section: 0)
             guard movieItems?.indices.contains(indexPathForFirstRow.row) == true else {
                 return
@@ -133,7 +133,7 @@ extension NowPlayingMoviesViewController: NowPlayingMoviesDisplayLogic {
     }
     
     func displayFilterMovies(viewModel: NowPlayingMovies.FilterMovies.ViewModel) {
-        self.movieItems = viewModel.movieItems
+        movieItems = viewModel.movieItems
     }
 }
 
@@ -146,16 +146,15 @@ extension NowPlayingMoviesViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard
-            let movieTableViewCell = tableView.dequeueReusableCell(withIdentifier: MovieTableViewCell.identifier, for: indexPath) as? MovieTableViewCell,
             movieItems?.indices.contains(indexPath.row) == true,
             let movieItem = movieItems?[indexPath.row]
         else {
             return UITableViewCell()
         }
         
-        movieTableViewCell.titleLabel.text = movieItem.title
-        
-        return movieTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: Constants.CellIdentifier.movieTableViewCell, for: indexPath)
+        cell.textLabel?.text = movieItem.title
+        return cell
     }
 }
 

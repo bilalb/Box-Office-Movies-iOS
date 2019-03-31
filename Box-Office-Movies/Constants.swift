@@ -46,6 +46,7 @@ struct Constants {
     }
     
     struct CellIdentifier {
+        static let movieTableViewCell = "MovieTableViewCell"
         static let titleTableViewCell = "TitleTableViewCell"
         static let reviewMovieTableViewCell = "ReviewMovieTableViewCell"
         static let synopsisTableViewCell = "SynopsisTableViewCell"

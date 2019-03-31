@@ -345,32 +345,23 @@
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </view>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="MovieTableViewCell" id="1bO-I8-T0b" customClass="MovieTableViewCell" customModule="Box_Office_Movies" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="MovieTableViewCell" textLabel="NUz-Y3-dxt" style="IBUITableViewCellStyleDefault" id="1bO-I8-T0b">
                                         <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="1bO-I8-T0b" id="lVQ-eU-HCy">
                                             <rect key="frame" x="0.0" y="0.0" width="342" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yaw-jv-4hQ">
-                                                    <rect key="frame" x="20" y="11.5" width="302" height="21"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="21" id="cje-W3-RwV"/>
-                                                    </constraints>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="NUz-Y3-dxt">
+                                                    <rect key="frame" x="15" y="0.0" width="325" height="43.5"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
-                                            <constraints>
-                                                <constraint firstItem="Yaw-jv-4hQ" firstAttribute="leading" secondItem="lVQ-eU-HCy" secondAttribute="leading" constant="20" symbolic="YES" id="3QB-Nf-D3z"/>
-                                                <constraint firstItem="Yaw-jv-4hQ" firstAttribute="top" secondItem="lVQ-eU-HCy" secondAttribute="top" constant="11.747552198307631" id="USs-Xk-w25"/>
-                                                <constraint firstAttribute="bottom" secondItem="Yaw-jv-4hQ" secondAttribute="bottom" priority="750" constant="11" id="oIY-z4-CbF"/>
-                                                <constraint firstAttribute="trailing" secondItem="Yaw-jv-4hQ" secondAttribute="trailing" constant="20" symbolic="YES" id="xNS-9q-laW"/>
-                                            </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="titleLabel" destination="Yaw-jv-4hQ" id="h9W-9k-eZq"/>
                                             <segue destination="vC3-pB-5Vb" kind="showDetail" identifier="MovieDetails" id="M0A-il-uIU"/>
                                         </connections>
                                     </tableViewCell>
