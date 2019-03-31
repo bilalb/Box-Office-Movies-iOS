@@ -22,16 +22,20 @@ extension MovieDetailsPresenter: MovieDetailsPresentationLogic {
     
     func presentMovieDetails(response: MovieDetailsScene.FetchMovieDetails.Response) {
         DispatchQueue.main.async {
-            guard let movieDetails = response.movieDetails else {
-                return
-            }
+            guard let movieDetails = response.movieDetails else { return }
             
             let titleItem = DetailItem.title(title: movieDetails.title)
             
             var additionalInformationItem: DetailItem {
                 let releaseDate = "\(NSLocalizedString("releaseDate", comment: "releaseDate"))\n\(movieDetails.releaseDate)"
+                
                 let voteAverage = "\(NSLocalizedString("averageVote", comment: "averageVote"))\n\(movieDetails.formattedVoteAverage)"
-                return DetailItem.additionalInformation(posterImage: response.posterImage, releaseDate: releaseDate, voteAverage: voteAverage)
+                let voteAverageAttributedString = NSMutableAttributedString(string: voteAverage)
+                let attributes: [NSAttributedString.Key: Any] = [.foregroundColor: UIColor.darkText]
+                let range = NSRange(location: 0, length: NSLocalizedString("averageVote", comment: "averageVote").count)
+                voteAverageAttributedString.addAttributes(attributes, range: range)
+                
+                return DetailItem.additionalInformation(posterImage: response.posterImage, releaseDate: releaseDate, voteAverage: voteAverageAttributedString)
             }
             
             let reviewMovieItem = DetailItem.reviewMovie(review: NSLocalizedString("review", comment: "review"))
@@ -39,9 +43,7 @@ extension MovieDetailsPresenter: MovieDetailsPresentationLogic {
             var detailItems = [titleItem, additionalInformationItem, reviewMovieItem]
             
             var synopsisItem: DetailItem? {
-                guard let synopsis = movieDetails.synopsis,
-                    !synopsis.isEmpty
-                else {
+                guard let synopsis = movieDetails.synopsis, !synopsis.isEmpty else {
                     return nil
                 }
                 return DetailItem.synopsis(synopsis: synopsis)

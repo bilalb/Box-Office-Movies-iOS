@@ -129,7 +129,7 @@ extension MovieDetailsViewController: UITableViewDataSource {
             if let cell = cell as? AdditionalInformationTableViewCell {
                 cell.posterImageView?.image = posterImage
                 cell.releaseDateLabel?.text = releaseDate
-                cell.voteAverageLabel?.text = voteAverage
+                cell.voteAverageLabel?.attributedText = voteAverage
             }
         case .reviewMovie(let review):
             cell.detailTextLabel?.text = review
