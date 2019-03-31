@@ -29,18 +29,9 @@ extension MovieDetailsPresenter: MovieDetailsPresentationLogic {
             let titleItem = DetailItem.title(title: movieDetails.title)
             
             var additionalInformationItem: DetailItem {
-                var posterImageURL: URL? {
-                    if let posterPath = movieDetails.posterPath, let apiConfiguration = response.apiConfiguration {
-                        var posterImagePath = apiConfiguration.imageData.secureBaseUrl
-                        posterImagePath.append(Constants.Fallback.posterImageSize)
-                        posterImagePath.append(posterPath)
-                        
-                        return URL(string: posterImagePath)
-                    } else {
-                        return nil
-                    }
-                }
-                return DetailItem.additionalInformation(posterImageURL: posterImageURL, releaseDate: movieDetails.releaseDate, voteAverage: movieDetails.formattedVoteAverage)
+                let releaseDate = "Release date\n\(movieDetails.releaseDate)"
+                let voteAverage = "Average vote\n\(movieDetails.formattedVoteAverage)"
+                return DetailItem.additionalInformation(posterImage: response.posterImage, releaseDate: releaseDate, voteAverage: voteAverage)
             }
             
             let reviewMovieItem = DetailItem.reviewMovie(review: "Review")

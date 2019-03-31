@@ -24,7 +24,7 @@ class MovieDetailsInteractor: MovieDetailsDataStore {
     
     var movieIdentifier: Int?
     var similarMoviePage = 1
-    var paginatedMovieLists = [PaginatedMovieList]()
+    var paginatedSimilarMovieLists = [PaginatedMovieList]()
 }
 
 extension MovieDetailsInteractor: MovieDetailsBusinessLogic {
@@ -36,16 +36,35 @@ extension MovieDetailsInteractor: MovieDetailsBusinessLogic {
         fetchAPIConfiguration { [weak self] (apiConfiguration, _) in
             self?.fetchDetails { [weak self] (movieDetails, _) in
                 self?.fetchCasting { [weak self] (casting, _) in
-                    self?.fetchSimilarMovies { [weak self] (paginatedMovieList, _) in
-                        if let paginatedMovieList = paginatedMovieList {
-                            self?.paginatedMovieLists.append(paginatedMovieList)
+                    self?.fetchSimilarMovies { [weak self] (paginatedSimilarMovieList, _) in
+                        if let paginatedSimilarMovieList = paginatedSimilarMovieList {
+                            self?.paginatedSimilarMovieLists.append(paginatedSimilarMovieList)
                             self?.similarMoviePage += 1
                         }
-                        let response = MovieDetailsScene.FetchMovieDetails.Response(apiConfiguration: apiConfiguration,
-                                                                                    movieDetails: movieDetails,
-                                                                                    casting: casting,
-                                                                                    paginatedMovieLists: self?.paginatedMovieLists)
-                        self?.presenter?.presentMovieDetails(response: response)
+                        
+                        func presentMovieDetails(movieDetails: MovieDetails?, casting: Casting?, paginatedSimilarMovieLists: [PaginatedMovieList]?, posterImage: UIImage?) {
+                            let response = MovieDetailsScene.FetchMovieDetails.Response(movieDetails: movieDetails,
+                                                                                        casting: casting,
+                                                                                        paginatedMovieLists: self?.paginatedSimilarMovieLists,
+                                                                                        posterImage: posterImage)
+                            self?.presenter?.presentMovieDetails(response: response)
+                        }
+                        
+                        guard let imageSecureBaseURLPath = apiConfiguration?.imageData.secureBaseUrl,
+                            let posterPath = movieDetails?.posterPath
+                        else {
+                            presentMovieDetails(movieDetails: movieDetails,
+                                                casting: casting,
+                                                paginatedSimilarMovieLists: self?.paginatedSimilarMovieLists,
+                                                posterImage: nil)
+                            return
+                        }
+                        self?.fetchPosterImage(imageSecureBaseURLPath: imageSecureBaseURLPath, posterPath: posterPath) { [weak self] (posterImage, _) in
+                            presentMovieDetails(movieDetails: movieDetails,
+                                                casting: casting,
+                                                paginatedSimilarMovieLists: self?.paginatedSimilarMovieLists,
+                                                posterImage: posterImage)
+                        }
                     }
                 }
             }
@@ -87,8 +106,8 @@ extension MovieDetailsInteractor {
     }
     
     func fetchSimilarMovies(completionHandler: SimilarMoviesCompletionHandler?) {
-        var shouldFetch = paginatedMovieLists.isEmpty
-        if let totalPages = paginatedMovieLists.last?.totalPages {
+        var shouldFetch = paginatedSimilarMovieLists.isEmpty
+        if let totalPages = paginatedSimilarMovieLists.last?.totalPages {
             shouldFetch = similarMoviePage <= totalPages
         }
         
@@ -100,5 +119,9 @@ extension MovieDetailsInteractor {
         
         let languageCode = Locale.current.languageCode ?? Constants.Fallback.languageCode
         ManagerProvider.sharedInstance.movieManager.similarMovies(identifier: movieIdentifier, languageCode: languageCode, page: similarMoviePage, completionHandler: completionHandler)
+    }
+    
+    func fetchPosterImage(imageSecureBaseURLPath: String, posterSize: String = Constants.Fallback.posterImageSize, posterPath: String, completionHandler: PosterCompletionHandler?) {
+        ManagerProvider.sharedInstance.movieManager.poster(imageSecureBaseURL: imageSecureBaseURLPath, posterSize: posterSize, posterPath: posterPath, completionHandler: completionHandler)
     }
 }

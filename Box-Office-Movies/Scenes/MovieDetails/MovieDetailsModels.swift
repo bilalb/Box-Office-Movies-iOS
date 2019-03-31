@@ -15,10 +15,10 @@ enum MovieDetailsScene {
         struct Request { }
         
         struct Response {
-            let apiConfiguration: TheMovieDatabaseAPIConfiguration?
             let movieDetails: MovieDetails?
             let casting: Casting?
             let paginatedMovieLists: [PaginatedMovieList]?
+            let posterImage: UIImage?
         }
         
         struct ViewModel {
@@ -61,7 +61,7 @@ enum MovieDetailsScene {
 enum DetailItem {
     
     case title(title: String)
-    case additionalInformation(posterImageURL: URL?, releaseDate: String?, voteAverage: String?)
+    case additionalInformation(posterImage: UIImage?, releaseDate: String?, voteAverage: String?)
     case synopsis(synopsis: String?)
     case reviewMovie(review: String?)
     case casting(actors: String?)
