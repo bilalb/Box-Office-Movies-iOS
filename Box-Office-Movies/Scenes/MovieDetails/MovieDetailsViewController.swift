@@ -44,15 +44,6 @@ class MovieDetailsViewController: UIViewController {
         super.viewDidLoad()
         fetchMovieDetails()
     }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let scene = segue.identifier {
-            let selector = NSSelectorFromString("routeTo\(scene)WithSegue:")
-            if let router = router, router.responds(to: selector) {
-                router.perform(selector, with: segue)
-            }
-        }
-    }
 }
 
 // MARK: - Private Functions
@@ -94,12 +85,12 @@ extension MovieDetailsViewController: MovieDetailsDisplayLogic {
             })
             alertController.addAction(action)
         })
-        if let popoverController = alertController.popoverPresentationController {
-            popoverController.sourceView = view
-            popoverController.sourceRect = CGRect(x: view.bounds.midX, y: view.bounds.midY, width: 0, height: 0)
-            popoverController.permittedArrowDirections = []
+        if let popoverPresentationController = alertController.popoverPresentationController {
+            popoverPresentationController.sourceView = view
+            popoverPresentationController.sourceRect = CGRect(x: view.bounds.midX, y: view.bounds.midY, width: 0, height: 0)
+            popoverPresentationController.permittedArrowDirections = []
         }
-        navigationController?.present(alertController, animated: true)
+        present(alertController, animated: true)
     }
     
     func displayReviewMovie(viewModel: MovieDetailsScene.ReviewMovie.ViewModel) {

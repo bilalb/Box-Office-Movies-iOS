@@ -131,8 +131,8 @@ class MovieNetworkController: NetworkController, MovieNetworkControlling {
     func similarMovies(identifier: Int, languageCode: String, page: Int, completionHandler: SimilarMoviesCompletionHandler?) {
         let request = SimilarMoviesNetworkRequest(environment: environment, identifier: identifier, languageCode: languageCode, page: page)
         send(request: request) { (data, _, error) in
-            if let data = data, let paginatedMovieList = try? JSONDecoder().decode(PaginatedMovieList.self, from: data) {
-                completionHandler?(paginatedMovieList, nil)
+            if let data = data, let paginatedSimilarMovieList = try? JSONDecoder().decode(PaginatedMovieList.self, from: data) {
+                completionHandler?(paginatedSimilarMovieList, nil)
             } else {
                 completionHandler?(nil, error)
             }

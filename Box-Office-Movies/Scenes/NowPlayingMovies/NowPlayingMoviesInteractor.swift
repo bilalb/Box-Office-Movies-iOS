@@ -9,7 +9,6 @@
 import UIKit
 
 protocol NowPlayingMoviesDataStore {
-    var paginatedMovieLists: [PaginatedMovieList] { get }
     var movies: [Movie] { get }
     var filteredMovies: [Movie] { get }
     var isFiltering: Bool { get }

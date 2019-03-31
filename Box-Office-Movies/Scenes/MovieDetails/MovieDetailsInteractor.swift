@@ -45,7 +45,7 @@ extension MovieDetailsInteractor: MovieDetailsBusinessLogic {
                         func presentMovieDetails(movieDetails: MovieDetails?, casting: Casting?, paginatedSimilarMovieLists: [PaginatedMovieList]?, posterImage: UIImage?) {
                             let response = MovieDetailsScene.FetchMovieDetails.Response(movieDetails: movieDetails,
                                                                                         casting: casting,
-                                                                                        paginatedMovieLists: self?.paginatedSimilarMovieLists,
+                                                                                        paginatedSimilarMovieLists: self?.paginatedSimilarMovieLists,
                                                                                         posterImage: posterImage)
                             self?.presenter?.presentMovieDetails(response: response)
                         }
@@ -77,7 +77,6 @@ extension MovieDetailsInteractor: MovieDetailsBusinessLogic {
     }
     
     func reviewMovie(request: MovieDetailsScene.ReviewMovie.Request) {
-        // TODO: to implement
         let response = MovieDetailsScene.ReviewMovie.Response(movieReview: request.movieReview)
         presenter?.presentReviewMovie(response: response)
     }

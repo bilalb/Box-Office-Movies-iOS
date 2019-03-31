@@ -47,8 +47,8 @@ extension MovieDetailsPresenter: MovieDetailsPresentationLogic {
             
             var similarMoviesItem: DetailItem {
                 var similarMovies = ""
-                response.paginatedMovieLists?.forEach({ (paginatedMovieList) in
-                    paginatedMovieList.movies.forEach({ (movie) in
+                response.paginatedSimilarMovieLists?.forEach({ (paginatedSimilarMovieList) in
+                    paginatedSimilarMovieList.movies.forEach({ (movie) in
                         similarMovies.append(withSeparator: ", ", other: movie.title)
                     })
                 })
@@ -81,6 +81,7 @@ extension MovieDetailsPresenter: MovieDetailsPresentationLogic {
 
 extension MovieDetails {
     
+    /// Vote average represented with stars
     var formattedVoteAverage: String {
         let numberOfStars = 5
         let highestPossibleValueOfVoteAverage = 10

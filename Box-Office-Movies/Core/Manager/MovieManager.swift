@@ -47,9 +47,9 @@ typealias CastingCompletionHandler = (_ casting: Casting?, _ error: Error?) -> V
 /// Completion handler of the similar movies.
 ///
 /// - Parameters:
-///   - paginatedMovieList: The response returned by the call.
+///   - paginatedSimilarMovieList: The response returned by the call.
 ///   - error: The error encountered while executing or validating the request.
-typealias SimilarMoviesCompletionHandler = (_ paginatedMovieList: PaginatedMovieList?, _ error: Error?) -> Void
+typealias SimilarMoviesCompletionHandler = (_ paginatedSimilarMovieList: PaginatedMovieList?, _ error: Error?) -> Void
 
 protocol MovieManagement {
     

@@ -17,7 +17,7 @@ enum MovieDetailsScene {
         struct Response {
             let movieDetails: MovieDetails?
             let casting: Casting?
-            let paginatedMovieLists: [PaginatedMovieList]?
+            let paginatedSimilarMovieLists: [PaginatedMovieList]?
             let posterImage: UIImage?
         }
         
