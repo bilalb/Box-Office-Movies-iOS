@@ -17,6 +17,7 @@ protocol NowPlayingMoviesDataStore {
 protocol NowPlayingMoviesBusinessLogic {
     func fetchNowPlayingMovies(request: NowPlayingMovies.FetchNowPlayingMovies.Request)
     func filterMovies(request: NowPlayingMovies.FilterMovies.Request)
+    func refreshMovies(request: NowPlayingMovies.RefreshMovies.Request)
 }
 
 class NowPlayingMoviesInteractor: NowPlayingMoviesDataStore {
@@ -43,10 +44,8 @@ extension NowPlayingMoviesInteractor: NowPlayingMoviesBusinessLogic {
             return
         }
         
-        let languageCode = Locale.current.languageCode ?? Constants.Fallback.languageCode
-        let regionCode = Locale.current.regionCode ?? Constants.Fallback.regionCode
-        ManagerProvider.sharedInstance.movieManager.nowPlayingMovies(languageCode: languageCode, regionCode: regionCode, page: page) { [weak self] (paginatedMovieList, error) in
-            if let paginatedMovieList = paginatedMovieList, error == nil {
+        fetchNowPlayingMovies { [weak self] (paginatedMovieList, _) in
+            if let paginatedMovieList = paginatedMovieList {
                 self?.paginatedMovieLists.append(paginatedMovieList)
                 self?.page += 1
             }
@@ -72,5 +71,34 @@ extension NowPlayingMoviesInteractor: NowPlayingMoviesBusinessLogic {
         
         let response = NowPlayingMovies.FilterMovies.Response(movies: filteredMovies)
         presenter?.presentFilterMovies(response: response)
+    }
+    
+    func refreshMovies(request: NowPlayingMovies.RefreshMovies.Request) {
+        page = 1
+        paginatedMovieLists.removeAll()
+        movies.removeAll()
+        filteredMovies.removeAll()
+        isFiltering = false
+        
+        fetchNowPlayingMovies { [weak self] (paginatedMovieList, _) in
+            if let paginatedMovieList = paginatedMovieList {
+                self?.paginatedMovieLists.append(paginatedMovieList)
+                self?.page += 1
+            }
+            self?.paginatedMovieLists.forEach({ (paginatedMovieList) in
+                self?.movies.append(contentsOf: paginatedMovieList.movies)
+            })
+            let response = NowPlayingMovies.RefreshMovies.Response(movies: self?.movies)
+            self?.presenter?.presentRefreshMovies(response: response)
+        }
+    }
+}
+
+extension NowPlayingMoviesInteractor {
+    
+    func fetchNowPlayingMovies(completionHandler: NowPlayingMoviesCompletionHandler?) {
+        let languageCode = Locale.current.languageCode ?? Constants.Fallback.languageCode
+        let regionCode = Locale.current.regionCode ?? Constants.Fallback.regionCode
+        ManagerProvider.sharedInstance.movieManager.nowPlayingMovies(languageCode: languageCode, regionCode: regionCode, page: page, completionHandler: completionHandler)
     }
 }

@@ -11,6 +11,7 @@ import UIKit
 protocol NowPlayingMoviesDisplayLogic: class {
     func displayNowPlayingMovies(viewModel: NowPlayingMovies.FetchNowPlayingMovies.ViewModel)
     func displayFilterMovies(viewModel: NowPlayingMovies.FilterMovies.ViewModel)
+    func displayRefreshMovies(viewModel: NowPlayingMovies.RefreshMovies.ViewModel)
 }
 
 class NowPlayingMoviesViewController: UIViewController {
@@ -52,6 +53,7 @@ class NowPlayingMoviesViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureSearchController()
+        configureRefreshControl()
         fetchNowPlayingMovies()
     }
     
@@ -82,15 +84,22 @@ private extension NowPlayingMoviesViewController {
     func configureSearchController() {
         searchController.searchResultsUpdater = self
         searchController.dimsBackgroundDuringPresentation = false
-        
-        if #available(iOS 11.0, *) {
-            navigationItem.searchController = searchController
-            navigationItem.hidesSearchBarWhenScrolling = false
-        } else {
-            nowPlayingMoviesTableView.tableHeaderView = searchController.searchBar
-        }
-        
+        nowPlayingMoviesTableView.tableHeaderView = searchController.searchBar
         definesPresentationContext = true
+    }
+    
+    func configureRefreshControl() {
+        nowPlayingMoviesTableView.refreshControl = UIRefreshControl()
+        nowPlayingMoviesTableView.refreshControl?.addTarget(self, action: #selector(refreshControlTriggered), for: .valueChanged)
+    }
+    
+    @objc func refreshControlTriggered() {
+        refreshMovies()
+    }
+    
+    func refreshMovies() {
+        let request = NowPlayingMovies.RefreshMovies.Request()
+        interactor?.refreshMovies(request: request)
     }
     
     func filterMovies(with searchText: String) {
@@ -139,6 +148,11 @@ extension NowPlayingMoviesViewController: NowPlayingMoviesDisplayLogic {
     
     func displayFilterMovies(viewModel: NowPlayingMovies.FilterMovies.ViewModel) {
         movieItems = viewModel.movieItems
+    }
+    
+    func displayRefreshMovies(viewModel: NowPlayingMovies.RefreshMovies.ViewModel) {
+        movieItems = viewModel.movieItems
+        nowPlayingMoviesTableView.refreshControl?.endRefreshing()
     }
 }
 

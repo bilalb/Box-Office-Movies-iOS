@@ -11,6 +11,7 @@ import UIKit
 protocol NowPlayingMoviesPresentationLogic {
     func presentNowPlayingMovies(response: NowPlayingMovies.FetchNowPlayingMovies.Response)
     func presentFilterMovies(response: NowPlayingMovies.FilterMovies.Response)
+    func presentRefreshMovies(response: NowPlayingMovies.RefreshMovies.Response)
 }
 
 class NowPlayingMoviesPresenter {
@@ -35,5 +36,15 @@ extension NowPlayingMoviesPresenter: NowPlayingMoviesPresentationLogic {
         })
         let viewModel = NowPlayingMovies.FilterMovies.ViewModel(movieItems: movieItems)
         viewController?.displayFilterMovies(viewModel: viewModel)
+    }
+    
+    func presentRefreshMovies(response: NowPlayingMovies.RefreshMovies.Response) {
+        DispatchQueue.main.async {
+            let movieItems = response.movies?.compactMap({ movie -> MovieItem in
+                return MovieItem(title: movie.title)
+            })
+            let viewModel = NowPlayingMovies.RefreshMovies.ViewModel(movieItems: movieItems)
+            self.viewController?.displayRefreshMovies(viewModel: viewModel)
+        }
     }
 }

@@ -38,6 +38,19 @@ enum NowPlayingMovies {
             let movieItems: [MovieItem]?
         }
     }
+    
+    enum RefreshMovies {
+        
+        struct Request { }
+        
+        struct Response {
+            let movies: [Movie]?
+        }
+        
+        struct ViewModel {
+            var movieItems: [MovieItem]?
+        }
+    }
 }
 
 struct MovieItem {
