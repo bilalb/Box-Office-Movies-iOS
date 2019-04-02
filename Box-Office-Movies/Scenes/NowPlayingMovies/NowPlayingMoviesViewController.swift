@@ -52,6 +52,7 @@ class NowPlayingMoviesViewController: UIViewController {
     // MARK: View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        configureSplitViewController()
         configureSearchController()
         configureRefreshControl()
         fetchNowPlayingMovies()
@@ -80,6 +81,11 @@ class NowPlayingMoviesViewController: UIViewController {
 
 // MARK: - Private Functions
 private extension NowPlayingMoviesViewController {
+    
+    func configureSplitViewController() {
+        splitViewController?.delegate = self
+        splitViewController?.preferredDisplayMode = .allVisible
+    }
     
     func configureSearchController() {
         searchController.searchResultsUpdater = self
@@ -196,5 +202,13 @@ extension NowPlayingMoviesViewController: UISearchResultsUpdating {
             return
         }
         filterMovies(with: searchText)
+    }
+}
+
+// MARK: - UISplitViewControllerDelegate
+extension NowPlayingMoviesViewController: UISplitViewControllerDelegate {
+    
+    func splitViewController(_ splitViewController: UISplitViewController, collapseSecondary secondaryViewController: UIViewController, onto primaryViewController: UIViewController) -> Bool {
+        return true
     }
 }
