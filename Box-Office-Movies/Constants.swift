@@ -42,7 +42,7 @@ struct Constants {
     struct Fallback {
         static let languageCode = "en-US"
         static let regionCode = "US"
-        static let posterImageSize = "w342"
+        static let posterImageSize = "w185"
     }
     
     struct CellIdentifier {
