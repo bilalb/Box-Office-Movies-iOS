@@ -27,15 +27,20 @@ extension MovieDetailsPresenter: MovieDetailsPresentationLogic {
             let titleItem = DetailItem.title(title: movieDetails.title)
             
             var additionalInformationItem: DetailItem {
+                let attributes: [NSAttributedString.Key: Any] = [.foregroundColor: UIColor.darkText,
+                                                                 .font: UIFont.boldSystemFont(ofSize: 15)]
+
                 let releaseDate = "\(NSLocalizedString("releaseDate", comment: "releaseDate"))\n\(movieDetails.releaseDate)"
+                let releaseDateAttributedString = NSMutableAttributedString(string: releaseDate)
+                var range = NSRange(location: 0, length: NSLocalizedString("releaseDate", comment: "releaseDate").count)
+                releaseDateAttributedString.addAttributes(attributes, range: range)
                 
                 let voteAverage = "\(NSLocalizedString("averageVote", comment: "averageVote"))\n\(movieDetails.formattedVoteAverage)"
                 let voteAverageAttributedString = NSMutableAttributedString(string: voteAverage)
-                let attributes: [NSAttributedString.Key: Any] = [.foregroundColor: UIColor.darkText]
-                let range = NSRange(location: 0, length: NSLocalizedString("averageVote", comment: "averageVote").count)
+                range = NSRange(location: 0, length: NSLocalizedString("averageVote", comment: "averageVote").count)
                 voteAverageAttributedString.addAttributes(attributes, range: range)
                 
-                return DetailItem.additionalInformation(posterImage: response.posterImage, releaseDate: releaseDate, voteAverage: voteAverageAttributedString)
+                return DetailItem.additionalInformation(posterImage: response.posterImage, releaseDateAttributedText: releaseDateAttributedString, voteAverageAttributedText: voteAverageAttributedString)
             }
             
             let reviewMovieItem = DetailItem.reviewMovie(review: NSLocalizedString("review", comment: "review"))

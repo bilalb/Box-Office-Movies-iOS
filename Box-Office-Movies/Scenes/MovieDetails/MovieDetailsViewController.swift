@@ -125,11 +125,11 @@ extension MovieDetailsViewController: UITableViewDataSource {
         switch detailItem {
         case .title(let title):
             cell.textLabel?.text = title
-        case .additionalInformation(let posterImage, let releaseDate, let voteAverage):
+        case .additionalInformation(let posterImage, let releaseDateAttributedText, let voteAverageAttributedText):
             if let cell = cell as? AdditionalInformationTableViewCell {
                 cell.posterImageView?.image = posterImage
-                cell.releaseDateLabel?.text = releaseDate
-                cell.voteAverageLabel?.attributedText = voteAverage
+                cell.releaseDateLabel?.attributedText = releaseDateAttributedText
+                cell.voteAverageLabel?.attributedText = voteAverageAttributedText
             }
         case .reviewMovie(let review):
             cell.detailTextLabel?.text = review
