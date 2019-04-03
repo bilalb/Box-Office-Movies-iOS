@@ -26,7 +26,7 @@
             </objects>
             <point key="canvasLocation" x="-38" y="-630"/>
         </scene>
-        <!--Movie Details View Controller-->
+        <!--Details-->
         <scene sceneID="Bgm-3u-835">
             <objects>
                 <viewController id="tv7-ki-w9G" customClass="MovieDetailsViewController" customModule="Box_Office_Movies" customModuleProvider="target" sceneMemberID="viewController">
@@ -252,7 +252,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="prS-A0-1ow"/>
                     </view>
-                    <navigationItem key="navigationItem" id="eKw-D0-SvX"/>
+                    <navigationItem key="navigationItem" title="Details" id="eKw-D0-SvX"/>
                     <connections>
                         <outlet property="activityIndicatorView" destination="FX0-DX-h40" id="pbR-AF-Oyi"/>
                         <outlet property="detailItemsTableView" destination="XXe-ET-kIn" id="DJ6-pF-AMs"/>
@@ -277,7 +277,7 @@
             </objects>
             <point key="canvasLocation" x="-856" y="-330"/>
         </scene>
-        <!--Now Playing Movies View Controller-->
+        <!--Box office movies-->
         <scene sceneID="ZKT-aR-Gdg">
             <objects>
                 <viewController id="0bP-UP-42v" customClass="NowPlayingMoviesViewController" customModule="Box_Office_Movies" customModuleProvider="target" sceneMemberID="viewController">
@@ -355,7 +355,9 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="yo0-iK-Gkw"/>
                     </view>
-                    <navigationItem key="navigationItem" id="qsn-Tk-b9h"/>
+                    <navigationItem key="navigationItem" title="Box office movies" id="qsn-Tk-b9h">
+                        <barButtonItem key="backBarButtonItem" title=" " id="Oq5-LL-SYw"/>
+                    </navigationItem>
                     <connections>
                         <outlet property="errorStackView" destination="n3u-tl-o0d" id="Tnt-cm-r09"/>
                         <outlet property="nowPlayingMoviesTableView" destination="iCU-Se-4Gs" id="Skq-hx-twv"/>
