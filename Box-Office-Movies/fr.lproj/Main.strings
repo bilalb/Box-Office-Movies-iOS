@@ -1,21 +1,30 @@
 
-/* Class = "UILabel"; text = "My review"; ObjectID = "0if-sx-CqV"; */
+/* Class = "UILabel"; text = "Ma note"; ObjectID = "0if-sx-CqV"; */
 "0if-sx-CqV.text" = "Ma note";
 
-/* Class = "UILabel"; text = "Similar movies"; ObjectID = "56C-sN-fTI"; */
+/* Class = "UILabel"; text = "Films similaires"; ObjectID = "56C-sN-fTI"; */
 "56C-sN-fTI.text" = "Films similaires";
 
 /* Class = "UILabel"; text = "Title"; ObjectID = "5Ba-rA-JbP"; */
 "5Ba-rA-JbP.text" = "Title";
 
+/* Class = "UILabel"; text = "Error"; ObjectID = "5iz-Jy-Ojl"; */
+"5iz-Jy-Ojl.text" = "Error";
+
 /* Class = "UILabel"; text = "Subtitle"; ObjectID = "5sj-fL-Jv4"; */
 "5sj-fL-Jv4.text" = "Subtitle";
+
+/* Class = "UIButton"; normalTitle = "Retry"; ObjectID = "7rw-g2-Asg"; */
+"7rw-g2-Asg.normalTitle" = "Réessayer";
 
 /* Class = "UILabel"; text = "Subtitle"; ObjectID = "CO9-da-apb"; */
 "CO9-da-apb.text" = "Subtitle";
 
 /* Class = "UILabel"; text = "Label"; ObjectID = "KPh-6A-3Ak"; */
 "KPh-6A-3Ak.text" = "Label";
+
+/* Class = "UILabel"; text = "Error"; ObjectID = "Myy-V2-gFT"; */
+"Myy-V2-gFT.text" = "Error";
 
 /* Class = "UILabel"; text = "Title"; ObjectID = "NUz-Y3-dxt"; */
 "NUz-Y3-dxt.text" = "Title";
@@ -28,6 +37,9 @@
 
 /* Class = "UILabel"; text = "Label ★★★☆☆"; ObjectID = "fon-6G-AUB"; */
 "fon-6G-AUB.text" = "Label ★★★☆☆";
+
+/* Class = "UIButton"; normalTitle = "Retry"; ObjectID = "kRJ-SS-osf"; */
+"kRJ-SS-osf.normalTitle" = "Réessayer";
 
 /* Class = "UILabel"; text = "Synopsis"; ObjectID = "pdg-T3-AuE"; */
 "pdg-T3-AuE.text" = "Synopsis";

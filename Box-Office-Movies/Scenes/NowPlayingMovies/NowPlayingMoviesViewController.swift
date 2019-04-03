@@ -10,6 +10,7 @@ import UIKit
 
 protocol NowPlayingMoviesDisplayLogic: class {
     func displayNowPlayingMovies(viewModel: NowPlayingMovies.FetchNowPlayingMovies.ViewModel)
+    func displayNextPage(viewModel: NowPlayingMovies.FetchNextPage.ViewModel)
     func displayFilterMovies(viewModel: NowPlayingMovies.FilterMovies.ViewModel)
     func displayRefreshMovies(viewModel: NowPlayingMovies.RefreshMovies.ViewModel)
 }
@@ -18,6 +19,7 @@ class NowPlayingMoviesViewController: UIViewController {
     // MARK: Instance Properties
     var interactor: NowPlayingMoviesBusinessLogic?
     var router: (NSObjectProtocol & NowPlayingMoviesRoutingLogic & NowPlayingMoviesDataPassing)?
+    var hasError = false
     
     var movieItems: [MovieItem]? {
         didSet {
@@ -25,8 +27,8 @@ class NowPlayingMoviesViewController: UIViewController {
             DispatchQueue.main.async {
                 self.selectFirstItem()
                 
-                let shouldFetchNextPage = self.nowPlayingMoviesTableView.visibleCells.count == self.movieItems?.count
-                if shouldFetchNextPage {
+                let areAllCellsVisible = self.nowPlayingMoviesTableView.visibleCells.count == self.movieItems?.count
+                if areAllCellsVisible && !self.hasError {
                     self.fetchNextPage()
                 }
             }
@@ -37,7 +39,8 @@ class NowPlayingMoviesViewController: UIViewController {
     let searchController = UISearchController(searchResultsController: nil)
 
     @IBOutlet weak var nowPlayingMoviesTableView: UITableView!
-    
+    @IBOutlet weak var errorStackView: ErrorStackView!
+
     // MARK: Object Life Cycle
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -120,7 +123,12 @@ private extension NowPlayingMoviesViewController {
     }
     
     func fetchNextPage() {
-        fetchNowPlayingMovies()
+        let shouldFetchNextPage = presentedViewController == nil
+        if shouldFetchNextPage {
+            UIApplication.shared.isNetworkActivityIndicatorVisible = true
+            let request = NowPlayingMovies.FetchNextPage.Request()
+            interactor?.fetchNextPage(request: request)
+        }
     }
     
     func selectFirstItem() {
@@ -142,6 +150,10 @@ private extension NowPlayingMoviesViewController {
             }
         }
     }
+    
+    @IBAction func errorActionButtonPressed() {
+        fetchNowPlayingMovies()
+    }
 }
 
 // MARK: - Display Logic
@@ -149,6 +161,22 @@ extension NowPlayingMoviesViewController: NowPlayingMoviesDisplayLogic {
     
     func displayNowPlayingMovies(viewModel: NowPlayingMovies.FetchNowPlayingMovies.ViewModel) {
         movieItems = viewModel.movieItems
+        hasError = !viewModel.shouldHideErrorView
+        errorStackView.isHidden = viewModel.shouldHideErrorView
+        errorStackView.errorDescription = viewModel.errorDescription
+        UIApplication.shared.isNetworkActivityIndicatorVisible = false
+    }
+    
+    func displayNextPage(viewModel: NowPlayingMovies.FetchNextPage.ViewModel) {
+        movieItems = viewModel.movieItems
+        hasError = !viewModel.shouldPresentErrorAlert
+        if viewModel.shouldPresentErrorAlert {
+            let alertController = UIAlertController(title: viewModel.errorAlertTitle, message: viewModel.errorAlertMessage, preferredStyle: viewModel.errorAlertStyle)
+            viewModel.errorAlertActions.forEach { alertAction in
+                alertController.addAction(alertAction)
+            }
+            present(alertController, animated: true)
+        }
         UIApplication.shared.isNetworkActivityIndicatorVisible = false
     }
     
@@ -159,6 +187,16 @@ extension NowPlayingMoviesViewController: NowPlayingMoviesDisplayLogic {
     func displayRefreshMovies(viewModel: NowPlayingMovies.RefreshMovies.ViewModel) {
         movieItems = viewModel.movieItems
         nowPlayingMoviesTableView.refreshControl?.endRefreshing()
+        
+        hasError = !viewModel.shouldPresentErrorAlert
+        if viewModel.shouldPresentErrorAlert {
+            let alertController = UIAlertController(title: viewModel.errorAlertTitle, message: viewModel.errorAlertMessage, preferredStyle: viewModel.errorAlertStyle)
+            viewModel.errorAlertActions.forEach { alertAction in
+                alertController.addAction(alertAction)
+            }
+            present(alertController, animated: true)
+        }
+        UIApplication.shared.isNetworkActivityIndicatorVisible = false
     }
 }
 

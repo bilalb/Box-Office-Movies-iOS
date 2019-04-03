@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		9C4935EA224A95CD00359378 /* AdditionalInformationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C4935E9224A95CD00359378 /* AdditionalInformationTableViewCell.swift */; };
+		9C648806225538D900A1541F /* ErrorStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C648805225538D900A1541F /* ErrorStackView.swift */; };
 		9C90009522510AE600399CF3 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9C90009722510AE600399CF3 /* Localizable.strings */; };
 		9CDC95DA2243FFB10051925E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CDC95D92243FFB10051925E /* AppDelegate.swift */; };
 		9CDC95E12243FFB10051925E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9CDC95DF2243FFB10051925E /* Main.storyboard */; };
@@ -61,9 +62,9 @@
 
 /* Begin PBXFileReference section */
 		9C4935E9224A95CD00359378 /* AdditionalInformationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdditionalInformationTableViewCell.swift; sourceTree = "<group>"; };
-		9C90008C2251097600399CF3 /* fr */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = fr; path = fr.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		9C900091225109A900399CF3 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
-		9C900092225109B300399CF3 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Main.strings; sourceTree = "<group>"; };
+		9C52ABBF2254D94A00D8C22E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
+		9C52ABC12254D99500D8C22E /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Main.strings; sourceTree = "<group>"; };
+		9C648805225538D900A1541F /* ErrorStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorStackView.swift; sourceTree = "<group>"; };
 		9C90009622510AE600399CF3 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		9C90009822510AEA00399CF3 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		9CDC95D62243FFB10051925E /* Box-Office-Movies.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Box-Office-Movies.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -128,6 +129,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9C648804225538C300A1541F /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				9C648805225538D900A1541F /* ErrorStackView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		9CDC95CD2243FFB10051925E = {
 			isa = PBXGroup;
 			children = (
@@ -159,6 +168,7 @@
 				9C90009722510AE600399CF3 /* Localizable.strings */,
 				9CDC95DF2243FFB10051925E /* Main.storyboard */,
 				9CDC96492247C2B20051925E /* Scenes */,
+				9C648804225538C300A1541F /* Views */,
 			);
 			path = "Box-Office-Movies";
 			sourceTree = "<group>";
@@ -431,6 +441,7 @@
 				9CDC96102244034B0051925E /* NetworkRequest.swift in Sources */,
 				9CDC96652247DA510051925E /* MovieDetails+SceneSetup.swift in Sources */,
 				9CDC96532247C2DE0051925E /* NowPlayingMoviesRouter.swift in Sources */,
+				9C648806225538D900A1541F /* ErrorStackView.swift in Sources */,
 				9CDC9631224650B70051925E /* CastingNetworkRequest.swift in Sources */,
 				9CDC9633224651770051925E /* Casting.swift in Sources */,
 				9CDC963922468F120051925E /* PaginatedMovieList.swift in Sources */,
@@ -471,8 +482,8 @@
 			isa = PBXVariantGroup;
 			children = (
 				9CDC95E02243FFB10051925E /* Base */,
-				9C900091225109A900399CF3 /* en */,
-				9C900092225109B300399CF3 /* fr */,
+				9C52ABBF2254D94A00D8C22E /* en */,
+				9C52ABC12254D99500D8C22E /* fr */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -481,7 +492,6 @@
 			isa = PBXVariantGroup;
 			children = (
 				9CDC95E52243FFB30051925E /* Base */,
-				9C90008C2251097600399CF3 /* fr */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -612,6 +622,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = MU48Q96H48;
 				INFOPLIST_FILE = "Box-Office-Movies/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -629,6 +640,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = MU48Q96H48;
 				INFOPLIST_FILE = "Box-Office-Movies/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

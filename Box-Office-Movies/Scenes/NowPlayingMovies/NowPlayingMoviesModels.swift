@@ -16,10 +16,32 @@ enum NowPlayingMovies {
         
         struct Response {
             let movies: [Movie]?
+            let error: Error?
         }
         
         struct ViewModel {
-            var movieItems: [MovieItem]?
+            let movieItems: [MovieItem]?
+            let shouldHideErrorView: Bool
+            let errorDescription: String?
+        }
+    }
+    
+    enum FetchNextPage {
+        
+        struct Request { }
+        
+        struct Response {
+            let movies: [Movie]?
+            let error: Error?
+        }
+        
+        struct ViewModel {
+            let movieItems: [MovieItem]?
+            let shouldPresentErrorAlert: Bool
+            let errorAlertTitle: String?
+            let errorAlertMessage: String?
+            let errorAlertStyle: UIAlertController.Style
+            let errorAlertActions: [UIAlertAction]
         }
     }
     
@@ -45,10 +67,16 @@ enum NowPlayingMovies {
         
         struct Response {
             let movies: [Movie]?
+            let error: Error?
         }
         
         struct ViewModel {
-            var movieItems: [MovieItem]?
+            let movieItems: [MovieItem]?
+            let shouldPresentErrorAlert: Bool
+            let errorAlertTitle: String?
+            let errorAlertMessage: String?
+            let errorAlertStyle: UIAlertController.Style
+            let errorAlertActions: [UIAlertAction]
         }
     }
 }

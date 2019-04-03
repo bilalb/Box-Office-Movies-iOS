@@ -213,15 +213,40 @@
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="FX0-DX-h40">
                                 <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                             </activityIndicatorView>
+                            <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Vzv-AE-9ZV" customClass="ErrorStackView" customModule="Box_Office_Movies" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="340.5" width="375" height="50.5"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MOL-Yw-Wko">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hnR-Gq-dUU">
+                                        <rect key="frame" x="0.0" y="20.5" width="375" height="30"/>
+                                        <state key="normal" title="Button"/>
+                                        <connections>
+                                            <action selector="errorActionButtonPressed" destination="tv7-ki-w9G" eventType="touchUpInside" id="qUg-GA-ZRD"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <connections>
+                                    <outlet property="descriptionLabel" destination="MOL-Yw-Wko" id="lQ5-nT-aen"/>
+                                    <outlet property="retryButton" destination="hnR-Gq-dUU" id="OQl-gU-tsQ"/>
+                                </connections>
+                            </stackView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="Vzv-AE-9ZV" firstAttribute="centerY" secondItem="prS-A0-1ow" secondAttribute="centerY" id="1VC-Ir-e4E"/>
                             <constraint firstItem="FX0-DX-h40" firstAttribute="top" secondItem="prS-A0-1ow" secondAttribute="top" id="Gmo-GV-P79"/>
                             <constraint firstItem="prS-A0-1ow" firstAttribute="trailing" secondItem="FX0-DX-h40" secondAttribute="trailing" id="LcJ-D5-2Fd"/>
+                            <constraint firstItem="Vzv-AE-9ZV" firstAttribute="leading" secondItem="prS-A0-1ow" secondAttribute="leading" id="URL-BG-WMn"/>
                             <constraint firstItem="XXe-ET-kIn" firstAttribute="leading" secondItem="prS-A0-1ow" secondAttribute="leading" id="Xy9-PT-m4b"/>
                             <constraint firstItem="XXe-ET-kIn" firstAttribute="top" secondItem="prS-A0-1ow" secondAttribute="top" id="b0H-ZN-x09"/>
                             <constraint firstItem="prS-A0-1ow" firstAttribute="bottom" secondItem="XXe-ET-kIn" secondAttribute="bottom" id="cYQ-lN-fER"/>
                             <constraint firstItem="FX0-DX-h40" firstAttribute="leading" secondItem="prS-A0-1ow" secondAttribute="leading" id="iZI-Lg-FEQ"/>
+                            <constraint firstItem="prS-A0-1ow" firstAttribute="trailing" secondItem="Vzv-AE-9ZV" secondAttribute="trailing" id="nDC-l0-6Te"/>
                             <constraint firstItem="prS-A0-1ow" firstAttribute="trailing" secondItem="XXe-ET-kIn" secondAttribute="trailing" id="txr-4u-MOR"/>
                             <constraint firstItem="prS-A0-1ow" firstAttribute="bottom" secondItem="FX0-DX-h40" secondAttribute="bottom" id="vpS-CE-WaT"/>
                         </constraints>
@@ -231,6 +256,7 @@
                     <connections>
                         <outlet property="activityIndicatorView" destination="FX0-DX-h40" id="pbR-AF-Oyi"/>
                         <outlet property="detailItemsTableView" destination="XXe-ET-kIn" id="DJ6-pF-AMs"/>
+                        <outlet property="errorStackView" destination="Vzv-AE-9ZV" id="XBa-qi-vit"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hKI-Bd-Sgn" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -275,7 +301,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="342" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="NUz-Y3-dxt">
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="NUz-Y3-dxt">
                                                     <rect key="frame" x="15" y="0.0" width="325" height="43.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -294,10 +320,35 @@
                                     <outlet property="delegate" destination="0bP-UP-42v" id="XbZ-ed-sGe"/>
                                 </connections>
                             </tableView>
+                            <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="n3u-tl-o0d" customClass="ErrorStackView" customModule="Box_Office_Movies" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="340.5" width="375" height="50.5"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="43j-YF-UC7">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ox2-Ga-rXu">
+                                        <rect key="frame" x="0.0" y="20.5" width="375" height="30"/>
+                                        <state key="normal" title="Button"/>
+                                        <connections>
+                                            <action selector="errorActionButtonPressed" destination="0bP-UP-42v" eventType="touchUpInside" id="KJq-5r-YcO"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <connections>
+                                    <outlet property="descriptionLabel" destination="43j-YF-UC7" id="3uz-rD-ogl"/>
+                                    <outlet property="retryButton" destination="ox2-Ga-rXu" id="tbs-T9-IgG"/>
+                                </connections>
+                            </stackView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="n3u-tl-o0d" firstAttribute="centerY" secondItem="yo0-iK-Gkw" secondAttribute="centerY" id="0eg-cM-Uwf"/>
+                            <constraint firstItem="yo0-iK-Gkw" firstAttribute="trailing" secondItem="n3u-tl-o0d" secondAttribute="trailing" id="5J6-1A-AH1"/>
                             <constraint firstItem="yo0-iK-Gkw" firstAttribute="trailing" secondItem="iCU-Se-4Gs" secondAttribute="trailing" id="8F1-kW-L8z"/>
+                            <constraint firstItem="n3u-tl-o0d" firstAttribute="leading" secondItem="yo0-iK-Gkw" secondAttribute="leading" id="BxF-3W-7Us"/>
                             <constraint firstItem="iCU-Se-4Gs" firstAttribute="top" secondItem="yo0-iK-Gkw" secondAttribute="top" id="Liq-Mz-SHj"/>
                             <constraint firstItem="yo0-iK-Gkw" firstAttribute="bottom" secondItem="iCU-Se-4Gs" secondAttribute="bottom" id="U5h-jO-Xnb"/>
                             <constraint firstItem="iCU-Se-4Gs" firstAttribute="leading" secondItem="yo0-iK-Gkw" secondAttribute="leading" id="nOC-l5-PAp"/>
@@ -306,6 +357,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="qsn-Tk-b9h"/>
                     <connections>
+                        <outlet property="errorStackView" destination="n3u-tl-o0d" id="Tnt-cm-r09"/>
                         <outlet property="nowPlayingMoviesTableView" destination="iCU-Se-4Gs" id="Skq-hx-twv"/>
                     </connections>
                 </viewController>

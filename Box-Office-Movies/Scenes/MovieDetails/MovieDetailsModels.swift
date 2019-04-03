@@ -19,10 +19,13 @@ enum MovieDetailsScene {
             let casting: Casting?
             let paginatedSimilarMovieLists: [PaginatedMovieList]?
             let posterImage: UIImage?
+            let error: Error?
         }
         
         struct ViewModel {
             let detailItems: [DetailItem]?
+            let shouldHideErrorView: Bool
+            let errorDescription: String?
         }
     }
     

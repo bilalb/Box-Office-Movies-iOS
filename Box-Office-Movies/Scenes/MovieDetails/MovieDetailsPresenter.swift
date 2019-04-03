@@ -22,58 +22,39 @@ extension MovieDetailsPresenter: MovieDetailsPresentationLogic {
     
     func presentMovieDetails(response: MovieDetailsScene.FetchMovieDetails.Response) {
         DispatchQueue.main.async {
-            guard let movieDetails = response.movieDetails else { return }
+            
+            func displayMovieDetails(detailItems: [DetailItem]?, shouldHideErrorView: Bool, errorDescription: String?) {
+                let viewModel = MovieDetailsScene.FetchMovieDetails.ViewModel(detailItems: detailItems, shouldHideErrorView: shouldHideErrorView, errorDescription: errorDescription)
+                self.viewController?.displayMovieDetails(viewModel: viewModel)
+            }
+            
+            guard response.error == nil else {
+                let errorDescription = response.error?.localizedDescription
+                displayMovieDetails(detailItems: nil, shouldHideErrorView: false, errorDescription: errorDescription)
+                return
+            }
+            
+            guard let movieDetails = response.movieDetails else {
+                displayMovieDetails(detailItems: nil, shouldHideErrorView: false, errorDescription: nil)
+                return
+            }
             
             let titleItem = DetailItem.title(title: movieDetails.title)
-            
             let additionalInformationDetailItem = self.additionalInformationItem(for: movieDetails, posterImage: response.posterImage)
-            
             let reviewMovieItem = DetailItem.reviewMovie(review: NSLocalizedString("review", comment: "review"))
-            
             var detailItems = [titleItem, additionalInformationDetailItem, reviewMovieItem]
             
-            var synopsisItem: DetailItem? {
-                guard let synopsis = movieDetails.synopsis, !synopsis.isEmpty else {
-                    return nil
-                }
-                return DetailItem.synopsis(synopsis: synopsis)
+            if let synopsisDetailItem = self.synopsisItem(for: movieDetails.synopsis) {
+                detailItems.append(synopsisDetailItem)
             }
-            if let synopsisItem = synopsisItem {
-                detailItems.append(synopsisItem)
+            if let castingDetailItem = self.castingItem(for: response.casting) {
+                detailItems.append(castingDetailItem)
             }
-            
-            var castingItem: DetailItem? {
-                var actors = ""
-                response.casting?.actors.forEach({ (actor) in
-                    actors.append(withSeparator: ", ", other: actor.name)
-                })
-                guard !actors.isEmpty else {
-                    return nil
-                }
-                return DetailItem.casting(actors: actors)
-            }
-            if let castingItem = castingItem {
-                detailItems.append(castingItem)
+            if let similarMoviesDetailItem = self.similarMoviesItem(for: response.paginatedSimilarMovieLists) {
+                detailItems.append(similarMoviesDetailItem)
             }
             
-            var similarMoviesItem: DetailItem? {
-                var similarMovies = ""
-                response.paginatedSimilarMovieLists?.forEach({ (paginatedSimilarMovieList) in
-                    paginatedSimilarMovieList.movies.forEach({ (movie) in
-                        similarMovies.append(withSeparator: ", ", other: movie.title)
-                    })
-                })
-                guard !similarMovies.isEmpty else {
-                    return nil
-                }
-                return DetailItem.similarMovies(similarMovies: similarMovies)
-            }
-            if let similarMoviesItem = similarMoviesItem {
-                detailItems.append(similarMoviesItem)
-            }
-            
-            let viewModel = MovieDetailsScene.FetchMovieDetails.ViewModel(detailItems: detailItems)
-            self.viewController?.displayMovieDetails(viewModel: viewModel)
+            displayMovieDetails(detailItems: detailItems, shouldHideErrorView: true, errorDescription: nil)
         }
     }
     
@@ -134,6 +115,37 @@ extension MovieDetailsPresenter {
         }
         
         return DetailItem.additionalInformation(posterImage: posterImage, releaseDateAttributedText: releaseDateAttributedString, voteAverageAttributedText: voteAverageAttributedString)
+    }
+    
+    func synopsisItem(for synopsis: String?) -> DetailItem? {
+        guard let synopsis = synopsis, !synopsis.isEmpty else {
+            return nil
+        }
+        return DetailItem.synopsis(synopsis: synopsis)
+    }
+    
+    func castingItem(for casting: Casting?) -> DetailItem? {
+        var actors = ""
+        casting?.actors.forEach({ (actor) in
+            actors.append(withSeparator: ", ", other: actor.name)
+        })
+        guard !actors.isEmpty else {
+            return nil
+        }
+        return DetailItem.casting(actors: actors)
+    }
+    
+    func similarMoviesItem(for paginatedSimilarMovieLists: [PaginatedMovieList]?) -> DetailItem? {
+        var similarMovies = ""
+        paginatedSimilarMovieLists?.forEach({ (paginatedSimilarMovieList) in
+            paginatedSimilarMovieList.movies.forEach({ (movie) in
+                similarMovies.append(withSeparator: ", ", other: movie.title)
+            })
+        })
+        guard !similarMovies.isEmpty else {
+            return nil
+        }
+        return DetailItem.similarMovies(similarMovies: similarMovies)
     }
 }
 

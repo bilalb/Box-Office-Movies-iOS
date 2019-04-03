@@ -15,6 +15,11 @@ struct Constants {
         static let theMovieDatabaseAPIKey = "6fe58cfe35fd07801b2de4f97e7cd1c8"
     }
     
+    struct Network {
+        static let timeoutIntervalForRequest: TimeInterval = 3
+        static let timeoutIntervalForResource: TimeInterval = 5
+    }
+    
     struct NowPlayingMoviesNetworkRequest {
         static let path = "movie/now_playing?language=%@&region=%@&page=%d&api_key=%@"
     }

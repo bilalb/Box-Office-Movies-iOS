@@ -40,6 +40,8 @@ class NetworkController: NetworkControlling {
     
     required init(environment: Environment) {
         defaultSession = URLSession(configuration: .default)
+        defaultSession?.configuration.timeoutIntervalForRequest = Constants.Network.timeoutIntervalForRequest
+        defaultSession?.configuration.timeoutIntervalForResource = Constants.Network.timeoutIntervalForResource
         self.environment = environment
     }
     

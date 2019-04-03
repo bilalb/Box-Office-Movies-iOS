@@ -27,6 +27,7 @@ class MovieDetailsViewController: UIViewController {
     
     @IBOutlet weak var detailItemsTableView: UITableView!
     @IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!
+    @IBOutlet weak var errorStackView: ErrorStackView!
 
     // MARK: Object Life Cycle
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
@@ -63,6 +64,12 @@ private extension MovieDetailsViewController {
         let request = MovieDetailsScene.ReviewMovie.Request(movieReview: movieReview)
         interactor?.reviewMovie(request: request)
     }
+    
+    @IBAction func errorActionButtonPressed() {
+        fetchMovieDetails()
+        activityIndicatorView.startAnimating()
+        errorStackView.isHidden = true
+    }
 }
 
 // MARK: - Display Logic
@@ -73,6 +80,9 @@ extension MovieDetailsViewController: MovieDetailsDisplayLogic {
             detailItems.append(contentsOf: items)
         }
         activityIndicatorView.stopAnimating()
+        
+        errorStackView.isHidden = viewModel.shouldHideErrorView
+        errorStackView.errorDescription = viewModel.errorDescription
     }
     
     func displayMovieReviews(viewModel: MovieDetailsScene.LoadMovieReviews.ViewModel) {
