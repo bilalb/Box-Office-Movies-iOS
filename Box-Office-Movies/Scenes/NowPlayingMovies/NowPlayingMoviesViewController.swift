@@ -37,7 +37,9 @@ class NowPlayingMoviesViewController: UIViewController {
     let searchController = UISearchController(searchResultsController: nil)
 
     @IBOutlet weak var nowPlayingMoviesTableView: UITableView!
-    
+    @IBOutlet weak var errorView: UIView!
+    @IBOutlet weak var errorLabel: UILabel!
+
     // MARK: Object Life Cycle
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)

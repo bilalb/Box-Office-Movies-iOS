@@ -7,6 +7,7 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="Stack View standard spacing" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -213,15 +214,36 @@
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="FX0-DX-h40">
                                 <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                             </activityIndicatorView>
+                            <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" axis="vertical" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="nok-sA-ejn">
+                                <rect key="frame" x="0.0" y="336.5" width="375" height="58.5"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Error" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5iz-Jy-Ojl">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7rw-g2-Asg">
+                                        <rect key="frame" x="0.0" y="28.5" width="375" height="30"/>
+                                        <state key="normal" title="Retry"/>
+                                        <connections>
+                                            <action selector="errorActionButtonPressed" destination="tv7-ki-w9G" eventType="touchUpInside" id="KIM-Zx-LAU"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="nok-sA-ejn" firstAttribute="centerY" secondItem="prS-A0-1ow" secondAttribute="centerY" id="BOY-xX-ZcE"/>
+                            <constraint firstItem="prS-A0-1ow" firstAttribute="trailing" secondItem="nok-sA-ejn" secondAttribute="trailing" id="FeR-1f-0hm"/>
                             <constraint firstItem="FX0-DX-h40" firstAttribute="top" secondItem="prS-A0-1ow" secondAttribute="top" id="Gmo-GV-P79"/>
                             <constraint firstItem="prS-A0-1ow" firstAttribute="trailing" secondItem="FX0-DX-h40" secondAttribute="trailing" id="LcJ-D5-2Fd"/>
                             <constraint firstItem="XXe-ET-kIn" firstAttribute="leading" secondItem="prS-A0-1ow" secondAttribute="leading" id="Xy9-PT-m4b"/>
                             <constraint firstItem="XXe-ET-kIn" firstAttribute="top" secondItem="prS-A0-1ow" secondAttribute="top" id="b0H-ZN-x09"/>
                             <constraint firstItem="prS-A0-1ow" firstAttribute="bottom" secondItem="XXe-ET-kIn" secondAttribute="bottom" id="cYQ-lN-fER"/>
                             <constraint firstItem="FX0-DX-h40" firstAttribute="leading" secondItem="prS-A0-1ow" secondAttribute="leading" id="iZI-Lg-FEQ"/>
+                            <constraint firstItem="nok-sA-ejn" firstAttribute="leading" secondItem="prS-A0-1ow" secondAttribute="leading" id="pip-wz-G5t"/>
                             <constraint firstItem="prS-A0-1ow" firstAttribute="trailing" secondItem="XXe-ET-kIn" secondAttribute="trailing" id="txr-4u-MOR"/>
                             <constraint firstItem="prS-A0-1ow" firstAttribute="bottom" secondItem="FX0-DX-h40" secondAttribute="bottom" id="vpS-CE-WaT"/>
                         </constraints>
@@ -231,6 +253,8 @@
                     <connections>
                         <outlet property="activityIndicatorView" destination="FX0-DX-h40" id="pbR-AF-Oyi"/>
                         <outlet property="detailItemsTableView" destination="XXe-ET-kIn" id="DJ6-pF-AMs"/>
+                        <outlet property="errorLabel" destination="5iz-Jy-Ojl" id="gPR-xM-GV5"/>
+                        <outlet property="errorView" destination="nok-sA-ejn" id="hbX-d9-PJl"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hKI-Bd-Sgn" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -294,18 +318,42 @@
                                     <outlet property="delegate" destination="0bP-UP-42v" id="XbZ-ed-sGe"/>
                                 </connections>
                             </tableView>
+                            <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" axis="vertical" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="zSU-cc-bRf">
+                                <rect key="frame" x="0.0" y="336.5" width="375" height="58.5"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Error" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Myy-V2-gFT">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kRJ-SS-osf">
+                                        <rect key="frame" x="0.0" y="28.5" width="375" height="30"/>
+                                        <state key="normal" title="Retry"/>
+                                        <connections>
+                                            <action selector="errorActionButtonPressed" destination="tv7-ki-w9G" eventType="touchUpInside" id="GbN-Uw-NVD"/>
+                                            <action selector="errorActionButtonPressed" destination="0bP-UP-42v" eventType="touchUpInside" id="kJ2-7h-GCZ"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="zSU-cc-bRf" firstAttribute="centerY" secondItem="yo0-iK-Gkw" secondAttribute="centerY" id="1qc-EG-ais"/>
                             <constraint firstItem="yo0-iK-Gkw" firstAttribute="trailing" secondItem="iCU-Se-4Gs" secondAttribute="trailing" id="8F1-kW-L8z"/>
                             <constraint firstItem="iCU-Se-4Gs" firstAttribute="top" secondItem="yo0-iK-Gkw" secondAttribute="top" id="Liq-Mz-SHj"/>
+                            <constraint firstItem="zSU-cc-bRf" firstAttribute="leading" secondItem="yo0-iK-Gkw" secondAttribute="leading" id="Mu7-pS-PHg"/>
                             <constraint firstItem="yo0-iK-Gkw" firstAttribute="bottom" secondItem="iCU-Se-4Gs" secondAttribute="bottom" id="U5h-jO-Xnb"/>
+                            <constraint firstItem="yo0-iK-Gkw" firstAttribute="trailing" secondItem="zSU-cc-bRf" secondAttribute="trailing" id="ZyD-if-TUN"/>
                             <constraint firstItem="iCU-Se-4Gs" firstAttribute="leading" secondItem="yo0-iK-Gkw" secondAttribute="leading" id="nOC-l5-PAp"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="yo0-iK-Gkw"/>
                     </view>
                     <navigationItem key="navigationItem" id="qsn-Tk-b9h"/>
                     <connections>
+                        <outlet property="errorLabel" destination="Myy-V2-gFT" id="cg4-21-gyv"/>
+                        <outlet property="errorView" destination="zSU-cc-bRf" id="EDh-f3-rCr"/>
                         <outlet property="nowPlayingMoviesTableView" destination="iCU-Se-4Gs" id="Skq-hx-twv"/>
                     </connections>
                 </viewController>

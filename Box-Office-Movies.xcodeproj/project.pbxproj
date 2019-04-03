@@ -61,9 +61,8 @@
 
 /* Begin PBXFileReference section */
 		9C4935E9224A95CD00359378 /* AdditionalInformationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdditionalInformationTableViewCell.swift; sourceTree = "<group>"; };
-		9C90008C2251097600399CF3 /* fr */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = fr; path = fr.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		9C900091225109A900399CF3 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
-		9C900092225109B300399CF3 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Main.strings; sourceTree = "<group>"; };
+		9C52ABBF2254D94A00D8C22E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
+		9C52ABC12254D99500D8C22E /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Main.strings; sourceTree = "<group>"; };
 		9C90009622510AE600399CF3 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		9C90009822510AEA00399CF3 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		9CDC95D62243FFB10051925E /* Box-Office-Movies.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Box-Office-Movies.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -471,8 +470,8 @@
 			isa = PBXVariantGroup;
 			children = (
 				9CDC95E02243FFB10051925E /* Base */,
-				9C900091225109A900399CF3 /* en */,
-				9C900092225109B300399CF3 /* fr */,
+				9C52ABBF2254D94A00D8C22E /* en */,
+				9C52ABC12254D99500D8C22E /* fr */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -481,7 +480,6 @@
 			isa = PBXVariantGroup;
 			children = (
 				9CDC95E52243FFB30051925E /* Base */,
-				9C90008C2251097600399CF3 /* fr */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";

@@ -27,6 +27,8 @@ class MovieDetailsViewController: UIViewController {
     
     @IBOutlet weak var detailItemsTableView: UITableView!
     @IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!
+    @IBOutlet weak var errorView: UIView!
+    @IBOutlet weak var errorLabel: UILabel!
 
     // MARK: Object Life Cycle
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
