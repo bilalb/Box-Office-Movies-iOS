@@ -16,6 +16,7 @@ protocol NowPlayingMoviesDataStore {
 
 protocol NowPlayingMoviesBusinessLogic {
     func fetchNowPlayingMovies(request: NowPlayingMovies.FetchNowPlayingMovies.Request)
+    func fetchNextPage(request: NowPlayingMovies.FetchNextPage.Request)
     func filterMovies(request: NowPlayingMovies.FilterMovies.Request)
     func refreshMovies(request: NowPlayingMovies.RefreshMovies.Request)
 }
@@ -34,6 +35,13 @@ class NowPlayingMoviesInteractor: NowPlayingMoviesDataStore {
 extension NowPlayingMoviesInteractor: NowPlayingMoviesBusinessLogic {
     
     func fetchNowPlayingMovies(request: NowPlayingMovies.FetchNowPlayingMovies.Request) {
+        fetchNowPlayingMovies { [weak self] error in
+            let response = NowPlayingMovies.FetchNowPlayingMovies.Response(movies: self?.movies, error: error)
+            self?.presenter?.presentNowPlayingMovies(response: response)
+        }
+    }
+    
+    func fetchNextPage(request: NowPlayingMovies.FetchNextPage.Request) {
         var shouldFetch = paginatedMovieLists.isEmpty
         if let totalPages = paginatedMovieLists.last?.totalPages {
             shouldFetch = page <= totalPages
@@ -44,17 +52,9 @@ extension NowPlayingMoviesInteractor: NowPlayingMoviesBusinessLogic {
             return
         }
         
-        fetchNowPlayingMovies { [weak self] (paginatedMovieList, _) in
-            if let paginatedMovieList = paginatedMovieList {
-                self?.paginatedMovieLists.append(paginatedMovieList)
-                self?.page += 1
-            }
-            self?.movies.removeAll()
-            self?.paginatedMovieLists.forEach({ (paginatedMovieList) in
-                self?.movies.append(contentsOf: paginatedMovieList.movies)
-            })
-            let response = NowPlayingMovies.FetchNowPlayingMovies.Response(movies: self?.movies)
-            self?.presenter?.presentNowPlayingMovies(response: response)
+        fetchNowPlayingMovies { [weak self] error in
+            let response = NowPlayingMovies.FetchNextPage.Response(movies: self?.movies, error: error)
+            self?.presenter?.presentNextPage(response: response)
         }
     }
     
@@ -80,15 +80,8 @@ extension NowPlayingMoviesInteractor: NowPlayingMoviesBusinessLogic {
         filteredMovies.removeAll()
         isFiltering = false
         
-        fetchNowPlayingMovies { [weak self] (paginatedMovieList, _) in
-            if let paginatedMovieList = paginatedMovieList {
-                self?.paginatedMovieLists.append(paginatedMovieList)
-                self?.page += 1
-            }
-            self?.paginatedMovieLists.forEach({ (paginatedMovieList) in
-                self?.movies.append(contentsOf: paginatedMovieList.movies)
-            })
-            let response = NowPlayingMovies.RefreshMovies.Response(movies: self?.movies)
+        fetchNowPlayingMovies { [weak self] error in
+            let response = NowPlayingMovies.RefreshMovies.Response(movies: self?.movies, error: error)
             self?.presenter?.presentRefreshMovies(response: response)
         }
     }
@@ -96,9 +89,21 @@ extension NowPlayingMoviesInteractor: NowPlayingMoviesBusinessLogic {
 
 extension NowPlayingMoviesInteractor {
     
-    func fetchNowPlayingMovies(completionHandler: NowPlayingMoviesCompletionHandler?) {
+    typealias MoviesCompletionHandler = (_ error: Error?) -> Void
+
+    func fetchNowPlayingMovies(completionHandler: MoviesCompletionHandler?) {
         let languageCode = Locale.current.languageCode ?? Constants.Fallback.languageCode
         let regionCode = Locale.current.regionCode ?? Constants.Fallback.regionCode
-        ManagerProvider.sharedInstance.movieManager.nowPlayingMovies(languageCode: languageCode, regionCode: regionCode, page: page, completionHandler: completionHandler)
+        ManagerProvider.sharedInstance.movieManager.nowPlayingMovies(languageCode: languageCode, regionCode: regionCode, page: page) { [weak self] (paginatedMovieList, error) in
+            if let paginatedMovieList = paginatedMovieList {
+                self?.paginatedMovieLists.append(paginatedMovieList)
+                self?.page += 1
+            }
+            self?.movies.removeAll()
+            self?.paginatedMovieLists.forEach({ (paginatedMovieList) in
+                self?.movies.append(contentsOf: paginatedMovieList.movies)
+            })
+            completionHandler?(error)
+        }
     }
 }

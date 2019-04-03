@@ -10,6 +10,7 @@ import UIKit
 
 protocol NowPlayingMoviesPresentationLogic {
     func presentNowPlayingMovies(response: NowPlayingMovies.FetchNowPlayingMovies.Response)
+    func presentNextPage(response: NowPlayingMovies.FetchNextPage.Response)
     func presentFilterMovies(response: NowPlayingMovies.FilterMovies.Response)
     func presentRefreshMovies(response: NowPlayingMovies.RefreshMovies.Response)
 }
@@ -25,8 +26,28 @@ extension NowPlayingMoviesPresenter: NowPlayingMoviesPresentationLogic {
             let movieItems = response.movies?.compactMap({ movie -> MovieItem in
                 return MovieItem(title: movie.title)
             })
-            let viewModel = NowPlayingMovies.FetchNowPlayingMovies.ViewModel(movieItems: movieItems)
+            let shouldHideErrorView = response.error == nil
+            let errorDescription = response.error?.localizedDescription
+            let viewModel = NowPlayingMovies.FetchNowPlayingMovies.ViewModel(movieItems: movieItems, shouldHideErrorView: shouldHideErrorView, errorDescription: errorDescription)
             self.viewController?.displayNowPlayingMovies(viewModel: viewModel)
+        }
+    }
+    
+    func presentNextPage(response: NowPlayingMovies.FetchNextPage.Response) {
+        DispatchQueue.main.async {
+            let movieItems = response.movies?.compactMap({ movie -> MovieItem in
+                return MovieItem(title: movie.title)
+            })
+            let shouldPresentErrorAlert = response.error != nil
+            let errorAlertMessage = response.error?.localizedDescription
+            let errorAlertCancelAction = UIAlertAction(title: NSLocalizedString("cancel", comment: "cancel"), style: .cancel)
+            let viewModel = NowPlayingMovies.FetchNextPage.ViewModel(movieItems: movieItems,
+                                                                     shouldPresentErrorAlert: shouldPresentErrorAlert,
+                                                                     errorAlertTitle: nil,
+                                                                     errorAlertMessage: errorAlertMessage,
+                                                                     errorAlertStyle: .alert,
+                                                                     errorAlertCancelAction: errorAlertCancelAction)
+            self.viewController?.displayNextPage(viewModel: viewModel)
         }
     }
     
@@ -43,7 +64,15 @@ extension NowPlayingMoviesPresenter: NowPlayingMoviesPresentationLogic {
             let movieItems = response.movies?.compactMap({ movie -> MovieItem in
                 return MovieItem(title: movie.title)
             })
-            let viewModel = NowPlayingMovies.RefreshMovies.ViewModel(movieItems: movieItems)
+            let shouldPresentErrorAlert = response.error != nil
+            let errorAlertMessage = response.error?.localizedDescription
+            let errorAlertCancelAction = UIAlertAction(title: NSLocalizedString("cancel", comment: "cancel"), style: .cancel)
+            let viewModel = NowPlayingMovies.RefreshMovies.ViewModel(movieItems: movieItems,
+                                                                     shouldPresentErrorAlert: shouldPresentErrorAlert,
+                                                                     errorAlertTitle: nil,
+                                                                     errorAlertMessage: errorAlertMessage,
+                                                                     errorAlertStyle: .alert,
+                                                                     errorAlertCancelAction: errorAlertCancelAction)
             self.viewController?.displayRefreshMovies(viewModel: viewModel)
         }
     }
