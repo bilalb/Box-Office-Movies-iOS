@@ -25,11 +25,11 @@ class NowPlayingMoviesViewController: UIViewController {
         didSet {
             nowPlayingMoviesTableView.reloadData()
             DispatchQueue.main.async {
-                self.selectFirstItem()
-                
                 let areAllCellsVisible = self.nowPlayingMoviesTableView.visibleCells.count == self.movieItems?.count
                 if areAllCellsVisible && !self.hasError {
                     self.fetchNextPage()
+                } else {
+                    self.selectFirstItem()
                 }
             }
         }
@@ -137,7 +137,7 @@ private extension NowPlayingMoviesViewController {
             guard movieItems?.indices.contains(indexPathForFirstRow.row) == true else {
                 return
             }
-            nowPlayingMoviesTableView.selectRow(at: indexPathForFirstRow, animated: true, scrollPosition: .top)
+            nowPlayingMoviesTableView.selectRow(at: indexPathForFirstRow, animated: true, scrollPosition: .none)
             indexPathForSelectedRow = nowPlayingMoviesTableView.indexPathForSelectedRow
             performSegue(withIdentifier: Constants.SegueIdentifier.movieDetails, sender: nil)
         }
