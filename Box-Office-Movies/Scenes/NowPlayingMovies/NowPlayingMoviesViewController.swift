@@ -39,8 +39,7 @@ class NowPlayingMoviesViewController: UIViewController {
     let searchController = UISearchController(searchResultsController: nil)
 
     @IBOutlet weak var nowPlayingMoviesTableView: UITableView!
-    @IBOutlet weak var errorView: UIView!
-    @IBOutlet weak var errorLabel: UILabel!
+    @IBOutlet weak var errorStackView: ErrorStackView!
 
     // MARK: Object Life Cycle
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
@@ -163,8 +162,8 @@ extension NowPlayingMoviesViewController: NowPlayingMoviesDisplayLogic {
     func displayNowPlayingMovies(viewModel: NowPlayingMovies.FetchNowPlayingMovies.ViewModel) {
         movieItems = viewModel.movieItems
         hasError = !viewModel.shouldHideErrorView
-        errorView.isHidden = viewModel.shouldHideErrorView
-        errorLabel.text = viewModel.errorDescription
+        errorStackView.isHidden = viewModel.shouldHideErrorView
+        errorStackView.errorDescription = viewModel.errorDescription
         UIApplication.shared.isNetworkActivityIndicatorVisible = false
     }
     
