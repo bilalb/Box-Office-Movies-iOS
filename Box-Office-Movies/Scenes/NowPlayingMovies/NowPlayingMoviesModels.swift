@@ -41,7 +41,7 @@ enum NowPlayingMovies {
             let errorAlertTitle: String?
             let errorAlertMessage: String?
             let errorAlertStyle: UIAlertController.Style
-            let errorAlertCancelAction: UIAlertAction
+            let errorAlertActions: [UIAlertAction]
         }
     }
     
@@ -76,7 +76,7 @@ enum NowPlayingMovies {
             let errorAlertTitle: String?
             let errorAlertMessage: String?
             let errorAlertStyle: UIAlertController.Style
-            let errorAlertCancelAction: UIAlertAction
+            let errorAlertActions: [UIAlertAction]
         }
     }
 }

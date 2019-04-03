@@ -40,13 +40,13 @@ extension NowPlayingMoviesPresenter: NowPlayingMoviesPresentationLogic {
             })
             let shouldPresentErrorAlert = response.error != nil
             let errorAlertMessage = response.error?.localizedDescription
-            let errorAlertCancelAction = UIAlertAction(title: NSLocalizedString("cancel", comment: "cancel"), style: .cancel)
+            let errorAlertActions = [UIAlertAction(title: NSLocalizedString("ok", comment: "ok"), style: .cancel)]
             let viewModel = NowPlayingMovies.FetchNextPage.ViewModel(movieItems: movieItems,
                                                                      shouldPresentErrorAlert: shouldPresentErrorAlert,
                                                                      errorAlertTitle: nil,
                                                                      errorAlertMessage: errorAlertMessage,
                                                                      errorAlertStyle: .alert,
-                                                                     errorAlertCancelAction: errorAlertCancelAction)
+                                                                     errorAlertActions: errorAlertActions)
             self.viewController?.displayNextPage(viewModel: viewModel)
         }
     }
@@ -66,13 +66,13 @@ extension NowPlayingMoviesPresenter: NowPlayingMoviesPresentationLogic {
             })
             let shouldPresentErrorAlert = response.error != nil
             let errorAlertMessage = response.error?.localizedDescription
-            let errorAlertCancelAction = UIAlertAction(title: NSLocalizedString("cancel", comment: "cancel"), style: .cancel)
+            let errorAlertActions = [UIAlertAction(title: NSLocalizedString("ok", comment: "ok"), style: .cancel)]
             let viewModel = NowPlayingMovies.RefreshMovies.ViewModel(movieItems: movieItems,
                                                                      shouldPresentErrorAlert: shouldPresentErrorAlert,
                                                                      errorAlertTitle: nil,
                                                                      errorAlertMessage: errorAlertMessage,
                                                                      errorAlertStyle: .alert,
-                                                                     errorAlertCancelAction: errorAlertCancelAction)
+                                                                     errorAlertActions: errorAlertActions)
             self.viewController?.displayRefreshMovies(viewModel: viewModel)
         }
     }

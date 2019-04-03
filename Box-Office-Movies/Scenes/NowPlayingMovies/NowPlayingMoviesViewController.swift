@@ -173,7 +173,9 @@ extension NowPlayingMoviesViewController: NowPlayingMoviesDisplayLogic {
         hasError = !viewModel.shouldPresentErrorAlert
         if viewModel.shouldPresentErrorAlert {
             let alertController = UIAlertController(title: viewModel.errorAlertTitle, message: viewModel.errorAlertMessage, preferredStyle: viewModel.errorAlertStyle)
-            alertController.addAction(viewModel.errorAlertCancelAction)
+            viewModel.errorAlertActions.forEach { alertAction in
+                alertController.addAction(alertAction)
+            }
             present(alertController, animated: true)
         }
         UIApplication.shared.isNetworkActivityIndicatorVisible = false
@@ -190,7 +192,9 @@ extension NowPlayingMoviesViewController: NowPlayingMoviesDisplayLogic {
         hasError = !viewModel.shouldPresentErrorAlert
         if viewModel.shouldPresentErrorAlert {
             let alertController = UIAlertController(title: viewModel.errorAlertTitle, message: viewModel.errorAlertMessage, preferredStyle: viewModel.errorAlertStyle)
-            alertController.addAction(viewModel.errorAlertCancelAction)
+            viewModel.errorAlertActions.forEach { alertAction in
+                alertController.addAction(alertAction)
+            }
             present(alertController, animated: true)
         }
         UIApplication.shared.isNetworkActivityIndicatorVisible = false
