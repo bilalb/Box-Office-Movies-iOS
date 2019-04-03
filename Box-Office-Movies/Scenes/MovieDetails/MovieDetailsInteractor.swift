@@ -33,21 +33,38 @@ extension MovieDetailsInteractor: MovieDetailsBusinessLogic {
         guard movieIdentifier != nil else {
             return
         }
-        fetchAPIConfiguration { [weak self] (apiConfiguration, _) in
-            self?.fetchDetails { [weak self] (movieDetails, _) in
-                self?.fetchCasting { [weak self] (casting, _) in
-                    self?.fetchSimilarMovies { [weak self] (paginatedSimilarMovieList, _) in
+        fetchAPIConfiguration { [weak self] (apiConfiguration, error) in
+            
+            func presentMovieDetails(movieDetails: MovieDetails?, casting: Casting?, paginatedSimilarMovieLists: [PaginatedMovieList]?, posterImage: UIImage?, error: Error?) {
+                let response = MovieDetailsScene.FetchMovieDetails.Response(movieDetails: movieDetails,
+                                                                            casting: casting,
+                                                                            paginatedSimilarMovieLists: paginatedSimilarMovieLists,
+                                                                            posterImage: posterImage,
+                                                                            error: error)
+                self?.presenter?.presentMovieDetails(response: response)
+            }
+            
+            guard error == nil else {
+                presentMovieDetails(movieDetails: nil, casting: nil, paginatedSimilarMovieLists: nil, posterImage: nil, error: error)
+                return
+            }
+            
+            self?.fetchDetails { [weak self] (movieDetails, error) in
+                guard error == nil else {
+                    presentMovieDetails(movieDetails: movieDetails, casting: nil, paginatedSimilarMovieLists: nil, posterImage: nil, error: error)
+                    return
+                }
+                
+                self?.fetchCasting { [weak self] (casting, error) in
+                    guard error == nil else {
+                        presentMovieDetails(movieDetails: movieDetails, casting: casting, paginatedSimilarMovieLists: nil, posterImage: nil, error: error)
+                        return
+                    }
+                    
+                    self?.fetchSimilarMovies { [weak self] (paginatedSimilarMovieList, error) in
                         if let paginatedSimilarMovieList = paginatedSimilarMovieList {
                             self?.paginatedSimilarMovieLists.append(paginatedSimilarMovieList)
                             self?.similarMoviePage += 1
-                        }
-                        
-                        func presentMovieDetails(movieDetails: MovieDetails?, casting: Casting?, paginatedSimilarMovieLists: [PaginatedMovieList]?, posterImage: UIImage?) {
-                            let response = MovieDetailsScene.FetchMovieDetails.Response(movieDetails: movieDetails,
-                                                                                        casting: casting,
-                                                                                        paginatedSimilarMovieLists: self?.paginatedSimilarMovieLists,
-                                                                                        posterImage: posterImage)
-                            self?.presenter?.presentMovieDetails(response: response)
                         }
                         
                         guard let imageSecureBaseURLPath = apiConfiguration?.imageData.secureBaseUrl,
@@ -56,14 +73,16 @@ extension MovieDetailsInteractor: MovieDetailsBusinessLogic {
                             presentMovieDetails(movieDetails: movieDetails,
                                                 casting: casting,
                                                 paginatedSimilarMovieLists: self?.paginatedSimilarMovieLists,
-                                                posterImage: nil)
+                                                posterImage: nil,
+                                                error: error)
                             return
                         }
-                        self?.fetchPosterImage(imageSecureBaseURLPath: imageSecureBaseURLPath, posterPath: posterPath) { [weak self] (posterImage, _) in
+                        self?.fetchPosterImage(imageSecureBaseURLPath: imageSecureBaseURLPath, posterPath: posterPath) { [weak self] (posterImage, error) in
                             presentMovieDetails(movieDetails: movieDetails,
                                                 casting: casting,
                                                 paginatedSimilarMovieLists: self?.paginatedSimilarMovieLists,
-                                                posterImage: posterImage)
+                                                posterImage: posterImage,
+                                                error: error)
                         }
                     }
                 }
