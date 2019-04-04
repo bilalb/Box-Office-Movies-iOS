@@ -43,23 +43,4 @@ struct Constants {
     struct SimilarMoviesNetworkRequest {
         static let path = "movie/%d/similar?language=%@&page=%d&api_key=%@"
     }
-    
-    struct Fallback {
-        static let languageCode = "en-US"
-        static let regionCode = "US"
-        static let posterImageSize = "w185"
-    }
-    
-    struct CellIdentifier {
-        static let movieTableViewCell = "MovieTableViewCell"
-        static let titleTableViewCell = "TitleTableViewCell"
-        static let reviewMovieTableViewCell = "ReviewMovieTableViewCell"
-        static let synopsisTableViewCell = "SynopsisTableViewCell"
-        static let castingTableViewCell =  "CastingTableViewCell"
-        static let similarMoviesTableViewCell = "SimilarMoviesTableViewCell"
-    }
-    
-    struct SegueIdentifier {
-        static let movieDetails = "MovieDetails"
-    }
 }
