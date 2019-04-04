@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workspace
+   version = "1.0">
+   <FileRef
+      location = "group:Box-Office-Movies/Box-Office-Movies.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:Box-Office-Movies-Core/Box-Office-Movies-Core.xcodeproj">
+   </FileRef>
+</Workspace>
