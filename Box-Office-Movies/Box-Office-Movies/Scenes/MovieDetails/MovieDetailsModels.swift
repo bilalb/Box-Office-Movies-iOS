@@ -6,6 +6,7 @@
 //  Copyrights © 2019 Bilal Benlarbi. All rights reserved.
 //
 
+import Box_Office_Movies_Core
 import UIKit
 
 enum MovieDetailsScene {

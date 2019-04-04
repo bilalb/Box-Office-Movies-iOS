@@ -19,6 +19,7 @@
 //  Removing this copyright statement is also a violation.
 
 @testable import Box_Office_Movies
+import Box_Office_Movies_Core
 import XCTest
 
 class NowPlayingMoviesInteractorTests: XCTestCase {
