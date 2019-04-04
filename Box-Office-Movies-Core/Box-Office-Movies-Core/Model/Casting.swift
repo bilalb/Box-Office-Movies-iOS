@@ -8,19 +8,27 @@
 
 import Foundation
 
-struct Casting: Codable {
+public struct Casting: Codable {
     
-    let actors: [Actor]
+    public let actors: [Actor]
     
     private enum CodingKeys: String, CodingKey {
         case actors = "cast"
+    }
+    
+    public init(actors: [Actor]) {
+        self.actors = actors
     }
 }
 
 extension Casting {
     
-    struct Actor: Codable {
+    public struct Actor: Codable {
         
-        let name: String
+        public let name: String
+        
+        public init(name: String) {
+            self.name = name
+        }
     }
 }

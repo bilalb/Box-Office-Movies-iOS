@@ -8,16 +8,16 @@
 
 import Foundation
 
-protocol ManagerProviding {
+public protocol ManagerProviding {
     
-    var movieManager: MovieManager! { get }
+    var movieManager: MovieManagement! { get }
 }
 
-class ManagerProvider: ManagerProviding {
+public class ManagerProvider: ManagerProviding {
     
-    static var sharedInstance: ManagerProviding = ManagerProvider()
+    public static var sharedInstance: ManagerProviding = ManagerProvider()
     
-    var movieManager: MovieManager!
+    public var movieManager: MovieManagement!
     
     init() {
         let environment = Environment(theMovieDatabaseAPIBaseUrl: Constants.Environment.theMovieDatabaseAPIBaseUrl, theMovieDatabaseAPIKey: Constants.Environment.theMovieDatabaseAPIKey)

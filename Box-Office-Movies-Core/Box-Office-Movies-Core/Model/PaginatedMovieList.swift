@@ -8,15 +8,21 @@
 
 import Foundation
 
-struct PaginatedMovieList: Codable {
+public struct PaginatedMovieList: Codable {
     
     let page: Int
-    let totalPages: Int
-    let movies: [Movie]
+    public let totalPages: Int
+    public let movies: [Movie]
     
     private enum CodingKeys: String, CodingKey {
         case page = "page"
         case totalPages = "total_pages"
         case movies = "results"
+    }
+    
+    public init(page: Int, totalPages: Int, movies: [Movie]) {
+        self.page = page
+        self.totalPages = totalPages
+        self.movies = movies
     }
 }

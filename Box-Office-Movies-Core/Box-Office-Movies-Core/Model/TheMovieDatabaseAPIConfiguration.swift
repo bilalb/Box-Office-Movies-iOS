@@ -8,9 +8,9 @@
 
 import Foundation
 
-struct TheMovieDatabaseAPIConfiguration: Codable {
+public struct TheMovieDatabaseAPIConfiguration: Codable {
 
-    let imageData: ImageData
+    public let imageData: ImageData
     
     private enum CodingKeys: String, CodingKey {
         case imageData = "images"
@@ -19,10 +19,10 @@ struct TheMovieDatabaseAPIConfiguration: Codable {
 
 extension TheMovieDatabaseAPIConfiguration {
     
-    struct ImageData: Codable {
+    public struct ImageData: Codable {
         
-        let secureBaseUrl: String
-        let posterSizes: [String]
+        public let secureBaseUrl: String
+        public let posterSizes: [String]
         
         private enum CodingKeys: String, CodingKey {
             case secureBaseUrl = "secure_base_url"

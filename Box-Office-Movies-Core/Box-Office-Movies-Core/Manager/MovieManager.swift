@@ -14,44 +14,44 @@ import UIKit
 /// - Parameters:
 ///   - paginatedMovieList: The response returned by the call.
 ///   - error: The error encountered while executing or validating the request.
-typealias NowPlayingMoviesCompletionHandler = (_ paginatedMovieList: PaginatedMovieList?, _ error: Error?) -> Void
+public typealias NowPlayingMoviesCompletionHandler = (_ paginatedMovieList: PaginatedMovieList?, _ error: Error?) -> Void
 
 /// Completion handler of the movie details.
 ///
 /// - Parameters:
 ///   - movieDetails: The movie details returned by the call.
 ///   - error: The error encountered while executing or validating the request.
-typealias MovieDetailsCompletionHandler = (_ movieDetails: MovieDetails?, _ error: Error?) -> Void
+public typealias MovieDetailsCompletionHandler = (_ movieDetails: MovieDetails?, _ error: Error?) -> Void
 
 /// Completion handler of the poster.
 ///
 /// - Parameters:
 ///   - poster: The poster returned by the call.
 ///   - error: The error encountered while executing or validating the request.
-typealias PosterCompletionHandler = (_ poster: UIImage?, _ error: Error?) -> Void
+public typealias PosterCompletionHandler = (_ poster: UIImage?, _ error: Error?) -> Void
 
 /// Completion handler of the configuration of The Movie Database API.
 ///
 /// - Parameters:
 ///   - configuration: The configuration returned by the call.
 ///   - error: The error encountered while executing or validating the request.
-typealias TheMovieDatabaseAPIConfigurationCompletionHandler = (_ configuration: TheMovieDatabaseAPIConfiguration?, _ error: Error?) -> Void
+public typealias TheMovieDatabaseAPIConfigurationCompletionHandler = (_ configuration: TheMovieDatabaseAPIConfiguration?, _ error: Error?) -> Void
 
 /// Completion handler of the casting of a movie.
 ///
 /// - Parameters:
 ///   - casting: The casting returned by the call.
 ///   - error: The error encountered while executing or validating the request.
-typealias CastingCompletionHandler = (_ casting: Casting?, _ error: Error?) -> Void
+public typealias CastingCompletionHandler = (_ casting: Casting?, _ error: Error?) -> Void
 
 /// Completion handler of the similar movies.
 ///
 /// - Parameters:
 ///   - paginatedSimilarMovieList: The response returned by the call.
 ///   - error: The error encountered while executing or validating the request.
-typealias SimilarMoviesCompletionHandler = (_ paginatedSimilarMovieList: PaginatedMovieList?, _ error: Error?) -> Void
+public typealias SimilarMoviesCompletionHandler = (_ paginatedSimilarMovieList: PaginatedMovieList?, _ error: Error?) -> Void
 
-protocol MovieManagement {
+public protocol MovieManagement {
     
     /// Fetches the list of movies now playing in theatres.
     ///

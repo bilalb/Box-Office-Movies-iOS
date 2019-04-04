@@ -9,20 +9,20 @@
 import Foundation
 
 /// Primary information about a movie.
-struct MovieDetails: Codable {
+public struct MovieDetails: Codable {
     
     let identifier: Int
-    let title: String
+    public let title: String
     
     /// The String representation of the release date of the movie. For example: `"1999-10-12"`.
-    let releaseDate: String
+    public let releaseDate: String
     
     /// Vote average of the movie from 0 to 10. For example: `7.8`.
-    let voteAverage: Double
-    let synopsis: String?
+    public let voteAverage: Double
+    public let synopsis: String?
     
     /// Path to the poster of the movie. For example: `"/AtsgWhDnHTq68L0lLsUrCnM7TjG.jpg"`.
-    let posterPath: String?
+    public let posterPath: String?
     
     private enum CodingKeys: String, CodingKey {
         case identifier = "id"
@@ -31,5 +31,14 @@ struct MovieDetails: Codable {
         case voteAverage = "vote_average"
         case synopsis = "overview"
         case posterPath = "poster_path"
+    }
+    
+    public init(identifier: Int, title: String, releaseDate: String, voteAverage: Double, synopsis: String?, posterPath: String?) {
+        self.identifier = identifier
+        self.title = title
+        self.releaseDate = releaseDate
+        self.voteAverage = voteAverage
+        self.synopsis = synopsis
+        self.posterPath = posterPath
     }
 }

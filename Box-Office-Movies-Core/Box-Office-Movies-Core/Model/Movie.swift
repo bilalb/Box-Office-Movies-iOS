@@ -9,16 +9,21 @@
 import Foundation
 
 /// Movie.
-struct Movie: Codable {
+public struct Movie: Codable {
     
     /// Identifier of the movie. For example: `299537`.
-    let identifier: Int
+    public let identifier: Int
     
     /// Title of the movie. For example: `"Captain Marvel"`.
-    let title: String
+    public let title: String
     
     private enum CodingKeys: String, CodingKey {
         case identifier = "id"
         case title = "title"
+    }
+    
+    public init(identifier: Int, title: String) {
+        self.identifier = identifier
+        self.title = title
     }
 }
