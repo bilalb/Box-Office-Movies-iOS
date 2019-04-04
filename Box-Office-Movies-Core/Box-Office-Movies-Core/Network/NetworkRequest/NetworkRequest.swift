@@ -1,6 +1,6 @@
 //
 //  NetworkRequest.swift
-//  Box-Office-Movies
+//  Box-Office-Movies-Core
 //
 //  Created by Bilal Benlarbi on 24.03.2019.
 //  Copyrights © 2019 Bilal Benlarbi. All rights reserved.

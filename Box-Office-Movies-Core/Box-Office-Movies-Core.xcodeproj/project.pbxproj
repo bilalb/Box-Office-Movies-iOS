@@ -10,6 +10,24 @@
 		9C5AD05422568597009CC78A /* Box_Office_Movies_Core.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C5AD04A22568597009CC78A /* Box_Office_Movies_Core.framework */; };
 		9C5AD05922568597009CC78A /* Box_Office_Movies_CoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C5AD05822568597009CC78A /* Box_Office_Movies_CoreTests.swift */; };
 		9C5AD05B22568597009CC78A /* Box_Office_Movies_Core.h in Headers */ = {isa = PBXBuildFile; fileRef = 9C5AD04D22568597009CC78A /* Box_Office_Movies_Core.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		9C5AD08E22568812009CC78A /* MovieManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C5AD07A22568812009CC78A /* MovieManager.swift */; };
+		9C5AD08F22568812009CC78A /* ManagerProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C5AD07B22568812009CC78A /* ManagerProvider.swift */; };
+		9C5AD09022568812009CC78A /* CastingNetworkRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C5AD07E22568812009CC78A /* CastingNetworkRequest.swift */; };
+		9C5AD09122568812009CC78A /* NowPlayingMoviesNetworkRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C5AD07F22568812009CC78A /* NowPlayingMoviesNetworkRequest.swift */; };
+		9C5AD09222568812009CC78A /* SimilarMoviesNetworkRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C5AD08022568812009CC78A /* SimilarMoviesNetworkRequest.swift */; };
+		9C5AD09322568812009CC78A /* MovieDetailsNetworkRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C5AD08122568812009CC78A /* MovieDetailsNetworkRequest.swift */; };
+		9C5AD09422568812009CC78A /* TheMovieDatabaseAPIConfigurationNetworkRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C5AD08222568812009CC78A /* TheMovieDatabaseAPIConfigurationNetworkRequest.swift */; };
+		9C5AD09522568812009CC78A /* PosterNetworkRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C5AD08322568812009CC78A /* PosterNetworkRequest.swift */; };
+		9C5AD09622568812009CC78A /* NetworkRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C5AD08422568812009CC78A /* NetworkRequest.swift */; };
+		9C5AD09722568812009CC78A /* MovieNetworkController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C5AD08522568812009CC78A /* MovieNetworkController.swift */; };
+		9C5AD09822568812009CC78A /* Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C5AD08622568812009CC78A /* Environment.swift */; };
+		9C5AD09922568812009CC78A /* NetworkController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C5AD08722568812009CC78A /* NetworkController.swift */; };
+		9C5AD09A22568812009CC78A /* MovieDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C5AD08922568812009CC78A /* MovieDetails.swift */; };
+		9C5AD09B22568812009CC78A /* Movie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C5AD08A22568812009CC78A /* Movie.swift */; };
+		9C5AD09C22568812009CC78A /* PaginatedMovieList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C5AD08B22568812009CC78A /* PaginatedMovieList.swift */; };
+		9C5AD09D22568812009CC78A /* Casting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C5AD08C22568812009CC78A /* Casting.swift */; };
+		9C5AD09E22568812009CC78A /* TheMovieDatabaseAPIConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C5AD08D22568812009CC78A /* TheMovieDatabaseAPIConfiguration.swift */; };
+		9C5AD0AB22568A63009CC78A /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C5AD0AA22568A63009CC78A /* Constants.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,6 +47,24 @@
 		9C5AD05322568597009CC78A /* Box-Office-Movies-CoreTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Box-Office-Movies-CoreTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9C5AD05822568597009CC78A /* Box_Office_Movies_CoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Box_Office_Movies_CoreTests.swift; sourceTree = "<group>"; };
 		9C5AD05A22568597009CC78A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9C5AD07A22568812009CC78A /* MovieManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovieManager.swift; sourceTree = "<group>"; };
+		9C5AD07B22568812009CC78A /* ManagerProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManagerProvider.swift; sourceTree = "<group>"; };
+		9C5AD07E22568812009CC78A /* CastingNetworkRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CastingNetworkRequest.swift; sourceTree = "<group>"; };
+		9C5AD07F22568812009CC78A /* NowPlayingMoviesNetworkRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NowPlayingMoviesNetworkRequest.swift; sourceTree = "<group>"; };
+		9C5AD08022568812009CC78A /* SimilarMoviesNetworkRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimilarMoviesNetworkRequest.swift; sourceTree = "<group>"; };
+		9C5AD08122568812009CC78A /* MovieDetailsNetworkRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovieDetailsNetworkRequest.swift; sourceTree = "<group>"; };
+		9C5AD08222568812009CC78A /* TheMovieDatabaseAPIConfigurationNetworkRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TheMovieDatabaseAPIConfigurationNetworkRequest.swift; sourceTree = "<group>"; };
+		9C5AD08322568812009CC78A /* PosterNetworkRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PosterNetworkRequest.swift; sourceTree = "<group>"; };
+		9C5AD08422568812009CC78A /* NetworkRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkRequest.swift; sourceTree = "<group>"; };
+		9C5AD08522568812009CC78A /* MovieNetworkController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovieNetworkController.swift; sourceTree = "<group>"; };
+		9C5AD08622568812009CC78A /* Environment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Environment.swift; sourceTree = "<group>"; };
+		9C5AD08722568812009CC78A /* NetworkController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkController.swift; sourceTree = "<group>"; };
+		9C5AD08922568812009CC78A /* MovieDetails.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovieDetails.swift; sourceTree = "<group>"; };
+		9C5AD08A22568812009CC78A /* Movie.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Movie.swift; sourceTree = "<group>"; };
+		9C5AD08B22568812009CC78A /* PaginatedMovieList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaginatedMovieList.swift; sourceTree = "<group>"; };
+		9C5AD08C22568812009CC78A /* Casting.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Casting.swift; sourceTree = "<group>"; };
+		9C5AD08D22568812009CC78A /* TheMovieDatabaseAPIConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TheMovieDatabaseAPIConfiguration.swift; sourceTree = "<group>"; };
+		9C5AD0AA22568A63009CC78A /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,7 +108,11 @@
 			isa = PBXGroup;
 			children = (
 				9C5AD04D22568597009CC78A /* Box_Office_Movies_Core.h */,
+				9C5AD0AA22568A63009CC78A /* Constants.swift */,
 				9C5AD04E22568597009CC78A /* Info.plist */,
+				9C5AD07922568812009CC78A /* Manager */,
+				9C5AD08822568812009CC78A /* Model */,
+				9C5AD07C22568812009CC78A /* Network */,
 			);
 			path = "Box-Office-Movies-Core";
 			sourceTree = "<group>";
@@ -84,6 +124,52 @@
 				9C5AD05A22568597009CC78A /* Info.plist */,
 			);
 			path = "Box-Office-Movies-CoreTests";
+			sourceTree = "<group>";
+		};
+		9C5AD07922568812009CC78A /* Manager */ = {
+			isa = PBXGroup;
+			children = (
+				9C5AD07B22568812009CC78A /* ManagerProvider.swift */,
+				9C5AD07A22568812009CC78A /* MovieManager.swift */,
+			);
+			path = Manager;
+			sourceTree = "<group>";
+		};
+		9C5AD07C22568812009CC78A /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				9C5AD08622568812009CC78A /* Environment.swift */,
+				9C5AD08522568812009CC78A /* MovieNetworkController.swift */,
+				9C5AD08722568812009CC78A /* NetworkController.swift */,
+				9C5AD07D22568812009CC78A /* NetworkRequest */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		9C5AD07D22568812009CC78A /* NetworkRequest */ = {
+			isa = PBXGroup;
+			children = (
+				9C5AD07E22568812009CC78A /* CastingNetworkRequest.swift */,
+				9C5AD07F22568812009CC78A /* NowPlayingMoviesNetworkRequest.swift */,
+				9C5AD08022568812009CC78A /* SimilarMoviesNetworkRequest.swift */,
+				9C5AD08122568812009CC78A /* MovieDetailsNetworkRequest.swift */,
+				9C5AD08222568812009CC78A /* TheMovieDatabaseAPIConfigurationNetworkRequest.swift */,
+				9C5AD08322568812009CC78A /* PosterNetworkRequest.swift */,
+				9C5AD08422568812009CC78A /* NetworkRequest.swift */,
+			);
+			path = NetworkRequest;
+			sourceTree = "<group>";
+		};
+		9C5AD08822568812009CC78A /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				9C5AD08C22568812009CC78A /* Casting.swift */,
+				9C5AD08A22568812009CC78A /* Movie.swift */,
+				9C5AD08922568812009CC78A /* MovieDetails.swift */,
+				9C5AD08B22568812009CC78A /* PaginatedMovieList.swift */,
+				9C5AD08D22568812009CC78A /* TheMovieDatabaseAPIConfiguration.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -194,6 +280,24 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9C5AD09B22568812009CC78A /* Movie.swift in Sources */,
+				9C5AD09D22568812009CC78A /* Casting.swift in Sources */,
+				9C5AD09222568812009CC78A /* SimilarMoviesNetworkRequest.swift in Sources */,
+				9C5AD09E22568812009CC78A /* TheMovieDatabaseAPIConfiguration.swift in Sources */,
+				9C5AD08F22568812009CC78A /* ManagerProvider.swift in Sources */,
+				9C5AD09C22568812009CC78A /* PaginatedMovieList.swift in Sources */,
+				9C5AD09122568812009CC78A /* NowPlayingMoviesNetworkRequest.swift in Sources */,
+				9C5AD09022568812009CC78A /* CastingNetworkRequest.swift in Sources */,
+				9C5AD09A22568812009CC78A /* MovieDetails.swift in Sources */,
+				9C5AD09322568812009CC78A /* MovieDetailsNetworkRequest.swift in Sources */,
+				9C5AD09522568812009CC78A /* PosterNetworkRequest.swift in Sources */,
+				9C5AD09422568812009CC78A /* TheMovieDatabaseAPIConfigurationNetworkRequest.swift in Sources */,
+				9C5AD09822568812009CC78A /* Environment.swift in Sources */,
+				9C5AD09922568812009CC78A /* NetworkController.swift in Sources */,
+				9C5AD09722568812009CC78A /* MovieNetworkController.swift in Sources */,
+				9C5AD09622568812009CC78A /* NetworkRequest.swift in Sources */,
+				9C5AD08E22568812009CC78A /* MovieManager.swift in Sources */,
+				9C5AD0AB22568A63009CC78A /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -268,7 +372,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -326,7 +430,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -389,6 +493,7 @@
 		9C5AD06222568597009CC78A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = "Box-Office-Movies-CoreTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -406,6 +511,7 @@
 		9C5AD06322568597009CC78A /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = "Box-Office-Movies-CoreTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (

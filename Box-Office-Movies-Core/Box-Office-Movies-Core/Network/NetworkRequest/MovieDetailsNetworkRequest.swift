@@ -1,6 +1,6 @@
 //
-//  NowPlayingMoviesNetworkRequest.swift
-//  Box-Office-Movies
+//  MovieDetailsNetworkRequest.swift
+//  Box-Office-Movies-Core
 //
 //  Created by Bilal Benlarbi on 24.03.2019.
 //  Copyrights © 2019 Bilal Benlarbi. All rights reserved.
@@ -8,24 +8,24 @@
 
 import Foundation
 
-class NowPlayingMoviesNetworkRequest: NetworkRequest {
+class MovieDetailsNetworkRequest: NetworkRequest {
     
+    let identifier: Int
     let languageCode: String
     let regionCode: String
-    let page: Int
     
-    init(environment: Environment, languageCode: String, regionCode: String, page: Int) {
+    init(environment: Environment, identifier: Int, languageCode: String, regionCode: String) {
+        self.identifier = identifier
         self.languageCode = languageCode
         self.regionCode = regionCode
-        self.page = page
         super.init(environment: environment)
     }
     
     override func urlString() -> String {
-        let path = String(format: Constants.NowPlayingMoviesNetworkRequest.path,
+        let path = String(format: Constants.MovieDetailsNetworkRequest.path,
+                          identifier,
                           languageCode,
                           regionCode,
-                          page,
                           environment.theMovieDatabaseAPIKey)
         return environment.theMovieDatabaseAPIBaseUrl.appending(path)
     }
