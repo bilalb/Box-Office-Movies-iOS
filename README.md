@@ -14,6 +14,7 @@ English, French.
 ## Development
 Developed in Swift 5.
 Based on a custom clean architecture.
+Core business logic handled by `Box-Office-Movies-Core`.
 
 ## API
 This application uses [The Movie Database (TMDb) API](https://developers.themoviedb.org/).
