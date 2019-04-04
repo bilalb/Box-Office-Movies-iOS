@@ -169,7 +169,7 @@ extension NowPlayingMoviesViewController: NowPlayingMoviesDisplayLogic {
     
     func displayNextPage(viewModel: NowPlayingMovies.FetchNextPage.ViewModel) {
         movieItems = viewModel.movieItems
-        hasError = !viewModel.shouldPresentErrorAlert
+        hasError = viewModel.shouldPresentErrorAlert
         if viewModel.shouldPresentErrorAlert {
             let alertController = UIAlertController(title: viewModel.errorAlertTitle, message: viewModel.errorAlertMessage, preferredStyle: viewModel.errorAlertStyle)
             viewModel.errorAlertActions.forEach { alertAction in
@@ -188,7 +188,7 @@ extension NowPlayingMoviesViewController: NowPlayingMoviesDisplayLogic {
         movieItems = viewModel.movieItems
         nowPlayingMoviesTableView.refreshControl?.endRefreshing()
         
-        hasError = !viewModel.shouldPresentErrorAlert
+        hasError = viewModel.shouldPresentErrorAlert
         if viewModel.shouldPresentErrorAlert {
             let alertController = UIAlertController(title: viewModel.errorAlertTitle, message: viewModel.errorAlertMessage, preferredStyle: viewModel.errorAlertStyle)
             viewModel.errorAlertActions.forEach { alertAction in
