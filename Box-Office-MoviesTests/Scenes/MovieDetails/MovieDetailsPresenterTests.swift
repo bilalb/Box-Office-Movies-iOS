@@ -97,7 +97,7 @@ class MovieDetailsPresenterTests: XCTestCase {
         sut.presentMovieDetails(response: response)
         
         // Then
-        wait(for: [spy.displayMovieDetailsExpectation], timeout: 0.3)
+        wait(for: [spy.displayMovieDetailsExpectation], timeout: 0.1)
     }
     
     func testPresentMovieReviews() {

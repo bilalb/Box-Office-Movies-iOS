@@ -280,7 +280,7 @@
         <!--Box office movies-->
         <scene sceneID="ZKT-aR-Gdg">
             <objects>
-                <viewController id="0bP-UP-42v" customClass="NowPlayingMoviesViewController" customModule="Box_Office_Movies" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="NowPlayingMoviesViewController" id="0bP-UP-42v" customClass="NowPlayingMoviesViewController" customModule="Box_Office_Movies" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="5RM-E8-Xwe">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
