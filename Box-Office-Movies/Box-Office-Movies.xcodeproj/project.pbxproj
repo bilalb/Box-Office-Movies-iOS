@@ -14,6 +14,7 @@
 		9C5AD03B22566826009CC78A /* NowPlayingMoviesViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C5AD03822566826009CC78A /* NowPlayingMoviesViewControllerTests.swift */; };
 		9C5AD03C22566826009CC78A /* NowPlayingMoviesInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C5AD03922566826009CC78A /* NowPlayingMoviesInteractorTests.swift */; };
 		9C5AD03D22566826009CC78A /* NowPlayingMoviesPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C5AD03A22566826009CC78A /* NowPlayingMoviesPresenterTests.swift */; };
+		9C5AD0AE22568AD0009CC78A /* Box_Office_Movies_Core.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C5AD0AD22568AD0009CC78A /* Box_Office_Movies_Core.framework */; };
 		9C648806225538D900A1541F /* ErrorStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C648805225538D900A1541F /* ErrorStackView.swift */; };
 		9C90009522510AE600399CF3 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9C90009722510AE600399CF3 /* Localizable.strings */; };
 		9CDC95DA2243FFB10051925E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CDC95D92243FFB10051925E /* AppDelegate.swift */; };
@@ -59,6 +60,7 @@
 		9C5AD03822566826009CC78A /* NowPlayingMoviesViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NowPlayingMoviesViewControllerTests.swift; sourceTree = "<group>"; };
 		9C5AD03922566826009CC78A /* NowPlayingMoviesInteractorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NowPlayingMoviesInteractorTests.swift; sourceTree = "<group>"; };
 		9C5AD03A22566826009CC78A /* NowPlayingMoviesPresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NowPlayingMoviesPresenterTests.swift; sourceTree = "<group>"; };
+		9C5AD0AD22568AD0009CC78A /* Box_Office_Movies_Core.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Box_Office_Movies_Core.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9C648805225538D900A1541F /* ErrorStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorStackView.swift; sourceTree = "<group>"; };
 		9C90009622510AE600399CF3 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		9C90009822510AEA00399CF3 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -94,6 +96,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9C5AD0AE22568AD0009CC78A /* Box_Office_Movies_Core.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -136,6 +139,14 @@
 			path = NowPlayingMovies;
 			sourceTree = "<group>";
 		};
+		9C5AD0AC22568AD0009CC78A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				9C5AD0AD22568AD0009CC78A /* Box_Office_Movies_Core.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		9C648804225538C300A1541F /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -150,6 +161,7 @@
 				9CDC95D82243FFB10051925E /* Box-Office-Movies */,
 				9CDC95EF2243FFB30051925E /* Box-Office-MoviesTests */,
 				9CDC95D72243FFB10051925E /* Products */,
+				9C5AD0AC22568AD0009CC78A /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
