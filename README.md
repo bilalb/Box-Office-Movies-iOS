@@ -4,20 +4,22 @@ It contains two parts :
 - A master part that displays the list of movies in theatres
 - A detail part that displays the primary information about a movie
 
-This application supports iPhone and iPad in all orientations.
+## Compatibility
+Requires iOS 10.0 or later.
+Compatible with iPhone, iPad and iPod touch in all orientations.
 
-## Requirements
-iOS 10.0 or later
+## Languages
+English, French.
 
-## Architecture
-The application is written in Swift 5.
-It is based on a custom clean architecture.
+## Development
+Developed in Swift 5.
+Based on a custom clean architecture.
 
 ## API
-The application uses [The Movie Database (TMDb) API](https://developers.themoviedb.org/).
+This application uses [The Movie Database (TMDb) API](https://developers.themoviedb.org/).
 
-## SwiftLint
-The application uses [SwiftLint](https://github.com/realm/SwiftLint) which is an open source tool to enforce Swift style and conventions.
+## Tools
+This application uses [SwiftLint](https://github.com/realm/SwiftLint) which is an open source tool to enforce Swift style and conventions.
 
 ## Author
-Bilal Benlarbi.
+[Bilal Benlarbi](http://bilal.benlarbi.fr/).
