@@ -201,9 +201,9 @@
 		9CDC95EF2243FFB30051925E /* Box-Office-MoviesTests */ = {
 			isa = PBXGroup;
 			children = (
-				9C5AD02F225653D1009CC78A /* Scenes */,
 				9CDC95F02243FFB30051925E /* Box_Office_MoviesTests.swift */,
 				9CDC95F22243FFB30051925E /* Info.plist */,
+				9C5AD02F225653D1009CC78A /* Scenes */,
 			);
 			path = "Box-Office-MoviesTests";
 			sourceTree = "<group>";
