@@ -242,6 +242,6 @@ extension NowPlayingMoviesViewController: UISearchResultsUpdating {
 extension NowPlayingMoviesViewController: UISplitViewControllerDelegate {
     
     func splitViewController(_ splitViewController: UISplitViewController, collapseSecondary secondaryViewController: UIViewController, onto primaryViewController: UIViewController) -> Bool {
-        return true
+        return indexPathForSelectedRow == nil ? true : false
     }
 }
