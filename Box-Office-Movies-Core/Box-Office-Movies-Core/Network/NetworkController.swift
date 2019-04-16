@@ -48,13 +48,17 @@ class NetworkController: NetworkControlling {
     func send(request: NetworkRequest, completionHandler: NetworkCompletionHandler?) {
         dataTask?.cancel()
         if let urlRequest = request.urlRequest {
-            UIApplication.shared.isNetworkActivityIndicatorVisible = true
+            DispatchQueue.main.async {
+                UIApplication.shared.isNetworkActivityIndicatorVisible = true
+            }
             dataTask = defaultSession?.dataTask(with: urlRequest, completionHandler: { (data, response, error) in
                 defer {
                     self.dataTask = nil
                 }
                 completionHandler?(data, response, error)
-                UIApplication.shared.isNetworkActivityIndicatorVisible = false
+                DispatchQueue.main.async {
+                    UIApplication.shared.isNetworkActivityIndicatorVisible = false
+                }
             })
             dataTask?.resume()
         }
