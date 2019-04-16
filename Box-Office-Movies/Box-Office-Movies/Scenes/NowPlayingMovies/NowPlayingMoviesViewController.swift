@@ -117,7 +117,6 @@ private extension NowPlayingMoviesViewController {
     }
     
     func fetchNowPlayingMovies() {
-        UIApplication.shared.isNetworkActivityIndicatorVisible = true
         let request = NowPlayingMovies.FetchNowPlayingMovies.Request()
         interactor?.fetchNowPlayingMovies(request: request)
     }
@@ -125,7 +124,6 @@ private extension NowPlayingMoviesViewController {
     func fetchNextPage() {
         let shouldFetchNextPage = presentedViewController == nil
         if shouldFetchNextPage {
-            UIApplication.shared.isNetworkActivityIndicatorVisible = true
             let request = NowPlayingMovies.FetchNextPage.Request()
             interactor?.fetchNextPage(request: request)
         }
@@ -164,7 +162,6 @@ extension NowPlayingMoviesViewController: NowPlayingMoviesDisplayLogic {
         hasError = !viewModel.shouldHideErrorView
         errorStackView.isHidden = viewModel.shouldHideErrorView
         errorStackView.errorDescription = viewModel.errorDescription
-        UIApplication.shared.isNetworkActivityIndicatorVisible = false
     }
     
     func displayNextPage(viewModel: NowPlayingMovies.FetchNextPage.ViewModel) {
@@ -177,7 +174,6 @@ extension NowPlayingMoviesViewController: NowPlayingMoviesDisplayLogic {
             }
             present(alertController, animated: true)
         }
-        UIApplication.shared.isNetworkActivityIndicatorVisible = false
     }
     
     func displayFilterMovies(viewModel: NowPlayingMovies.FilterMovies.ViewModel) {
@@ -196,7 +192,6 @@ extension NowPlayingMoviesViewController: NowPlayingMoviesDisplayLogic {
             }
             present(alertController, animated: true)
         }
-        UIApplication.shared.isNetworkActivityIndicatorVisible = false
     }
 }
 
