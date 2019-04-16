@@ -244,7 +244,7 @@
                             <constraint firstItem="Vzv-AE-9ZV" firstAttribute="leading" secondItem="prS-A0-1ow" secondAttribute="leading" id="URL-BG-WMn"/>
                             <constraint firstItem="XXe-ET-kIn" firstAttribute="leading" secondItem="prS-A0-1ow" secondAttribute="leading" id="Xy9-PT-m4b"/>
                             <constraint firstItem="XXe-ET-kIn" firstAttribute="top" secondItem="prS-A0-1ow" secondAttribute="top" id="b0H-ZN-x09"/>
-                            <constraint firstItem="prS-A0-1ow" firstAttribute="bottom" secondItem="XXe-ET-kIn" secondAttribute="bottom" id="cYQ-lN-fER"/>
+                            <constraint firstAttribute="bottom" secondItem="XXe-ET-kIn" secondAttribute="bottom" id="cYQ-lN-fER"/>
                             <constraint firstItem="FX0-DX-h40" firstAttribute="leading" secondItem="prS-A0-1ow" secondAttribute="leading" id="iZI-Lg-FEQ"/>
                             <constraint firstItem="prS-A0-1ow" firstAttribute="trailing" secondItem="Vzv-AE-9ZV" secondAttribute="trailing" id="nDC-l0-6Te"/>
                             <constraint firstItem="prS-A0-1ow" firstAttribute="trailing" secondItem="XXe-ET-kIn" secondAttribute="trailing" id="txr-4u-MOR"/>
@@ -350,7 +350,7 @@
                             <constraint firstItem="yo0-iK-Gkw" firstAttribute="trailing" secondItem="iCU-Se-4Gs" secondAttribute="trailing" id="8F1-kW-L8z"/>
                             <constraint firstItem="n3u-tl-o0d" firstAttribute="leading" secondItem="yo0-iK-Gkw" secondAttribute="leading" id="BxF-3W-7Us"/>
                             <constraint firstItem="iCU-Se-4Gs" firstAttribute="top" secondItem="yo0-iK-Gkw" secondAttribute="top" id="Liq-Mz-SHj"/>
-                            <constraint firstItem="yo0-iK-Gkw" firstAttribute="bottom" secondItem="iCU-Se-4Gs" secondAttribute="bottom" id="U5h-jO-Xnb"/>
+                            <constraint firstAttribute="bottom" secondItem="iCU-Se-4Gs" secondAttribute="bottom" id="U5h-jO-Xnb"/>
                             <constraint firstItem="iCU-Se-4Gs" firstAttribute="leading" secondItem="yo0-iK-Gkw" secondAttribute="leading" id="nOC-l5-PAp"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="yo0-iK-Gkw"/>
