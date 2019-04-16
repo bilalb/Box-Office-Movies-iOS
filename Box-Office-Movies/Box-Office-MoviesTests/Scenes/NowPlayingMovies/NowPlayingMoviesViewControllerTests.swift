@@ -112,6 +112,7 @@ class NowPlayingMoviesViewControllerTests: XCTestCase {
         XCTAssertFalse(sut.hasError, "displayNowPlayingMovies(viewModel:) should update hasError")
         XCTAssertTrue(sut.errorStackView.isHidden, "displayNowPlayingMovies(viewModel:) should update the isHidden of the errorStackView")
         XCTAssertNil(sut.errorStackView.errorDescription, "displayNowPlayingMovies(viewModel:) should update the errorDescription of the errorStackView")
+        XCTAssertFalse(UIApplication.shared.isNetworkActivityIndicatorVisible, "displayNowPlayingMovies(viewModel:) should update the visibility of the networkActivityIndicator")
     }
     
     func testDisplayNextPageWithoutError() {
@@ -131,6 +132,7 @@ class NowPlayingMoviesViewControllerTests: XCTestCase {
         // Then
         XCTAssertEqual(sut.movieItems?.count, 2, "displayNextPage(viewModel:) should update the movieItems")
         XCTAssertFalse(sut.hasError, "displayNextPage(viewModel:) should update hasError")
+        XCTAssertFalse(UIApplication.shared.isNetworkActivityIndicatorVisible, "displayNowPlayingMovies(viewModel:) should update the visibility of the networkActivityIndicator")
     }
     
     func testDisplayNextPageWithError() {
@@ -151,6 +153,7 @@ class NowPlayingMoviesViewControllerTests: XCTestCase {
         XCTAssertNil(sut.movieItems, "displayNextPage(viewModel:) should update the movieItems")
         XCTAssertTrue(sut.hasError, "displayNextPage(viewModel:) should update hasError")
         XCTAssertNotNil(sut.presentedViewController, "displayNextPage(viewModel:) should present an alert with there is an error")
+        XCTAssertFalse(UIApplication.shared.isNetworkActivityIndicatorVisible, "displayNowPlayingMovies(viewModel:) should update the visibility of the networkActivityIndicator")
     }
     
     func testDisplayFilterMovies() {
@@ -183,6 +186,7 @@ class NowPlayingMoviesViewControllerTests: XCTestCase {
         // Then
         XCTAssertEqual(sut.movieItems?.count, 2, "displayRefreshMovies(viewModel:) should update the movieItems")
         XCTAssertFalse(sut.hasError, "displayRefreshMovies(viewModel:) should update hasError")
+        XCTAssertFalse(UIApplication.shared.isNetworkActivityIndicatorVisible, "displayRefreshMovies(viewModel:) should update the visibility of the networkActivityIndicator")
     }
     
     func testDisplayRefreshMoviesWithError() {
@@ -203,6 +207,7 @@ class NowPlayingMoviesViewControllerTests: XCTestCase {
         XCTAssertNil(sut.movieItems, "displayRefreshMovies(viewModel:) should update the movieItems")
         XCTAssertTrue(sut.hasError, "displayRefreshMovies(viewModel:) should update hasError")
         XCTAssertNotNil(sut.presentedViewController, "displayRefreshMovies(viewModel:) should present an alert with there is an error")
+        XCTAssertFalse(UIApplication.shared.isNetworkActivityIndicatorVisible, "displayRefreshMovies(viewModel:) should update the visibility of the networkActivityIndicator")
     }
     
     func testNumberOfRowsInSection0() {
