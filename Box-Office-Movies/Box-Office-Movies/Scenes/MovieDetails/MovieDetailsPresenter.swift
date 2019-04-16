@@ -126,23 +126,18 @@ extension MovieDetailsPresenter {
     }
     
     func castingItem(for casting: Casting?) -> DetailItem? {
-        var actors = ""
-        casting?.actors.forEach({ (actor) in
-            actors.append(withSeparator: ", ", other: actor.name)
-        })
-        guard !actors.isEmpty else {
+        guard let actors = casting?.actors.compactMap({$0.name}).joined(separator: ", "),
+            !actors.isEmpty
+        else {
             return nil
         }
         return DetailItem.casting(actors: actors)
     }
     
     func similarMoviesItem(for paginatedSimilarMovieLists: [PaginatedMovieList]?) -> DetailItem? {
-        var similarMovies = ""
-        paginatedSimilarMovieLists?.forEach({ (paginatedSimilarMovieList) in
-            paginatedSimilarMovieList.movies.forEach({ (movie) in
-                similarMovies.append(withSeparator: ", ", other: movie.title)
-            })
-        })
+        guard let joinedSimilarMovies = paginatedSimilarMovieLists?.compactMap({ $0.movies.compactMap({ $0.title }) }).joined() else { return nil }
+        let similarMovies = Array(joinedSimilarMovies).joined(separator: ", ")
+        
         guard !similarMovies.isEmpty else {
             return nil
         }

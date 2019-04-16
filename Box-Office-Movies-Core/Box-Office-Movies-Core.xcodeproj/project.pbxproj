@@ -150,12 +150,12 @@
 			isa = PBXGroup;
 			children = (
 				9C5AD07E22568812009CC78A /* CastingNetworkRequest.swift */,
-				9C5AD07F22568812009CC78A /* NowPlayingMoviesNetworkRequest.swift */,
-				9C5AD08022568812009CC78A /* SimilarMoviesNetworkRequest.swift */,
 				9C5AD08122568812009CC78A /* MovieDetailsNetworkRequest.swift */,
-				9C5AD08222568812009CC78A /* TheMovieDatabaseAPIConfigurationNetworkRequest.swift */,
-				9C5AD08322568812009CC78A /* PosterNetworkRequest.swift */,
 				9C5AD08422568812009CC78A /* NetworkRequest.swift */,
+				9C5AD07F22568812009CC78A /* NowPlayingMoviesNetworkRequest.swift */,
+				9C5AD08322568812009CC78A /* PosterNetworkRequest.swift */,
+				9C5AD08022568812009CC78A /* SimilarMoviesNetworkRequest.swift */,
+				9C5AD08222568812009CC78A /* TheMovieDatabaseAPIConfigurationNetworkRequest.swift */,
 			);
 			path = NetworkRequest;
 			sourceTree = "<group>";
