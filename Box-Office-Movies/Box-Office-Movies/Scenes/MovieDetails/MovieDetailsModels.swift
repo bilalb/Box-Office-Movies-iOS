@@ -60,6 +60,15 @@ enum MovieDetailsScene {
             let reviewMovieItem: DetailItem
         }
     }
+    
+    enum AddMovieToFavorites {
+        
+        struct Request { }
+        
+        struct Response { }
+        
+        struct ViewModel { }
+    }
 }
 
 enum DetailItem {

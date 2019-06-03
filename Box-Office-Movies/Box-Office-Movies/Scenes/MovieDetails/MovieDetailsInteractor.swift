@@ -7,6 +7,7 @@
 //
 
 import Box_Office_Movies_Core
+import CoreData
 import UIKit
 
 protocol MovieDetailsDataStore {
@@ -17,6 +18,7 @@ protocol MovieDetailsBusinessLogic {
     func fetchMovieDetails(request: MovieDetailsScene.FetchMovieDetails.Request)
     func loadMovieReviews(request: MovieDetailsScene.LoadMovieReviews.Request)
     func reviewMovie(request: MovieDetailsScene.ReviewMovie.Request)
+    func addMovieToFavorites(request: MovieDetailsScene.AddMovieToFavorites.Request)
 }
 
 class MovieDetailsInteractor: MovieDetailsDataStore {
@@ -25,7 +27,11 @@ class MovieDetailsInteractor: MovieDetailsDataStore {
     
     var movieIdentifier: Int?
     var similarMoviePage = 1
+    
+    // TODO: still useful ? if not, to remove
     var paginatedSimilarMovieLists = [PaginatedMovieList]()
+    
+    var movieDetails: MovieDetails?
 }
 
 extension MovieDetailsInteractor: MovieDetailsBusinessLogic {
@@ -51,6 +57,7 @@ extension MovieDetailsInteractor: MovieDetailsBusinessLogic {
             }
             
             self?.fetchDetails { [weak self] (movieDetails, error) in
+                self?.movieDetails = movieDetails
                 guard error == nil else {
                     presentMovieDetails(movieDetails: movieDetails, casting: nil, paginatedSimilarMovieLists: nil, posterImage: nil, error: error)
                     return
@@ -99,6 +106,28 @@ extension MovieDetailsInteractor: MovieDetailsBusinessLogic {
     func reviewMovie(request: MovieDetailsScene.ReviewMovie.Request) {
         let response = MovieDetailsScene.ReviewMovie.Response(movieReview: request.movieReview)
         presenter?.presentReviewMovie(response: response)
+    }
+    
+    func addMovieToFavorites(request: MovieDetailsScene.AddMovieToFavorites.Request) {
+        guard
+            let appDelegate = UIApplication.shared.delegate as? AppDelegate,
+            let movieDetails = movieDetails
+        else {
+            return
+        }
+        let managedObjectContext = appDelegate.persistentContainer.viewContext
+        // TODO: create constants for hardcoded strings
+        if let favoriteMovieEntity = NSEntityDescription.entity(forEntityName: "FavoriteMovie", in: managedObjectContext) {
+            let favoriteMovie = NSManagedObject(entity: favoriteMovieEntity, insertInto: managedObjectContext)
+            favoriteMovie.setValue(movieDetails.identifier, forKeyPath: "identifier")
+            favoriteMovie.setValue(movieDetails.title, forKey: "title")
+            
+            do {
+                try managedObjectContext.save()
+            } catch let error as NSError {
+                print("Could not save. \(error), \(error.userInfo)")
+            }
+        }
     }
 }
 

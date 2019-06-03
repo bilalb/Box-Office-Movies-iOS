@@ -78,6 +78,15 @@ private extension MovieDetailsViewController {
         activityIndicatorView.startAnimating()
         errorStackView.isHidden = true
     }
+    
+    @IBAction func addMovieToFavoritesBarButtonItemPressed() {
+        addMovieToFavorites()
+    }
+    
+    func addMovieToFavorites() {
+        let request = MovieDetailsScene.AddMovieToFavorites.Request()
+        interactor?.addMovieToFavorites(request: request)
+    }
 }
 
 // MARK: - Display Logic
