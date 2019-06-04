@@ -7,6 +7,8 @@
 //
 
 @testable import Box_Office_Movies
+import Box_Office_Movies_Core
+import CoreData
 import XCTest
 
 class MovieDetailsInteractorTests: XCTestCase {
@@ -24,6 +26,24 @@ class MovieDetailsInteractorTests: XCTestCase {
     
     override func tearDown() {
         super.tearDown()
+        
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
+            XCTFail("appDelegate should be an instance of AppDelegate")
+            return
+        }
+        
+        let managedContext = appDelegate.persistentContainer.viewContext
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: FavoriteMovie.entityName)
+        
+        do {
+            if let favoriteMovies = try managedContext.fetch(fetchRequest) as? [FavoriteMovie],
+                let favoriteMovieToDelete = favoriteMovies.first(where: { $0.identifier == MovieDetails.dummyInstance.identifier }) {
+                managedContext.delete(favoriteMovieToDelete)
+                try managedContext.save()
+            }
+        } catch let error as NSError {
+            XCTFail("A Core Data error occured. \(error), \(error.userInfo)")
+        }
     }
     
     // MARK: Test setup
@@ -83,5 +103,42 @@ class MovieDetailsInteractorTests: XCTestCase {
         
         // Then
         XCTAssertTrue(spy.presentReviewMovieCalled, "reviewMovie(request:) should ask the presenter to format the result")
+    }
+    
+    func testAddMovieToFavorites() {
+        // Given
+        let spy = MovieDetailsPresentationLogicSpy()
+        sut.presenter = spy
+        
+        sut.movieDetails = MovieDetails.dummyInstance
+        
+        let request = MovieDetailsScene.AddMovieToFavorites.Request()
+        
+        // When
+        sut.addMovieToFavorites(request: request)
+        
+        // Then
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
+            XCTFail("appDelegate should be an instance of AppDelegate")
+            return
+        }
+        
+        let managedContext = appDelegate.persistentContainer.viewContext
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: FavoriteMovie.entityName)
+        
+        do {
+            if let favoriteMovies = try managedContext.fetch(fetchRequest) as? [FavoriteMovie] {
+                XCTAssertTrue(favoriteMovies.contains(where: { $0.identifier == 0 }))
+            }
+        } catch let error as NSError {
+            XCTFail("Could not fetch. \(error), \(error.userInfo)")
+        }
+    }
+}
+
+extension MovieDetails {
+    
+    static var dummyInstance: MovieDetails {
+        return MovieDetails(identifier: 0, title: "foo", releaseDate: "12345", voteAverage: 1, synopsis: "bar", posterPath: "a")
     }
 }
