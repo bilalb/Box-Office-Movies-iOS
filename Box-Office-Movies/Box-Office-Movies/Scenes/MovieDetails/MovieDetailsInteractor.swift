@@ -116,11 +116,10 @@ extension MovieDetailsInteractor: MovieDetailsBusinessLogic {
             return
         }
         let managedObjectContext = appDelegate.persistentContainer.viewContext
-        // TODO: create constants for hardcoded strings
-        if let favoriteMovieEntity = NSEntityDescription.entity(forEntityName: "FavoriteMovie", in: managedObjectContext) {
+        if let favoriteMovieEntity = NSEntityDescription.entity(forEntityName: FavoriteMovie.entityName, in: managedObjectContext) {
             let favoriteMovie = NSManagedObject(entity: favoriteMovieEntity, insertInto: managedObjectContext)
-            favoriteMovie.setValue(movieDetails.identifier, forKeyPath: "identifier")
-            favoriteMovie.setValue(movieDetails.title, forKey: "title")
+            favoriteMovie.setValue(movieDetails.identifier, forKey: FavoriteMovie.Key.identifier)
+            favoriteMovie.setValue(movieDetails.title, forKey: FavoriteMovie.Key.title)
             
             do {
                 try managedObjectContext.save()
@@ -171,5 +170,19 @@ extension MovieDetailsInteractor {
     
     func fetchPosterImage(imageSecureBaseURLPath: String, posterSize: String = Constants.Fallback.posterImageSize, posterPath: String, completionHandler: PosterCompletionHandler?) {
         ManagerProvider.sharedInstance.movieManager.poster(imageSecureBaseURL: imageSecureBaseURLPath, posterSize: posterSize, posterPath: posterPath, completionHandler: completionHandler)
+    }
+}
+
+extension FavoriteMovie {
+    
+    static let entityName = String(describing: FavoriteMovie.self)
+}
+
+extension FavoriteMovie {
+    
+    struct Key {
+        
+        static let identifier = "identifier"
+        static let title = "title"
     }
 }

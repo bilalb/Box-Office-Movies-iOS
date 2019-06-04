@@ -20,6 +20,8 @@ struct Constants {
         static let timeoutIntervalForResource: TimeInterval = 5
     }
     
+    // MARK: - Network requests
+    
     struct NowPlayingMoviesNetworkRequest {
         static let path = "movie/now_playing?language=%@&region=%@&page=%d&api_key=%@"
     }

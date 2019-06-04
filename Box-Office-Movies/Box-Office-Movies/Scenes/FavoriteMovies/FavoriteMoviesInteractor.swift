@@ -32,7 +32,7 @@ extension FavoriteMoviesInteractor: FavoriteMoviesBusinessLogic {
         }
         
         let managedContext = appDelegate.persistentContainer.viewContext
-        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "FavoriteMovie")
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: FavoriteMovie.entityName)
         
         do {
             if let favoriteMovies = try managedContext.fetch(fetchRequest) as? [FavoriteMovie] {
