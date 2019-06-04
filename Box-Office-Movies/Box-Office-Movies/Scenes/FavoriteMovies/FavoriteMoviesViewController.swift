@@ -10,6 +10,7 @@ import UIKit
 
 protocol FavoriteMoviesDisplayLogic: class {
     func displayFavoriteMovies(viewModel: FavoriteMovies.LoadFavoriteMovies.ViewModel)
+    func displayRemoveMovieFromFavorites(viewModel: FavoriteMovies.RemoveMovieFromFavorites.ViewModel)
 }
 
 class FavoriteMoviesViewController: UIViewController {
@@ -17,11 +18,7 @@ class FavoriteMoviesViewController: UIViewController {
     var interactor: FavoriteMoviesBusinessLogic?
     var router: (NSObjectProtocol & FavoriteMoviesRoutingLogic & FavoriteMoviesDataPassing)?
     
-    var movieItems: [MovieItem]? {
-        didSet {
-            favoriteMoviesTableView.reloadData()
-        }
-    }
+    var movieItems: [MovieItem]?
     
     var indexPathForSelectedRow: IndexPath?
     
@@ -43,15 +40,6 @@ class FavoriteMoviesViewController: UIViewController {
         super.viewDidLoad()
         loadFavoriteMovies()
     }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let scene = segue.identifier {
-            let selector = NSSelectorFromString("routeTo\(scene)WithSegue:")
-            if let router = router, router.responds(to: selector) {
-                router.perform(selector, with: segue)
-            }
-        }
-    }
 }
 
 // MARK: - Private Functions
@@ -62,8 +50,8 @@ private extension FavoriteMoviesViewController {
         interactor?.loadFavoriteMovies(request: request)
     }
     
-    func removeMovieFromFavorites(at index: Int) {
-        let request = FavoriteMovies.RemoveMovieFromFavorites.Request(indexForMovieToRemove: index)
+    func removeMovieFromFavorites(at indexPath: IndexPath) {
+        let request = FavoriteMovies.RemoveMovieFromFavorites.Request(indexPathForMovieToRemove: indexPath)
         interactor?.removeMovieFromFavorites(request: request)
     }
 }
@@ -73,6 +61,12 @@ extension FavoriteMoviesViewController: FavoriteMoviesDisplayLogic {
     
     func displayFavoriteMovies(viewModel: FavoriteMovies.LoadFavoriteMovies.ViewModel) {
         movieItems = viewModel.movieItems
+        favoriteMoviesTableView.reloadData()
+    }
+    
+    func displayRemoveMovieFromFavorites(viewModel: FavoriteMovies.RemoveMovieFromFavorites.ViewModel) {
+        movieItems = viewModel.movieItems
+        favoriteMoviesTableView.deleteRows(at: viewModel.indexPathsForRowsToDelete, with: .automatic)
     }
 }
 
@@ -95,16 +89,10 @@ extension FavoriteMoviesViewController: UITableViewDataSource {
         cell.textLabel?.text = movieItem.title
         return cell
     }
-}
-
-// MARK: - UITableViewDelegate
-extension FavoriteMoviesViewController: UITableViewDelegate {
     
-    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-        let deletionAction = UITableViewRowAction(style: .destructive,
-                                                  title: NSLocalizedString("deleteFavorite", comment: "deleteFavorite")) { [weak self] (_, indexPath) in
-                                                    self?.removeMovieFromFavorites(at: indexPath.row)
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            removeMovieFromFavorites(at: indexPath)
         }
-        return [deletionAction]
     }
 }

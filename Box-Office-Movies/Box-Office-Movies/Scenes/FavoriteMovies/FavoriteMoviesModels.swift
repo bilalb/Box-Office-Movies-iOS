@@ -27,15 +27,17 @@ enum FavoriteMovies {
     enum RemoveMovieFromFavorites {
         
         struct Request {
-            let indexForMovieToRemove: Int
+            let indexPathForMovieToRemove: IndexPath
         }
         
         struct Response {
             let favoriteMovies: [FavoriteMovie]?
+            let indexPathForMovieToRemove: IndexPath
         }
         
         struct ViewModel {
             let movieItems: [MovieItem]?
+            let indexPathsForRowsToDelete: [IndexPath]
         }
     }
 }

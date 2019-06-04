@@ -10,6 +10,7 @@ import UIKit
 
 protocol FavoriteMoviesPresentationLogic {
     func presentFavoriteMovies(response: FavoriteMovies.LoadFavoriteMovies.Response)
+    func presentRemoveMovieFromFavorites(response: FavoriteMovies.RemoveMovieFromFavorites.Response)
 }
 
 class FavoriteMoviesPresenter {
@@ -19,10 +20,25 @@ class FavoriteMoviesPresenter {
 extension FavoriteMoviesPresenter: FavoriteMoviesPresentationLogic {
     
     func presentFavoriteMovies(response: FavoriteMovies.LoadFavoriteMovies.Response) {
-        let movieItems = response.favoriteMovies?.compactMap({ movie -> MovieItem in
+        let items = movieItems(for: response.favoriteMovies)
+        let viewModel = FavoriteMovies.LoadFavoriteMovies.ViewModel(movieItems: items)
+        viewController?.displayFavoriteMovies(viewModel: viewModel)
+    }
+    
+    func presentRemoveMovieFromFavorites(response: FavoriteMovies.RemoveMovieFromFavorites.Response) {
+        let items = movieItems(for: response.favoriteMovies)
+        let indexPathsForRowsToDelete = [response.indexPathForMovieToRemove]
+        let viewModel = FavoriteMovies.RemoveMovieFromFavorites.ViewModel(movieItems: items, indexPathsForRowsToDelete: indexPathsForRowsToDelete)
+        viewController?.displayRemoveMovieFromFavorites(viewModel: viewModel)
+    }
+}
+
+extension FavoriteMoviesPresenter {
+    
+    func movieItems(for favoriteMovies: [FavoriteMovie]?) -> [MovieItem]? {
+        let movieItems = favoriteMovies?.compactMap({ movie -> MovieItem in
             return MovieItem(title: movie.title)
         })
-        let viewModel = FavoriteMovies.LoadFavoriteMovies.ViewModel(movieItems: movieItems)
-        viewController?.displayFavoriteMovies(viewModel: viewModel)
+        return movieItems
     }
 } 

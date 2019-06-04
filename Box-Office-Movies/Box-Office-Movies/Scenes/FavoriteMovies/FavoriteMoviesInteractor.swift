@@ -21,6 +21,7 @@ protocol FavoriteMoviesBusinessLogic {
 class FavoriteMoviesInteractor: FavoriteMoviesDataStore {
     // MARK: Instance Properties
     var presenter: FavoriteMoviesPresentationLogic?
+    var favoriteMovies: [FavoriteMovie]?
 }
 
 extension FavoriteMoviesInteractor: FavoriteMoviesBusinessLogic {
@@ -35,6 +36,7 @@ extension FavoriteMoviesInteractor: FavoriteMoviesBusinessLogic {
         
         do {
             if let favoriteMovies = try managedContext.fetch(fetchRequest) as? [FavoriteMovie] {
+                self.favoriteMovies = favoriteMovies
                 let response = FavoriteMovies.LoadFavoriteMovies.Response(favoriteMovies: favoriteMovies)
                 presenter?.presentFavoriteMovies(response: response)
             }
@@ -44,21 +46,23 @@ extension FavoriteMoviesInteractor: FavoriteMoviesBusinessLogic {
     }
     
     func removeMovieFromFavorites(request: FavoriteMovies.RemoveMovieFromFavorites.Request) {
-        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
+        guard
+            let appDelegate = UIApplication.shared.delegate as? AppDelegate,
+            favoriteMovies?.indices.contains(request.indexPathForMovieToRemove.row) == true,
+            let favoriteMovieToDelete = favoriteMovies?.remove(at: request.indexPathForMovieToRemove.row)
+        else {
             return
         }
         
         let managedContext = appDelegate.persistentContainer.viewContext
-        NSBatchDeleteRequest(fetchRequest: <#T##NSFetchRequest<NSFetchRequestResult>#>)
-        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "FavoriteMovie")
+        managedContext.delete(favoriteMovieToDelete)
         
         do {
-            if let favoriteMovies = try managedContext.fetch(fetchRequest) as? [FavoriteMovie] {
-                let response = FavoriteMovies.LoadFavoriteMovies.Response(favoriteMovies: favoriteMovies)
-                presenter?.presentFavoriteMovies(response: response)
-            }
+            try managedContext.save()
+            let response = FavoriteMovies.RemoveMovieFromFavorites.Response(favoriteMovies: favoriteMovies, indexPathForMovieToRemove: request.indexPathForMovieToRemove)
+            presenter?.presentRemoveMovieFromFavorites(response: response)
         } catch let error as NSError {
-            print("Could not fetch. \(error), \(error.userInfo)")
+            print("Could not save. \(error), \(error.userInfo)")
         }
     }
 }
