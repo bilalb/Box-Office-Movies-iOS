@@ -37,7 +37,7 @@ extension NowPlayingMoviesRouter: NowPlayingMoviesRoutingLogic {
 private extension NowPlayingMoviesRouter {
     
     func passDataToMovieDetails(source: NowPlayingMoviesDataStore, destination: inout MovieDetailsDataStore) {
-        let movies = source.isFiltering ? source.filteredMovies : source.movies
+        let movies = source.state == .allMovies ? source.movies : source.filteredMovies
         
         guard
             let indexForSelectedRow = viewController?.nowPlayingMoviesTableView.indexPathForSelectedRow?.row,

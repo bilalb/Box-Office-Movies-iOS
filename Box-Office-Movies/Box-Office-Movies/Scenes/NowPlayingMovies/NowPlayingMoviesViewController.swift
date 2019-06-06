@@ -13,6 +13,10 @@ protocol NowPlayingMoviesDisplayLogic: class {
     func displayNextPage(viewModel: NowPlayingMovies.FetchNextPage.ViewModel)
     func displayFilterMovies(viewModel: NowPlayingMovies.FilterMovies.ViewModel)
     func displayRefreshMovies(viewModel: NowPlayingMovies.RefreshMovies.ViewModel)
+    
+    func displayToggleFavoriteMoviesEdition(viewModel: NowPlayingMovies.ToggleFavoriteMoviesEdition.ViewModel)
+    func displayToggleFavoriteMoviesDisplay(viewModel: NowPlayingMovies.ToggleFavoriteMoviesDisplay.ViewModel)
+    func displayRemoveMovieFromFavorites(viewModel: NowPlayingMovies.RemoveMovieFromFavorites.ViewModel)
 }
 
 class NowPlayingMoviesViewController: UIViewController {
@@ -20,16 +24,19 @@ class NowPlayingMoviesViewController: UIViewController {
     var interactor: NowPlayingMoviesBusinessLogic?
     var router: (NSObjectProtocol & NowPlayingMoviesRoutingLogic & NowPlayingMoviesDataPassing)?
     var hasError = false
+    var canEditRows = false
     
     var movieItems: [MovieItem]? {
         didSet {
-            nowPlayingMoviesTableView.reloadData()
-            DispatchQueue.main.async {
-                let areAllCellsVisible = self.nowPlayingMoviesTableView.visibleCells.count == self.movieItems?.count
-                if areAllCellsVisible && !self.hasError {
-                    self.fetchNextPage()
-                } else {
-                    self.selectFirstItem()
+            if !canEditRows {
+                nowPlayingMoviesTableView.reloadData()
+                DispatchQueue.main.async {
+                    let areAllCellsVisible = self.nowPlayingMoviesTableView.visibleCells.count == self.movieItems?.count
+                    if areAllCellsVisible && !self.hasError {
+                        self.fetchNextPage()
+                    } else {
+                        self.selectFirstItem()
+                    }
                 }
             }
         }
@@ -37,7 +44,9 @@ class NowPlayingMoviesViewController: UIViewController {
     
     var indexPathForSelectedRow: IndexPath?
     let searchController = UISearchController(searchResultsController: nil)
-
+    var toggleFavoriteMoviesEditionBarButtonItem: UIBarButtonItem!
+    var toggleFavoriteMoviesDisplayBarButtonItem: UIBarButtonItem!
+    
     @IBOutlet weak var nowPlayingMoviesTableView: UITableView!
     @IBOutlet weak var errorStackView: ErrorStackView!
 
@@ -58,6 +67,8 @@ class NowPlayingMoviesViewController: UIViewController {
         configureSplitViewController()
         configureSearchController()
         configureRefreshControl()
+        configureToggleFavoriteMoviesEditionBarButtonItem()
+        configureToggleFavoriteMoviesDisplayBarButtonItem()
         fetchNowPlayingMovies()
     }
     
@@ -154,6 +165,44 @@ private extension NowPlayingMoviesViewController {
     }
 }
 
+// MARK: - Favorite movies - Private Functions
+private extension NowPlayingMoviesViewController {
+    
+    func configureToggleFavoriteMoviesEditionBarButtonItem() {
+        toggleFavoriteMoviesEditionBarButtonItem = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(toggleFavoriteMoviesEditionBarButtonItemPressed))
+    }
+    
+    @objc func toggleFavoriteMoviesEditionBarButtonItemPressed() {
+        toggleFavoriteMoviesEdition()
+    }
+    
+    func toggleFavoriteMoviesEdition() {
+        let request = NowPlayingMovies.ToggleFavoriteMoviesEdition.Request(toggleFavoriteMoviesEditionBarButtonItemTarget: toggleFavoriteMoviesEditionBarButtonItem.target,
+                                                                           toggleFavoriteMoviesEditionBarButtonItemAction: toggleFavoriteMoviesEditionBarButtonItem.action,
+                                                                           toggleFavoriteMoviesDisplayBarButtonItem: toggleFavoriteMoviesDisplayBarButtonItem)
+        interactor?.toggleFavoriteMoviesEdition(request: request)
+    }
+    
+    func configureToggleFavoriteMoviesDisplayBarButtonItem() {
+        toggleFavoriteMoviesDisplayBarButtonItem = UIBarButtonItem(barButtonSystemItem: .bookmarks, target: self, action: #selector(toggleFavoriteMoviesDisplayBarButtonItemPressed))
+        navigationItem.setRightBarButton(toggleFavoriteMoviesDisplayBarButtonItem, animated: true)
+    }
+    
+    @objc func toggleFavoriteMoviesDisplayBarButtonItemPressed() {
+        toggleFavoriteMoviesDisplay()
+    }
+    
+    func toggleFavoriteMoviesDisplay() {
+        let request = NowPlayingMovies.ToggleFavoriteMoviesDisplay.Request(toggleFavoriteMoviesEditionBarButtonItem: toggleFavoriteMoviesEditionBarButtonItem)
+        interactor?.toggleFavoriteMoviesDisplay(request: request)
+    }
+    
+    func removeMovieFromFavorites(at indexPath: IndexPath) {
+        let request = NowPlayingMovies.RemoveMovieFromFavorites.Request(indexPathForMovieToRemove: indexPath)
+        interactor?.removeMovieFromFavorites(request: request)
+    }
+}
+
 // MARK: - Display Logic
 extension NowPlayingMoviesViewController: NowPlayingMoviesDisplayLogic {
     
@@ -193,6 +242,22 @@ extension NowPlayingMoviesViewController: NowPlayingMoviesDisplayLogic {
             present(alertController, animated: true)
         }
     }
+    
+    func displayToggleFavoriteMoviesEdition(viewModel: NowPlayingMovies.ToggleFavoriteMoviesEdition.ViewModel) {
+        nowPlayingMoviesTableView.setEditing(viewModel.isEditingTableView, animated: viewModel.shouldAnimateEditingModeTransition)
+        navigationItem.setLeftBarButton(viewModel.leftBarButtonItem, animated: viewModel.shouldAnimateLeftBarButtonItemTransition)
+        navigationItem.setRightBarButton(viewModel.rightBarButtonItem, animated: viewModel.shouldAnimateRightBarButtonItemTransition)
+    }
+    
+    func displayToggleFavoriteMoviesDisplay(viewModel: NowPlayingMovies.ToggleFavoriteMoviesDisplay.ViewModel) {
+        canEditRows = viewModel.canEditRows
+        navigationItem.setLeftBarButton(viewModel.leftBarButtonItem, animated: viewModel.shouldAnimateLeftBarButtonItemTransition)
+    }
+    
+    func displayRemoveMovieFromFavorites(viewModel: NowPlayingMovies.RemoveMovieFromFavorites.ViewModel) {
+        movieItems = viewModel.movieItems
+        nowPlayingMoviesTableView.deleteRows(at: viewModel.indexPathsForRowsToDelete, with: .automatic)
+    }
 }
 
 // MARK: - UITableViewDataSource
@@ -213,6 +278,16 @@ extension NowPlayingMoviesViewController: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: Constants.CellIdentifier.movieTableViewCell, for: indexPath)
         cell.textLabel?.text = movieItem.title
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return canEditRows ? true : false
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            removeMovieFromFavorites(at: indexPath)
+        }
     }
 }
 

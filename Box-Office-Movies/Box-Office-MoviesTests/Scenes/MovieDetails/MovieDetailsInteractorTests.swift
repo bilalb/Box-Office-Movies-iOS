@@ -28,7 +28,7 @@ class MovieDetailsInteractorTests: XCTestCase {
         super.tearDown()
         
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
-            XCTFail("appDelegate should be an instance of AppDelegate")
+            XCTFail("A non optional AppDelegate is expected.")
             return
         }
         

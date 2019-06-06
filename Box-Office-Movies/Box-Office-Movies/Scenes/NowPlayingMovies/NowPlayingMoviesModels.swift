@@ -9,6 +9,7 @@
 import Box_Office_Movies_Core
 import UIKit
 
+// TODO: rename to MovieList?
 enum NowPlayingMovies {
     
     enum FetchNowPlayingMovies {
@@ -78,6 +79,73 @@ enum NowPlayingMovies {
             let errorAlertMessage: String?
             let errorAlertStyle: UIAlertController.Style
             let errorAlertActions: [UIAlertAction]
+        }
+    }
+}
+
+// MARK: - Favorite movies
+
+extension NowPlayingMovies {
+    
+    enum ToggleFavoriteMoviesEdition {
+        
+        struct Request {
+            let toggleFavoriteMoviesEditionBarButtonItemTarget: Any?
+            let toggleFavoriteMoviesEditionBarButtonItemAction: Selector?
+            let toggleFavoriteMoviesDisplayBarButtonItem: UIBarButtonItem
+        }
+        
+        struct Response {
+            let isEditingFavoriteMovies: Bool
+            let toggleFavoriteMoviesEditionBarButtonItemTarget: Any?
+            let toggleFavoriteMoviesEditionBarButtonItemAction: Selector?
+            let toggleFavoriteMoviesDisplayBarButtonItem: UIBarButtonItem
+        }
+        
+        struct ViewModel {
+            let isEditingTableView: Bool
+            let shouldAnimateEditingModeTransition: Bool
+            
+            let leftBarButtonItem: UIBarButtonItem
+            let shouldAnimateLeftBarButtonItemTransition: Bool
+            
+            let rightBarButtonItem: UIBarButtonItem?
+            let shouldAnimateRightBarButtonItemTransition: Bool
+        }
+    }
+    
+    enum ToggleFavoriteMoviesDisplay {
+        
+        struct Request {
+            let toggleFavoriteMoviesEditionBarButtonItem: UIBarButtonItem
+        }
+        
+        struct Response {
+            let state: State
+            let toggleFavoriteMoviesEditionBarButtonItem: UIBarButtonItem
+        }
+        
+        struct ViewModel {
+            let canEditRows: Bool
+            let leftBarButtonItem: UIBarButtonItem?
+            let shouldAnimateLeftBarButtonItemTransition: Bool
+        }
+    }
+    
+    enum RemoveMovieFromFavorites {
+        
+        struct Request {
+            let indexPathForMovieToRemove: IndexPath
+        }
+        
+        struct Response {
+            let movies: [Movie]?
+            let indexPathForMovieToRemove: IndexPath
+        }
+        
+        struct ViewModel {
+            let movieItems: [MovieItem]?
+            let indexPathsForRowsToDelete: [IndexPath]
         }
     }
 }
