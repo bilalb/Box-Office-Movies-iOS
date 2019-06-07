@@ -61,13 +61,30 @@ enum MovieDetailsScene {
         }
     }
     
-    enum AddMovieToFavorites {
+    enum LoadFavoriteToggle {
         
         struct Request { }
         
-        struct Response { }
+        struct Response {
+            let isMovieAddedToFavorite: Bool
+        }
         
-        struct ViewModel { }
+        struct ViewModel {
+            let toggleFavoriteBarButtonItemTitle: String
+        }
+    }
+    
+    enum ToggleFavorite {
+        
+        struct Request { }
+        
+        struct Response {
+            let isMovieAddedToFavorite: Bool
+        }
+        
+        struct ViewModel {
+            let toggleFavoriteBarButtonItemTitle: String
+        }
     }
 }
 

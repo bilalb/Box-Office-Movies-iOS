@@ -213,14 +213,3 @@ extension NowPlayingMoviesInteractor {
         }
     }
 }
-
-// TODO: To move to FavoriteMovie.swift 
-extension FavoriteMovie {
-    
-    var relatedMovie: Movie? {
-        guard let title = title else {
-            return nil
-        }
-        return Movie(identifier: Int(identifier), title: title)
-    }
-}

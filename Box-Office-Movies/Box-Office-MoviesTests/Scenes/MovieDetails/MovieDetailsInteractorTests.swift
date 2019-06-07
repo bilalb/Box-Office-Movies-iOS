@@ -105,17 +105,17 @@ class MovieDetailsInteractorTests: XCTestCase {
         XCTAssertTrue(spy.presentReviewMovieCalled, "reviewMovie(request:) should ask the presenter to format the result")
     }
     
-    func testAddMovieToFavorites() {
+    func testToggleFavorite() {
         // Given
         let spy = MovieDetailsPresentationLogicSpy()
         sut.presenter = spy
         
         sut.movieDetails = MovieDetails.dummyInstance
         
-        let request = MovieDetailsScene.AddMovieToFavorites.Request()
+        let request = MovieDetailsScene.ToggleFavorite.Request()
         
         // When
-        sut.addMovieToFavorites(request: request)
+        sut.toggleFavorite(request: request)
         
         // Then
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {

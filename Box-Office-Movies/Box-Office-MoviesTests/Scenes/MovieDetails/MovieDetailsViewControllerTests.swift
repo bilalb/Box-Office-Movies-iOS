@@ -63,7 +63,7 @@ class MovieDetailsViewControllerTests: XCTestCase {
             reviewMovieCalled = true
         }
         
-        func addMovieToFavorites(request: MovieDetailsScene.AddMovieToFavorites.Request) {
+        func toggleFavorite(request: MovieDetailsScene.ToggleFavorite.Request) {
             addMovieToFavoritesCalled = true
         }
     }

@@ -18,7 +18,8 @@ protocol MovieDetailsBusinessLogic {
     func fetchMovieDetails(request: MovieDetailsScene.FetchMovieDetails.Request)
     func loadMovieReviews(request: MovieDetailsScene.LoadMovieReviews.Request)
     func reviewMovie(request: MovieDetailsScene.ReviewMovie.Request)
-    func addMovieToFavorites(request: MovieDetailsScene.AddMovieToFavorites.Request)
+    func loadFavoriteToggle(request: MovieDetailsScene.LoadFavoriteToggle.Request)
+    func toggleFavorite(request: MovieDetailsScene.ToggleFavorite.Request)
 }
 
 class MovieDetailsInteractor: MovieDetailsDataStore {
@@ -108,24 +109,65 @@ extension MovieDetailsInteractor: MovieDetailsBusinessLogic {
         presenter?.presentReviewMovie(response: response)
     }
     
-    func addMovieToFavorites(request: MovieDetailsScene.AddMovieToFavorites.Request) {
+    func loadFavoriteToggle(request: MovieDetailsScene.LoadFavoriteToggle.Request) {
+        guard
+            let appDelegate = UIApplication.shared.delegate as? AppDelegate,
+            let movieIdentifier = movieIdentifier
+            else {
+                return
+        }
+        
+        let managedContext = appDelegate.persistentContainer.viewContext
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: FavoriteMovie.entityName)
+        
+        do {
+            if let favoriteMovies = try managedContext.fetch(fetchRequest) as? [FavoriteMovie] {
+                let isMovieAddedToFavorite = favoriteMovies.contains(where: { $0.identifier == movieIdentifier })
+                
+                let response = MovieDetailsScene.LoadFavoriteToggle.Response(isMovieAddedToFavorite: isMovieAddedToFavorite)
+                presenter?.presentFavoriteToggle(response: response)
+            }
+        } catch let error as NSError {
+            print("A Core Data error occurred. \(error), \(error.userInfo)")
+        }
+    }
+    
+    func toggleFavorite(request: MovieDetailsScene.ToggleFavorite.Request) {
         guard
             let appDelegate = UIApplication.shared.delegate as? AppDelegate,
             let movieDetails = movieDetails
-        else {
-            return
+            else {
+                return
         }
-        let managedObjectContext = appDelegate.persistentContainer.viewContext
-        if let favoriteMovieEntity = NSEntityDescription.entity(forEntityName: FavoriteMovie.entityName, in: managedObjectContext) {
-            let favoriteMovie = NSManagedObject(entity: favoriteMovieEntity, insertInto: managedObjectContext)
-            favoriteMovie.setValue(movieDetails.identifier, forKey: FavoriteMovie.Key.identifier)
-            favoriteMovie.setValue(movieDetails.title, forKey: FavoriteMovie.Key.title)
-            
-            do {
-                try managedObjectContext.save()
-            } catch let error as NSError {
-                print("Could not save. \(error), \(error.userInfo)")
+        
+        let managedContext = appDelegate.persistentContainer.viewContext
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: FavoriteMovie.entityName)
+        
+        var isMovieAddedToFavorite: Bool?
+        
+        do {
+            if let favoriteMovies = try managedContext.fetch(fetchRequest) as? [FavoriteMovie] {
+                if let savedFavoriteMovie = favoriteMovies.first(where: { $0.identifier == movieDetails.identifier }) {
+                    managedContext.delete(savedFavoriteMovie)
+                    try managedContext.save()
+                    isMovieAddedToFavorite = false
+                } else {
+                    if let favoriteMovieEntity = NSEntityDescription.entity(forEntityName: FavoriteMovie.entityName, in: managedContext) {
+                        let favoriteMovie = NSManagedObject(entity: favoriteMovieEntity, insertInto: managedContext)
+                        favoriteMovie.setValue(movieDetails.identifier, forKey: FavoriteMovie.Key.identifier)
+                        favoriteMovie.setValue(movieDetails.title, forKey: FavoriteMovie.Key.title)
+                        
+                        try managedContext.save()
+                        isMovieAddedToFavorite = true
+                    }
+                }
             }
+            if let isMovieAddedToFavorite = isMovieAddedToFavorite {
+                let response = MovieDetailsScene.ToggleFavorite.Response(isMovieAddedToFavorite: isMovieAddedToFavorite)
+                presenter?.presentToggleFavorite(response: response)
+            }
+        } catch let error as NSError {
+            print("A Core Data error occurred. \(error), \(error.userInfo)")
         }
     }
 }
@@ -170,6 +212,17 @@ extension MovieDetailsInteractor {
     
     func fetchPosterImage(imageSecureBaseURLPath: String, posterSize: String = Constants.Fallback.posterImageSize, posterPath: String, completionHandler: PosterCompletionHandler?) {
         ManagerProvider.sharedInstance.movieManager.poster(imageSecureBaseURL: imageSecureBaseURLPath, posterSize: posterSize, posterPath: posterPath, completionHandler: completionHandler)
+    }
+}
+
+// TODO: To move to FavoriteMovie.swift
+extension FavoriteMovie {
+    
+    var relatedMovie: Movie? {
+        guard let title = title else {
+            return nil
+        }
+        return Movie(identifier: Int(identifier), title: title)
     }
 }
 
