@@ -42,3 +42,10 @@ public struct MovieDetails: Codable {
         self.posterPath = posterPath
     }
 }
+
+public extension MovieDetails {
+    
+    var relatedMovie: Movie {
+         return Movie(identifier: identifier, title: title)
+    }
+}

@@ -66,7 +66,7 @@ enum MovieDetailsScene {
         struct Request { }
         
         struct Response {
-            let isMovieAddedToFavorite: Bool
+            let isFavorite: Bool?
         }
         
         struct ViewModel {

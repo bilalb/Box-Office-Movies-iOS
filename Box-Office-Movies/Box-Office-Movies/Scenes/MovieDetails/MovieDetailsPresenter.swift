@@ -83,7 +83,7 @@ extension MovieDetailsPresenter: MovieDetailsPresentationLogic {
     
     // TODO: factorise presentFavoriteToggle & presentToggleFavorite ?
     func presentFavoriteToggle(response: MovieDetailsScene.LoadFavoriteToggle.Response) {
-        let toggleFavoriteBarButtonItemTitle = response.isMovieAddedToFavorite ? "★" : "☆"
+        let toggleFavoriteBarButtonItemTitle = response.isFavorite == true ? "★" : "☆"
         let viewModel = MovieDetailsScene.LoadFavoriteToggle.ViewModel(toggleFavoriteBarButtonItemTitle: toggleFavoriteBarButtonItemTitle)
         viewController?.displayFavoriteToggle(viewModel: viewModel)
     }

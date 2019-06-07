@@ -138,8 +138,6 @@ extension NowPlayingMoviesInteractor {
     }
 }
 
-import CoreData
-
 // MARK: - Favorite movies
 
 extension NowPlayingMoviesInteractor {
@@ -169,47 +167,21 @@ extension NowPlayingMoviesInteractor {
     }
     
     func loadFavoriteMovies() {
-        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
-            return
-        }
-        
-        let managedContext = appDelegate.persistentContainer.viewContext
-        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: FavoriteMovie.entityName)
-        
-        do {
-            if let favoriteMovies = try managedContext.fetch(fetchRequest) as? [FavoriteMovie] {
-                filteredMovies = favoriteMovies.compactMap({ $0.relatedMovie })
-                
-                let response = NowPlayingMovies.FilterMovies.Response(movies: filteredMovies)
-                presenter?.presentFilterMovies(response: response)
-            }
-        } catch let error as NSError {
-            print("Could not fetch. \(error), \(error.userInfo)")
-        }
+        let favoriteMovies = ManagerProvider.shared.favoritesManager.favoriteMovies()
+        filteredMovies = favoriteMovies ?? []
+        let response = NowPlayingMovies.FilterMovies.Response(movies: filteredMovies)
+        presenter?.presentFilterMovies(response: response)
     }
     
     func removeMovieFromFavorites(request: NowPlayingMovies.RemoveMovieFromFavorites.Request) {
-        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
+        guard filteredMovies.indices.contains(request.indexPathForMovieToRemove.row) else {
             return
         }
         
-        let managedContext = appDelegate.persistentContainer.viewContext
-        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: FavoriteMovie.entityName)
+        let favoriteMovieToDelete = filteredMovies.remove(at: request.indexPathForMovieToRemove.row)
+        _ = ManagerProvider.shared.favoritesManager.removeMovieFromFavorites(favoriteMovieToDelete)
         
-        do {
-            if let favoriteMovies = try managedContext.fetch(fetchRequest) as? [FavoriteMovie],
-                favoriteMovies.indices.contains(request.indexPathForMovieToRemove.row) {
-                let favoriteMovieToDelete = favoriteMovies[request.indexPathForMovieToRemove.row]
-                managedContext.delete(favoriteMovieToDelete)
-                try managedContext.save()
-                
-                filteredMovies.remove(at: request.indexPathForMovieToRemove.row)
-                
-                let response = NowPlayingMovies.RemoveMovieFromFavorites.Response(movies: filteredMovies, indexPathForMovieToRemove: request.indexPathForMovieToRemove)
-                presenter?.presentRemoveMovieFromFavorites(response: response)
-            }
-        } catch let error as NSError {
-            print("A Core Data error occurred. \(error), \(error.userInfo)")
-        }
+        let response = NowPlayingMovies.RemoveMovieFromFavorites.Response(movies: filteredMovies, indexPathForMovieToRemove: request.indexPathForMovieToRemove)
+        presenter?.presentRemoveMovieFromFavorites(response: response)
     }
 }

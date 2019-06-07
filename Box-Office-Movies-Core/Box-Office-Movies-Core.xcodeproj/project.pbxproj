@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9C5645DE22AA59E7004B405C /* FavoritesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C5645DD22AA59E7004B405C /* FavoritesManager.swift */; };
+		9C5645E122AA5B0B004B405C /* DataAccessController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C5645E022AA5B0B004B405C /* DataAccessController.swift */; };
+		9C5645E322AA5B34004B405C /* FavoritesDataAccessController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C5645E222AA5B34004B405C /* FavoritesDataAccessController.swift */; };
 		9C5AD05422568597009CC78A /* Box_Office_Movies_Core.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C5AD04A22568597009CC78A /* Box_Office_Movies_Core.framework */; };
 		9C5AD05922568597009CC78A /* Box_Office_Movies_CoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C5AD05822568597009CC78A /* Box_Office_Movies_CoreTests.swift */; };
 		9C5AD05B22568597009CC78A /* Box_Office_Movies_Core.h in Headers */ = {isa = PBXBuildFile; fileRef = 9C5AD04D22568597009CC78A /* Box_Office_Movies_Core.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -41,6 +44,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9C5645DD22AA59E7004B405C /* FavoritesManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesManager.swift; sourceTree = "<group>"; };
+		9C5645E022AA5B0B004B405C /* DataAccessController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataAccessController.swift; sourceTree = "<group>"; };
+		9C5645E222AA5B34004B405C /* FavoritesDataAccessController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesDataAccessController.swift; sourceTree = "<group>"; };
 		9C5AD04A22568597009CC78A /* Box_Office_Movies_Core.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Box_Office_Movies_Core.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9C5AD04D22568597009CC78A /* Box_Office_Movies_Core.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Box_Office_Movies_Core.h; sourceTree = "<group>"; };
 		9C5AD04E22568597009CC78A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -86,6 +92,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9C5645DF22AA5AEF004B405C /* Persistence */ = {
+			isa = PBXGroup;
+			children = (
+				9C5645E022AA5B0B004B405C /* DataAccessController.swift */,
+				9C5645E222AA5B34004B405C /* FavoritesDataAccessController.swift */,
+			);
+			path = Persistence;
+			sourceTree = "<group>";
+		};
 		9C5AD04022568597009CC78A = {
 			isa = PBXGroup;
 			children = (
@@ -109,6 +124,7 @@
 			children = (
 				9C5AD04D22568597009CC78A /* Box_Office_Movies_Core.h */,
 				9C5AD0AA22568A63009CC78A /* Constants.swift */,
+				9C5645DF22AA5AEF004B405C /* Persistence */,
 				9C5AD04E22568597009CC78A /* Info.plist */,
 				9C5AD07922568812009CC78A /* Manager */,
 				9C5AD08822568812009CC78A /* Model */,
@@ -129,6 +145,7 @@
 		9C5AD07922568812009CC78A /* Manager */ = {
 			isa = PBXGroup;
 			children = (
+				9C5645DD22AA59E7004B405C /* FavoritesManager.swift */,
 				9C5AD07B22568812009CC78A /* ManagerProvider.swift */,
 				9C5AD07A22568812009CC78A /* MovieManager.swift */,
 			);
@@ -307,9 +324,12 @@
 				9C5AD09222568812009CC78A /* SimilarMoviesNetworkRequest.swift in Sources */,
 				9C5AD09E22568812009CC78A /* TheMovieDatabaseAPIConfiguration.swift in Sources */,
 				9C5AD08F22568812009CC78A /* ManagerProvider.swift in Sources */,
+				9C5645E322AA5B34004B405C /* FavoritesDataAccessController.swift in Sources */,
+				9C5645DE22AA59E7004B405C /* FavoritesManager.swift in Sources */,
 				9C5AD09C22568812009CC78A /* PaginatedMovieList.swift in Sources */,
 				9C5AD09122568812009CC78A /* NowPlayingMoviesNetworkRequest.swift in Sources */,
 				9C5AD09022568812009CC78A /* CastingNetworkRequest.swift in Sources */,
+				9C5645E122AA5B0B004B405C /* DataAccessController.swift in Sources */,
 				9C5AD09A22568812009CC78A /* MovieDetails.swift in Sources */,
 				9C5AD09322568812009CC78A /* MovieDetailsNetworkRequest.swift in Sources */,
 				9C5AD09522568812009CC78A /* PosterNetworkRequest.swift in Sources */,

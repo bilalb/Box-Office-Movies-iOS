@@ -7,7 +7,6 @@
 //
 
 import Box_Office_Movies_Core
-import CoreData
 import UIKit
 
 protocol MovieDetailsDataStore {
@@ -110,65 +109,28 @@ extension MovieDetailsInteractor: MovieDetailsBusinessLogic {
     }
     
     func loadFavoriteToggle(request: MovieDetailsScene.LoadFavoriteToggle.Request) {
-        guard
-            let appDelegate = UIApplication.shared.delegate as? AppDelegate,
-            let movieIdentifier = movieIdentifier
-        else {
+        guard let movieIdentifier = movieIdentifier else {
             return
         }
-        
-        let managedContext = appDelegate.persistentContainer.viewContext
-        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: FavoriteMovie.entityName)
-        
-        do {
-            if let favoriteMovies = try managedContext.fetch(fetchRequest) as? [FavoriteMovie] {
-                let isMovieAddedToFavorite = favoriteMovies.contains(where: { $0.identifier == movieIdentifier })
-                
-                let response = MovieDetailsScene.LoadFavoriteToggle.Response(isMovieAddedToFavorite: isMovieAddedToFavorite)
-                presenter?.presentFavoriteToggle(response: response)
-            }
-        } catch let error as NSError {
-            print("A Core Data error occurred. \(error), \(error.userInfo)")
-        }
+        let isFavorite = ManagerProvider.shared.favoritesManager.favoriteMovies()?.contains(where: { $0.identifier == movieIdentifier })
+        let response = MovieDetailsScene.LoadFavoriteToggle.Response(isFavorite: isFavorite)
+        presenter?.presentFavoriteToggle(response: response)
     }
     
     func toggleFavorite(request: MovieDetailsScene.ToggleFavorite.Request) {
-        guard
-            let appDelegate = UIApplication.shared.delegate as? AppDelegate,
-            let movieDetails = movieDetails
-        else {
+        guard let movieDetails = movieDetails else {
             return
         }
-        
-        let managedContext = appDelegate.persistentContainer.viewContext
-        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: FavoriteMovie.entityName)
-        
-        var isMovieAddedToFavorite: Bool?
-        
-        do {
-            if let favoriteMovies = try managedContext.fetch(fetchRequest) as? [FavoriteMovie] {
-                if let savedFavoriteMovie = favoriteMovies.first(where: { $0.identifier == movieDetails.identifier }) {
-                    managedContext.delete(savedFavoriteMovie)
-                    try managedContext.save()
-                    isMovieAddedToFavorite = false
-                } else {
-                    if let favoriteMovieEntity = NSEntityDescription.entity(forEntityName: FavoriteMovie.entityName, in: managedContext) {
-                        let favoriteMovie = NSManagedObject(entity: favoriteMovieEntity, insertInto: managedContext)
-                        favoriteMovie.setValue(movieDetails.identifier, forKey: FavoriteMovie.Key.identifier)
-                        favoriteMovie.setValue(movieDetails.title, forKey: FavoriteMovie.Key.title)
-                        
-                        try managedContext.save()
-                        isMovieAddedToFavorite = true
-                    }
-                }
-            }
-            if let isMovieAddedToFavorite = isMovieAddedToFavorite {
-                let response = MovieDetailsScene.ToggleFavorite.Response(isMovieAddedToFavorite: isMovieAddedToFavorite)
-                presenter?.presentToggleFavorite(response: response)
-            }
-        } catch let error as NSError {
-            print("A Core Data error occurred. \(error), \(error.userInfo)")
+        var isMovieAddedToFavorite: Bool
+        if let movie = ManagerProvider.shared.favoritesManager.favoriteMovies()?.first(where: { $0.identifier == movieDetails.identifier }) {
+            _ = ManagerProvider.shared.favoritesManager.removeMovieFromFavorites(movie)
+            isMovieAddedToFavorite = false
+        } else {
+            isMovieAddedToFavorite = ManagerProvider.shared.favoritesManager.addMovieToFavorites(movieDetails.relatedMovie)
         }
+        
+        let response = MovieDetailsScene.ToggleFavorite.Response(isMovieAddedToFavorite: isMovieAddedToFavorite)
+        presenter?.presentToggleFavorite(response: response)
     }
 }
 
@@ -222,7 +184,7 @@ extension FavoriteMovie {
         guard let title = title else {
             return nil
         }
-        return Movie(identifier: Int(identifier), title: title)
+        return Movie()
     }
 }
 

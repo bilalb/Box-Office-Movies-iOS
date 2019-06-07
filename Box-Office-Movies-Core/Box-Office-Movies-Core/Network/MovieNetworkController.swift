@@ -69,7 +69,13 @@ class MovieNetworkController: NetworkController, MovieNetworkControlling {
                                                      regionCode: regionCode,
                                                      page: page)
         send(request: request) { (data, _, error) in
-            if let data = data, let paginatedMovieList = try? JSONDecoder().decode(PaginatedMovieList.self, from: data) {
+            let backgroundContext = DataAccessController.shared.persistentContainer.newBackgroundContext()
+            let jsonDecoder = JSONDecoder()
+            if let context = CodingUserInfoKey.context {
+                jsonDecoder.userInfo[context] = backgroundContext
+            }
+            
+            if let data = data, let paginatedMovieList = try? jsonDecoder.decode(PaginatedMovieList.self, from: data) {
                 completionHandler?(paginatedMovieList, nil)
             } else {
                 completionHandler?(nil, error)
