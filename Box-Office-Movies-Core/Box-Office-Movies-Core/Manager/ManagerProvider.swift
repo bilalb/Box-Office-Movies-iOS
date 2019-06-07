@@ -15,7 +15,7 @@ public protocol ManagerProviding {
 
 public class ManagerProvider: ManagerProviding {
     
-    public static var sharedInstance: ManagerProviding = ManagerProvider()
+    public static var shared: ManagerProviding = ManagerProvider()
     
     public var movieManager: MovieManagement!
     

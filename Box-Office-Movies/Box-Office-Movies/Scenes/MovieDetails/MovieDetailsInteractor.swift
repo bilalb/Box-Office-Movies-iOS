@@ -113,8 +113,8 @@ extension MovieDetailsInteractor: MovieDetailsBusinessLogic {
         guard
             let appDelegate = UIApplication.shared.delegate as? AppDelegate,
             let movieIdentifier = movieIdentifier
-            else {
-                return
+        else {
+            return
         }
         
         let managedContext = appDelegate.persistentContainer.viewContext
@@ -136,8 +136,8 @@ extension MovieDetailsInteractor: MovieDetailsBusinessLogic {
         guard
             let appDelegate = UIApplication.shared.delegate as? AppDelegate,
             let movieDetails = movieDetails
-            else {
-                return
+        else {
+            return
         }
         
         let managedContext = appDelegate.persistentContainer.viewContext
@@ -175,7 +175,7 @@ extension MovieDetailsInteractor: MovieDetailsBusinessLogic {
 extension MovieDetailsInteractor {
     
     func fetchAPIConfiguration(completionHandler: TheMovieDatabaseAPIConfigurationCompletionHandler?) {
-        ManagerProvider.sharedInstance.movieManager.theMovieDatabaseAPIConfiguration(completionHandler: completionHandler)
+        ManagerProvider.shared.movieManager.theMovieDatabaseAPIConfiguration(completionHandler: completionHandler)
     }
     
     func fetchDetails(completionHandler: MovieDetailsCompletionHandler?) {
@@ -184,14 +184,14 @@ extension MovieDetailsInteractor {
         }
         let languageCode = Locale.current.languageCode ?? Constants.Fallback.languageCode
         let regionCode = Locale.current.regionCode ?? Constants.Fallback.regionCode
-        ManagerProvider.sharedInstance.movieManager.movieDetails(identifier: movieIdentifier, languageCode: languageCode, regionCode: regionCode, completionHandler: completionHandler)
+        ManagerProvider.shared.movieManager.movieDetails(identifier: movieIdentifier, languageCode: languageCode, regionCode: regionCode, completionHandler: completionHandler)
     }
     
     func fetchCasting(completionHandler: CastingCompletionHandler?) {
         guard let movieIdentifier = movieIdentifier else {
             return
         }
-        ManagerProvider.sharedInstance.movieManager.casting(identifier: movieIdentifier, completionHandler: completionHandler)
+        ManagerProvider.shared.movieManager.casting(identifier: movieIdentifier, completionHandler: completionHandler)
     }
     
     func fetchSimilarMovies(completionHandler: SimilarMoviesCompletionHandler?) {
@@ -207,11 +207,11 @@ extension MovieDetailsInteractor {
         }
         
         let languageCode = Locale.current.languageCode ?? Constants.Fallback.languageCode
-        ManagerProvider.sharedInstance.movieManager.similarMovies(identifier: movieIdentifier, languageCode: languageCode, page: similarMoviePage, completionHandler: completionHandler)
+        ManagerProvider.shared.movieManager.similarMovies(identifier: movieIdentifier, languageCode: languageCode, page: similarMoviePage, completionHandler: completionHandler)
     }
     
     func fetchPosterImage(imageSecureBaseURLPath: String, posterSize: String = Constants.Fallback.posterImageSize, posterPath: String, completionHandler: PosterCompletionHandler?) {
-        ManagerProvider.sharedInstance.movieManager.poster(imageSecureBaseURL: imageSecureBaseURLPath, posterSize: posterSize, posterPath: posterPath, completionHandler: completionHandler)
+        ManagerProvider.shared.movieManager.poster(imageSecureBaseURL: imageSecureBaseURLPath, posterSize: posterSize, posterPath: posterPath, completionHandler: completionHandler)
     }
 }
 

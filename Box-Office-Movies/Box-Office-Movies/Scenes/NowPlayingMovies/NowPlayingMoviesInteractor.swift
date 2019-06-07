@@ -124,7 +124,7 @@ extension NowPlayingMoviesInteractor {
     func fetchNowPlayingMovies(completionHandler: MoviesCompletionHandler?) {
         let languageCode = Locale.current.languageCode ?? Constants.Fallback.languageCode
         let regionCode = Locale.current.regionCode ?? Constants.Fallback.regionCode
-        ManagerProvider.sharedInstance.movieManager.nowPlayingMovies(languageCode: languageCode, regionCode: regionCode, page: page) { [weak self] (paginatedMovieList, error) in
+        ManagerProvider.shared.movieManager.nowPlayingMovies(languageCode: languageCode, regionCode: regionCode, page: page) { [weak self] (paginatedMovieList, error) in
             if let paginatedMovieList = paginatedMovieList {
                 self?.paginatedMovieLists.append(paginatedMovieList)
                 self?.page += 1
