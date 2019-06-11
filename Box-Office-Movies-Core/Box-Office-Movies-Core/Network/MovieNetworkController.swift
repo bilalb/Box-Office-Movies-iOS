@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import CoreData
 
 protocol MovieNetworkControlling: NetworkControlling {
     
@@ -69,13 +70,15 @@ class MovieNetworkController: NetworkController, MovieNetworkControlling {
                                                      regionCode: regionCode,
                                                      page: page)
         send(request: request) { (data, _, error) in
-            let backgroundContext = DataAccessController.shared.persistentContainer.newBackgroundContext()
-            let jsonDecoder = JSONDecoder()
-            if let context = CodingUserInfoKey.context {
-                jsonDecoder.userInfo[context] = backgroundContext
+            guard let contextUserInfoKey = CodingUserInfoKey.context else {
+                fatalError("Failed to retrieve managed object context")
             }
             
-            if let data = data, let paginatedMovieList = try? jsonDecoder.decode(PaginatedMovieList.self, from: data) {
+            let managedObjectContext = DataAccessController.shared.persistentContainer.newBackgroundContext()
+            let decoder = JSONDecoder()
+            decoder.userInfo[contextUserInfoKey] = managedObjectContext
+            
+            if let data = data, let paginatedMovieList = try? decoder.decode(PaginatedMovieList.self, from: data) {
                 completionHandler?(paginatedMovieList, nil)
             } else {
                 completionHandler?(nil, error)
@@ -137,7 +140,15 @@ class MovieNetworkController: NetworkController, MovieNetworkControlling {
     func similarMovies(identifier: Int, languageCode: String, page: Int, completionHandler: SimilarMoviesCompletionHandler?) {
         let request = SimilarMoviesNetworkRequest(environment: environment, identifier: identifier, languageCode: languageCode, page: page)
         send(request: request) { (data, _, error) in
-            if let data = data, let paginatedSimilarMovieList = try? JSONDecoder().decode(PaginatedMovieList.self, from: data) {
+            guard let contextUserInfoKey = CodingUserInfoKey.context else {
+                fatalError("Failed to retrieve managed object context")
+            }
+            
+            let managedObjectContext = DataAccessController.shared.persistentContainer.newBackgroundContext()
+            let decoder = JSONDecoder()
+            decoder.userInfo[contextUserInfoKey] = managedObjectContext
+
+            if let data = data, let paginatedSimilarMovieList = try? decoder.decode(PaginatedMovieList.self, from: data) {
                 completionHandler?(paginatedSimilarMovieList, nil)
             } else {
                 completionHandler?(nil, error)

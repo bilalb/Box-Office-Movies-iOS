@@ -1,26 +1,17 @@
 //
-//  Movie.swift
+//  Movie+CoreDataClass.swift
 //  Box-Office-Movies-Core
 //
-//  Created by Bilal Benlarbi on 24.03.2019.
+//  Created by Bilal Benlarbi on 11.06.2019.
 //  Copyrights © 2019 Bilal Benlarbi. All rights reserved.
 //
 
-import CoreData
 import Foundation
+import CoreData
 
 /// Movie.
 public class Movie: NSManagedObject, Decodable {
-    
-    // TODO: to rename to Movie.entity().name ?
-    static let entityName = String(describing: Movie.self)
-
-    /// Identifier of the movie. For example: `299537`.
-    @NSManaged public var identifier: Int
-    
-    /// Title of the movie. For example: `"Captain Marvel"`.
-    @NSManaged public var title: String
-    
+   
     enum CodingKeys: String, CodingKey {
         case identifier = "id"
         case title
@@ -30,24 +21,35 @@ public class Movie: NSManagedObject, Decodable {
         guard
             let contextUserInfoKey = CodingUserInfoKey.context,
             let managedObjectContext = decoder.userInfo[contextUserInfoKey] as? NSManagedObjectContext,
-            let entity = NSEntityDescription.entity(forEntityName: Movie.entityName, in: managedObjectContext)
+            //let entityName = Movie.entity().name,
+            let entity = NSEntityDescription.entity(forEntityName: "Movie", in: managedObjectContext)
         else {
             fatalError("Failed to decode Movie")
         }
         self.init(entity: entity, insertInto: nil)
         
         let values = try decoder.container(keyedBy: CodingKeys.self)
-        identifier = try values.decode(Int.self, forKey: .identifier)
+        identifier = try values.decode(Int32.self, forKey: .identifier)
         title = try values.decode(String.self, forKey: .title)
     }
 }
 
 extension Movie {
-    
-    convenience init(identifier: Int, title: String) {
+
+    convenience init(identifier: Int32, title: String) {
         self.init()
-        self.identifier = identifier
         self.title = title
+        self.identifier = identifier
+    }
+    
+    convenience init(identifier: Int32, title: String, context: NSManagedObjectContext) {
+        if let entity = NSEntityDescription.entity(forEntityName: "Movie", in: context) {
+            self.init(entity: entity, insertInto: context)
+            self.title = title
+            self.identifier = identifier
+        } else {
+            fatalError("Unable to find Entity name!")
+        }
     }
 }
 
@@ -61,5 +63,6 @@ extension Movie: Encodable {
 }
 
 extension CodingUserInfoKey {
+    // Helper property to retrieve the context
     static let context = CodingUserInfoKey(rawValue: "context")
 }

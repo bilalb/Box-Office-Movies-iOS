@@ -46,6 +46,6 @@ private extension NowPlayingMoviesRouter {
             return
         }
         
-        destination.movieIdentifier = movies[indexForSelectedRow].identifier
+        destination.movieIdentifier = Int(movies[indexForSelectedRow].identifier)
     }
 }

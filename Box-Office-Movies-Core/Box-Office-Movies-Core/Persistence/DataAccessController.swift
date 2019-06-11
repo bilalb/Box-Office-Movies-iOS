@@ -15,8 +15,9 @@ class DataAccessController {
     static var shared = DataAccessController()
     
     lazy var persistentContainer: NSPersistentContainer = {
-        let container = NSPersistentContainer(name: "Box-Office-Movies")
-        
+        // TODO: rename "Box-Office-Movies-Core-Movie" to "Box-Office-Movies-Core"
+        let container = NSPersistentContainer(name: "Box-Office-Movies-Core-Movie", bundle: Bundle(for: ManagerProvider.self))
+
         container.loadPersistentStores(completionHandler: { (_, error) in
             guard let error = error as NSError? else { return }
             fatalError("Unresolved error: \(error), \(error.userInfo)")
@@ -24,4 +25,15 @@ class DataAccessController {
         
         return container
     }()
+}
+
+extension NSPersistentContainer {
+    
+    public convenience init(name: String, bundle: Bundle) {
+        guard let managedObjectModel = NSManagedObjectModel.mergedModel(from: [bundle]) else {
+            fatalError("Not able to find data model")
+        }
+        
+        self.init(name: name, managedObjectModel: managedObjectModel)
+    }
 }

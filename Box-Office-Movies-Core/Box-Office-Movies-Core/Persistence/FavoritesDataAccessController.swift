@@ -25,9 +25,12 @@ final class FavoritesDataAccessController: DataAccessController, FavoritesDataAc
         
         do {
             if let movieEntity = NSEntityDescription.entity(forEntityName: Movie.entityName, in: managedContext) {
+            if let movieEntity = NSEntityDescription.entity(forEntityName: "Movie", in: managedContext) {
                 let favoriteMovie = NSManagedObject(entity: movieEntity, insertInto: managedContext)
                 favoriteMovie.setValue(movie.identifier, forKey: Movie.CodingKeys.identifier.rawValue)
                 favoriteMovie.setValue(movie.title, forKey: Movie.CodingKeys.title.rawValue)
+                favoriteMovie.setValue(movie.identifier, forKey: "identifier")
+                favoriteMovie.setValue(movie.title, forKey: "title")
                 
                 try managedContext.save()
                 success = true
@@ -42,6 +45,7 @@ final class FavoritesDataAccessController: DataAccessController, FavoritesDataAc
     func removeMovieFromFavorites(_ movie: Movie) -> Bool {
         let managedContext = persistentContainer.viewContext
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: Movie.entityName)
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Movie")
         
         var success = false
 
@@ -62,6 +66,7 @@ final class FavoritesDataAccessController: DataAccessController, FavoritesDataAc
     func favoriteMovies() -> [Movie]? {
         let managedContext = persistentContainer.viewContext
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: Movie.entityName)
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Movie")
         
         var favoriteMovies: [Movie]?
         
