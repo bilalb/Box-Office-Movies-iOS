@@ -70,13 +70,13 @@ class MovieNetworkController: NetworkController, MovieNetworkControlling {
                                                      regionCode: regionCode,
                                                      page: page)
         send(request: request) { (data, _, error) in
-            guard let contextUserInfoKey = CodingUserInfoKey.context else {
+            guard let managedObjectContextCodingUserInfoKey = CodingUserInfoKey.managedObjectContext else {
                 fatalError("Failed to retrieve managed object context")
             }
             
             let managedObjectContext = DataAccessController.shared.persistentContainer.newBackgroundContext()
             let decoder = JSONDecoder()
-            decoder.userInfo[contextUserInfoKey] = managedObjectContext
+            decoder.userInfo[managedObjectContextCodingUserInfoKey] = managedObjectContext
             
             if let data = data, let paginatedMovieList = try? decoder.decode(PaginatedMovieList.self, from: data) {
                 completionHandler?(paginatedMovieList, nil)
@@ -140,13 +140,13 @@ class MovieNetworkController: NetworkController, MovieNetworkControlling {
     func similarMovies(identifier: Int, languageCode: String, page: Int, completionHandler: SimilarMoviesCompletionHandler?) {
         let request = SimilarMoviesNetworkRequest(environment: environment, identifier: identifier, languageCode: languageCode, page: page)
         send(request: request) { (data, _, error) in
-            guard let contextUserInfoKey = CodingUserInfoKey.context else {
+            guard let managedObjectContextCodingUserInfoKey = CodingUserInfoKey.managedObjectContext else {
                 fatalError("Failed to retrieve managed object context")
             }
             
             let managedObjectContext = DataAccessController.shared.persistentContainer.newBackgroundContext()
             let decoder = JSONDecoder()
-            decoder.userInfo[contextUserInfoKey] = managedObjectContext
+            decoder.userInfo[managedObjectContextCodingUserInfoKey] = managedObjectContext
 
             if let data = data, let paginatedSimilarMovieList = try? decoder.decode(PaginatedMovieList.self, from: data) {
                 completionHandler?(paginatedSimilarMovieList, nil)

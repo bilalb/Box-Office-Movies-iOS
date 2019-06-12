@@ -19,8 +19,8 @@ public class Movie: NSManagedObject, Decodable {
     
     required convenience public init(from decoder: Decoder) throws {
         guard
-            let contextUserInfoKey = CodingUserInfoKey.context,
-            let managedObjectContext = decoder.userInfo[contextUserInfoKey] as? NSManagedObjectContext,
+            let managedObjectContextCodingUserInfoKey = CodingUserInfoKey.managedObjectContext,
+            let managedObjectContext = decoder.userInfo[managedObjectContextCodingUserInfoKey] as? NSManagedObjectContext,
             //let entityName = Movie.entity().name,
             let entity = NSEntityDescription.entity(forEntityName: "Movie", in: managedObjectContext)
         else {
@@ -60,9 +60,4 @@ extension Movie: Encodable {
         try container.encode(identifier, forKey: .identifier)
         try container.encode(title, forKey: .title)
     }
-}
-
-extension CodingUserInfoKey {
-    // Helper property to retrieve the context
-    static let context = CodingUserInfoKey(rawValue: "context")
 }
