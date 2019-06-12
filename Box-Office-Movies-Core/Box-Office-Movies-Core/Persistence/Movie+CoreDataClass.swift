@@ -21,11 +21,12 @@ public class Movie: NSManagedObject, Decodable {
         guard
             let managedObjectContextCodingUserInfoKey = CodingUserInfoKey.managedObjectContext,
             let managedObjectContext = decoder.userInfo[managedObjectContextCodingUserInfoKey] as? NSManagedObjectContext,
-            //let entityName = Movie.entity().name,
-            let entity = NSEntityDescription.entity(forEntityName: "Movie", in: managedObjectContext)
+            let entityName = Movie.entity().name,
+            let entity = NSEntityDescription.entity(forEntityName: entityName, in: managedObjectContext)
         else {
             fatalError("Failed to decode Movie")
         }
+
         self.init(entity: entity, insertInto: nil)
         
         let values = try decoder.container(keyedBy: CodingKeys.self)
@@ -43,13 +44,16 @@ extension Movie {
     }
     
     convenience init(identifier: Int32, title: String, context: NSManagedObjectContext) {
-        if let entity = NSEntityDescription.entity(forEntityName: "Movie", in: context) {
-            self.init(entity: entity, insertInto: context)
-            self.title = title
-            self.identifier = identifier
-        } else {
-            fatalError("Unable to find Entity name!")
+        guard
+            let entityName = Movie.entity().name,
+            let entity = NSEntityDescription.entity(forEntityName: entityName, in: context)
+        else {
+            fatalError("Failed to find the Movie entity")
         }
+        
+        self.init(entity: entity, insertInto: nil)
+        self.title = title
+        self.identifier = identifier
     }
 }
 

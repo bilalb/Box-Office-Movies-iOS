@@ -16,19 +16,20 @@ protocol FavoritesDataAccessControlling {
     func favoriteMovies() -> [Movie]?
 }
 
-final class FavoritesDataAccessController: DataAccessController, FavoritesDataAccessControlling {
-    
+final class FavoritesDataAccessController: FavoritesDataAccessControlling {
+
     func addMovieToFavorites(_ movie: Movie) -> Bool {
-        let managedContext = persistentContainer.viewContext
+        guard let entityName = Movie.entity().name else {
+            return false
+        }
+        
+        let managedContext = CoreDataAccessController.shared.persistentContainer.viewContext
         
         var success = false
         
         do {
-            if let movieEntity = NSEntityDescription.entity(forEntityName: Movie.entityName, in: managedContext) {
-            if let movieEntity = NSEntityDescription.entity(forEntityName: "Movie", in: managedContext) {
+            if let movieEntity = NSEntityDescription.entity(forEntityName: entityName, in: managedContext) {
                 let favoriteMovie = NSManagedObject(entity: movieEntity, insertInto: managedContext)
-                favoriteMovie.setValue(movie.identifier, forKey: Movie.CodingKeys.identifier.rawValue)
-                favoriteMovie.setValue(movie.title, forKey: Movie.CodingKeys.title.rawValue)
                 favoriteMovie.setValue(movie.identifier, forKey: "identifier")
                 favoriteMovie.setValue(movie.title, forKey: "title")
                 
@@ -43,15 +44,19 @@ final class FavoritesDataAccessController: DataAccessController, FavoritesDataAc
     }
     
     func removeMovieFromFavorites(_ movie: Movie) -> Bool {
-        let managedContext = persistentContainer.viewContext
-        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: Movie.entityName)
-        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Movie")
+        guard let entityName = Movie.entity().name else {
+            return false
+        }
+        
+        let managedContext = CoreDataAccessController.shared.persistentContainer.viewContext
+
+        let fetchRequest = NSFetchRequest<Movie>(entityName: entityName)
         
         var success = false
-
+        
         do {
-            if let favoriteMovies = try managedContext.fetch(fetchRequest) as? [Movie],
-                let savedFavoriteMovie = favoriteMovies.first(where: { $0.identifier == movie.identifier }) {
+            let favoriteMovies = try managedContext.fetch(fetchRequest)
+            if let savedFavoriteMovie = favoriteMovies.first(where: { $0.identifier == movie.identifier }) {
                 managedContext.delete(savedFavoriteMovie)
                 try managedContext.save()
                 success = true
@@ -64,14 +69,18 @@ final class FavoritesDataAccessController: DataAccessController, FavoritesDataAc
     }
     
     func favoriteMovies() -> [Movie]? {
-        let managedContext = persistentContainer.viewContext
-        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: Movie.entityName)
-        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Movie")
+        guard let entityName = Movie.entity().name else {
+            return nil
+        }
+        
+        let managedContext = CoreDataAccessController.shared.persistentContainer.viewContext
+
+        let fetchRequest = NSFetchRequest<Movie>(entityName: entityName)
         
         var favoriteMovies: [Movie]?
         
         do {
-            favoriteMovies = try managedContext.fetch(fetchRequest) as? [Movie]
+            favoriteMovies = try managedContext.fetch(fetchRequest)
         } catch let error as NSError {
             print("A Core Data error occurred. \(error), \(error.userInfo)")
         }

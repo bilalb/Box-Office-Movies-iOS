@@ -46,6 +46,6 @@ public struct MovieDetails: Codable {
 public extension MovieDetails {
     
     var relatedMovie: Movie {
-         return Movie(identifier: Int32(identifier), title: title, context: DataAccessController.shared.persistentContainer.viewContext)
+         return Movie(identifier: Int32(identifier), title: title, context: CoreDataAccessController.shared.persistentContainer.viewContext)
     }
 }

@@ -1,5 +1,5 @@
 //
-//  DataAccessController.swift
+//  CoreDataAccessController.swift
 //  Box-Office-Movies-Core
 //
 //  Created by Bilal Benlarbi on 07.06.2019.
@@ -9,10 +9,9 @@
 import CoreData
 import Foundation
 
-class DataAccessController {
+class CoreDataAccessController {
     
-    // TODO: to remove ?
-    static var shared = DataAccessController()
+    static var shared = CoreDataAccessController()
     
     lazy var persistentContainer: NSPersistentContainer = {
         // TODO: rename "Box-Office-Movies-Core-Movie" to "Box-Office-Movies-Core"
@@ -30,10 +29,24 @@ class DataAccessController {
 extension NSPersistentContainer {
     
     public convenience init(name: String, bundle: Bundle) {
-        guard let managedObjectModel = NSManagedObjectModel.mergedModel(from: [bundle]) else {
-            fatalError("Not able to find data model")
+        guard
+            let modelURL = bundle.url(forResource: name, withExtension: "momd"),
+            let mom = NSManagedObjectModel(contentsOf: modelURL)
+        else {
+            fatalError("Unable to located Core Data model")
         }
-        
-        self.init(name: name, managedObjectModel: managedObjectModel)
+
+        self.init(name: name, managedObjectModel: mom)
     }
 }
+
+//extension NSPersistentContainer {
+//
+//    public convenience init(name: String, bundle: Bundle) {
+//        guard let managedObjectModel = NSManagedObjectModel.mergedModel(from: [bundle]) else {
+//            fatalError("Not able to find data model")
+//        }
+//
+//        self.init(name: name, managedObjectModel: managedObjectModel)
+//    }
+//}
