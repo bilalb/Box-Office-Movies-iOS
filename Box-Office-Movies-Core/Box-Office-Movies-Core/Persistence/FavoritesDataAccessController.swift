@@ -23,7 +23,7 @@ final class FavoritesDataAccessController: FavoritesDataAccessControlling {
             return false
         }
         
-        let managedContext = CoreDataAccessController.shared.persistentContainer.viewContext
+        let managedContext = CoreDataStack.shared.persistentContainer.viewContext
         
         var success = false
         
@@ -48,7 +48,7 @@ final class FavoritesDataAccessController: FavoritesDataAccessControlling {
             return false
         }
         
-        let managedContext = CoreDataAccessController.shared.persistentContainer.viewContext
+        let managedContext = CoreDataStack.shared.persistentContainer.viewContext
 
         // TODO: make use of the fetch request UI from Box-Office-Movies-Core.xcdatamodel ?
         let fetchRequest = NSFetchRequest<Movie>(entityName: entityName)
@@ -74,7 +74,7 @@ final class FavoritesDataAccessController: FavoritesDataAccessControlling {
             return nil
         }
         
-        let managedContext = CoreDataAccessController.shared.persistentContainer.viewContext
+        let managedContext = CoreDataStack.shared.persistentContainer.viewContext
 
         // TODO: make use of the fetch request UI from Box-Office-Movies-Core.xcdatamodel ?
         let fetchRequest = NSFetchRequest<Movie>(entityName: entityName)

@@ -22,6 +22,7 @@ struct Constants {
     
     struct CoreData {
         static let dataModelName = "Box-Office-Movies-Core"
+        static let managedObjectModelFileExtension = "momd"
     }
     
     // MARK: - Network requests

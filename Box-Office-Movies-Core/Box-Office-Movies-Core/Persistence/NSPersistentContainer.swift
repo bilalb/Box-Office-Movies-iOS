@@ -13,12 +13,12 @@ extension NSPersistentContainer {
     
     public convenience init(name: String, bundle: Bundle) {
         guard
-            let modelURL = bundle.url(forResource: name, withExtension: "momd"),
-            let mom = NSManagedObjectModel(contentsOf: modelURL)
+            let managedObjectModelURL = bundle.url(forResource: name, withExtension: Constants.CoreData.managedObjectModelFileExtension),
+            let managedObjectModel = NSManagedObjectModel(contentsOf: managedObjectModelURL)
         else {
             fatalError("Unable to locate Core Data model")
         }
         
-        self.init(name: name, managedObjectModel: mom)
+        self.init(name: name, managedObjectModel: managedObjectModel)
     }
 }

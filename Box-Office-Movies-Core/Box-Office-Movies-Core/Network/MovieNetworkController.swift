@@ -71,7 +71,7 @@ class MovieNetworkController: NetworkController, MovieNetworkControlling {
                                                      page: page)
         send(request: request) { (data, _, error) in
             if let data = data, let managedObjectContextCodingUserInfoKey = CodingUserInfoKey.managedObjectContext {
-                let managedObjectContext = CoreDataAccessController.shared.persistentContainer.newBackgroundContext()
+                let managedObjectContext = CoreDataStack.shared.persistentContainer.newBackgroundContext()
                 let jsonDecoder = JSONDecoder()
                 jsonDecoder.userInfo[managedObjectContextCodingUserInfoKey] = managedObjectContext
                 let paginatedMovieList = try? jsonDecoder.decode(PaginatedMovieList.self, from: data)
@@ -137,7 +137,7 @@ class MovieNetworkController: NetworkController, MovieNetworkControlling {
         let request = SimilarMoviesNetworkRequest(environment: environment, identifier: identifier, languageCode: languageCode, page: page)
         send(request: request) { (data, _, error) in
             if let data = data, let managedObjectContextCodingUserInfoKey = CodingUserInfoKey.managedObjectContext {
-                let managedObjectContext = CoreDataAccessController.shared.persistentContainer.newBackgroundContext()
+                let managedObjectContext = CoreDataStack.shared.persistentContainer.newBackgroundContext()
                 let jsonDecoder = JSONDecoder()
                 jsonDecoder.userInfo[managedObjectContextCodingUserInfoKey] = managedObjectContext
                 let paginatedSimilarMovieList = try? jsonDecoder.decode(PaginatedMovieList.self, from: data)
