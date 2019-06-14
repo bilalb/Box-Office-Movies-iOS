@@ -23,21 +23,23 @@ final class FavoritesDataAccessController: FavoritesDataAccessControlling {
             return false
         }
         
-        let managedContext = CoreDataStack.shared.persistentContainer.viewContext
+        let managedObjectContext = CoreDataStack.shared.persistentContainer.viewContext
         
         var success = false
         
-        do {
-            if let movieEntity = NSEntityDescription.entity(forEntityName: entityName, in: managedContext) {
-                let favoriteMovie = NSManagedObject(entity: movieEntity, insertInto: managedContext)
-                favoriteMovie.setValue(movie.identifier, forKey: Movie.AttributeKeys.identifier.rawValue)
-                favoriteMovie.setValue(movie.title, forKey: Movie.AttributeKeys.title.rawValue)
-                
-                try managedContext.save()
-                success = true
+        if let movieEntity = NSEntityDescription.entity(forEntityName: entityName, in: managedObjectContext) {
+            let favoriteMovie = NSManagedObject(entity: movieEntity, insertInto: managedObjectContext)
+            favoriteMovie.setValue(movie.identifier, forKey: Movie.AttributeKeys.identifier.rawValue)
+            favoriteMovie.setValue(movie.title, forKey: Movie.AttributeKeys.title.rawValue)
+            
+            if managedObjectContext.hasChanges {
+                do {
+                    try managedObjectContext.save()
+                    success = true
+                } catch let error as NSError {
+                    print("Failed to save Core Data context. \(error), \(error.userInfo)")
+                }
             }
-        } catch let error as NSError {
-            print("Failed to save Core Data context. \(error), \(error.userInfo)")
         }
         
         return success
@@ -48,7 +50,7 @@ final class FavoritesDataAccessController: FavoritesDataAccessControlling {
             return false
         }
         
-        let managedContext = CoreDataStack.shared.persistentContainer.viewContext
+        let managedObjectContext = CoreDataStack.shared.persistentContainer.viewContext
 
         // TODO: make use of the fetch request UI from Box-Office-Movies-Core.xcdatamodel ?
         let fetchRequest = NSFetchRequest<Movie>(entityName: entityName)
@@ -56,11 +58,14 @@ final class FavoritesDataAccessController: FavoritesDataAccessControlling {
         var success = false
         
         do {
-            let favoriteMovies = try managedContext.fetch(fetchRequest)
+            let favoriteMovies = try managedObjectContext.fetch(fetchRequest)
             if let savedFavoriteMovie = favoriteMovies.first(where: { $0.identifier == movie.identifier }) {
-                managedContext.delete(savedFavoriteMovie)
-                try managedContext.save()
-                success = true
+                managedObjectContext.delete(savedFavoriteMovie)
+                
+                if managedObjectContext.hasChanges {
+                    try managedObjectContext.save()
+                    success = true
+                }
             }
         } catch let error as NSError {
             print("A Core Data error occurred. \(error), \(error.userInfo)")
@@ -74,7 +79,7 @@ final class FavoritesDataAccessController: FavoritesDataAccessControlling {
             return nil
         }
         
-        let managedContext = CoreDataStack.shared.persistentContainer.viewContext
+        let managedObjectContext = CoreDataStack.shared.persistentContainer.viewContext
 
         // TODO: make use of the fetch request UI from Box-Office-Movies-Core.xcdatamodel ?
         let fetchRequest = NSFetchRequest<Movie>(entityName: entityName)
@@ -82,7 +87,7 @@ final class FavoritesDataAccessController: FavoritesDataAccessControlling {
         var favoriteMovies: [Movie]?
         
         do {
-            favoriteMovies = try managedContext.fetch(fetchRequest)
+            favoriteMovies = try managedObjectContext.fetch(fetchRequest)
         } catch let error as NSError {
             print("Failed to fetch movies. \(error), \(error.userInfo)")
         }
