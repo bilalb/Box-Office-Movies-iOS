@@ -176,28 +176,3 @@ extension MovieDetailsInteractor {
         ManagerProvider.shared.movieManager.poster(imageSecureBaseURL: imageSecureBaseURLPath, posterSize: posterSize, posterPath: posterPath, completionHandler: completionHandler)
     }
 }
-
-// TODO: To move to FavoriteMovie.swift
-extension FavoriteMovie {
-    
-    var relatedMovie: Movie? {
-        guard let title = title else {
-            return nil
-        }
-        return Movie()
-    }
-}
-
-extension FavoriteMovie {
-    
-    static let entityName = String(describing: FavoriteMovie.self)
-}
-
-extension FavoriteMovie {
-    
-    struct Key {
-        
-        static let identifier = "identifier"
-        static let title = "title"
-    }
-}
