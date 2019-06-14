@@ -30,14 +30,14 @@ final class FavoritesDataAccessController: FavoritesDataAccessControlling {
         do {
             if let movieEntity = NSEntityDescription.entity(forEntityName: entityName, in: managedContext) {
                 let favoriteMovie = NSManagedObject(entity: movieEntity, insertInto: managedContext)
-                favoriteMovie.setValue(movie.identifier, forKey: "identifier")
-                favoriteMovie.setValue(movie.title, forKey: "title")
+                favoriteMovie.setValue(movie.identifier, forKey: Movie.AttributeKeys.identifier.rawValue)
+                favoriteMovie.setValue(movie.title, forKey: Movie.AttributeKeys.title.rawValue)
                 
                 try managedContext.save()
                 success = true
             }
         } catch let error as NSError {
-            print("A Core Data error occurred. \(error), \(error.userInfo)")
+            print("Failed to save Core Data context. \(error), \(error.userInfo)")
         }
         
         return success
@@ -50,6 +50,7 @@ final class FavoritesDataAccessController: FavoritesDataAccessControlling {
         
         let managedContext = CoreDataAccessController.shared.persistentContainer.viewContext
 
+        // TODO: make use of the fetch request UI from Box-Office-Movies-Core.xcdatamodel ?
         let fetchRequest = NSFetchRequest<Movie>(entityName: entityName)
         
         var success = false
@@ -75,6 +76,7 @@ final class FavoritesDataAccessController: FavoritesDataAccessControlling {
         
         let managedContext = CoreDataAccessController.shared.persistentContainer.viewContext
 
+        // TODO: make use of the fetch request UI from Box-Office-Movies-Core.xcdatamodel ?
         let fetchRequest = NSFetchRequest<Movie>(entityName: entityName)
         
         var favoriteMovies: [Movie]?
@@ -82,7 +84,7 @@ final class FavoritesDataAccessController: FavoritesDataAccessControlling {
         do {
             favoriteMovies = try managedContext.fetch(fetchRequest)
         } catch let error as NSError {
-            print("A Core Data error occurred. \(error), \(error.userInfo)")
+            print("Failed to fetch movies. \(error), \(error.userInfo)")
         }
         
         return favoriteMovies

@@ -20,6 +20,10 @@ struct Constants {
         static let timeoutIntervalForResource: TimeInterval = 5
     }
     
+    struct CoreData {
+        static let dataModelName = "Box-Office-Movies-Core"
+    }
+    
     // MARK: - Network requests
     
     struct NowPlayingMoviesNetworkRequest {

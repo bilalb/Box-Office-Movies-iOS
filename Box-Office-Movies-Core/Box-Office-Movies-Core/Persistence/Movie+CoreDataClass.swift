@@ -65,3 +65,11 @@ extension Movie: Encodable {
         try container.encode(title, forKey: .title)
     }
 }
+
+extension Movie {
+    
+    enum AttributeKeys: String {
+        case identifier
+        case title
+    }
+}
