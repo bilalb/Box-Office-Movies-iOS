@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		9C5AD05422568597009CC78A /* Box_Office_Movies_Core.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C5AD04A22568597009CC78A /* Box_Office_Movies_Core.framework */; };
-		9C5AD05922568597009CC78A /* Box_Office_Movies_CoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C5AD05822568597009CC78A /* Box_Office_Movies_CoreTests.swift */; };
 		9C5AD05B22568597009CC78A /* Box_Office_Movies_Core.h in Headers */ = {isa = PBXBuildFile; fileRef = 9C5AD04D22568597009CC78A /* Box_Office_Movies_Core.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9C5AD08E22568812009CC78A /* MovieManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C5AD07A22568812009CC78A /* MovieManager.swift */; };
 		9C5AD08F22568812009CC78A /* ManagerProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C5AD07B22568812009CC78A /* ManagerProvider.swift */; };
@@ -45,7 +44,6 @@
 		9C5AD04D22568597009CC78A /* Box_Office_Movies_Core.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Box_Office_Movies_Core.h; sourceTree = "<group>"; };
 		9C5AD04E22568597009CC78A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9C5AD05322568597009CC78A /* Box-Office-Movies-CoreTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Box-Office-Movies-CoreTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		9C5AD05822568597009CC78A /* Box_Office_Movies_CoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Box_Office_Movies_CoreTests.swift; sourceTree = "<group>"; };
 		9C5AD05A22568597009CC78A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9C5AD07A22568812009CC78A /* MovieManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovieManager.swift; sourceTree = "<group>"; };
 		9C5AD07B22568812009CC78A /* ManagerProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManagerProvider.swift; sourceTree = "<group>"; };
@@ -120,7 +118,6 @@
 		9C5AD05722568597009CC78A /* Box-Office-Movies-CoreTests */ = {
 			isa = PBXGroup;
 			children = (
-				9C5AD05822568597009CC78A /* Box_Office_Movies_CoreTests.swift */,
 				9C5AD05A22568597009CC78A /* Info.plist */,
 			);
 			path = "Box-Office-Movies-CoreTests";
@@ -327,7 +324,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9C5AD05922568597009CC78A /* Box_Office_Movies_CoreTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

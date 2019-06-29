@@ -20,7 +20,6 @@
 		9CDC95E12243FFB10051925E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9CDC95DF2243FFB10051925E /* Main.storyboard */; };
 		9CDC95E32243FFB30051925E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9CDC95E22243FFB30051925E /* Assets.xcassets */; };
 		9CDC95E62243FFB30051925E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9CDC95E42243FFB30051925E /* LaunchScreen.storyboard */; };
-		9CDC95F12243FFB30051925E /* Box_Office_MoviesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CDC95F02243FFB30051925E /* Box_Office_MoviesTests.swift */; };
 		9CDC960D2244034B0051925E /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CDC96002244034A0051925E /* Constants.swift */; };
 		9CDC96512247C2DE0051925E /* NowPlayingMovies+SceneSetup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CDC964B2247C2DE0051925E /* NowPlayingMovies+SceneSetup.swift */; };
 		9CDC96522247C2DE0051925E /* NowPlayingMoviesPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CDC964C2247C2DE0051925E /* NowPlayingMoviesPresenter.swift */; };
@@ -93,7 +92,6 @@
 		9CDC95E52243FFB30051925E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9CDC95E72243FFB30051925E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9CDC95EC2243FFB30051925E /* Box-Office-MoviesTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Box-Office-MoviesTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		9CDC95F02243FFB30051925E /* Box_Office_MoviesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Box_Office_MoviesTests.swift; sourceTree = "<group>"; };
 		9CDC95F22243FFB30051925E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9CDC96002244034A0051925E /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		9CDC964B2247C2DE0051925E /* NowPlayingMovies+SceneSetup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NowPlayingMovies+SceneSetup.swift"; sourceTree = "<group>"; };
@@ -221,7 +219,6 @@
 		9CDC95EF2243FFB30051925E /* Box-Office-MoviesTests */ = {
 			isa = PBXGroup;
 			children = (
-				9CDC95F02243FFB30051925E /* Box_Office_MoviesTests.swift */,
 				9CDC95F22243FFB30051925E /* Info.plist */,
 				9C5AD02F225653D1009CC78A /* Scenes */,
 			);
@@ -471,7 +468,6 @@
 				9C5AD03D22566826009CC78A /* NowPlayingMoviesPresenterTests.swift in Sources */,
 				9C5AD034225653ED009CC78A /* MovieDetailsViewControllerTests.swift in Sources */,
 				9C5AD03C22566826009CC78A /* NowPlayingMoviesInteractorTests.swift in Sources */,
-				9CDC95F12243FFB30051925E /* Box_Office_MoviesTests.swift in Sources */,
 				9C5AD03B22566826009CC78A /* NowPlayingMoviesViewControllerTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
