@@ -20,7 +20,6 @@
 		9CDC95E12243FFB10051925E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9CDC95DF2243FFB10051925E /* Main.storyboard */; };
 		9CDC95E32243FFB30051925E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9CDC95E22243FFB30051925E /* Assets.xcassets */; };
 		9CDC95E62243FFB30051925E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9CDC95E42243FFB30051925E /* LaunchScreen.storyboard */; };
-		9CDC95F12243FFB30051925E /* Box_Office_MoviesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CDC95F02243FFB30051925E /* Box_Office_MoviesTests.swift */; };
 		9CDC960D2244034B0051925E /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CDC96002244034A0051925E /* Constants.swift */; };
 		9CDC96512247C2DE0051925E /* NowPlayingMovies+SceneSetup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CDC964B2247C2DE0051925E /* NowPlayingMovies+SceneSetup.swift */; };
 		9CDC96522247C2DE0051925E /* NowPlayingMoviesPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CDC964C2247C2DE0051925E /* NowPlayingMoviesPresenter.swift */; };
@@ -38,10 +37,19 @@
 		9CDC966A2247DA510051925E /* MovieDetailsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CDC96642247DA510051925E /* MovieDetailsInteractor.swift */; };
 		9CE7AEC222569A1C00C20569 /* Box_Office_Movies_Core.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9CE7AEC122569A1C00C20569 /* Box_Office_Movies_Core.framework */; };
 		9CE7AEC322569A1C00C20569 /* Box_Office_Movies_Core.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9CE7AEC122569A1C00C20569 /* Box_Office_Movies_Core.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		9CFAE4C422C78D9600893908 /* Box_Office_MoviesUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CFAE4C322C78D9600893908 /* Box_Office_MoviesUITests.swift */; };
+		9CFAE4CC22C78E1C00893908 /* SnapshotHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CFAE4CB22C78E1C00893908 /* SnapshotHelper.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
 		9CDC95ED2243FFB30051925E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9CDC95CE2243FFB10051925E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 9CDC95D52243FFB10051925E;
+			remoteInfo = "Box-Office-Movies";
+		};
+		9CFAE4C622C78D9600893908 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 9CDC95CE2243FFB10051925E /* Project object */;
 			proxyType = 1;
@@ -84,7 +92,6 @@
 		9CDC95E52243FFB30051925E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9CDC95E72243FFB30051925E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9CDC95EC2243FFB30051925E /* Box-Office-MoviesTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Box-Office-MoviesTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		9CDC95F02243FFB30051925E /* Box_Office_MoviesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Box_Office_MoviesTests.swift; sourceTree = "<group>"; };
 		9CDC95F22243FFB30051925E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9CDC96002244034A0051925E /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		9CDC964B2247C2DE0051925E /* NowPlayingMovies+SceneSetup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NowPlayingMovies+SceneSetup.swift"; sourceTree = "<group>"; };
@@ -102,6 +109,10 @@
 		9CDC96632247DA510051925E /* MovieDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailsViewController.swift; sourceTree = "<group>"; };
 		9CDC96642247DA510051925E /* MovieDetailsInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailsInteractor.swift; sourceTree = "<group>"; };
 		9CE7AEC122569A1C00C20569 /* Box_Office_Movies_Core.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Box_Office_Movies_Core.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9CFAE4C122C78D9600893908 /* Box-Office-MoviesUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Box-Office-MoviesUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		9CFAE4C322C78D9600893908 /* Box_Office_MoviesUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Box_Office_MoviesUITests.swift; sourceTree = "<group>"; };
+		9CFAE4C522C78D9600893908 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9CFAE4CB22C78E1C00893908 /* SnapshotHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapshotHelper.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,6 +125,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		9CDC95E92243FFB30051925E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9CFAE4BE22C78D9600893908 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -166,6 +184,7 @@
 				9CE7AEC122569A1C00C20569 /* Box_Office_Movies_Core.framework */,
 				9CDC95D82243FFB10051925E /* Box-Office-Movies */,
 				9CDC95EF2243FFB30051925E /* Box-Office-MoviesTests */,
+				9CFAE4C222C78D9600893908 /* Box-Office-MoviesUITests */,
 				9CDC95D72243FFB10051925E /* Products */,
 			);
 			sourceTree = "<group>";
@@ -175,6 +194,7 @@
 			children = (
 				9CDC95D62243FFB10051925E /* Box-Office-Movies.app */,
 				9CDC95EC2243FFB30051925E /* Box-Office-MoviesTests.xctest */,
+				9CFAE4C122C78D9600893908 /* Box-Office-MoviesUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -199,7 +219,6 @@
 		9CDC95EF2243FFB30051925E /* Box-Office-MoviesTests */ = {
 			isa = PBXGroup;
 			children = (
-				9CDC95F02243FFB30051925E /* Box_Office_MoviesTests.swift */,
 				9CDC95F22243FFB30051925E /* Info.plist */,
 				9C5AD02F225653D1009CC78A /* Scenes */,
 			);
@@ -251,6 +270,16 @@
 			path = MovieDetails;
 			sourceTree = "<group>";
 		};
+		9CFAE4C222C78D9600893908 /* Box-Office-MoviesUITests */ = {
+			isa = PBXGroup;
+			children = (
+				9CFAE4C322C78D9600893908 /* Box_Office_MoviesUITests.swift */,
+				9CFAE4C522C78D9600893908 /* Info.plist */,
+				9CFAE4CB22C78E1C00893908 /* SnapshotHelper.swift */,
+			);
+			path = "Box-Office-MoviesUITests";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -291,13 +320,31 @@
 			productReference = 9CDC95EC2243FFB30051925E /* Box-Office-MoviesTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		9CFAE4C022C78D9600893908 /* Box-Office-MoviesUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9CFAE4CA22C78D9600893908 /* Build configuration list for PBXNativeTarget "Box-Office-MoviesUITests" */;
+			buildPhases = (
+				9CFAE4BD22C78D9600893908 /* Sources */,
+				9CFAE4BE22C78D9600893908 /* Frameworks */,
+				9CFAE4BF22C78D9600893908 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				9CFAE4C722C78D9600893908 /* PBXTargetDependency */,
+			);
+			name = "Box-Office-MoviesUITests";
+			productName = "Box-Office-MoviesUITests";
+			productReference = 9CFAE4C122C78D9600893908 /* Box-Office-MoviesUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		9CDC95CE2243FFB10051925E /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1010;
+				LastSwiftUpdateCheck = 1020;
 				LastUpgradeCheck = 1010;
 				ORGANIZATIONNAME = Boxotop;
 				TargetAttributes = {
@@ -308,6 +355,10 @@
 					9CDC95EB2243FFB30051925E = {
 						CreatedOnToolsVersion = 10.1;
 						LastSwiftMigration = 1020;
+						TestTargetID = 9CDC95D52243FFB10051925E;
+					};
+					9CFAE4C022C78D9600893908 = {
+						CreatedOnToolsVersion = 10.2.1;
 						TestTargetID = 9CDC95D52243FFB10051925E;
 					};
 				};
@@ -328,6 +379,7 @@
 			targets = (
 				9CDC95D52243FFB10051925E /* Box-Office-Movies */,
 				9CDC95EB2243FFB30051925E /* Box-Office-MoviesTests */,
+				9CFAE4C022C78D9600893908 /* Box-Office-MoviesUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -345,6 +397,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		9CDC95EA2243FFB30051925E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9CFAE4BF22C78D9600893908 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -409,8 +468,16 @@
 				9C5AD03D22566826009CC78A /* NowPlayingMoviesPresenterTests.swift in Sources */,
 				9C5AD034225653ED009CC78A /* MovieDetailsViewControllerTests.swift in Sources */,
 				9C5AD03C22566826009CC78A /* NowPlayingMoviesInteractorTests.swift in Sources */,
-				9CDC95F12243FFB30051925E /* Box_Office_MoviesTests.swift in Sources */,
 				9C5AD03B22566826009CC78A /* NowPlayingMoviesViewControllerTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9CFAE4BD22C78D9600893908 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9CFAE4C422C78D9600893908 /* Box_Office_MoviesUITests.swift in Sources */,
+				9CFAE4CC22C78E1C00893908 /* SnapshotHelper.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -421,6 +488,11 @@
 			isa = PBXTargetDependency;
 			target = 9CDC95D52243FFB10051925E /* Box-Office-Movies */;
 			targetProxy = 9CDC95ED2243FFB30051925E /* PBXContainerItemProxy */;
+		};
+		9CFAE4C722C78D9600893908 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 9CDC95D52243FFB10051925E /* Box-Office-Movies */;
+			targetProxy = 9CFAE4C622C78D9600893908 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -651,6 +723,46 @@
 			};
 			name = Release;
 		};
+		9CFAE4C822C78D9600893908 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = MU48Q96H48;
+				INFOPLIST_FILE = "Box-Office-MoviesUITests/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "fr.boxotop.Box-Office-MoviesUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "Box-Office-Movies";
+			};
+			name = Debug;
+		};
+		9CFAE4C922C78D9600893908 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = MU48Q96H48;
+				INFOPLIST_FILE = "Box-Office-MoviesUITests/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "fr.boxotop.Box-Office-MoviesUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "Box-Office-Movies";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -677,6 +789,15 @@
 			buildConfigurations = (
 				9CDC95F92243FFB30051925E /* Debug */,
 				9CDC95FA2243FFB30051925E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		9CFAE4CA22C78D9600893908 /* Build configuration list for PBXNativeTarget "Box-Office-MoviesUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9CFAE4C822C78D9600893908 /* Debug */,
+				9CFAE4C922C78D9600893908 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
