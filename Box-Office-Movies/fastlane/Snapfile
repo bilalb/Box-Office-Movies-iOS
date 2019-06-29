@@ -1,0 +1,11 @@
+workspace "../Box-Office-Movies.xcworkspace"
+
+devices([
+  "iPhone 8"
+])
+
+languages([
+  "en"
+])
+
+clear_previous_screenshots(true)
