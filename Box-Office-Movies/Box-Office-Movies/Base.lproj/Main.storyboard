@@ -380,6 +380,7 @@
                     <connections>
                         <outlet property="errorStackView" destination="n3u-tl-o0d" id="Tnt-cm-r09"/>
                         <outlet property="nowPlayingMoviesTableView" destination="iCU-Se-4Gs" id="Skq-hx-twv"/>
+                        <outlet property="segmentedControl" destination="eHv-XQ-ZQ5" id="rp0-M6-Lec"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="r6S-Ot-EHp" userLabel="First Responder" sceneMemberID="firstResponder"/>

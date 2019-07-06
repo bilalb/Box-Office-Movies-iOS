@@ -43,6 +43,7 @@ class NowPlayingMoviesViewController: UIViewController {
     let searchController = UISearchController(searchResultsController: nil)
     let refreshControl = UIRefreshControl()
     
+    @IBOutlet weak var segmentedControl: UISegmentedControl!
     @IBOutlet weak var nowPlayingMoviesTableView: UITableView!
     @IBOutlet weak var errorStackView: ErrorStackView!
 
@@ -70,6 +71,7 @@ class NowPlayingMoviesViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         deselectItem(animated)
+        refreshFavoriteMovies()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -194,7 +196,6 @@ private extension NowPlayingMoviesViewController {
     }
     
     @objc func editButtonItemPressed() {
-        //TODO: unfavorite from the list, load unfavorited movie, the movie details still display the favorite icon
         setEditing(!isEditing, animated: true)
     }
     
@@ -206,6 +207,12 @@ private extension NowPlayingMoviesViewController {
     func loadFavoriteMovies() {
         let request = NowPlayingMovies.LoadFavoriteMovies.Request()
         interactor?.loadFavoriteMovies(request: request)
+    }
+    
+    func refreshFavoriteMovies() {
+        if segmentedControl.selectedSegmentIndex == MovieListSegmentedControlIndex.favorites.rawValue {
+            loadFavoriteMovies()
+        }
     }
 }
 
