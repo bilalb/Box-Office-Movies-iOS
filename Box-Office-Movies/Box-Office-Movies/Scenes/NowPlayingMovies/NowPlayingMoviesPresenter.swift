@@ -15,8 +15,6 @@ protocol NowPlayingMoviesPresentationLogic {
     func presentFilterMovies(response: NowPlayingMovies.FilterMovies.Response)
     func presentRefreshMovies(response: NowPlayingMovies.RefreshMovies.Response)
     
-    func presentToggleFavoriteMoviesEdition(response: NowPlayingMovies.ToggleFavoriteMoviesEdition.Response)
-    func presentToggleFavoriteMoviesDisplay(response: NowPlayingMovies.ToggleFavoriteMoviesDisplay.Response)
     func presentRemoveMovieFromFavorites(response: NowPlayingMovies.RemoveMovieFromFavorites.Response)
 }
 
@@ -91,30 +89,6 @@ extension NowPlayingMoviesPresenter {
 // MARK: - Favorite movies
 
 extension NowPlayingMoviesPresenter {
-    
-    func presentToggleFavoriteMoviesEdition(response: NowPlayingMovies.ToggleFavoriteMoviesEdition.Response) {
-        let leftBarButtonItem: UIBarButtonItem = {
-            let barButtonSystemItem: UIBarButtonItem.SystemItem = response.isEditingFavoriteMovies ? .done : .edit
-            return UIBarButtonItem(barButtonSystemItem: barButtonSystemItem, target: response.toggleFavoriteMoviesEditionBarButtonItemTarget, action: response.toggleFavoriteMoviesEditionBarButtonItemAction)
-        }()
-        
-        let rightBarButtonItem = response.isEditingFavoriteMovies ? nil : response.toggleFavoriteMoviesDisplayBarButtonItem
-        
-        let viewModel = NowPlayingMovies.ToggleFavoriteMoviesEdition.ViewModel(isEditingTableView: response.isEditingFavoriteMovies,
-                                                                               shouldAnimateEditingModeTransition: true,
-                                                                               leftBarButtonItem: leftBarButtonItem,
-                                                                               shouldAnimateLeftBarButtonItemTransition: true,
-                                                                               rightBarButtonItem: rightBarButtonItem,
-                                                                               shouldAnimateRightBarButtonItemTransition: true)
-        viewController?.displayToggleFavoriteMoviesEdition(viewModel: viewModel)
-    }
-    
-    func presentToggleFavoriteMoviesDisplay(response: NowPlayingMovies.ToggleFavoriteMoviesDisplay.Response) {
-        let canEditRows = response.state == .favorites ? true : false
-        let leftBarButtonItem = response.state == .favorites ? response.toggleFavoriteMoviesEditionBarButtonItem : nil
-        let viewModel = NowPlayingMovies.ToggleFavoriteMoviesDisplay.ViewModel(canEditRows: canEditRows, leftBarButtonItem: leftBarButtonItem, shouldAnimateLeftBarButtonItemTransition: true)
-        viewController?.displayToggleFavoriteMoviesDisplay(viewModel: viewModel)
-    }
     
     func presentRemoveMovieFromFavorites(response: NowPlayingMovies.RemoveMovieFromFavorites.Response) {
         let items = movieItems(for: response.movies)

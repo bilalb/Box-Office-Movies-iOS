@@ -284,7 +284,7 @@
             </objects>
             <point key="canvasLocation" x="-856" y="-330"/>
         </scene>
-        <!--Box office movies-->
+        <!--Now Playing Movies View Controller-->
         <scene sceneID="ZKT-aR-Gdg">
             <objects>
                 <viewController storyboardIdentifier="NowPlayingMoviesViewController" id="0bP-UP-42v" customClass="NowPlayingMoviesViewController" customModule="Box_Office_Movies" customModuleProvider="target" sceneMemberID="viewController">
@@ -362,8 +362,20 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="yo0-iK-Gkw"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Box office movies" id="qsn-Tk-b9h">
+                    <navigationItem key="navigationItem" id="qsn-Tk-b9h">
+                        <nil key="title"/>
                         <barButtonItem key="backBarButtonItem" title=" " id="Oq5-LL-SYw"/>
+                        <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="eHv-XQ-ZQ5">
+                            <rect key="frame" x="118" y="7" width="139" height="30"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <segments>
+                                <segment title="All"/>
+                                <segment title="Favorites"/>
+                            </segments>
+                            <connections>
+                                <action selector="segmentedControlValueChanged:" destination="0bP-UP-42v" eventType="valueChanged" id="UtR-4A-pkc"/>
+                            </connections>
+                        </segmentedControl>
                     </navigationItem>
                     <connections>
                         <outlet property="errorStackView" destination="n3u-tl-o0d" id="Tnt-cm-r09"/>

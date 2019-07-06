@@ -14,8 +14,6 @@ protocol NowPlayingMoviesDisplayLogic: class {
     func displayFilterMovies(viewModel: NowPlayingMovies.FilterMovies.ViewModel)
     func displayRefreshMovies(viewModel: NowPlayingMovies.RefreshMovies.ViewModel)
     
-    func displayToggleFavoriteMoviesEdition(viewModel: NowPlayingMovies.ToggleFavoriteMoviesEdition.ViewModel)
-    func displayToggleFavoriteMoviesDisplay(viewModel: NowPlayingMovies.ToggleFavoriteMoviesDisplay.ViewModel)
     func displayRemoveMovieFromFavorites(viewModel: NowPlayingMovies.RemoveMovieFromFavorites.ViewModel)
 }
 
@@ -24,11 +22,10 @@ class NowPlayingMoviesViewController: UIViewController {
     var interactor: NowPlayingMoviesBusinessLogic?
     var router: (NSObjectProtocol & NowPlayingMoviesRoutingLogic & NowPlayingMoviesDataPassing)?
     var hasError = false
-    var canEditRows = false
     
     var movieItems: [MovieItem]? {
         didSet {
-            if !canEditRows {
+            if !isEditing {
                 nowPlayingMoviesTableView.reloadData()
                 DispatchQueue.main.async {
                     let areAllCellsVisible = self.nowPlayingMoviesTableView.visibleCells.count == self.movieItems?.count
@@ -44,8 +41,6 @@ class NowPlayingMoviesViewController: UIViewController {
     
     var indexPathForSelectedRow: IndexPath?
     let searchController = UISearchController(searchResultsController: nil)
-    var toggleFavoriteMoviesEditionBarButtonItem: UIBarButtonItem!
-    var toggleFavoriteMoviesDisplayBarButtonItem: UIBarButtonItem!
     
     @IBOutlet weak var nowPlayingMoviesTableView: UITableView!
     @IBOutlet weak var errorStackView: ErrorStackView!
@@ -67,8 +62,7 @@ class NowPlayingMoviesViewController: UIViewController {
         configureSplitViewController()
         configureSearchController()
         configureRefreshControl()
-        configureToggleFavoriteMoviesEditionBarButtonItem()
-        configureToggleFavoriteMoviesDisplayBarButtonItem()
+        configureEditButtonItem()
         fetchNowPlayingMovies()
     }
     
@@ -91,6 +85,11 @@ class NowPlayingMoviesViewController: UIViewController {
         super.traitCollectionDidChange(previousTraitCollection)
         selectFirstItem()
     }
+    
+    override func setEditing(_ editing: Bool, animated: Bool) {
+        super.setEditing(editing, animated: animated)
+        nowPlayingMoviesTableView.setEditing(editing, animated: animated)
+    }
 }
 
 // MARK: - Private Functions
@@ -111,6 +110,7 @@ private extension NowPlayingMoviesViewController {
     func configureRefreshControl() {
         nowPlayingMoviesTableView.refreshControl = UIRefreshControl()
         nowPlayingMoviesTableView.refreshControl?.addTarget(self, action: #selector(refreshControlTriggered), for: .valueChanged)
+        // TODO: disable refresh control when displaying favorites ?
     }
     
     @objc func refreshControlTriggered() {
@@ -163,43 +163,47 @@ private extension NowPlayingMoviesViewController {
     @IBAction func errorActionButtonPressed() {
         fetchNowPlayingMovies()
     }
+    
+    @IBAction func segmentedControlValueChanged(_ segmentedControl: UISegmentedControl) {
+        switch segmentedControl.selectedSegmentIndex {
+        case MovieListSegmentedControlIndex.all.rawValue:
+            fetchNowPlayingMovies()
+            setEditing(false, animated: true)
+            navigationItem.setRightBarButton(nil, animated: true)
+        case MovieListSegmentedControlIndex.favorites.rawValue:
+            loadFavoriteMovies()
+            navigationItem.setRightBarButton(editButtonItem, animated: true)
+        default:
+            break
+        }
+    }
+}
+
+enum MovieListSegmentedControlIndex: Int {
+    case all
+    case favorites
 }
 
 // MARK: - Favorite movies - Private Functions
 private extension NowPlayingMoviesViewController {
     
-    func configureToggleFavoriteMoviesEditionBarButtonItem() {
-        toggleFavoriteMoviesEditionBarButtonItem = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(toggleFavoriteMoviesEditionBarButtonItemPressed))
+    func configureEditButtonItem() {
+        editButtonItem.action = #selector(editButtonItemPressed)
     }
     
-    @objc func toggleFavoriteMoviesEditionBarButtonItemPressed() {
-        toggleFavoriteMoviesEdition()
-    }
-    
-    func toggleFavoriteMoviesEdition() {
-        let request = NowPlayingMovies.ToggleFavoriteMoviesEdition.Request(toggleFavoriteMoviesEditionBarButtonItemTarget: toggleFavoriteMoviesEditionBarButtonItem.target,
-                                                                           toggleFavoriteMoviesEditionBarButtonItemAction: toggleFavoriteMoviesEditionBarButtonItem.action,
-                                                                           toggleFavoriteMoviesDisplayBarButtonItem: toggleFavoriteMoviesDisplayBarButtonItem)
-        interactor?.toggleFavoriteMoviesEdition(request: request)
-    }
-    
-    func configureToggleFavoriteMoviesDisplayBarButtonItem() {
-        toggleFavoriteMoviesDisplayBarButtonItem = UIBarButtonItem(barButtonSystemItem: .bookmarks, target: self, action: #selector(toggleFavoriteMoviesDisplayBarButtonItemPressed))
-        navigationItem.setRightBarButton(toggleFavoriteMoviesDisplayBarButtonItem, animated: true)
-    }
-    
-    @objc func toggleFavoriteMoviesDisplayBarButtonItemPressed() {
-        toggleFavoriteMoviesDisplay()
-    }
-    
-    func toggleFavoriteMoviesDisplay() {
-        let request = NowPlayingMovies.ToggleFavoriteMoviesDisplay.Request(toggleFavoriteMoviesEditionBarButtonItem: toggleFavoriteMoviesEditionBarButtonItem)
-        interactor?.toggleFavoriteMoviesDisplay(request: request)
+    @objc func editButtonItemPressed() {
+        //TODO: unfavorite from the list, load unfavorited movie, the movie details still display the favorite icon
+        setEditing(!isEditing, animated: true)
     }
     
     func removeMovieFromFavorites(at indexPath: IndexPath) {
         let request = NowPlayingMovies.RemoveMovieFromFavorites.Request(indexPathForMovieToRemove: indexPath)
         interactor?.removeMovieFromFavorites(request: request)
+    }
+    
+    func loadFavoriteMovies() {
+        let request = NowPlayingMovies.LoadFavoriteMovies.Request()
+        interactor?.loadFavoriteMovies(request: request)
     }
 }
 
@@ -243,17 +247,6 @@ extension NowPlayingMoviesViewController: NowPlayingMoviesDisplayLogic {
         }
     }
     
-    func displayToggleFavoriteMoviesEdition(viewModel: NowPlayingMovies.ToggleFavoriteMoviesEdition.ViewModel) {
-        nowPlayingMoviesTableView.setEditing(viewModel.isEditingTableView, animated: viewModel.shouldAnimateEditingModeTransition)
-        navigationItem.setLeftBarButton(viewModel.leftBarButtonItem, animated: viewModel.shouldAnimateLeftBarButtonItemTransition)
-        navigationItem.setRightBarButton(viewModel.rightBarButtonItem, animated: viewModel.shouldAnimateRightBarButtonItemTransition)
-    }
-    
-    func displayToggleFavoriteMoviesDisplay(viewModel: NowPlayingMovies.ToggleFavoriteMoviesDisplay.ViewModel) {
-        canEditRows = viewModel.canEditRows
-        navigationItem.setLeftBarButton(viewModel.leftBarButtonItem, animated: viewModel.shouldAnimateLeftBarButtonItemTransition)
-    }
-    
     func displayRemoveMovieFromFavorites(viewModel: NowPlayingMovies.RemoveMovieFromFavorites.ViewModel) {
         movieItems = viewModel.movieItems
         nowPlayingMoviesTableView.deleteRows(at: viewModel.indexPathsForRowsToDelete, with: .automatic)
@@ -281,7 +274,7 @@ extension NowPlayingMoviesViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        return canEditRows ? true : false
+        return isEditing ? true : false
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {

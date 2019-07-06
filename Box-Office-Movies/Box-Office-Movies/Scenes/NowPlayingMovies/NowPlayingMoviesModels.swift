@@ -87,49 +87,13 @@ enum NowPlayingMovies {
 
 extension NowPlayingMovies {
     
-    enum ToggleFavoriteMoviesEdition {
+    enum LoadFavoriteMovies {
         
-        struct Request {
-            let toggleFavoriteMoviesEditionBarButtonItemTarget: Any?
-            let toggleFavoriteMoviesEditionBarButtonItemAction: Selector?
-            let toggleFavoriteMoviesDisplayBarButtonItem: UIBarButtonItem
-        }
+        struct Request { }
         
-        struct Response {
-            let isEditingFavoriteMovies: Bool
-            let toggleFavoriteMoviesEditionBarButtonItemTarget: Any?
-            let toggleFavoriteMoviesEditionBarButtonItemAction: Selector?
-            let toggleFavoriteMoviesDisplayBarButtonItem: UIBarButtonItem
-        }
+        struct Response { }
         
-        struct ViewModel {
-            let isEditingTableView: Bool
-            let shouldAnimateEditingModeTransition: Bool
-            
-            let leftBarButtonItem: UIBarButtonItem
-            let shouldAnimateLeftBarButtonItemTransition: Bool
-            
-            let rightBarButtonItem: UIBarButtonItem?
-            let shouldAnimateRightBarButtonItemTransition: Bool
-        }
-    }
-    
-    enum ToggleFavoriteMoviesDisplay {
-        
-        struct Request {
-            let toggleFavoriteMoviesEditionBarButtonItem: UIBarButtonItem
-        }
-        
-        struct Response {
-            let state: State
-            let toggleFavoriteMoviesEditionBarButtonItem: UIBarButtonItem
-        }
-        
-        struct ViewModel {
-            let canEditRows: Bool
-            let leftBarButtonItem: UIBarButtonItem?
-            let shouldAnimateLeftBarButtonItemTransition: Bool
-        }
+        struct ViewModel { }
     }
     
     enum RemoveMovieFromFavorites {
