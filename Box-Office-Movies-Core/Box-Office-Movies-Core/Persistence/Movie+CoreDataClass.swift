@@ -35,14 +35,15 @@ public class Movie: NSManagedObject, Decodable {
     }
 }
 
+public extension Movie {
+    
+    convenience init(identifier: Int32, title: String) {
+        self.init(identifier: identifier, title: title, context: CoreDataStack.shared.persistentContainer.viewContext)
+    }
+}
+
 extension Movie {
 
-    convenience init(identifier: Int32, title: String) {
-        self.init()
-        self.title = title
-        self.identifier = identifier
-    }
-    
     convenience init(identifier: Int32, title: String, context: NSManagedObjectContext) {
         guard
             let entityName = Movie.entity().name,

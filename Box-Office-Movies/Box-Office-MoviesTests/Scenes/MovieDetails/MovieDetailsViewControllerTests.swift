@@ -50,6 +50,7 @@ class MovieDetailsViewControllerTests: XCTestCase {
         var loadMovieReviewsCalled = false
         var reviewMovieCalled = false
         var addMovieToFavoritesCalled = false
+        var loadFavoriteToggleCalled = false
 
         func fetchMovieDetails(request: MovieDetailsScene.FetchMovieDetails.Request) {
             fetchMovieDetailsCalled = true
@@ -65,6 +66,10 @@ class MovieDetailsViewControllerTests: XCTestCase {
         
         func toggleFavorite(request: MovieDetailsScene.ToggleFavorite.Request) {
             addMovieToFavoritesCalled = true
+        }
+        
+        func loadFavoriteToggle(request: MovieDetailsScene.LoadFavoriteToggle.Request) {
+            loadFavoriteToggleCalled = true
         }
     }
     

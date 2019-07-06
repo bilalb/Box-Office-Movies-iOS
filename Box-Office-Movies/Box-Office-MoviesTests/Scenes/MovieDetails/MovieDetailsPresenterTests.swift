@@ -40,6 +40,8 @@ class MovieDetailsPresenterTests: XCTestCase {
         var displayMovieDetailsExpectation = XCTestExpectation(description: "displayMovieDetails called")
         var displayMovieReviewsCalled = false
         var displayReviewMovieCalled = false
+        var displayToggleFavoriteCalled = false
+        var displayFavoriteToggleCalled = false
         
         func displayMovieDetails(viewModel: MovieDetailsScene.FetchMovieDetails.ViewModel) {
             XCTAssertEqual(viewModel.detailItems?.count, 6)
@@ -65,6 +67,14 @@ class MovieDetailsPresenterTests: XCTestCase {
             }
             
             displayReviewMovieCalled = true
+        }
+        
+        func displayToggleFavorite(viewModel: MovieDetailsScene.ToggleFavorite.ViewModel) {
+            displayToggleFavoriteCalled = true
+        }
+        
+        func displayFavoriteToggle(viewModel: MovieDetailsScene.LoadFavoriteToggle.ViewModel) {
+            displayFavoriteToggleCalled = true
         }
     }
     

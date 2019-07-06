@@ -50,6 +50,8 @@ class NowPlayingMoviesViewControllerTests: XCTestCase {
         var fetchNextPageCalled = false
         var filterMoviesCalled = false
         var refreshMoviesCalled = false
+        var loadFavoriteMoviesCalled = false
+        var removeMovieFromFavoritesCalled = false
         
         func fetchNowPlayingMovies(request: NowPlayingMovies.FetchNowPlayingMovies.Request) {
             fetchNowPlayingMoviesCalled = true
@@ -65,6 +67,14 @@ class NowPlayingMoviesViewControllerTests: XCTestCase {
         
         func refreshMovies(request: NowPlayingMovies.RefreshMovies.Request) {
             refreshMoviesCalled = true
+        }
+        
+        func loadFavoriteMovies(request: NowPlayingMovies.LoadFavoriteMovies.Request) {
+            loadFavoriteMoviesCalled = true
+        }
+        
+        func removeMovieFromFavorites(request: NowPlayingMovies.RemoveMovieFromFavorites.Request) {
+            removeMovieFromFavoritesCalled = true
         }
     }
     

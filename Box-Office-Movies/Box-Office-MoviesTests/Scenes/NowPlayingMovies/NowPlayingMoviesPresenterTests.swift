@@ -41,6 +41,7 @@ class NowPlayingMoviesPresenterTests: XCTestCase {
         var displayNextPageExpectation = XCTestExpectation(description: "displayNextPage called")
         var displayFilterMoviesCalled = false
         var displayRefreshMoviesExpectation = XCTestExpectation(description: "displayRefreshMovies called")
+        var displayRemoveMovieFromFavoritesCalled = false
 
         func displayNowPlayingMovies(viewModel: NowPlayingMovies.FetchNowPlayingMovies.ViewModel) {
             XCTAssertEqual(viewModel.movieItems?.count, 2)
@@ -80,6 +81,10 @@ class NowPlayingMoviesPresenterTests: XCTestCase {
             XCTAssertEqual(viewModel.errorAlertActions.first?.style, .cancel)
             
             displayRefreshMoviesExpectation.fulfill()
+        }
+        
+        func displayRemoveMovieFromFavorites(viewModel: NowPlayingMovies.RemoveMovieFromFavorites.ViewModel) {
+            displayRemoveMovieFromFavoritesCalled = true
         }
     }
     

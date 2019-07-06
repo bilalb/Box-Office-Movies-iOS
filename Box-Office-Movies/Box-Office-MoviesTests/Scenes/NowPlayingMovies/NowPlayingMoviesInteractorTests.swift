@@ -59,6 +59,10 @@ class NowPlayingMoviesInteractorTests: XCTestCase {
         func presentRefreshMovies(response: NowPlayingMovies.RefreshMovies.Response) {
             presentRefreshMoviesExpectation.fulfill()
         }
+        
+        func presentRemoveMovieFromFavorites(response: NowPlayingMovies.RemoveMovieFromFavorites.Response) {
+            presentFilterMoviesCalled = true
+        }
     }
     
     // MARK: Tests

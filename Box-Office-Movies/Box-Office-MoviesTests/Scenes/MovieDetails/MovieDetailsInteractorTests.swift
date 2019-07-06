@@ -26,24 +26,6 @@ class MovieDetailsInteractorTests: XCTestCase {
     
     override func tearDown() {
         super.tearDown()
-        
-        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
-            XCTFail("A non optional AppDelegate is expected.")
-            return
-        }
-        
-        let managedContext = appDelegate.persistentContainer.viewContext
-        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: FavoriteMovie.entityName)
-        
-        do {
-            if let favoriteMovies = try managedContext.fetch(fetchRequest) as? [FavoriteMovie],
-                let favoriteMovieToDelete = favoriteMovies.first(where: { $0.identifier == MovieDetails.dummyInstance.identifier }) {
-                managedContext.delete(favoriteMovieToDelete)
-                try managedContext.save()
-            }
-        } catch let error as NSError {
-            XCTFail("A Core Data error occured. \(error), \(error.userInfo)")
-        }
     }
     
     // MARK: Test setup
@@ -59,6 +41,8 @@ class MovieDetailsInteractorTests: XCTestCase {
         var presentMovieDetailsExpectation = XCTestExpectation(description: "presentMovieDetails called")
         var presentMovieReviewsCalled = false
         var presentReviewMovieCalled = false
+        var presentFavoriteToggleCalled = false
+        var presentToggleFavoriteCalled = false
 
         func presentMovieDetails(response: MovieDetailsScene.FetchMovieDetails.Response) {
             presentMovieDetailsExpectation.fulfill()
@@ -74,6 +58,14 @@ class MovieDetailsInteractorTests: XCTestCase {
             XCTAssertEqual(response.movieReview.description, "★★★★☆")
             
             presentReviewMovieCalled = true
+        }
+        
+        func presentFavoriteToggle(response: MovieDetailsScene.LoadFavoriteToggle.Response) {
+            presentFavoriteToggleCalled = true
+        }
+        
+        func presentToggleFavorite(response: MovieDetailsScene.ToggleFavorite.Response) {
+            presentToggleFavoriteCalled = true
         }
     }
     
@@ -103,36 +95,6 @@ class MovieDetailsInteractorTests: XCTestCase {
         
         // Then
         XCTAssertTrue(spy.presentReviewMovieCalled, "reviewMovie(request:) should ask the presenter to format the result")
-    }
-    
-    func testToggleFavorite() {
-        // Given
-        let spy = MovieDetailsPresentationLogicSpy()
-        sut.presenter = spy
-        
-        sut.movieDetails = MovieDetails.dummyInstance
-        
-        let request = MovieDetailsScene.ToggleFavorite.Request()
-        
-        // When
-        sut.toggleFavorite(request: request)
-        
-        // Then
-        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
-            XCTFail("appDelegate should be an instance of AppDelegate")
-            return
-        }
-        
-        let managedContext = appDelegate.persistentContainer.viewContext
-        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: FavoriteMovie.entityName)
-        
-        do {
-            if let favoriteMovies = try managedContext.fetch(fetchRequest) as? [FavoriteMovie] {
-                XCTAssertTrue(favoriteMovies.contains(where: { $0.identifier == 0 }))
-            }
-        } catch let error as NSError {
-            XCTFail("Could not fetch. \(error), \(error.userInfo)")
-        }
     }
 }
 
