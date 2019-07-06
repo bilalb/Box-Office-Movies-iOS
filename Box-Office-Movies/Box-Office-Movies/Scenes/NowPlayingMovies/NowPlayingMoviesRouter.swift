@@ -6,6 +6,7 @@
 //  Copyrights © 2019 Bilal Benlarbi. All rights reserved.
 //
 
+import Box_Office_Movies_Core
 import UIKit
 
 protocol NowPlayingMoviesDataPassing {
@@ -37,7 +38,18 @@ extension NowPlayingMoviesRouter: NowPlayingMoviesRoutingLogic {
 private extension NowPlayingMoviesRouter {
     
     func passDataToMovieDetails(source: NowPlayingMoviesDataStore, destination: inout MovieDetailsDataStore) {
-        let movies = source.state == .allMovies ? source.movies : source.filteredMovies
+        let movies: [Movie] = {
+            if viewController?.searchController.isActive == true {
+                return source.filteredMovies
+            } else {
+                switch source.state {
+                case .allMovies:
+                    return source.movies
+                case .favorites:
+                    return source.favoriteMovies
+                }
+            }
+        }()
         
         guard
             let indexForSelectedRow = viewController?.nowPlayingMoviesTableView.indexPathForSelectedRow?.row,

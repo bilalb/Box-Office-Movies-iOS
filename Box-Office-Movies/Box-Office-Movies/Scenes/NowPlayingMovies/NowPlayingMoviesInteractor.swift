@@ -11,6 +11,7 @@ import UIKit
 
 protocol NowPlayingMoviesDataStore {
     var movies: [Movie] { get }
+    var favoriteMovies: [Movie] { get }
     var filteredMovies: [Movie] { get }
     var state: State { get }
 }
@@ -31,28 +32,35 @@ class NowPlayingMoviesInteractor: NowPlayingMoviesDataStore {
     
     var page = 1
     var paginatedMovieLists = [PaginatedMovieList]()
+    
     var movies = [Movie]()
+    var favoriteMovies = [Movie]()
     var filteredMovies = [Movie]()
+    
+    var currentMovies: [Movie] {
+        switch state {
+        case .allMovies:
+            return movies
+        case .favorites:
+            return favoriteMovies
+        }
+    }
+    
     var state = State.allMovies {
         didSet {
             switch state {
             case .allMovies:
                 // TODO: only fetch movies when needed
                 fetchNowPlayingMovies()
-            case .searching:
-                // TODO: to refactor ?
-                break
             case .favorites:
                 loadFavoriteMovies()
             }
         }
     }
-    var isEditingFavoriteMovies = false
 }
 
 enum State {
     case allMovies
-    case searching
     case favorites
 }
 
@@ -89,12 +97,11 @@ extension NowPlayingMoviesInteractor: NowPlayingMoviesBusinessLogic {
         let isFiltering = request.isSearchControllerActive && !request.searchText.isEmpty
         
         if isFiltering {
-            state = .searching
-            filteredMovies = movies.filter { movie -> Bool in
+            filteredMovies = currentMovies.filter { movie -> Bool in
                 return movie.title.lowercased().contains(request.searchText.lowercased()) == true
             }
         } else {
-            filteredMovies = movies
+            filteredMovies = currentMovies
         }
         
         let response = NowPlayingMovies.FilterMovies.Response(movies: filteredMovies)
@@ -141,9 +148,8 @@ extension NowPlayingMoviesInteractor {
 extension NowPlayingMoviesInteractor {
     
     func loadFavoriteMovies() {
-        let favoriteMovies = ManagerProvider.shared.favoritesManager.favoriteMovies()
-        filteredMovies = favoriteMovies ?? []
-        let response = NowPlayingMovies.FilterMovies.Response(movies: filteredMovies)
+        favoriteMovies = ManagerProvider.shared.favoritesManager.favoriteMovies() ?? []
+        let response = NowPlayingMovies.FilterMovies.Response(movies: favoriteMovies)
         presenter?.presentFilterMovies(response: response)
     }
     
@@ -152,14 +158,14 @@ extension NowPlayingMoviesInteractor {
     }
     
     func removeMovieFromFavorites(request: NowPlayingMovies.RemoveMovieFromFavorites.Request) {
-        guard filteredMovies.indices.contains(request.indexPathForMovieToRemove.row) else {
+        guard favoriteMovies.indices.contains(request.indexPathForMovieToRemove.row) else {
             return
         }
         
-        let favoriteMovieToRemove = filteredMovies.remove(at: request.indexPathForMovieToRemove.row)
+        let favoriteMovieToRemove = favoriteMovies.remove(at: request.indexPathForMovieToRemove.row)
         _ = ManagerProvider.shared.favoritesManager.removeMovieFromFavorites(favoriteMovieToRemove)
         
-        let response = NowPlayingMovies.RemoveMovieFromFavorites.Response(movies: filteredMovies, indexPathForMovieToRemove: request.indexPathForMovieToRemove)
+        let response = NowPlayingMovies.RemoveMovieFromFavorites.Response(movies: favoriteMovies, indexPathForMovieToRemove: request.indexPathForMovieToRemove)
         presenter?.presentRemoveMovieFromFavorites(response: response)
     }
 }
