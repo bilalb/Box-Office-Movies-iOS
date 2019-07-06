@@ -41,6 +41,7 @@ class NowPlayingMoviesViewController: UIViewController {
     
     var indexPathForSelectedRow: IndexPath?
     let searchController = UISearchController(searchResultsController: nil)
+    let refreshControl = UIRefreshControl()
     
     @IBOutlet weak var nowPlayingMoviesTableView: UITableView!
     @IBOutlet weak var errorStackView: ErrorStackView!
@@ -108,9 +109,8 @@ private extension NowPlayingMoviesViewController {
     }
     
     func configureRefreshControl() {
-        nowPlayingMoviesTableView.refreshControl = UIRefreshControl()
-        nowPlayingMoviesTableView.refreshControl?.addTarget(self, action: #selector(refreshControlTriggered), for: .valueChanged)
-        // TODO: disable refresh control when displaying favorites ?
+        refreshControl.addTarget(self, action: #selector(refreshControlTriggered), for: .valueChanged)
+        nowPlayingMoviesTableView.refreshControl = refreshControl
     }
     
     @objc func refreshControlTriggered() {
@@ -170,9 +170,11 @@ private extension NowPlayingMoviesViewController {
             fetchNowPlayingMovies()
             setEditing(false, animated: true)
             navigationItem.setRightBarButton(nil, animated: true)
+            nowPlayingMoviesTableView.refreshControl = refreshControl
         case MovieListSegmentedControlIndex.favorites.rawValue:
             loadFavoriteMovies()
             navigationItem.setRightBarButton(editButtonItem, animated: true)
+            nowPlayingMoviesTableView.refreshControl = nil
         default:
             break
         }
