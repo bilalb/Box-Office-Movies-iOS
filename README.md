@@ -1,6 +1,6 @@
 # Box-Office-Movies iOS
 This application provides information about movies in theatres.
-It contains two parts :
+It contains two parts:
 - A master part that displays the list of movies in theatres
 - A detail part that displays the primary information about a movie
 
@@ -15,12 +15,15 @@ English, French.
 Developed in Swift 5.
 Based on a custom clean architecture.
 Core business logic handled by `Box-Office-Movies-Core`.
+Data persistence with Core Data.
 
 ## API
 This application uses [The Movie Database (TMDb) API](https://developers.themoviedb.org/).
 
 ## Tools
-This application uses [SwiftLint](https://github.com/realm/SwiftLint) which is an open source tool to enforce Swift style and conventions.
+This application uses:
+- [SwiftLint](https://github.com/realm/SwiftLint) which is an open source tool to enforce Swift style and conventions.
+- [fastlane](https://fastlane.tools/).
 
 ## Author
 [Bilal Benlarbi](http://bilal.benlarbi.fr/).
