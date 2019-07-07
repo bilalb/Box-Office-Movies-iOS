@@ -1,0 +1,12 @@
+stages:
+  - build
+
+build_project:
+  stage: build
+  script:
+    - xcodebuild clean -workspace Box-Office-Movies.xcworkspace -scheme Box-Office-Movies
+    - xcodebuild test -workspace Box-Office-Movies.xcworkspace -scheme Box-Office-Movies -destination 'platform=iOS Simulator,name=iPhone Xʀ,OS=12.2' | xcpretty -s
+  tags:
+    - iOS-12.2
+    - macOS-10.14.5
+    - Xcode-10.2.1
