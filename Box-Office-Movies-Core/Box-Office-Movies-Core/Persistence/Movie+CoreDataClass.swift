@@ -42,7 +42,7 @@ public extension Movie {
     }
 }
 
-extension Movie {
+fileprivate extension Movie {
 
     convenience init(identifier: Int32, title: String, context: NSManagedObjectContext) {
         guard

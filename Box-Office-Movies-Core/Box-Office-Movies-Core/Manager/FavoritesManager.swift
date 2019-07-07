@@ -10,8 +10,21 @@ import Foundation
 
 public protocol FavoritesManagement {
     
+    /// Adds the movie to the favorites.
+    ///
+    /// - Parameter movie: The movie to add to the favorites.
+    /// - Returns: `true` if the addition is successfull; otherwise, `false`.
     func addMovieToFavorites(_ movie: Movie) -> Bool
+    
+    /// Remove the movie from the favorites.
+    ///
+    /// - Parameter movie: The movie to remove from the favorites.
+    /// - Returns: `true` if the removal is successfull; otherwise, `false`.
     func removeMovieFromFavorites(_ movie: Movie) -> Bool
+    
+    /// The favorite movies.
+    ///
+    /// - Returns: An array containing the favorite movies.
     func favoriteMovies() -> [Movie]?
 }
 

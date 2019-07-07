@@ -19,7 +19,6 @@ public class ManagerProvider: ManagerProviding {
     public static var shared: ManagerProviding = ManagerProvider()
     
     public var movieManager: MovieManagement!
-    
     public var favoritesManager: FavoritesManagement!
     
     init() {

@@ -11,12 +11,6 @@ import CoreData
 
 extension Movie {
     
-    @nonobjc public class func fetchRequest() -> NSFetchRequest<Movie> {
-        let entityName = Movie.entity().name ?? String(describing: Movie.self)
-        return NSFetchRequest<Movie>(entityName: entityName)
-    }
-    
     @NSManaged public var identifier: Int32
     @NSManaged public var title: String
-    
 }

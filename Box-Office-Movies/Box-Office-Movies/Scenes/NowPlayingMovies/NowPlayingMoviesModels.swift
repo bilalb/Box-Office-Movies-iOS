@@ -118,7 +118,7 @@ struct MovieItem {
     let title: String?
 }
 
-enum MovieListSegmentedControlIndex: Int {
+enum SegmentedControlSegmentIndex: Int {
     case all
     case favorites
 }

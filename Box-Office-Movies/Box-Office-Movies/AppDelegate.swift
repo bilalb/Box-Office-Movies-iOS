@@ -6,11 +6,11 @@
 //  Copyrights © 2019 Bilal Benlarbi. All rights reserved.
 //
 
-import CoreData
 import UIKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    
 }

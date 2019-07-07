@@ -45,7 +45,8 @@ public struct MovieDetails: Codable {
 
 public extension MovieDetails {
     
+    /// The `Movie` instance for the `MovieDetails` object.
     var relatedMovie: Movie {
-         return Movie(identifier: Int32(identifier), title: title, context: CoreDataStack.shared.persistentContainer.viewContext)
+         return Movie(identifier: Int32(identifier), title: title)
     }
 }

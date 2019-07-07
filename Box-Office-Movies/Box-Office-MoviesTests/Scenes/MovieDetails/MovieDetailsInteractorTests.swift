@@ -8,7 +8,6 @@
 
 @testable import Box_Office_Movies
 import Box_Office_Movies_Core
-import CoreData
 import XCTest
 
 class MovieDetailsInteractorTests: XCTestCase {

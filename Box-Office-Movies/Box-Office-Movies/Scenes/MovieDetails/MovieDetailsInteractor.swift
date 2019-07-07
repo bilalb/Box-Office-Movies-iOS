@@ -28,7 +28,6 @@ class MovieDetailsInteractor: MovieDetailsDataStore {
     var movieIdentifier: Int?
     var similarMoviePage = 1
     
-    // TODO: still useful ? if not, to remove
     var paginatedSimilarMovieLists = [PaginatedMovieList]()
     
     var movieDetails: MovieDetails?

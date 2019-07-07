@@ -50,7 +50,6 @@ class NowPlayingMoviesInteractor: NowPlayingMoviesDataStore {
         didSet {
             switch state {
             case .allMovies:
-                // TODO: only fetch movies when needed?
                 fetchNowPlayingMovies()
             case .favorites:
                 loadFavoriteMovies()
@@ -147,14 +146,14 @@ extension NowPlayingMoviesInteractor {
 
 extension NowPlayingMoviesInteractor {
     
+    func loadFavoriteMovies(request: NowPlayingMovies.LoadFavoriteMovies.Request) {
+        state = .favorites
+    }
+    
     func loadFavoriteMovies() {
         favoriteMovies = ManagerProvider.shared.favoritesManager.favoriteMovies() ?? []
         let response = NowPlayingMovies.FilterMovies.Response(movies: favoriteMovies)
         presenter?.presentFilterMovies(response: response)
-    }
-    
-    func loadFavoriteMovies(request: NowPlayingMovies.LoadFavoriteMovies.Request) {
-        state = .favorites
     }
     
     func removeMovieFromFavorites(request: NowPlayingMovies.RemoveMovieFromFavorites.Request) {

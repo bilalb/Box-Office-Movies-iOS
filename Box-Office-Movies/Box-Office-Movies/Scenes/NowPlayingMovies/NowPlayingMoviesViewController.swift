@@ -172,9 +172,9 @@ private extension NowPlayingMoviesViewController {
     
     @IBAction func segmentedControlValueChanged(_ segmentedControl: UISegmentedControl) {
         switch segmentedControl.selectedSegmentIndex {
-        case MovieListSegmentedControlIndex.all.rawValue:
+        case SegmentedControlSegmentIndex.all.rawValue:
             fetchNowPlayingMovies()
-        case MovieListSegmentedControlIndex.favorites.rawValue:
+        case SegmentedControlSegmentIndex.favorites.rawValue:
             loadFavoriteMovies()
         default:
             break
@@ -207,7 +207,7 @@ private extension NowPlayingMoviesViewController {
     }
     
     func refreshFavoriteMovies() {
-        if segmentedControl.selectedSegmentIndex == MovieListSegmentedControlIndex.favorites.rawValue {
+        if segmentedControl.selectedSegmentIndex == SegmentedControlSegmentIndex.favorites.rawValue {
             loadFavoriteMovies()
         }
     }
