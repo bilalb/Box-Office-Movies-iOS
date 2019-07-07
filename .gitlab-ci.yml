@@ -4,8 +4,8 @@ stages:
 build_project:
   stage: build
   script:
-    - xcodebuild clean -workspace Box-Office-Movies.xcworkspace -scheme Box-Office-Movies
-    - xcodebuild test -workspace Box-Office-Movies.xcworkspace -scheme Box-Office-Movies -destination 'platform=iOS Simulator,name=iPhone Xʀ,OS=12.2' | xcpretty -s
+    - set -o pipefail && xcodebuild clean -workspace Box-Office-Movies.xcworkspace -scheme Box-Office-Movies | xcpretty
+    - set -o pipefail && xcodebuild test -workspace Box-Office-Movies.xcworkspace -scheme Box-Office-Movies -destination 'platform=iOS Simulator,name=iPhone Xʀ,OS=12.2' | xcpretty
   tags:
     - iOS-12.2
     - macOS-10.14.5
