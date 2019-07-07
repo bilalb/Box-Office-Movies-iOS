@@ -26,6 +26,10 @@ class MovieDetailsInteractorTests: XCTestCase {
     
     override func tearDown() {
         super.tearDown()
+        
+        ManagerProvider.shared.favoritesManager.favoriteMovies()?.forEach({ movie in
+            _ = ManagerProvider.shared.favoritesManager.removeMovieFromFavorites(movie)
+        })
     }
     
     // MARK: Test setup
@@ -95,6 +99,38 @@ class MovieDetailsInteractorTests: XCTestCase {
         
         // Then
         XCTAssertTrue(spy.presentReviewMovieCalled, "reviewMovie(request:) should ask the presenter to format the result")
+    }
+    
+    func testLoadFavoriteToggle() {
+        // Given
+        let spy = MovieDetailsPresentationLogicSpy()
+        sut.presenter = spy
+        
+        sut.movieIdentifier = 0
+        
+        let request = MovieDetailsScene.LoadFavoriteToggle.Request()
+        
+        // When
+        sut.loadFavoriteToggle(request: request)
+        
+        // Then
+        XCTAssertTrue(spy.presentFavoriteToggleCalled, "loadFavoriteToggle(request:) should ask the presenter to format the result")
+    }
+    
+    func testToggleFavorite() {
+        // Given
+        let spy = MovieDetailsPresentationLogicSpy()
+        sut.presenter = spy
+        
+        sut.movieDetails = MovieDetails.dummyInstance
+        
+        let request = MovieDetailsScene.ToggleFavorite.Request()
+        
+        // When
+        sut.toggleFavorite(request: request)
+        
+        // Then
+        XCTAssertTrue(spy.presentToggleFavoriteCalled, "toggleFavorite(request:) should ask the presenter to format the result")
     }
 }
 
