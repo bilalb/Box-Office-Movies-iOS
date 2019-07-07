@@ -117,3 +117,8 @@ extension NowPlayingMovies {
 struct MovieItem {
     let title: String?
 }
+
+enum MovieListSegmentedControlIndex: Int {
+    case all
+    case favorites
+}

@@ -130,6 +130,10 @@ private extension NowPlayingMoviesViewController {
     }
     
     func fetchNowPlayingMovies() {
+        setEditing(false, animated: true)
+        navigationItem.setRightBarButton(nil, animated: true)
+        nowPlayingMoviesTableView.refreshControl = refreshControl
+        
         let request = NowPlayingMovies.FetchNowPlayingMovies.Request()
         interactor?.fetchNowPlayingMovies(request: request)
     }
@@ -170,22 +174,12 @@ private extension NowPlayingMoviesViewController {
         switch segmentedControl.selectedSegmentIndex {
         case MovieListSegmentedControlIndex.all.rawValue:
             fetchNowPlayingMovies()
-            setEditing(false, animated: true)
-            navigationItem.setRightBarButton(nil, animated: true)
-            nowPlayingMoviesTableView.refreshControl = refreshControl
         case MovieListSegmentedControlIndex.favorites.rawValue:
             loadFavoriteMovies()
-            navigationItem.setRightBarButton(editButtonItem, animated: true)
-            nowPlayingMoviesTableView.refreshControl = nil
         default:
             break
         }
     }
-}
-
-enum MovieListSegmentedControlIndex: Int {
-    case all
-    case favorites
 }
 
 // MARK: - Favorite movies - Private Functions
@@ -205,6 +199,9 @@ private extension NowPlayingMoviesViewController {
     }
     
     func loadFavoriteMovies() {
+        navigationItem.setRightBarButton(editButtonItem, animated: true)
+        nowPlayingMoviesTableView.refreshControl = nil
+        
         let request = NowPlayingMovies.LoadFavoriteMovies.Request()
         interactor?.loadFavoriteMovies(request: request)
     }

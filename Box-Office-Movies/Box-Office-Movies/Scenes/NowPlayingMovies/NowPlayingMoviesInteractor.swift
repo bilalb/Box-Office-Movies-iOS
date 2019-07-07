@@ -50,7 +50,7 @@ class NowPlayingMoviesInteractor: NowPlayingMoviesDataStore {
         didSet {
             switch state {
             case .allMovies:
-                // TODO: only fetch movies when needed
+                // TODO: only fetch movies when needed?
                 fetchNowPlayingMovies()
             case .favorites:
                 loadFavoriteMovies()

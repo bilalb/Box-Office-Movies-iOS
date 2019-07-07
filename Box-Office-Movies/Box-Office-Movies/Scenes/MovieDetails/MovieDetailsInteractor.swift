@@ -112,7 +112,8 @@ extension MovieDetailsInteractor: MovieDetailsBusinessLogic {
         guard let movieIdentifier = movieIdentifier else {
             return
         }
-        let isFavorite = ManagerProvider.shared.favoritesManager.favoriteMovies()?.contains(where: { $0.identifier == movieIdentifier })
+        let favoriteMovies = ManagerProvider.shared.favoritesManager.favoriteMovies()
+        let isFavorite = favoriteMovies?.contains(where: { $0.identifier == movieIdentifier })
         let response = MovieDetailsScene.LoadFavoriteToggle.Response(isFavorite: isFavorite)
         presenter?.presentFavoriteToggle(response: response)
     }
@@ -122,7 +123,8 @@ extension MovieDetailsInteractor: MovieDetailsBusinessLogic {
             return
         }
         var isMovieAddedToFavorite: Bool
-        if let movie = ManagerProvider.shared.favoritesManager.favoriteMovies()?.first(where: { $0.identifier == movieDetails.identifier }) {
+        let favoriteMovies = ManagerProvider.shared.favoritesManager.favoriteMovies()
+        if let movie = favoriteMovies?.first(where: { $0.identifier == movieDetails.identifier }) {
             _ = ManagerProvider.shared.favoritesManager.removeMovieFromFavorites(movie)
             isMovieAddedToFavorite = false
         } else {
