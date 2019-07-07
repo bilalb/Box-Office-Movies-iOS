@@ -32,6 +32,7 @@
 		9C5AD09D22568812009CC78A /* Casting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C5AD08C22568812009CC78A /* Casting.swift */; };
 		9C5AD09E22568812009CC78A /* TheMovieDatabaseAPIConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C5AD08D22568812009CC78A /* TheMovieDatabaseAPIConfiguration.swift */; };
 		9C5AD0AB22568A63009CC78A /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C5AD0AA22568A63009CC78A /* Constants.swift */; };
+		9C8A9B3D22D21A1D0013AE4F /* FavoritesManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C8A9B3C22D21A1D0013AE4F /* FavoritesManagerTests.swift */; };
 		9CFAE4BB22C7868D00893908 /* Movie+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CFAE4B922C7868D00893908 /* Movie+CoreDataProperties.swift */; };
 		9CFAE4BC22C7868D00893908 /* Movie+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CFAE4BA22C7868D00893908 /* Movie+CoreDataClass.swift */; };
 /* End PBXBuildFile section */
@@ -75,6 +76,7 @@
 		9C5AD08C22568812009CC78A /* Casting.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Casting.swift; sourceTree = "<group>"; };
 		9C5AD08D22568812009CC78A /* TheMovieDatabaseAPIConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TheMovieDatabaseAPIConfiguration.swift; sourceTree = "<group>"; };
 		9C5AD0AA22568A63009CC78A /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		9C8A9B3C22D21A1D0013AE4F /* FavoritesManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesManagerTests.swift; sourceTree = "<group>"; };
 		9CFAE4B922C7868D00893908 /* Movie+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Movie+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		9CFAE4BA22C7868D00893908 /* Movie+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Movie+CoreDataClass.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -147,6 +149,7 @@
 		9C5AD05722568597009CC78A /* Box-Office-Movies-CoreTests */ = {
 			isa = PBXGroup;
 			children = (
+				9C8A9B3B22D219FB0013AE4F /* Manager */,
 				9C5AD05A22568597009CC78A /* Info.plist */,
 			);
 			path = "Box-Office-Movies-CoreTests";
@@ -196,6 +199,14 @@
 				9C5AD08D22568812009CC78A /* TheMovieDatabaseAPIConfiguration.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		9C8A9B3B22D219FB0013AE4F /* Manager */ = {
+			isa = PBXGroup;
+			children = (
+				9C8A9B3C22D21A1D0013AE4F /* FavoritesManagerTests.swift */,
+			);
+			path = Manager;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -264,6 +275,7 @@
 					};
 					9C5AD05222568597009CC78A = {
 						CreatedOnToolsVersion = 10.2;
+						LastSwiftMigration = 1020;
 					};
 				};
 			};
@@ -360,6 +372,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9C8A9B3D22D21A1D0013AE4F /* FavoritesManagerTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -548,6 +561,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = "Box-Office-Movies-CoreTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -557,6 +571,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "fr.boxotop.Box-Office-Movies-CoreTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -566,6 +581,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = "Box-Office-Movies-CoreTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (

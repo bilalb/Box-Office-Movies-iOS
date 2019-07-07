@@ -26,9 +26,29 @@
       buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
+      codeCoverageEnabled = "YES"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "9C5AD05222568597009CC78A"
+               BuildableName = "Box-Office-Movies-CoreTests.xctest"
+               BlueprintName = "Box-Office-Movies-CoreTests"
+               ReferencedContainer = "container:Box-Office-Movies-Core.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "9C5AD04922568597009CC78A"
+            BuildableName = "Box_Office_Movies_Core.framework"
+            BlueprintName = "Box-Office-Movies-Core"
+            ReferencedContainer = "container:Box-Office-Movies-Core.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </TestAction>
