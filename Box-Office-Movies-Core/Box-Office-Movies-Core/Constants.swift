@@ -20,6 +20,13 @@ struct Constants {
         static let timeoutIntervalForResource: TimeInterval = 5
     }
     
+    struct CoreData {
+        static let dataModelName = "Box-Office-Movies-Core"
+        static let managedObjectModelFileExtension = "momd"
+    }
+    
+    // MARK: - Network requests
+    
     struct NowPlayingMoviesNetworkRequest {
         static let path = "movie/now_playing?language=%@&region=%@&page=%d&api_key=%@"
     }

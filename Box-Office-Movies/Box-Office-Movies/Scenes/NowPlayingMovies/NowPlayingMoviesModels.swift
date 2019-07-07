@@ -9,6 +9,7 @@
 import Box_Office_Movies_Core
 import UIKit
 
+// TODO: rename to MovieList?
 enum NowPlayingMovies {
     
     enum FetchNowPlayingMovies {
@@ -82,6 +83,42 @@ enum NowPlayingMovies {
     }
 }
 
+// MARK: - Favorite movies
+
+extension NowPlayingMovies {
+    
+    enum LoadFavoriteMovies {
+        
+        struct Request { }
+        
+        struct Response { }
+        
+        struct ViewModel { }
+    }
+    
+    enum RemoveMovieFromFavorites {
+        
+        struct Request {
+            let indexPathForMovieToRemove: IndexPath
+        }
+        
+        struct Response {
+            let movies: [Movie]?
+            let indexPathForMovieToRemove: IndexPath
+        }
+        
+        struct ViewModel {
+            let movieItems: [MovieItem]?
+            let indexPathsForRowsToDelete: [IndexPath]
+        }
+    }
+}
+
 struct MovieItem {
     let title: String?
+}
+
+enum SegmentedControlSegmentIndex: Int {
+    case all
+    case favorites
 }

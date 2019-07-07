@@ -11,7 +11,7 @@ import Foundation
 /// Primary information about a movie.
 public struct MovieDetails: Codable {
     
-    let identifier: Int
+    public let identifier: Int
     public let title: String
     
     /// The String representation of the release date of the movie. For example: `"1999-10-12"`.
@@ -40,5 +40,13 @@ public struct MovieDetails: Codable {
         self.voteAverage = voteAverage
         self.synopsis = synopsis
         self.posterPath = posterPath
+    }
+}
+
+public extension MovieDetails {
+    
+    /// The `Movie` instance for the `MovieDetails` object.
+    var relatedMovie: Movie {
+         return Movie(identifier: Int32(identifier), title: title)
     }
 }

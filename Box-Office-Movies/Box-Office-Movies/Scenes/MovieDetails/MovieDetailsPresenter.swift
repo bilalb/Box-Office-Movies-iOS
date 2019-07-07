@@ -13,6 +13,8 @@ protocol MovieDetailsPresentationLogic {
     func presentMovieDetails(response: MovieDetailsScene.FetchMovieDetails.Response)
     func presentMovieReviews(response: MovieDetailsScene.LoadMovieReviews.Response)
     func presentReviewMovie(response: MovieDetailsScene.ReviewMovie.Response)
+    func presentFavoriteToggle(response: MovieDetailsScene.LoadFavoriteToggle.Response)
+    func presentToggleFavorite(response: MovieDetailsScene.ToggleFavorite.Response)
 }
 
 class MovieDetailsPresenter {
@@ -77,6 +79,19 @@ extension MovieDetailsPresenter: MovieDetailsPresentationLogic {
         let reviewMovieItem = DetailItem.reviewMovie(review: response.movieReview.description)
         let viewModel = MovieDetailsScene.ReviewMovie.ViewModel(reviewMovieItem: reviewMovieItem)
         viewController?.displayReviewMovie(viewModel: viewModel)
+    }
+    
+    // TODO: factorise presentFavoriteToggle & presentToggleFavorite ?
+    func presentFavoriteToggle(response: MovieDetailsScene.LoadFavoriteToggle.Response) {
+        let toggleFavoriteBarButtonItemTitle = response.isFavorite == true ? "★" : "☆"
+        let viewModel = MovieDetailsScene.LoadFavoriteToggle.ViewModel(toggleFavoriteBarButtonItemTitle: toggleFavoriteBarButtonItemTitle)
+        viewController?.displayFavoriteToggle(viewModel: viewModel)
+    }
+    
+    func presentToggleFavorite(response: MovieDetailsScene.ToggleFavorite.Response) {
+        let toggleFavoriteBarButtonItemTitle = response.isMovieAddedToFavorite ? "★" : "☆"
+        let viewModel = MovieDetailsScene.ToggleFavorite.ViewModel(toggleFavoriteBarButtonItemTitle: toggleFavoriteBarButtonItemTitle)
+        viewController?.displayToggleFavorite(viewModel: viewModel)
     }
 }
 

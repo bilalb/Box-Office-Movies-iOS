@@ -7,6 +7,7 @@
 //
 
 @testable import Box_Office_Movies
+import Box_Office_Movies_Core
 import XCTest
 
 class MovieDetailsInteractorTests: XCTestCase {
@@ -24,6 +25,10 @@ class MovieDetailsInteractorTests: XCTestCase {
     
     override func tearDown() {
         super.tearDown()
+        
+        ManagerProvider.shared.favoritesManager.favoriteMovies()?.forEach({ movie in
+            _ = ManagerProvider.shared.favoritesManager.removeMovieFromFavorites(movie)
+        })
     }
     
     // MARK: Test setup
@@ -39,6 +44,8 @@ class MovieDetailsInteractorTests: XCTestCase {
         var presentMovieDetailsExpectation = XCTestExpectation(description: "presentMovieDetails called")
         var presentMovieReviewsCalled = false
         var presentReviewMovieCalled = false
+        var presentFavoriteToggleCalled = false
+        var presentToggleFavoriteCalled = false
 
         func presentMovieDetails(response: MovieDetailsScene.FetchMovieDetails.Response) {
             presentMovieDetailsExpectation.fulfill()
@@ -54,6 +61,14 @@ class MovieDetailsInteractorTests: XCTestCase {
             XCTAssertEqual(response.movieReview.description, "★★★★☆")
             
             presentReviewMovieCalled = true
+        }
+        
+        func presentFavoriteToggle(response: MovieDetailsScene.LoadFavoriteToggle.Response) {
+            presentFavoriteToggleCalled = true
+        }
+        
+        func presentToggleFavorite(response: MovieDetailsScene.ToggleFavorite.Response) {
+            presentToggleFavoriteCalled = true
         }
     }
     
@@ -83,5 +98,44 @@ class MovieDetailsInteractorTests: XCTestCase {
         
         // Then
         XCTAssertTrue(spy.presentReviewMovieCalled, "reviewMovie(request:) should ask the presenter to format the result")
+    }
+    
+    func testLoadFavoriteToggle() {
+        // Given
+        let spy = MovieDetailsPresentationLogicSpy()
+        sut.presenter = spy
+        
+        sut.movieIdentifier = 0
+        
+        let request = MovieDetailsScene.LoadFavoriteToggle.Request()
+        
+        // When
+        sut.loadFavoriteToggle(request: request)
+        
+        // Then
+        XCTAssertTrue(spy.presentFavoriteToggleCalled, "loadFavoriteToggle(request:) should ask the presenter to format the result")
+    }
+    
+    func testToggleFavorite() {
+        // Given
+        let spy = MovieDetailsPresentationLogicSpy()
+        sut.presenter = spy
+        
+        sut.movieDetails = MovieDetails.dummyInstance
+        
+        let request = MovieDetailsScene.ToggleFavorite.Request()
+        
+        // When
+        sut.toggleFavorite(request: request)
+        
+        // Then
+        XCTAssertTrue(spy.presentToggleFavoriteCalled, "toggleFavorite(request:) should ask the presenter to format the result")
+    }
+}
+
+extension MovieDetails {
+    
+    static var dummyInstance: MovieDetails {
+        return MovieDetails(identifier: 0, title: "foo", releaseDate: "12345", voteAverage: 1, synopsis: "bar", posterPath: "a")
     }
 }

@@ -49,7 +49,9 @@ class MovieDetailsViewControllerTests: XCTestCase {
         var fetchMovieDetailsCalled = false
         var loadMovieReviewsCalled = false
         var reviewMovieCalled = false
-        
+        var toggleFavoriteCalled = false
+        var loadFavoriteToggleCalled = false
+
         func fetchMovieDetails(request: MovieDetailsScene.FetchMovieDetails.Request) {
             fetchMovieDetailsCalled = true
         }
@@ -60,6 +62,14 @@ class MovieDetailsViewControllerTests: XCTestCase {
         
         func reviewMovie(request: MovieDetailsScene.ReviewMovie.Request) {
             reviewMovieCalled = true
+        }
+        
+        func toggleFavorite(request: MovieDetailsScene.ToggleFavorite.Request) {
+            toggleFavoriteCalled = true
+        }
+        
+        func loadFavoriteToggle(request: MovieDetailsScene.LoadFavoriteToggle.Request) {
+            loadFavoriteToggleCalled = true
         }
     }
     
@@ -87,7 +97,7 @@ class MovieDetailsViewControllerTests: XCTestCase {
     
     func testDisplayMovieDetails() {
         // Given
-        let viewModel = MovieDetailsScene.FetchMovieDetails.ViewModel(detailItems: dummyDetailItems, shouldHideErrorView: true, errorDescription: nil)
+        let viewModel = MovieDetailsScene.FetchMovieDetails.ViewModel(detailItems: DetailItem.dummyInstances, shouldHideErrorView: true, errorDescription: nil)
         
         // When
         loadView()
@@ -139,10 +149,32 @@ class MovieDetailsViewControllerTests: XCTestCase {
         }
     }
     
+    func testDisplayToggleFavorite() {
+        // Given
+        let viewModel = MovieDetailsScene.ToggleFavorite.ViewModel(toggleFavoriteBarButtonItemTitle: "★")
+        
+        // When
+        sut.displayToggleFavorite(viewModel: viewModel)
+        
+        // Then
+        XCTAssertEqual(sut.toggleFavoriteBarButtonItem.title, "★", "displayToggleFavorite(viewModel:) should set the title of toggleFavoriteBarButtonItem")
+    }
+    
+    func testDisplayFavoriteToggle() {
+        // Given
+        let viewModel = MovieDetailsScene.LoadFavoriteToggle.ViewModel(toggleFavoriteBarButtonItemTitle: "★")
+        
+        // When
+        sut.displayFavoriteToggle(viewModel: viewModel)
+        
+        // Then
+        XCTAssertEqual(sut.toggleFavoriteBarButtonItem.title, "★", "displayFavoriteToggle(viewModel:) should set the title of toggleFavoriteBarButtonItem")
+    }
+    
     func testNumberOfRowsInSection0() {
         // Given
         loadView()
-        sut.detailItems = dummyDetailItems
+        sut.detailItems = DetailItem.dummyInstances
         
         // When
         let numberOfRowsInSection0 = sut.tableView(sut.detailItemsTableView, numberOfRowsInSection: 0)
@@ -154,7 +186,7 @@ class MovieDetailsViewControllerTests: XCTestCase {
     func testCellForRowAtTitleItemIndexPath() {
         // Given
         loadView()
-        sut.detailItems = dummyDetailItems
+        sut.detailItems = DetailItem.dummyInstances
         let indexPath = IndexPath(row: 0, section: 0)
         
         // When
@@ -167,7 +199,7 @@ class MovieDetailsViewControllerTests: XCTestCase {
     func testCellForRowAtAdditionalInformationItemIndexPath() {
         // Given
         loadView()
-        sut.detailItems = dummyDetailItems
+        sut.detailItems = DetailItem.dummyInstances
         let indexPath = IndexPath(row: 1, section: 0)
         
         // When
@@ -186,7 +218,7 @@ class MovieDetailsViewControllerTests: XCTestCase {
     func testCellForRowAtReviewMovieItemIndexPath() {
         // Given
         loadView()
-        sut.detailItems = dummyDetailItems
+        sut.detailItems = DetailItem.dummyInstances
         let indexPath = IndexPath(row: 2, section: 0)
         
         // When
@@ -199,7 +231,7 @@ class MovieDetailsViewControllerTests: XCTestCase {
     func testCellForRowAtSynopsisItemIndexPath() {
         // Given
         loadView()
-        sut.detailItems = dummyDetailItems
+        sut.detailItems = DetailItem.dummyInstances
         let indexPath = IndexPath(row: 3, section: 0)
         
         // When
@@ -212,7 +244,7 @@ class MovieDetailsViewControllerTests: XCTestCase {
     func testCellForRowAtCastingItemIndexPath() {
         // Given
         loadView()
-        sut.detailItems = dummyDetailItems
+        sut.detailItems = DetailItem.dummyInstances
         let indexPath = IndexPath(row: 4, section: 0)
         
         // When
@@ -225,7 +257,7 @@ class MovieDetailsViewControllerTests: XCTestCase {
     func testCellForRowAtSimilarMoviesItemIndexPath() {
         // Given
         loadView()
-        sut.detailItems = dummyDetailItems
+        sut.detailItems = DetailItem.dummyInstances
         let indexPath = IndexPath(row: 5, section: 0)
         
         // When
@@ -241,7 +273,7 @@ class MovieDetailsViewControllerTests: XCTestCase {
         sut.interactor = spy
         
         loadView()
-        sut.detailItems = dummyDetailItems
+        sut.detailItems = DetailItem.dummyInstances
         let indexPath = IndexPath(row: 2, section: 0)
         
         // When
@@ -252,9 +284,9 @@ class MovieDetailsViewControllerTests: XCTestCase {
     }
 }
 
-extension MovieDetailsViewControllerTests {
+extension DetailItem {
     
-    var dummyDetailItems: [DetailItem] {
+    static var dummyInstances: [DetailItem] {
         return [DetailItem.title(title: "Whiplash"),
                 DetailItem.additionalInformation(posterImage: nil, releaseDateAttributedText: NSAttributedString(string: "05/04/2019"), voteAverageAttributedText: NSAttributedString(string: "★★★★☆")),
                 DetailItem.reviewMovie(review: "review"),

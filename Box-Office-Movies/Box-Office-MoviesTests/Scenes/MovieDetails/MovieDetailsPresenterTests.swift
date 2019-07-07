@@ -40,6 +40,8 @@ class MovieDetailsPresenterTests: XCTestCase {
         var displayMovieDetailsExpectation = XCTestExpectation(description: "displayMovieDetails called")
         var displayMovieReviewsCalled = false
         var displayReviewMovieCalled = false
+        var displayToggleFavoriteCalled = false
+        var displayFavoriteToggleCalled = false
         
         func displayMovieDetails(viewModel: MovieDetailsScene.FetchMovieDetails.ViewModel) {
             XCTAssertEqual(viewModel.detailItems?.count, 6)
@@ -65,6 +67,14 @@ class MovieDetailsPresenterTests: XCTestCase {
             }
             
             displayReviewMovieCalled = true
+        }
+        
+        func displayToggleFavorite(viewModel: MovieDetailsScene.ToggleFavorite.ViewModel) {
+            displayToggleFavoriteCalled = true
+        }
+        
+        func displayFavoriteToggle(viewModel: MovieDetailsScene.LoadFavoriteToggle.ViewModel) {
+            displayFavoriteToggleCalled = true
         }
     }
     
@@ -115,5 +125,33 @@ class MovieDetailsPresenterTests: XCTestCase {
         
         // Then
         XCTAssertTrue(spy.displayReviewMovieCalled, "presentReviewMovie(response:) should ask the view controller to display the result")
+    }
+    
+    func testPresentFavoriteToggle() {
+        // Given
+        let spy = MovieDetailsDisplayLogicSpy()
+        sut.viewController = spy
+        
+        let response = MovieDetailsScene.LoadFavoriteToggle.Response(isFavorite: true)
+        
+        // When
+        sut.presentFavoriteToggle(response: response)
+        
+        // Then
+        XCTAssertTrue(spy.displayFavoriteToggleCalled, "presentFavoriteToggle(response:) should ask the view controller to display the result")
+    }
+    
+    func testPresentToggleFavorite() {
+        // Given
+        let spy = MovieDetailsDisplayLogicSpy()
+        sut.viewController = spy
+        
+        let response = MovieDetailsScene.ToggleFavorite.Response(isMovieAddedToFavorite: true)
+        
+        // When
+        sut.presentToggleFavorite(response: response)
+        
+        // Then
+        XCTAssertTrue(spy.displayToggleFavoriteCalled, "presentToggleFavorite(response:) should ask the view controller to display the result")
     }
 }

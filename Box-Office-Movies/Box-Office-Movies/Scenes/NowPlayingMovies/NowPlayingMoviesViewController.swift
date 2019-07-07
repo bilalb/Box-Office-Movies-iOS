@@ -13,6 +13,8 @@ protocol NowPlayingMoviesDisplayLogic: class {
     func displayNextPage(viewModel: NowPlayingMovies.FetchNextPage.ViewModel)
     func displayFilterMovies(viewModel: NowPlayingMovies.FilterMovies.ViewModel)
     func displayRefreshMovies(viewModel: NowPlayingMovies.RefreshMovies.ViewModel)
+    
+    func displayRemoveMovieFromFavorites(viewModel: NowPlayingMovies.RemoveMovieFromFavorites.ViewModel)
 }
 
 class NowPlayingMoviesViewController: UIViewController {
@@ -23,13 +25,15 @@ class NowPlayingMoviesViewController: UIViewController {
     
     var movieItems: [MovieItem]? {
         didSet {
-            nowPlayingMoviesTableView.reloadData()
-            DispatchQueue.main.async {
-                let areAllCellsVisible = self.nowPlayingMoviesTableView.visibleCells.count == self.movieItems?.count
-                if areAllCellsVisible && !self.hasError {
-                    self.fetchNextPage()
-                } else {
-                    self.selectFirstItem()
+            if !isEditing {
+                nowPlayingMoviesTableView.reloadData()
+                DispatchQueue.main.async {
+                    let areAllCellsVisible = self.nowPlayingMoviesTableView.visibleCells.count == self.movieItems?.count
+                    if areAllCellsVisible && !self.hasError {
+                        self.fetchNextPage()
+                    } else {
+                        self.selectFirstItem()
+                    }
                 }
             }
         }
@@ -37,7 +41,9 @@ class NowPlayingMoviesViewController: UIViewController {
     
     var indexPathForSelectedRow: IndexPath?
     let searchController = UISearchController(searchResultsController: nil)
-
+    let refreshControl = UIRefreshControl()
+    
+    @IBOutlet weak var segmentedControl: UISegmentedControl!
     @IBOutlet weak var nowPlayingMoviesTableView: UITableView!
     @IBOutlet weak var errorStackView: ErrorStackView!
 
@@ -58,12 +64,14 @@ class NowPlayingMoviesViewController: UIViewController {
         configureSplitViewController()
         configureSearchController()
         configureRefreshControl()
+        configureEditButtonItem()
         fetchNowPlayingMovies()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         deselectItem(animated)
+        refreshFavoriteMovies()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -79,6 +87,11 @@ class NowPlayingMoviesViewController: UIViewController {
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         selectFirstItem()
+    }
+    
+    override func setEditing(_ editing: Bool, animated: Bool) {
+        super.setEditing(editing, animated: animated)
+        nowPlayingMoviesTableView.setEditing(editing, animated: animated)
     }
 }
 
@@ -98,8 +111,8 @@ private extension NowPlayingMoviesViewController {
     }
     
     func configureRefreshControl() {
-        nowPlayingMoviesTableView.refreshControl = UIRefreshControl()
-        nowPlayingMoviesTableView.refreshControl?.addTarget(self, action: #selector(refreshControlTriggered), for: .valueChanged)
+        refreshControl.addTarget(self, action: #selector(refreshControlTriggered), for: .valueChanged)
+        nowPlayingMoviesTableView.refreshControl = refreshControl
     }
     
     @objc func refreshControlTriggered() {
@@ -117,6 +130,10 @@ private extension NowPlayingMoviesViewController {
     }
     
     func fetchNowPlayingMovies() {
+        setEditing(false, animated: true)
+        navigationItem.setRightBarButton(nil, animated: true)
+        nowPlayingMoviesTableView.refreshControl = refreshControl
+        
         let request = NowPlayingMovies.FetchNowPlayingMovies.Request()
         interactor?.fetchNowPlayingMovies(request: request)
     }
@@ -151,6 +168,48 @@ private extension NowPlayingMoviesViewController {
     
     @IBAction func errorActionButtonPressed() {
         fetchNowPlayingMovies()
+    }
+    
+    @IBAction func segmentedControlValueChanged(_ segmentedControl: UISegmentedControl) {
+        switch segmentedControl.selectedSegmentIndex {
+        case SegmentedControlSegmentIndex.all.rawValue:
+            fetchNowPlayingMovies()
+        case SegmentedControlSegmentIndex.favorites.rawValue:
+            loadFavoriteMovies()
+        default:
+            break
+        }
+    }
+}
+
+// MARK: - Favorite movies - Private Functions
+private extension NowPlayingMoviesViewController {
+    
+    func configureEditButtonItem() {
+        editButtonItem.action = #selector(editButtonItemPressed)
+    }
+    
+    @objc func editButtonItemPressed() {
+        setEditing(!isEditing, animated: true)
+    }
+    
+    func removeMovieFromFavorites(at indexPath: IndexPath) {
+        let request = NowPlayingMovies.RemoveMovieFromFavorites.Request(indexPathForMovieToRemove: indexPath)
+        interactor?.removeMovieFromFavorites(request: request)
+    }
+    
+    func loadFavoriteMovies() {
+        navigationItem.setRightBarButton(editButtonItem, animated: true)
+        nowPlayingMoviesTableView.refreshControl = nil
+        
+        let request = NowPlayingMovies.LoadFavoriteMovies.Request()
+        interactor?.loadFavoriteMovies(request: request)
+    }
+    
+    func refreshFavoriteMovies() {
+        if segmentedControl.selectedSegmentIndex == SegmentedControlSegmentIndex.favorites.rawValue {
+            loadFavoriteMovies()
+        }
     }
 }
 
@@ -193,6 +252,11 @@ extension NowPlayingMoviesViewController: NowPlayingMoviesDisplayLogic {
             present(alertController, animated: true)
         }
     }
+    
+    func displayRemoveMovieFromFavorites(viewModel: NowPlayingMovies.RemoveMovieFromFavorites.ViewModel) {
+        movieItems = viewModel.movieItems
+        nowPlayingMoviesTableView.deleteRows(at: viewModel.indexPathsForRowsToDelete, with: .automatic)
+    }
 }
 
 // MARK: - UITableViewDataSource
@@ -213,6 +277,16 @@ extension NowPlayingMoviesViewController: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: Constants.CellIdentifier.movieTableViewCell, for: indexPath)
         cell.textLabel?.text = movieItem.title
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return isEditing ? true : false
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            removeMovieFromFavorites(at: indexPath)
+        }
     }
 }
 

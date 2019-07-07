@@ -17,6 +17,8 @@ protocol MovieDetailsBusinessLogic {
     func fetchMovieDetails(request: MovieDetailsScene.FetchMovieDetails.Request)
     func loadMovieReviews(request: MovieDetailsScene.LoadMovieReviews.Request)
     func reviewMovie(request: MovieDetailsScene.ReviewMovie.Request)
+    func loadFavoriteToggle(request: MovieDetailsScene.LoadFavoriteToggle.Request)
+    func toggleFavorite(request: MovieDetailsScene.ToggleFavorite.Request)
 }
 
 class MovieDetailsInteractor: MovieDetailsDataStore {
@@ -25,7 +27,10 @@ class MovieDetailsInteractor: MovieDetailsDataStore {
     
     var movieIdentifier: Int?
     var similarMoviePage = 1
+    
     var paginatedSimilarMovieLists = [PaginatedMovieList]()
+    
+    var movieDetails: MovieDetails?
 }
 
 extension MovieDetailsInteractor: MovieDetailsBusinessLogic {
@@ -51,6 +56,7 @@ extension MovieDetailsInteractor: MovieDetailsBusinessLogic {
             }
             
             self?.fetchDetails { [weak self] (movieDetails, error) in
+                self?.movieDetails = movieDetails
                 guard error == nil else {
                     presentMovieDetails(movieDetails: movieDetails, casting: nil, paginatedSimilarMovieLists: nil, posterImage: nil, error: error)
                     return
@@ -100,12 +106,39 @@ extension MovieDetailsInteractor: MovieDetailsBusinessLogic {
         let response = MovieDetailsScene.ReviewMovie.Response(movieReview: request.movieReview)
         presenter?.presentReviewMovie(response: response)
     }
+    
+    func loadFavoriteToggle(request: MovieDetailsScene.LoadFavoriteToggle.Request) {
+        guard let movieIdentifier = movieIdentifier else {
+            return
+        }
+        let favoriteMovies = ManagerProvider.shared.favoritesManager.favoriteMovies()
+        let isFavorite = favoriteMovies?.contains(where: { $0.identifier == movieIdentifier })
+        let response = MovieDetailsScene.LoadFavoriteToggle.Response(isFavorite: isFavorite)
+        presenter?.presentFavoriteToggle(response: response)
+    }
+    
+    func toggleFavorite(request: MovieDetailsScene.ToggleFavorite.Request) {
+        guard let movieDetails = movieDetails else {
+            return
+        }
+        var isMovieAddedToFavorite: Bool
+        let favoriteMovies = ManagerProvider.shared.favoritesManager.favoriteMovies()
+        if let movie = favoriteMovies?.first(where: { $0.identifier == movieDetails.identifier }) {
+            _ = ManagerProvider.shared.favoritesManager.removeMovieFromFavorites(movie)
+            isMovieAddedToFavorite = false
+        } else {
+            isMovieAddedToFavorite = ManagerProvider.shared.favoritesManager.addMovieToFavorites(movieDetails.relatedMovie)
+        }
+        
+        let response = MovieDetailsScene.ToggleFavorite.Response(isMovieAddedToFavorite: isMovieAddedToFavorite)
+        presenter?.presentToggleFavorite(response: response)
+    }
 }
 
 extension MovieDetailsInteractor {
     
     func fetchAPIConfiguration(completionHandler: TheMovieDatabaseAPIConfigurationCompletionHandler?) {
-        ManagerProvider.sharedInstance.movieManager.theMovieDatabaseAPIConfiguration(completionHandler: completionHandler)
+        ManagerProvider.shared.movieManager.theMovieDatabaseAPIConfiguration(completionHandler: completionHandler)
     }
     
     func fetchDetails(completionHandler: MovieDetailsCompletionHandler?) {
@@ -114,14 +147,14 @@ extension MovieDetailsInteractor {
         }
         let languageCode = Locale.current.languageCode ?? Constants.Fallback.languageCode
         let regionCode = Locale.current.regionCode ?? Constants.Fallback.regionCode
-        ManagerProvider.sharedInstance.movieManager.movieDetails(identifier: movieIdentifier, languageCode: languageCode, regionCode: regionCode, completionHandler: completionHandler)
+        ManagerProvider.shared.movieManager.movieDetails(identifier: movieIdentifier, languageCode: languageCode, regionCode: regionCode, completionHandler: completionHandler)
     }
     
     func fetchCasting(completionHandler: CastingCompletionHandler?) {
         guard let movieIdentifier = movieIdentifier else {
             return
         }
-        ManagerProvider.sharedInstance.movieManager.casting(identifier: movieIdentifier, completionHandler: completionHandler)
+        ManagerProvider.shared.movieManager.casting(identifier: movieIdentifier, completionHandler: completionHandler)
     }
     
     func fetchSimilarMovies(completionHandler: SimilarMoviesCompletionHandler?) {
@@ -137,10 +170,10 @@ extension MovieDetailsInteractor {
         }
         
         let languageCode = Locale.current.languageCode ?? Constants.Fallback.languageCode
-        ManagerProvider.sharedInstance.movieManager.similarMovies(identifier: movieIdentifier, languageCode: languageCode, page: similarMoviePage, completionHandler: completionHandler)
+        ManagerProvider.shared.movieManager.similarMovies(identifier: movieIdentifier, languageCode: languageCode, page: similarMoviePage, completionHandler: completionHandler)
     }
     
     func fetchPosterImage(imageSecureBaseURLPath: String, posterSize: String = Constants.Fallback.posterImageSize, posterPath: String, completionHandler: PosterCompletionHandler?) {
-        ManagerProvider.sharedInstance.movieManager.poster(imageSecureBaseURL: imageSecureBaseURLPath, posterSize: posterSize, posterPath: posterPath, completionHandler: completionHandler)
+        ManagerProvider.shared.movieManager.poster(imageSecureBaseURL: imageSecureBaseURLPath, posterSize: posterSize, posterPath: posterPath, completionHandler: completionHandler)
     }
 }

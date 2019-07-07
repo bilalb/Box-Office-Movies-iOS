@@ -12,6 +12,8 @@ protocol MovieDetailsDisplayLogic: class {
     func displayMovieDetails(viewModel: MovieDetailsScene.FetchMovieDetails.ViewModel)
     func displayMovieReviews(viewModel: MovieDetailsScene.LoadMovieReviews.ViewModel)
     func displayReviewMovie(viewModel: MovieDetailsScene.ReviewMovie.ViewModel)
+    func displayToggleFavorite(viewModel: MovieDetailsScene.ToggleFavorite.ViewModel)
+    func displayFavoriteToggle(viewModel: MovieDetailsScene.LoadFavoriteToggle.ViewModel)
 }
 
 class MovieDetailsViewController: UIViewController {
@@ -25,6 +27,7 @@ class MovieDetailsViewController: UIViewController {
         }
     }
     
+    @IBOutlet weak var toggleFavoriteBarButtonItem: UIBarButtonItem!
     @IBOutlet weak var detailItemsTableView: UITableView!
     @IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!
     @IBOutlet weak var errorStackView: ErrorStackView!
@@ -52,6 +55,7 @@ class MovieDetailsViewController: UIViewController {
         }
         
         fetchMovieDetails()
+        loadFavoriteToggle()
     }
 }
 
@@ -77,6 +81,20 @@ private extension MovieDetailsViewController {
         fetchMovieDetails()
         activityIndicatorView.startAnimating()
         errorStackView.isHidden = true
+    }
+    
+    func loadFavoriteToggle() {
+        let request = MovieDetailsScene.LoadFavoriteToggle.Request()
+        interactor?.loadFavoriteToggle(request: request)
+    }
+    
+    @IBAction func toggleFavoriteBarButtonItemPressed() {
+        toggleFavorite()
+    }
+    
+    func toggleFavorite() {
+        let request = MovieDetailsScene.ToggleFavorite.Request()
+        interactor?.toggleFavorite(request: request)
     }
 }
 
@@ -122,6 +140,14 @@ extension MovieDetailsViewController: MovieDetailsDisplayLogic {
         if let indexOfReviewMovieItem = indexOfReviewMovieItem {
             detailItems[indexOfReviewMovieItem] = viewModel.reviewMovieItem
         }
+    }
+    
+    func displayToggleFavorite(viewModel: MovieDetailsScene.ToggleFavorite.ViewModel) {
+        toggleFavoriteBarButtonItem.title = viewModel.toggleFavoriteBarButtonItemTitle
+    }
+    
+    func displayFavoriteToggle(viewModel: MovieDetailsScene.LoadFavoriteToggle.ViewModel) {
+        toggleFavoriteBarButtonItem.title = viewModel.toggleFavoriteBarButtonItemTitle
     }
 }
 

@@ -50,6 +50,8 @@ class NowPlayingMoviesViewControllerTests: XCTestCase {
         var fetchNextPageCalled = false
         var filterMoviesCalled = false
         var refreshMoviesCalled = false
+        var loadFavoriteMoviesCalled = false
+        var removeMovieFromFavoritesCalled = false
         
         func fetchNowPlayingMovies(request: NowPlayingMovies.FetchNowPlayingMovies.Request) {
             fetchNowPlayingMoviesCalled = true
@@ -65,6 +67,14 @@ class NowPlayingMoviesViewControllerTests: XCTestCase {
         
         func refreshMovies(request: NowPlayingMovies.RefreshMovies.Request) {
             refreshMoviesCalled = true
+        }
+        
+        func loadFavoriteMovies(request: NowPlayingMovies.LoadFavoriteMovies.Request) {
+            loadFavoriteMoviesCalled = true
+        }
+        
+        func removeMovieFromFavorites(request: NowPlayingMovies.RemoveMovieFromFavorites.Request) {
+            removeMovieFromFavoritesCalled = true
         }
     }
     
@@ -100,11 +110,9 @@ class NowPlayingMoviesViewControllerTests: XCTestCase {
     func testDisplayNowPlayingMovies() {
         // Given
         loadView()
-        let viewModel = NowPlayingMovies.FetchNowPlayingMovies.ViewModel(movieItems: dummyMovieItems,
-                                                                         shouldHideErrorView: true, errorDescription: nil)
+        let viewModel = NowPlayingMovies.FetchNowPlayingMovies.ViewModel(movieItems: MovieItem.dummyInstances, shouldHideErrorView: true, errorDescription: nil)
         
         // When
-        loadView()
         sut.displayNowPlayingMovies(viewModel: viewModel)
         
         // Then
@@ -117,7 +125,7 @@ class NowPlayingMoviesViewControllerTests: XCTestCase {
     func testDisplayNextPageWithoutError() {
         // Given
         loadView()
-        let viewModel = NowPlayingMovies.FetchNextPage.ViewModel(movieItems: dummyMovieItems,
+        let viewModel = NowPlayingMovies.FetchNextPage.ViewModel(movieItems: MovieItem.dummyInstances,
                                                                  shouldPresentErrorAlert: false,
                                                                  errorAlertTitle: nil,
                                                                  errorAlertMessage: nil,
@@ -125,7 +133,6 @@ class NowPlayingMoviesViewControllerTests: XCTestCase {
                                                                  errorAlertActions: [])
         
         // When
-        loadView()
         sut.displayNextPage(viewModel: viewModel)
         
         // Then
@@ -144,7 +151,6 @@ class NowPlayingMoviesViewControllerTests: XCTestCase {
                                                                  errorAlertActions: [UIAlertAction(title: "cancel", style: .cancel)])
         
         // When
-        loadView()
         sut.displayNextPage(viewModel: viewModel)
         
         // Then
@@ -156,10 +162,9 @@ class NowPlayingMoviesViewControllerTests: XCTestCase {
     func testDisplayFilterMovies() {
         // Given
         loadView()
-        let viewModel = NowPlayingMovies.FilterMovies.ViewModel(movieItems: dummyMovieItems)
+        let viewModel = NowPlayingMovies.FilterMovies.ViewModel(movieItems: MovieItem.dummyInstances)
         
         // When
-        loadView()
         sut.displayFilterMovies(viewModel: viewModel)
         
         // Then
@@ -169,7 +174,7 @@ class NowPlayingMoviesViewControllerTests: XCTestCase {
     func testDisplayRefreshMoviesWithoutError() {
         // Given
         loadView()
-        let viewModel = NowPlayingMovies.RefreshMovies.ViewModel(movieItems: dummyMovieItems,
+        let viewModel = NowPlayingMovies.RefreshMovies.ViewModel(movieItems: MovieItem.dummyInstances,
                                                                  shouldPresentErrorAlert: false,
                                                                  errorAlertTitle: nil,
                                                                  errorAlertMessage: nil,
@@ -177,7 +182,6 @@ class NowPlayingMoviesViewControllerTests: XCTestCase {
                                                                  errorAlertActions: [])
         
         // When
-        loadView()
         sut.displayRefreshMovies(viewModel: viewModel)
         
         // Then
@@ -196,7 +200,6 @@ class NowPlayingMoviesViewControllerTests: XCTestCase {
                                                                  errorAlertActions: [UIAlertAction(title: "cancel", style: .cancel)])
         
         // When
-        loadView()
         sut.displayRefreshMovies(viewModel: viewModel)
         
         // Then
@@ -205,10 +208,29 @@ class NowPlayingMoviesViewControllerTests: XCTestCase {
         XCTAssertNotNil(sut.presentedViewController, "displayRefreshMovies(viewModel:) should present an alert with there is an error")
     }
     
+    func testDisplayRemoveMovieFromFavorites() {
+        // Given
+        loadView()
+        sut.movieItems = [MovieItem(title: "Whiplash"),
+                          MovieItem(title: "Usual Suspects"),
+                          MovieItem(title: "Green book")]
+        sut.isEditing = true
+        
+        _ = sut.movieItems?.removeLast()
+
+        let viewModel = NowPlayingMovies.RemoveMovieFromFavorites.ViewModel(movieItems: sut.movieItems, indexPathsForRowsToDelete: [IndexPath(row: 0, section: 0)])
+        
+        // When
+        sut.displayRemoveMovieFromFavorites(viewModel: viewModel)
+        
+        // Then
+        XCTAssertEqual(sut.movieItems?.count, 2)
+    }
+    
     func testNumberOfRowsInSection0() {
         // Given
         loadView()
-        sut.movieItems = dummyMovieItems
+        sut.movieItems = MovieItem.dummyInstances
         
         // When
         let numberOfRowsInSection0 = sut.tableView(sut.nowPlayingMoviesTableView, numberOfRowsInSection: 0)
@@ -220,7 +242,7 @@ class NowPlayingMoviesViewControllerTests: XCTestCase {
     func testCellForRowAtIndexPath00() {
         // Given
         loadView()
-        sut.movieItems = dummyMovieItems
+        sut.movieItems = MovieItem.dummyInstances
         let indexPath = IndexPath(row: 0, section: 0)
         
         // When
@@ -228,6 +250,21 @@ class NowPlayingMoviesViewControllerTests: XCTestCase {
         
         // Then
         XCTAssertEqual(cell.textLabel?.text, "Whiplash")
+    }
+    
+    func testCommitEditingStyleForRowAtIndexPath00() {
+        // Given
+        let spy = NowPlayingMoviesBusinessLogicSpy()
+        sut.interactor = spy
+        loadView()
+        sut.movieItems = MovieItem.dummyInstances
+        let indexPath = IndexPath(row: 0, section: 0)
+        
+        // When
+        sut.tableView(sut.nowPlayingMoviesTableView, commit: .delete, forRowAt: indexPath)
+        
+        // Then
+        XCTAssertTrue(spy.removeMovieFromFavoritesCalled, "committing delete should call removeMovieFromFavorites")
     }
     
     func testUpdateSearchResults() {
@@ -255,9 +292,9 @@ class NowPlayingMoviesViewControllerTests: XCTestCase {
     }
 }
 
-extension NowPlayingMoviesViewControllerTests {
+extension MovieItem {
     
-    var dummyMovieItems: [MovieItem] {
+    static var dummyInstances: [MovieItem] {
         return [MovieItem(title: "Whiplash"),
                 MovieItem(title: "Usual Suspects")]
     }

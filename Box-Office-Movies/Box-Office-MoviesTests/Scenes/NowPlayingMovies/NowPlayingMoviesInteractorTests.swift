@@ -51,13 +51,15 @@ class NowPlayingMoviesInteractorTests: XCTestCase {
         }
         
         func presentFilterMovies(response: NowPlayingMovies.FilterMovies.Response) {
-            XCTAssertEqual(response.movies?.count, 1)
-            XCTAssertEqual(response.movies?.first?.title, "Whiplash")
             presentFilterMoviesCalled = true
         }
         
         func presentRefreshMovies(response: NowPlayingMovies.RefreshMovies.Response) {
             presentRefreshMoviesExpectation.fulfill()
+        }
+        
+        func presentRemoveMovieFromFavorites(response: NowPlayingMovies.RemoveMovieFromFavorites.Response) {
+            presentFilterMoviesCalled = true
         }
     }
     
@@ -68,7 +70,7 @@ class NowPlayingMoviesInteractorTests: XCTestCase {
         let spy = NowPlayingMoviesPresentationLogicSpy()
         sut.presenter = spy
         
-        sut.movies = dummyMovies
+        sut.movies = Movie.dummyInstances
         let request = NowPlayingMovies.FilterMovies.Request(searchText: "Wh", isSearchControllerActive: true)
         
         // When
@@ -77,11 +79,60 @@ class NowPlayingMoviesInteractorTests: XCTestCase {
         // Then
         XCTAssertTrue(spy.presentFilterMoviesCalled, "filterMovies(request:) should ask the presenter to format the result")
     }
+    
+    func testLoadFavoriteMovies() {
+        // Given
+        let spy = NowPlayingMoviesPresentationLogicSpy()
+        sut.presenter = spy
+        
+        // When
+        sut.loadFavoriteMovies()
+        
+        // Then
+        XCTAssertTrue(spy.presentFilterMoviesCalled, "loadFavoriteMovies() should ask the presenter to format the result")
+    }
+    
+    func testLoadFavoriteMoviesWithRequest() {
+        // Given
+        let spy = NowPlayingMoviesPresentationLogicSpy()
+        sut.presenter = spy
+        
+        let request = NowPlayingMovies.LoadFavoriteMovies.Request()
+        
+        // When
+        sut.loadFavoriteMovies(request: request)
+        
+        // Then
+        XCTAssertEqual(sut.state, .favorites)
+        XCTAssertTrue(spy.presentFilterMoviesCalled, "loadFavoriteMovies() should ask the presenter to format the result")
+    }
+    
+    func testRemoveMovieFromFavorites() {
+        // Given
+        let spy = NowPlayingMoviesPresentationLogicSpy()
+        sut.presenter = spy
+        
+        _ = ManagerProvider.shared.favoritesManager.addMovieToFavorites(Movie.dummyInstance)
+        sut.favoriteMovies = ManagerProvider.shared.favoritesManager.favoriteMovies() ?? []
+        
+        let request = NowPlayingMovies.RemoveMovieFromFavorites.Request(indexPathForMovieToRemove: IndexPath(row: 0, section: 0))
+        
+        // When
+        sut.removeMovieFromFavorites(request: request)
+        
+        // Then
+        XCTAssertTrue(ManagerProvider.shared.favoritesManager.favoriteMovies()?.isEmpty == true)
+        XCTAssertTrue(spy.presentFilterMoviesCalled, "loadFavoriteMovies() should ask the presenter to format the result")
+    }
 }
 
-extension NowPlayingMoviesInteractorTests {
+extension Movie {
     
-    var dummyMovies: [Movie] {
+    static var dummyInstance: Movie {
+        return Movie(identifier: 42, title: "Whiplash")
+    }
+    
+    static var dummyInstances: [Movie] {
         return [Movie(identifier: 42, title: "Whiplash"),
                 Movie(identifier: 64, title: "Usual Suspects")]
     }

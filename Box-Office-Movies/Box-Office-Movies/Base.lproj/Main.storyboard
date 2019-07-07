@@ -252,11 +252,18 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="prS-A0-1ow"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Details" id="eKw-D0-SvX"/>
+                    <navigationItem key="navigationItem" title="Details" id="eKw-D0-SvX">
+                        <barButtonItem key="rightBarButtonItem" title="☆" id="42H-Yw-T7n">
+                            <connections>
+                                <action selector="toggleFavoriteBarButtonItemPressed" destination="tv7-ki-w9G" id="YWv-bU-PJV"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="activityIndicatorView" destination="FX0-DX-h40" id="pbR-AF-Oyi"/>
                         <outlet property="detailItemsTableView" destination="XXe-ET-kIn" id="DJ6-pF-AMs"/>
                         <outlet property="errorStackView" destination="Vzv-AE-9ZV" id="XBa-qi-vit"/>
+                        <outlet property="toggleFavoriteBarButtonItem" destination="42H-Yw-T7n" id="0oe-G6-j97"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hKI-Bd-Sgn" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -277,7 +284,7 @@
             </objects>
             <point key="canvasLocation" x="-856" y="-330"/>
         </scene>
-        <!--Box office movies-->
+        <!--Now Playing Movies View Controller-->
         <scene sceneID="ZKT-aR-Gdg">
             <objects>
                 <viewController storyboardIdentifier="NowPlayingMoviesViewController" id="0bP-UP-42v" customClass="NowPlayingMoviesViewController" customModule="Box_Office_Movies" customModuleProvider="target" sceneMemberID="viewController">
@@ -355,12 +362,25 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="yo0-iK-Gkw"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Box office movies" id="qsn-Tk-b9h">
+                    <navigationItem key="navigationItem" id="qsn-Tk-b9h">
+                        <nil key="title"/>
                         <barButtonItem key="backBarButtonItem" title=" " id="Oq5-LL-SYw"/>
+                        <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="eHv-XQ-ZQ5">
+                            <rect key="frame" x="118" y="7" width="139" height="30"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <segments>
+                                <segment title="All"/>
+                                <segment title="Favorites"/>
+                            </segments>
+                            <connections>
+                                <action selector="segmentedControlValueChanged:" destination="0bP-UP-42v" eventType="valueChanged" id="UtR-4A-pkc"/>
+                            </connections>
+                        </segmentedControl>
                     </navigationItem>
                     <connections>
                         <outlet property="errorStackView" destination="n3u-tl-o0d" id="Tnt-cm-r09"/>
                         <outlet property="nowPlayingMoviesTableView" destination="iCU-Se-4Gs" id="Skq-hx-twv"/>
+                        <outlet property="segmentedControl" destination="eHv-XQ-ZQ5" id="rp0-M6-Lec"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="r6S-Ot-EHp" userLabel="First Responder" sceneMemberID="firstResponder"/>

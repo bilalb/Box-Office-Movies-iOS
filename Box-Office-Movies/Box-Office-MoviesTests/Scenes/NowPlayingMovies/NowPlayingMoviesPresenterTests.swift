@@ -41,6 +41,7 @@ class NowPlayingMoviesPresenterTests: XCTestCase {
         var displayNextPageExpectation = XCTestExpectation(description: "displayNextPage called")
         var displayFilterMoviesCalled = false
         var displayRefreshMoviesExpectation = XCTestExpectation(description: "displayRefreshMovies called")
+        var displayRemoveMovieFromFavoritesCalled = false
 
         func displayNowPlayingMovies(viewModel: NowPlayingMovies.FetchNowPlayingMovies.ViewModel) {
             XCTAssertEqual(viewModel.movieItems?.count, 2)
@@ -81,6 +82,10 @@ class NowPlayingMoviesPresenterTests: XCTestCase {
             
             displayRefreshMoviesExpectation.fulfill()
         }
+        
+        func displayRemoveMovieFromFavorites(viewModel: NowPlayingMovies.RemoveMovieFromFavorites.ViewModel) {
+            displayRemoveMovieFromFavoritesCalled = true
+        }
     }
     
     // MARK: Tests
@@ -89,7 +94,7 @@ class NowPlayingMoviesPresenterTests: XCTestCase {
         // Given
         let spy = NowPlayingMoviesDisplayLogicSpy()
         sut.viewController = spy
-        let response = NowPlayingMovies.FetchNowPlayingMovies.Response(movies: dummyMovies, error: nil)
+        let response = NowPlayingMovies.FetchNowPlayingMovies.Response(movies: Movie.dummyInstances, error: nil)
             
         // When
         sut.presentNowPlayingMovies(response: response)
@@ -102,7 +107,7 @@ class NowPlayingMoviesPresenterTests: XCTestCase {
         // Given
         let spy = NowPlayingMoviesDisplayLogicSpy()
         sut.viewController = spy
-        let response = NowPlayingMovies.FetchNextPage.Response(movies: dummyMovies, error: nil)
+        let response = NowPlayingMovies.FetchNextPage.Response(movies: Movie.dummyInstances, error: nil)
             
         // When
         sut.presentNextPage(response: response)
@@ -115,7 +120,7 @@ class NowPlayingMoviesPresenterTests: XCTestCase {
         // Given
         let spy = NowPlayingMoviesDisplayLogicSpy()
         sut.viewController = spy
-        let response = NowPlayingMovies.FilterMovies.Response(movies: dummyMovies)
+        let response = NowPlayingMovies.FilterMovies.Response(movies: Movie.dummyInstances)
         
         // When
         sut.presentFilterMovies(response: response)
@@ -128,7 +133,7 @@ class NowPlayingMoviesPresenterTests: XCTestCase {
         // Given
         let spy = NowPlayingMoviesDisplayLogicSpy()
         sut.viewController = spy
-        let response = NowPlayingMovies.RefreshMovies.Response(movies: dummyMovies, error: nil)
+        let response = NowPlayingMovies.RefreshMovies.Response(movies: Movie.dummyInstances, error: nil)
             
         // When
         sut.presentRefreshMovies(response: response)
@@ -136,12 +141,17 @@ class NowPlayingMoviesPresenterTests: XCTestCase {
         // Then
         wait(for: [spy.displayRefreshMoviesExpectation], timeout: 0.1)
     }
-}
-
-extension NowPlayingMoviesPresenterTests {
     
-    var dummyMovies: [Movie] {
-        return [Movie(identifier: 42, title: "Whiplash"),
-                Movie(identifier: 64, title: "Usual Suspects")]
+    func testPresentRemoveMovieFromFavorites() {
+        // Given
+        let spy = NowPlayingMoviesDisplayLogicSpy()
+        sut.viewController = spy
+        let response = NowPlayingMovies.RemoveMovieFromFavorites.Response(movies: Movie.dummyInstances, indexPathForMovieToRemove: IndexPath(row: 0, section: 0))
+        
+        // When
+        sut.presentRemoveMovieFromFavorites(response: response)
+        
+        // Then
+        XCTAssertTrue(spy.displayRemoveMovieFromFavoritesCalled, "presentRemoveMovieFromFavorites(response:) should ask the view controller to display the result")
     }
 }
