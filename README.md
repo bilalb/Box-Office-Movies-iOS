@@ -1,4 +1,7 @@
+<img src="./Box-Office-Movies/Box-Office-Movies/Assets.xcassets/AppIcon.appiconset/ItunesArtwork%402x.png" alt="Miss Electric Eel 2016" width="36" height="36">
 # Box-Office-Movies iOS
+[![coverage](https://gitlab.com/bilal.b/Box-Office-Movies-iOS/badges/feature/gitlab-ci-setup/pipeline.svg)](https://gitlab.com/bilal.b/Box-Office-Movies-iOS/pipelines) [![coverage](https://gitlab.com/bilal.b/Box-Office-Movies-iOS/badges/feature/gitlab-ci-setup/coverage.svg)](https://github.com/bilalb/Box-Office-Movies-iOS)
+
 This application provides information about movies in theatres.
 It contains two parts:
 - A master part that displays the list of movies in theatres
