@@ -7,7 +7,6 @@
 //
 
 import Box_Office_Movies_Core
-import UIKit
 
 protocol MovieDetailsDataStore {
      var movieIdentifier: Int? { get set }
@@ -41,30 +40,30 @@ extension MovieDetailsInteractor: MovieDetailsBusinessLogic {
         }
         fetchAPIConfiguration { [weak self] (apiConfiguration, error) in
             
-            func presentMovieDetails(movieDetails: MovieDetails?, casting: Casting?, paginatedSimilarMovieLists: [PaginatedMovieList]?, posterImage: UIImage?, error: Error?) {
+            func presentMovieDetails(movieDetails: MovieDetails?, casting: Casting?, paginatedSimilarMovieLists: [PaginatedMovieList]?, posterData: Data?, error: Error?) {
                 let response = MovieDetailsScene.FetchMovieDetails.Response(movieDetails: movieDetails,
                                                                             casting: casting,
                                                                             paginatedSimilarMovieLists: paginatedSimilarMovieLists,
-                                                                            posterImage: posterImage,
+                                                                            posterData: posterData,
                                                                             error: error)
                 self?.presenter?.presentMovieDetails(response: response)
             }
             
             guard error == nil else {
-                presentMovieDetails(movieDetails: nil, casting: nil, paginatedSimilarMovieLists: nil, posterImage: nil, error: error)
+                presentMovieDetails(movieDetails: nil, casting: nil, paginatedSimilarMovieLists: nil, posterData: nil, error: error)
                 return
             }
             
             self?.fetchDetails { [weak self] (movieDetails, error) in
                 self?.movieDetails = movieDetails
                 guard error == nil else {
-                    presentMovieDetails(movieDetails: movieDetails, casting: nil, paginatedSimilarMovieLists: nil, posterImage: nil, error: error)
+                    presentMovieDetails(movieDetails: movieDetails, casting: nil, paginatedSimilarMovieLists: nil, posterData: nil, error: error)
                     return
                 }
                 
                 self?.fetchCasting { [weak self] (casting, error) in
                     guard error == nil else {
-                        presentMovieDetails(movieDetails: movieDetails, casting: casting, paginatedSimilarMovieLists: nil, posterImage: nil, error: error)
+                        presentMovieDetails(movieDetails: movieDetails, casting: casting, paginatedSimilarMovieLists: nil, posterData: nil, error: error)
                         return
                     }
                     
@@ -80,15 +79,15 @@ extension MovieDetailsInteractor: MovieDetailsBusinessLogic {
                             presentMovieDetails(movieDetails: movieDetails,
                                                 casting: casting,
                                                 paginatedSimilarMovieLists: self?.paginatedSimilarMovieLists,
-                                                posterImage: nil,
+                                                posterData: nil,
                                                 error: error)
                             return
                         }
-                        self?.fetchPosterImage(imageSecureBaseURLPath: imageSecureBaseURLPath, posterPath: posterPath) { [weak self] (posterImage, error) in
+                        self?.fetchPosterImage(imageSecureBaseURLPath: imageSecureBaseURLPath, posterPath: posterPath) { [weak self] (posterData, error) in
                             presentMovieDetails(movieDetails: movieDetails,
                                                 casting: casting,
                                                 paginatedSimilarMovieLists: self?.paginatedSimilarMovieLists,
-                                                posterImage: posterImage,
+                                                posterData: posterData,
                                                 error: error)
                         }
                     }
@@ -173,7 +172,7 @@ extension MovieDetailsInteractor {
         ManagerProvider.shared.movieManager.similarMovies(identifier: movieIdentifier, languageCode: languageCode, page: similarMoviePage, completionHandler: completionHandler)
     }
     
-    func fetchPosterImage(imageSecureBaseURLPath: String, posterSize: String = Constants.Fallback.posterImageSize, posterPath: String, completionHandler: PosterCompletionHandler?) {
+    func fetchPosterImage(imageSecureBaseURLPath: String, posterSize: String = Constants.Fallback.posterImageSize, posterPath: String, completionHandler: PosterDataCompletionHandler?) {
         ManagerProvider.shared.movieManager.poster(imageSecureBaseURL: imageSecureBaseURLPath, posterSize: posterSize, posterPath: posterPath, completionHandler: completionHandler)
     }
 }

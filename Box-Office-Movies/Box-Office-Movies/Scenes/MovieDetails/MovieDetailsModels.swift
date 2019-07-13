@@ -19,7 +19,7 @@ enum MovieDetailsScene {
             let movieDetails: MovieDetails?
             let casting: Casting?
             let paginatedSimilarMovieLists: [PaginatedMovieList]?
-            let posterImage: UIImage?
+            let posterData: Data?
             let error: Error?
         }
         
