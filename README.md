@@ -29,5 +29,8 @@ This application uses:
 - [SwiftLint](https://github.com/realm/SwiftLint) which is an open source tool to enforce Swift style and conventions.
 - [fastlane](https://fastlane.tools/).
 
+## Continuous integration
+With [GitLab](https://gitlab.com/bilal.b/Box-Office-Movies-iOS).
+
 ## Author
 [Bilal Benlarbi](http://bilal.benlarbi.fr/).
