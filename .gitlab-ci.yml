@@ -1,7 +1,7 @@
 stages:
   - test
 
-build_project:
+test_project:
   stage: test
   script:
     - set -o pipefail && xcodebuild clean -workspace Box-Office-Movies.xcworkspace -scheme Box-Office-Movies | xcpretty
