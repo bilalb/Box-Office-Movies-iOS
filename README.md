@@ -1,6 +1,7 @@
 <img src="./Box-Office-Movies/Box-Office-Movies/Assets.xcassets/AppIcon.appiconset/Icon-App-40x40@3x.png" alt="icon" width="36" height="36"> Box-Office-Movies iOS
+======================================
 
-[![pipeline](https://gitlab.com/bilal.b/Box-Office-Movies-iOS/badges/feature/gitlab-ci-setup/pipeline.svg)](https://gitlab.com/bilal.b/Box-Office-Movies-iOS/pipelines) [![coverage](https://gitlab.com/bilal.b/Box-Office-Movies-iOS/badges/feature/gitlab-ci-setup/coverage.svg)](https://gitlab.com/bilal.b/Box-Office-Movies-iOS)
+[![pipeline](https://gitlab.com/bilal.b/Box-Office-Movies-iOS/badges/feature/gitlab-ci-setup/pipeline.svg)](https://gitlab.com/bilal.b/Box-Office-Movies-iOS/pipelines) [![coverage](https://gitlab.com/bilal.b/Box-Office-Movies-iOS/badges/master/coverage.svg)](https://gitlab.com/bilal.b/Box-Office-Movies-iOS)
 
 This application provides information about movies in theatres.
 It contains two parts:
@@ -27,6 +28,9 @@ This application uses [The Movie Database (TMDb) API](https://developers.themovi
 This application uses:
 - [SwiftLint](https://github.com/realm/SwiftLint) which is an open source tool to enforce Swift style and conventions.
 - [fastlane](https://fastlane.tools/).
+
+## Continuous integration
+With [GitLab](https://gitlab.com/bilal.b/Box-Office-Movies-iOS).
 
 ## Author
 [Bilal Benlarbi](http://bilal.benlarbi.fr/).
