@@ -102,9 +102,7 @@ private extension MovieDetailsViewController {
 extension MovieDetailsViewController: MovieDetailsDisplayLogic {
     
     func displayMovieDetails(viewModel: MovieDetailsScene.FetchMovieDetails.ViewModel) {
-        if let items = viewModel.detailItems {
-            detailItems.append(contentsOf: items)
-        }
+        detailItems = viewModel.detailItems ?? []
         activityIndicatorView.stopAnimating()
         
         errorStackView.isHidden = viewModel.shouldHideErrorView
