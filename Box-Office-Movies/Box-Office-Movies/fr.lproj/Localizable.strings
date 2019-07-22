@@ -6,7 +6,11 @@
 //  Copyrights © 2019 Bilal Benlarbi. All rights reserved.
 //
 
-// MARK: - Details scene
+// MARK: List scene
+"all" = "Tous";
+"favorites" = "Favoris";
+
+// MARK: Details scene
 "releaseDate" = "Date de sortie";
 "averageVote" = "Note moyenne";
 "review" = "Noter";
