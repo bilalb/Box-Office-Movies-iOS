@@ -50,8 +50,9 @@ class MovieDetailsViewController: UIViewController {
         // When the split view controller is not collapsed this scene is displayed.
         // If no movie is selected (for example when there is a network error and the movie list is empty) this scene is empty and does not display any data.
         // Then we stop the animation of the activity indicator view.
-        if router?.dataStore?.movieIdentifier == nil {
+        guard router?.dataStore?.movieIdentifier != nil else {
             activityIndicatorView.stopAnimating()
+            return
         }
         
         fetchMovieDetails()
