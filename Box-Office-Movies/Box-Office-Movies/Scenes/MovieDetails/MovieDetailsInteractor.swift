@@ -41,10 +41,10 @@ extension MovieDetailsInteractor: MovieDetailsBusinessLogic {
         let dispatchGroup = DispatchGroup()
         
         fetchDetails(dispatchGroup: dispatchGroup)
-        fetchCasting()
-        fetchSimilarMovies()
         
         dispatchGroup.notify(queue: .global(qos: .userInitiated)) {
+            self.fetchCasting()
+            self.fetchSimilarMovies()
             self.fetchPosterImage()
         }
     }
