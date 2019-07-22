@@ -50,7 +50,7 @@ class NowPlayingMoviesInteractor: NowPlayingMoviesDataStore {
         didSet {
             switch state {
             case .allMovies:
-                fetchNowPlayingMovies()
+                loadNowPlayingMovies()
             case .favorites:
                 loadFavoriteMovies()
             }
@@ -64,6 +64,15 @@ enum State {
 }
 
 extension NowPlayingMoviesInteractor: NowPlayingMoviesBusinessLogic {
+    
+    func loadNowPlayingMovies() {
+        if movies.isEmpty {
+            fetchNowPlayingMovies()
+        } else {
+            let response = NowPlayingMovies.FetchNowPlayingMovies.Response(movies: movies, error: nil)
+            presenter?.presentNowPlayingMovies(response: response)
+        }
+    }
     
     func fetchNowPlayingMovies() {
         fetchNowPlayingMovies { [weak self] error in
