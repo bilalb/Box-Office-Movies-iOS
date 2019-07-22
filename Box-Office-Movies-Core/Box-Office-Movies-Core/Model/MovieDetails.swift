@@ -26,7 +26,7 @@ public struct MovieDetails: Codable {
     
     private enum CodingKeys: String, CodingKey {
         case identifier = "id"
-        case title = "title"
+        case title
         case releaseDate = "release_date"
         case voteAverage = "vote_average"
         case synopsis = "overview"
