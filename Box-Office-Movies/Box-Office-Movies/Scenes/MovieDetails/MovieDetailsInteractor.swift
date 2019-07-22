@@ -41,93 +41,11 @@ extension MovieDetailsInteractor: MovieDetailsBusinessLogic {
         let dispatchGroup = DispatchGroup()
         
         fetchDetails(dispatchGroup: dispatchGroup)
-        fetchCasting(dispatchGroup: dispatchGroup)
-        fetchSimilarMovies(dispatchGroup: dispatchGroup)
+        fetchCasting()
+        fetchSimilarMovies()
         
         dispatchGroup.notify(queue: .global(qos: .userInitiated)) {
             self.fetchPosterImage()
-        }
-    }
-    
-    func presentMovieDetails() {
-        let response = MovieDetailsScene.FetchMovieDetails.Response(movieDetails: movieDetails,
-                                                                    casting: casting,
-                                                                    paginatedSimilarMovieLists: paginatedSimilarMovieLists,
-                                                                    posterImage: posterImage,
-                                                                    error: error)
-        presenter?.presentMovieDetails(response: response)
-    }
-    
-    func fetchDetails(dispatchGroup: DispatchGroup) {
-        guard let movieIdentifier = movieIdentifier else {
-            return
-        }
-        dispatchGroup.enter()
-        let languageCode = Locale.current.languageCode ?? Constants.Fallback.languageCode
-        let regionCode = Locale.current.regionCode ?? Constants.Fallback.regionCode
-        ManagerProvider.shared.movieManager.movieDetails(identifier: movieIdentifier, languageCode: languageCode, regionCode: regionCode) { [weak self] (movieDetails, error) in
-            self?.movieDetails = movieDetails
-            self?.error = error
-            self?.presentMovieDetails()
-            dispatchGroup.leave()
-        }
-    }
-
-    func fetchCasting(dispatchGroup: DispatchGroup) {
-        guard let movieIdentifier = movieIdentifier else {
-            return
-        }
-        dispatchGroup.enter()
-        ManagerProvider.shared.movieManager.casting(identifier: movieIdentifier) { [weak self] (casting, error) in
-            self?.casting = casting
-            self?.error = error
-            self?.presentMovieDetails()
-            dispatchGroup.leave()
-        }
-    }
-    
-    func fetchSimilarMovies(dispatchGroup: DispatchGroup) {
-        var shouldFetch = paginatedSimilarMovieLists.isEmpty
-        if let totalPages = paginatedSimilarMovieLists.last?.totalPages {
-            shouldFetch = similarMoviePage <= totalPages
-        }
-        
-        guard shouldFetch, let movieIdentifier = movieIdentifier else {
-            return
-        }
-        
-        dispatchGroup.enter()
-        let languageCode = Locale.current.languageCode ?? Constants.Fallback.languageCode
-        ManagerProvider.shared.movieManager.similarMovies(identifier: movieIdentifier, languageCode: languageCode, page: similarMoviePage) { [weak self] (paginatedSimilarMovieList, error) in
-            if let paginatedSimilarMovieList = paginatedSimilarMovieList {
-                self?.paginatedSimilarMovieLists.append(paginatedSimilarMovieList)
-                self?.similarMoviePage += 1
-            }
-            self?.error = error
-            self?.presentMovieDetails()
-            dispatchGroup.leave()
-        }
-    }
-    
-    func fetchPosterImage() {
-        var apiConfiguration: TheMovieDatabaseAPIConfiguration?
-        let dispatchGroup = DispatchGroup()
-        dispatchGroup.enter()
-        
-        ManagerProvider.shared.movieManager.theMovieDatabaseAPIConfiguration { (fetchedAPIConfiguration, _) in
-            apiConfiguration = fetchedAPIConfiguration
-            dispatchGroup.leave()
-        }
-        
-        dispatchGroup.notify(queue: .global(qos: .userInitiated)) {
-            if let imageSecureBaseURLPath = apiConfiguration?.imageData.secureBaseUrl,
-                let posterPath = self.movieDetails?.posterPath {
-                ManagerProvider.shared.movieManager.poster(imageSecureBaseURL: imageSecureBaseURLPath, posterSize: Constants.Fallback.posterImageSize, posterPath: posterPath) { [weak self] (posterImage, error) in
-                    self?.posterImage = posterImage
-                    self?.error = error
-                    self?.presentMovieDetails()
-                }
-            }
         }
     }
     
@@ -166,5 +84,86 @@ extension MovieDetailsInteractor: MovieDetailsBusinessLogic {
         
         let response = MovieDetailsScene.ToggleFavorite.Response(isMovieAddedToFavorite: isMovieAddedToFavorite)
         presenter?.presentToggleFavorite(response: response)
+    }
+}
+
+extension MovieDetailsInteractor {
+    
+    func presentMovieDetails() {
+        let response = MovieDetailsScene.FetchMovieDetails.Response(movieDetails: movieDetails,
+                                                                    casting: casting,
+                                                                    paginatedSimilarMovieLists: paginatedSimilarMovieLists,
+                                                                    posterImage: posterImage,
+                                                                    error: error)
+        presenter?.presentMovieDetails(response: response)
+    }
+    
+    func fetchDetails(dispatchGroup: DispatchGroup) {
+        guard let movieIdentifier = movieIdentifier else {
+            return
+        }
+        dispatchGroup.enter()
+        let languageCode = Locale.current.languageCode ?? Constants.Fallback.languageCode
+        let regionCode = Locale.current.regionCode ?? Constants.Fallback.regionCode
+        ManagerProvider.shared.movieManager.movieDetails(identifier: movieIdentifier, languageCode: languageCode, regionCode: regionCode) { [weak self] (movieDetails, error) in
+            self?.movieDetails = movieDetails
+            self?.error = error
+            self?.presentMovieDetails()
+            dispatchGroup.leave()
+        }
+    }
+    
+    func fetchCasting() {
+        guard let movieIdentifier = movieIdentifier else {
+            return
+        }
+        ManagerProvider.shared.movieManager.casting(identifier: movieIdentifier) { [weak self] (casting, error) in
+            self?.casting = casting
+            self?.error = error
+            self?.presentMovieDetails()
+        }
+    }
+    
+    func fetchSimilarMovies() {
+        var shouldFetch = paginatedSimilarMovieLists.isEmpty
+        if let totalPages = paginatedSimilarMovieLists.last?.totalPages {
+            shouldFetch = similarMoviePage <= totalPages
+        }
+        
+        guard shouldFetch, let movieIdentifier = movieIdentifier else {
+            return
+        }
+        
+        let languageCode = Locale.current.languageCode ?? Constants.Fallback.languageCode
+        ManagerProvider.shared.movieManager.similarMovies(identifier: movieIdentifier, languageCode: languageCode, page: similarMoviePage) { [weak self] (paginatedSimilarMovieList, error) in
+            if let paginatedSimilarMovieList = paginatedSimilarMovieList {
+                self?.paginatedSimilarMovieLists.append(paginatedSimilarMovieList)
+                self?.similarMoviePage += 1
+            }
+            self?.error = error
+            self?.presentMovieDetails()
+        }
+    }
+    
+    func fetchPosterImage() {
+        var apiConfiguration: TheMovieDatabaseAPIConfiguration?
+        let dispatchGroup = DispatchGroup()
+        dispatchGroup.enter()
+        
+        ManagerProvider.shared.movieManager.theMovieDatabaseAPIConfiguration { (fetchedAPIConfiguration, _) in
+            apiConfiguration = fetchedAPIConfiguration
+            dispatchGroup.leave()
+        }
+        
+        dispatchGroup.notify(queue: .global(qos: .userInitiated)) {
+            if let imageSecureBaseURLPath = apiConfiguration?.imageData.secureBaseUrl,
+                let posterPath = self.movieDetails?.posterPath {
+                ManagerProvider.shared.movieManager.poster(imageSecureBaseURL: imageSecureBaseURLPath, posterSize: Constants.Fallback.posterImageSize, posterPath: posterPath) { [weak self] (posterImage, error) in
+                    self?.posterImage = posterImage
+                    self?.error = error
+                    self?.presentMovieDetails()
+                }
+            }
+        }
     }
 }
