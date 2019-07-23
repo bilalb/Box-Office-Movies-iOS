@@ -36,7 +36,6 @@ class NetworkController: NetworkControlling {
     
     let environment: Environment
     let defaultSession: URLSession?
-    var dataTask: URLSessionDataTask?
     
     required init(environment: Environment) {
         defaultSession = URLSession(configuration: .default)
@@ -46,15 +45,11 @@ class NetworkController: NetworkControlling {
     }
     
     func send(request: NetworkRequest, completionHandler: NetworkCompletionHandler?) {
-        dataTask?.cancel()
         if let urlRequest = request.urlRequest {
             DispatchQueue.main.async {
                 UIApplication.shared.isNetworkActivityIndicatorVisible = true
             }
-            dataTask = defaultSession?.dataTask(with: urlRequest, completionHandler: { (data, response, error) in
-                defer {
-                    self.dataTask = nil
-                }
+            let dataTask = defaultSession?.dataTask(with: urlRequest, completionHandler: { (data, response, error) in
                 completionHandler?(data, response, error)
                 DispatchQueue.main.async {
                     UIApplication.shared.isNetworkActivityIndicatorVisible = false

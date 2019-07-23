@@ -41,14 +41,14 @@ class MovieDetailsInteractorTests: XCTestCase {
     
     class MovieDetailsPresentationLogicSpy: MovieDetailsPresentationLogic {
         
-        var presentMovieDetailsExpectation = XCTestExpectation(description: "presentMovieDetails called")
+        var presentMovieDetailsCalled = false
         var presentMovieReviewsCalled = false
         var presentReviewMovieCalled = false
         var presentFavoriteToggleCalled = false
         var presentToggleFavoriteCalled = false
 
         func presentMovieDetails(response: MovieDetailsScene.FetchMovieDetails.Response) {
-            presentMovieDetailsExpectation.fulfill()
+            presentMovieDetailsCalled = true
         }
         
         func presentMovieReviews(response: MovieDetailsScene.LoadMovieReviews.Response) {
@@ -116,7 +116,7 @@ class MovieDetailsInteractorTests: XCTestCase {
         XCTAssertTrue(spy.presentFavoriteToggleCalled, "loadFavoriteToggle(request:) should ask the presenter to format the result")
     }
     
-    func testToggleFavorite() {
+    func testToggleFavoriteForMovieToAddToFavorites() {
         // Given
         let spy = MovieDetailsPresentationLogicSpy()
         sut.presenter = spy
@@ -130,6 +130,35 @@ class MovieDetailsInteractorTests: XCTestCase {
         
         // Then
         XCTAssertTrue(spy.presentToggleFavoriteCalled, "toggleFavorite(request:) should ask the presenter to format the result")
+    }
+    
+    func testToggleFavoriteForMovieRemoveFromFavorites() {
+        // Given
+        let spy = MovieDetailsPresentationLogicSpy()
+        sut.presenter = spy
+        
+        sut.movieDetails = MovieDetails.dummyInstance
+        _ = ManagerProvider.shared.favoritesManager.addMovieToFavorites(MovieDetails.dummyInstance.relatedMovie)
+        
+        let request = MovieDetailsScene.ToggleFavorite.Request()
+        
+        // When
+        sut.toggleFavorite(request: request)
+        
+        // Then
+        XCTAssertTrue(spy.presentToggleFavoriteCalled, "toggleFavorite(request:) should ask the presenter to format the result")
+    }
+    
+    func testPresentMovieDetails() {
+        // Given
+        let spy = MovieDetailsPresentationLogicSpy()
+        sut.presenter = spy
+
+        // When
+        sut.presentMovieDetails()
+        
+        // Then
+        XCTAssertTrue(spy.presentMovieDetailsCalled, "presentMovieDetails() should ask the presenter to format the result")
     }
 }
 
