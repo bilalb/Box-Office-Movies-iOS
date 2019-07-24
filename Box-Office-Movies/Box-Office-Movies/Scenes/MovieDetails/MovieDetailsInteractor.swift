@@ -7,10 +7,9 @@
 //
 
 import Box_Office_Movies_Core
-import UIKit
 
 protocol MovieDetailsDataStore {
-     var movieIdentifier: Int? { get set }
+    var movieIdentifier: Int? { get set }
 }
 
 protocol MovieDetailsBusinessLogic {
@@ -31,7 +30,7 @@ class MovieDetailsInteractor: MovieDetailsDataStore {
     var movieDetails: MovieDetails?
     var casting: Casting?
     var paginatedSimilarMovieLists = [PaginatedMovieList]()
-    var posterImage: UIImage?
+    var posterData: Data?
     var error: Error?
 }
 
@@ -93,7 +92,7 @@ extension MovieDetailsInteractor {
         let response = MovieDetailsScene.FetchMovieDetails.Response(movieDetails: movieDetails,
                                                                     casting: casting,
                                                                     paginatedSimilarMovieLists: paginatedSimilarMovieLists,
-                                                                    posterImage: posterImage,
+                                                                    posterData: posterData,
                                                                     error: error)
         presenter?.presentMovieDetails(response: response)
     }
@@ -158,8 +157,8 @@ extension MovieDetailsInteractor {
         dispatchGroup.notify(queue: .global(qos: .userInitiated)) {
             if let imageSecureBaseURLPath = apiConfiguration?.imageData.secureBaseUrl,
                 let posterPath = self.movieDetails?.posterPath {
-                ManagerProvider.shared.movieManager.poster(imageSecureBaseURL: imageSecureBaseURLPath, posterSize: Constants.Fallback.posterImageSize, posterPath: posterPath) { [weak self] (posterImage, error) in
-                    self?.posterImage = posterImage
+                ManagerProvider.shared.movieManager.poster(imageSecureBaseURL: imageSecureBaseURLPath, posterSize: Constants.Fallback.posterImageSize, posterPath: posterPath) { [weak self] (posterData, error) in
+                    self?.posterData = posterData
                     self?.error = error
                     self?.presentMovieDetails()
                 }

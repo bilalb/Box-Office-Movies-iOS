@@ -43,7 +43,7 @@ extension MovieDetailsPresenter: MovieDetailsPresentationLogic {
             }
             
             let titleItem = DetailItem.title(title: movieDetails.title)
-            let additionalInformationDetailItem = self.additionalInformationItem(for: movieDetails, posterImage: response.posterImage)
+            let additionalInformationDetailItem = self.additionalInformationItem(for: movieDetails, posterData:  response.posterData)
             let reviewMovieItem = DetailItem.reviewMovie(review: NSLocalizedString("review", comment: "review"))
             var detailItems = [titleItem, additionalInformationDetailItem, reviewMovieItem]
             
@@ -97,10 +97,16 @@ extension MovieDetailsPresenter: MovieDetailsPresentationLogic {
 
 extension MovieDetailsPresenter {
     
-    func additionalInformationItem(for movieDetails: MovieDetails, posterImage: UIImage?) -> DetailItem {
+    func additionalInformationItem(for movieDetails: MovieDetails, posterData: Data?) -> DetailItem {
         let attributes: [NSAttributedString.Key: Any] = [.foregroundColor: UIColor.darkText,
                                                          .font: UIFont.boldSystemFont(ofSize: 15)]
         
+        var posterImage: UIImage? {
+            if let posterData = posterData {
+                return UIImage(data: posterData)
+            }
+            return nil
+        }
         var releaseDateAttributedString: NSAttributedString? {
             let iso8601DateFormatter = ISO8601DateFormatter()
             iso8601DateFormatter.formatOptions = [.withFullDate, .withDashSeparatorInDate]

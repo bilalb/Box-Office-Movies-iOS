@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import UIKit
 
 /// Completion handler of the movies now playing in theatres.
 ///
@@ -23,12 +22,12 @@ public typealias NowPlayingMoviesCompletionHandler = (_ paginatedMovieList: Pagi
 ///   - error: The error encountered while executing or validating the request.
 public typealias MovieDetailsCompletionHandler = (_ movieDetails: MovieDetails?, _ error: Error?) -> Void
 
-/// Completion handler of the poster.
+/// Completion handler of the data for the poster.
 ///
 /// - Parameters:
-///   - poster: The poster returned by the call.
+///   - poster: The data for the poster returned by the call.
 ///   - error: The error encountered while executing or validating the request.
-public typealias PosterCompletionHandler = (_ poster: UIImage?, _ error: Error?) -> Void
+public typealias PosterDataCompletionHandler = (_ posterData: Data?, _ error: Error?) -> Void
 
 /// Completion handler of the configuration of The Movie Database API.
 ///
@@ -84,7 +83,7 @@ public protocol MovieManagement {
     ///   - posterSize: Size of the poster to request.
     ///   - posterPath: Path to the poster.
     ///   - completionHandler: The completion handler to call when the request is complete.
-    func poster(imageSecureBaseURL: String, posterSize: String, posterPath: String, completionHandler: PosterCompletionHandler?)
+    func poster(imageSecureBaseURL: String, posterSize: String, posterPath: String, completionHandler: PosterDataCompletionHandler?)
     
     /// Fetches the casting of a movie.
     ///
@@ -123,7 +122,7 @@ final class MovieManager: MovieManagement {
         networkController.theMovieDatabaseAPIConfiguration(completionHandler: completionHandler)
     }
     
-    func poster(imageSecureBaseURL: String, posterSize: String, posterPath: String, completionHandler: PosterCompletionHandler?) {
+    func poster(imageSecureBaseURL: String, posterSize: String, posterPath: String, completionHandler: PosterDataCompletionHandler?) {
         networkController.poster(imageSecureBaseURL: imageSecureBaseURL, posterSize: posterSize, posterPath: posterPath, completionHandler: completionHandler)
     }
     
