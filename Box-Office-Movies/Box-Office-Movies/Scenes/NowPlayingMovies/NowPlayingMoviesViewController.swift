@@ -62,6 +62,7 @@ class NowPlayingMoviesViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureSplitViewController()
+        configureSegmentedControl()
         configureSearchController()
         configureRefreshControl()
         configureEditButtonItem()
@@ -101,6 +102,17 @@ private extension NowPlayingMoviesViewController {
     func configureSplitViewController() {
         splitViewController?.delegate = self
         splitViewController?.preferredDisplayMode = .allVisible
+    }
+    
+    func configureSegmentedControl() {
+        guard segmentedControl.numberOfSegments == 2 else {
+            return
+        }
+        let titles = [NSLocalizedString("all", comment: "all"),
+                      NSLocalizedString("favorites", comment: "favorites")]
+        for i in 0 ..< segmentedControl.numberOfSegments {
+            segmentedControl.setTitle(titles[i], forSegmentAt: i)
+        }
     }
     
     func configureSearchController() {

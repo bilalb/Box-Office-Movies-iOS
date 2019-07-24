@@ -1,9 +1,9 @@
 //
 //  FavoritesManagerTests.swift
-//  Box-Office-Movies-CoreTests
+//  Box-Office-Movies-Core
 //
-//  Created by Bilal Benlarbi on 07/07/2019.
-//  Copyright © 2019 Boxotop. All rights reserved.
+//  Created by Bilal Benlarbi on 07.07.2019.
+//  Copyrights © 2019 Bilal Benlarbi. All rights reserved.
 //
 
 @testable import Box_Office_Movies_Core

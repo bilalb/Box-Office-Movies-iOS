@@ -88,7 +88,7 @@ class NowPlayingMoviesViewControllerTests: XCTestCase {
         XCTAssertNotNil(nowPlayingMoviesViewController, "init(nibName:, bundle:) should return an instance of NowPlayingMoviesViewController")
     }
     
-    func testFetchNowPlayingMoviesWhenViewIsLoaded() {
+    func testShouldFetchNowPlayingMoviesWhenViewIsLoaded() {
         // Given
         let spy = NowPlayingMoviesBusinessLogicSpy()
         sut.interactor = spy

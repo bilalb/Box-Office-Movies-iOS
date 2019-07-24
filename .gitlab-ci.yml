@@ -5,9 +5,9 @@ test_project:
   stage: test
   script:
     - set -o pipefail && xcodebuild clean -workspace Box-Office-Movies.xcworkspace -scheme Box-Office-Movies | xcpretty
-    - set -o pipefail && xcodebuild test -workspace Box-Office-Movies.xcworkspace -scheme Box-Office-Movies -derivedDataPath Build/ -destination 'platform=iOS Simulator,name=iPhone Xʀ,OS=12.2' | xcpretty
+    - set -o pipefail && xcodebuild test -workspace Box-Office-Movies.xcworkspace -scheme Box-Office-Movies -derivedDataPath Build/ -destination 'platform=iOS Simulator,name=iPhone Xʀ,OS=12.4' | xcpretty
     - set -o pipefail && echo "Box-Office-Movies_scheme_coverage=`xcrun xccov view Build/Logs/Test/*.xcresult/*_Test/action.xccovreport | grep 'Box-Office-Movies.app' | head -1 | perl -pe 's/.+?(\d+\.\d+%).+/\1/'`"
   tags:
-    - iOS-12.2
+    - iOS-12.4
     - macOS-10.14.5
-    - Xcode-10.2.1
+    - Xcode-10.3

@@ -15,7 +15,7 @@ public struct PaginatedMovieList: Codable {
     public let movies: [Movie]
     
     private enum CodingKeys: String, CodingKey {
-        case page = "page"
+        case page
         case totalPages = "total_pages"
         case movies = "results"
     }

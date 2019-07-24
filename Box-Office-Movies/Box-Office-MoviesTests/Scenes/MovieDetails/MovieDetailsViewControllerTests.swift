@@ -83,16 +83,12 @@ class MovieDetailsViewControllerTests: XCTestCase {
         XCTAssertNotNil(movieDetailsViewController, "init(nibName:, bundle:) should return an instance of MovieDetailsViewController")
     }
     
-    func testFetchMovieDetailsWhenViewIsLoaded() {
-        // Given
-        let spy = MovieDetailsBusinessLogicSpy()
-        sut.interactor = spy
-        
+    func testShouldStopAnimatingActivityIndicatorViewWhenMovieIdentifierIsNilAndViewIsLoaded() {
         // When
         loadView()
         
         // Then
-        XCTAssertTrue(spy.fetchMovieDetailsCalled, "viewDidLoad() should ask the interactor to fetchMovieDetails")
+        XCTAssertFalse(sut.activityIndicatorView.isAnimating, "viewDidLoad() should stop animating activityIndicatorView")
     }
     
     func testDisplayMovieDetails() {
