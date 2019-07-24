@@ -46,21 +46,19 @@ final class FavoritesDataAccessController: FavoritesDataAccessControlling {
     }
     
     func removeMovieFromFavorites(_ movie: Movie) -> Bool {
-        guard let entityName = Movie.entity().name else {
+        guard let fetchRequest = Movie.fetchRequest() as? NSFetchRequest<Movie> else {
             return false
         }
         
         let managedObjectContext = CoreDataStack.shared.persistentContainer.viewContext
-
-        // TODO: make use of the fetch request UI from Box-Office-Movies-Core.xcdatamodel ?
-        let fetchRequest = NSFetchRequest<Movie>(entityName: entityName)
         
         var success = false
         
         do {
-            let favoriteMovies = try managedObjectContext.fetch(fetchRequest)
-            if let savedFavoriteMovie = favoriteMovies.first(where: { $0.identifier == movie.identifier }) {
-                managedObjectContext.delete(savedFavoriteMovie)
+            fetchRequest.predicate = NSPredicate(format: "identifier == %d", movie.identifier)
+            let fetchedResults = try managedObjectContext.fetch(fetchRequest)
+            if let movieToDelete = fetchedResults.first {
+                managedObjectContext.delete(movieToDelete)
                 
                 if managedObjectContext.hasChanges {
                     try managedObjectContext.save()
@@ -75,14 +73,11 @@ final class FavoritesDataAccessController: FavoritesDataAccessControlling {
     }
     
     func favoriteMovies() -> [Movie]? {
-        guard let entityName = Movie.entity().name else {
+        guard let fetchRequest = Movie.fetchRequest() as? NSFetchRequest<Movie> else {
             return nil
         }
         
         let managedObjectContext = CoreDataStack.shared.persistentContainer.viewContext
-
-        // TODO: make use of the fetch request UI from Box-Office-Movies-Core.xcdatamodel ?
-        let fetchRequest = NSFetchRequest<Movie>(entityName: entityName)
         
         var favoriteMovies: [Movie]?
         
