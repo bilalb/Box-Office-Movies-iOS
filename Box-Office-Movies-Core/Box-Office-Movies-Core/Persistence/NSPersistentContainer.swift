@@ -11,7 +11,7 @@ import Foundation
 
 extension NSPersistentContainer {
     
-    public convenience init(name: String, bundle: Bundle) {
+    convenience init(name: String, bundle: Bundle) {
         guard
             let managedObjectModelURL = bundle.url(forResource: name, withExtension: Constants.CoreData.managedObjectModelFileExtension),
             let managedObjectModel = NSManagedObjectModel(contentsOf: managedObjectModelURL)
