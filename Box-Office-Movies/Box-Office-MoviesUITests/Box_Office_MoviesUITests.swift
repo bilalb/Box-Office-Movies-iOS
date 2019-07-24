@@ -2,8 +2,8 @@
 //  Box_Office_MoviesUITests.swift
 //  Box-Office-MoviesUITests
 //
-//  Created by Bilal Benlarbi on 29/06/2019.
-//  Copyright © 2019 Boxotop. All rights reserved.
+//  Created by Bilal Benlarbi on 29.06.2019.
+//  Copyrights © 2019 Bilal Benlarbi. All rights reserved.
 //
 
 import XCTest

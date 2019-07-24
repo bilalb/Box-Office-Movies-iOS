@@ -21,8 +21,9 @@ protocol NetworkControlling {
     /// Init method of the network controller.
     ///
     /// - Parameters:
-    ///   - environment: The environment to used to initialise the network requests.
-    init(environment: Environment)
+    ///   - environment: The environment used to initialise the network requests.
+    ///   - session: The URL session to use (Mocked for testing, otherwise default).
+    init(environment: Environment, session: URLSession?)
     
     /// Sends a network request and returns with the results
     ///
@@ -35,13 +36,11 @@ protocol NetworkControlling {
 class NetworkController: NetworkControlling {
     
     let environment: Environment
-    let defaultSession: URLSession?
+    let session: URLSession?
     
-    required init(environment: Environment) {
-        defaultSession = URLSession(configuration: .default)
-        defaultSession?.configuration.timeoutIntervalForRequest = Constants.Network.timeoutIntervalForRequest
-        defaultSession?.configuration.timeoutIntervalForResource = Constants.Network.timeoutIntervalForResource
+    required init(environment: Environment, session: URLSession?) {
         self.environment = environment
+        self.session = session
     }
     
     func send(request: NetworkRequest, completionHandler: NetworkCompletionHandler?) {
@@ -49,7 +48,7 @@ class NetworkController: NetworkControlling {
             DispatchQueue.main.async {
                 UIApplication.shared.isNetworkActivityIndicatorVisible = true
             }
-            let dataTask = defaultSession?.dataTask(with: urlRequest, completionHandler: { (data, response, error) in
+            let dataTask = session?.dataTask(with: urlRequest, completionHandler: { (data, response, error) in
                 completionHandler?(data, response, error)
                 DispatchQueue.main.async {
                     UIApplication.shared.isNetworkActivityIndicatorVisible = false
