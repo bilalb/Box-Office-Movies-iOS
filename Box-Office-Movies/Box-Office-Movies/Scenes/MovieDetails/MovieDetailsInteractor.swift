@@ -41,10 +41,10 @@ extension MovieDetailsInteractor: MovieDetailsBusinessLogic {
         
         fetchDetails(dispatchGroup: dispatchGroup)
         
-        dispatchGroup.notify(queue: .global(qos: .userInitiated)) {
-            self.fetchCasting()
-            self.fetchSimilarMovies()
-            self.fetchPosterImage()
+        dispatchGroup.notify(queue: .global(qos: .userInitiated)) { [weak self] in
+            self?.fetchCasting()
+            self?.fetchSimilarMovies()
+            self?.fetchPosterImage()
         }
     }
     
@@ -154,9 +154,9 @@ extension MovieDetailsInteractor {
             dispatchGroup.leave()
         }
         
-        dispatchGroup.notify(queue: .global(qos: .userInitiated)) {
+        dispatchGroup.notify(queue: .global(qos: .userInitiated)) { [weak self] in
             if let imageSecureBaseURLPath = apiConfiguration?.imageData.secureBaseUrl,
-                let posterPath = self.movieDetails?.posterPath {
+                let posterPath = self?.movieDetails?.posterPath {
                 ManagerProvider.shared.movieManager.poster(imageSecureBaseURL: imageSecureBaseURLPath, posterSize: Constants.Fallback.posterImageSize, posterPath: posterPath) { [weak self] (posterData, error) in
                     self?.posterData = posterData
                     self?.error = error

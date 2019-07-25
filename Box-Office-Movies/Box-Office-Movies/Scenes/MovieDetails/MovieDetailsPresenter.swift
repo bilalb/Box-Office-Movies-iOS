@@ -43,7 +43,7 @@ extension MovieDetailsPresenter: MovieDetailsPresentationLogic {
             }
             
             let titleItem = DetailItem.title(title: movieDetails.title)
-            let additionalInformationDetailItem = self.additionalInformationItem(for: movieDetails, posterData:  response.posterData)
+            let additionalInformationDetailItem = self.additionalInformationItem(for: movieDetails, posterData: response.posterData)
             let reviewMovieItem = DetailItem.reviewMovie(review: NSLocalizedString("review", comment: "review"))
             var detailItems = [titleItem, additionalInformationDetailItem, reviewMovieItem]
             
