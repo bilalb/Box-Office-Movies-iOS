@@ -658,6 +658,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "fr.boxotop.Box-Office-Movies";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_TREAT_WARNINGS_AS_ERRORS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -676,6 +677,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "fr.boxotop.Box-Office-Movies";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_TREAT_WARNINGS_AS_ERRORS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
