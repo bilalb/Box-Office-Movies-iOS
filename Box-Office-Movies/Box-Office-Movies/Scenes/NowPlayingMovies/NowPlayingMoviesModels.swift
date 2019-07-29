@@ -80,6 +80,23 @@ enum NowPlayingMovies {
             let errorAlertActions: [UIAlertAction]
         }
     }
+    
+    enum LoadEmptyBackgroundView {
+        
+        struct Request {
+            let searchText: String?
+        }
+        
+        struct Response {
+            let state: State
+            let searchText: String?
+            let movies: [Movie]?
+        }
+        
+        struct ViewModel {
+            let emptyBackgroundView: EmptyBackgroundView?
+        }
+    }
 }
 
 // MARK: - Favorite movies

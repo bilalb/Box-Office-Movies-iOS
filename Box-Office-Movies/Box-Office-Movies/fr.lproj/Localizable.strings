@@ -9,6 +9,8 @@
 // MARK: List scene
 "all" = "Tous";
 "favorites" = "Favoris";
+"noResults" = "Aucun résultat";
+"noFavorites" = "Aucun favori";
 
 // MARK: Details scene
 "releaseDate" = "Date de sortie";

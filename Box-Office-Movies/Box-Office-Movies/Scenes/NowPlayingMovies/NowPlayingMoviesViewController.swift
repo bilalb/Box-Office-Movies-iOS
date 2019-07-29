@@ -13,8 +13,8 @@ protocol NowPlayingMoviesDisplayLogic: class {
     func displayNextPage(viewModel: NowPlayingMovies.FetchNextPage.ViewModel)
     func displayFilterMovies(viewModel: NowPlayingMovies.FilterMovies.ViewModel)
     func displayRefreshMovies(viewModel: NowPlayingMovies.RefreshMovies.ViewModel)
-    
     func displayRemoveMovieFromFavorites(viewModel: NowPlayingMovies.RemoveMovieFromFavorites.ViewModel)
+    func displayEmptyBackgroundView(viewModel: NowPlayingMovies.LoadEmptyBackgroundView.ViewModel)
 }
 
 class NowPlayingMoviesViewController: UIViewController {
@@ -192,6 +192,11 @@ private extension NowPlayingMoviesViewController {
             break
         }
     }
+    
+    func loadEmptyBackgroundView() {
+        let request = NowPlayingMovies.LoadEmptyBackgroundView.Request(searchText: searchController.searchBar.text)
+        interactor?.loadEmptyBackgroundView(request: request)
+    }
 }
 
 // MARK: - Favorite movies - Private Functions
@@ -269,12 +274,17 @@ extension NowPlayingMoviesViewController: NowPlayingMoviesDisplayLogic {
         movieItems = viewModel.movieItems
         nowPlayingMoviesTableView.deleteRows(at: viewModel.indexPathsForRowsToDelete, with: .automatic)
     }
+    
+    func displayEmptyBackgroundView(viewModel: NowPlayingMovies.LoadEmptyBackgroundView.ViewModel) {
+        nowPlayingMoviesTableView.backgroundView = viewModel.emptyBackgroundView
+    }
 }
 
 // MARK: - UITableViewDataSource
 extension NowPlayingMoviesViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        loadEmptyBackgroundView()
         return movieItems?.count ?? 0
     }
     
@@ -292,7 +302,7 @@ extension NowPlayingMoviesViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        return isEditing ? true : false
+        return isEditing
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {

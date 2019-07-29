@@ -14,8 +14,8 @@ protocol NowPlayingMoviesPresentationLogic {
     func presentNextPage(response: NowPlayingMovies.FetchNextPage.Response)
     func presentFilterMovies(response: NowPlayingMovies.FilterMovies.Response)
     func presentRefreshMovies(response: NowPlayingMovies.RefreshMovies.Response)
-    
     func presentRemoveMovieFromFavorites(response: NowPlayingMovies.RemoveMovieFromFavorites.Response)
+    func presentEmptyBackgroundView(response: NowPlayingMovies.LoadEmptyBackgroundView.Response)
 }
 
 class NowPlayingMoviesPresenter {
@@ -72,6 +72,29 @@ extension NowPlayingMoviesPresenter: NowPlayingMoviesPresentationLogic {
                                                                      errorAlertActions: errorAlertActions)
             self.viewController?.displayRefreshMovies(viewModel: viewModel)
         }
+    }
+    
+    func presentEmptyBackgroundView(response: NowPlayingMovies.LoadEmptyBackgroundView.Response) {
+        let emptyBackgroundView: EmptyBackgroundView? = {
+            guard
+                response.movies?.isEmpty == true,
+                let emptyBackgroundView = EmptyBackgroundView.fromNib(named: Constants.NibName.emptyBackgroundView) as? EmptyBackgroundView
+            else {
+                return nil
+            }
+            let message: String? = {
+                switch response.state {
+                case .allMovies:
+                    return NSLocalizedString("noResults", comment: "noResults")
+                case .favorites:
+                    return response.searchText?.isEmpty == true ? NSLocalizedString("noFavorites", comment: "noFavorites") : NSLocalizedString("noResults", comment: "noResults")
+                }
+            }()
+            emptyBackgroundView.message = message
+            return emptyBackgroundView
+        }()
+        let viewModel = NowPlayingMovies.LoadEmptyBackgroundView.ViewModel(emptyBackgroundView: emptyBackgroundView)
+        viewController?.displayEmptyBackgroundView(viewModel: viewModel)
     }
 }
 
