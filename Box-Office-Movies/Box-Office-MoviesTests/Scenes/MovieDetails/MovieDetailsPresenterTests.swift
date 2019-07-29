@@ -89,7 +89,7 @@ class MovieDetailsPresenterTests: XCTestCase {
                                                                     casting: Casting(actors: [Casting.Actor(name: "John Doe")]), paginatedSimilarMovieLists: [PaginatedMovieList(page: 1, totalPages: 1, movies: [Movie(identifier: 1, title: "Mo Better Blues"),
                                                                                                                                                                                                                   Movie(identifier: 2, title: "8 miles")
                                                                         ])],
-                                                                    posterData: nil,
+                                                                    posterData: Data(),
                                                                     error: nil)
         
         // When

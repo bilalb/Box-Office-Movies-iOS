@@ -65,6 +65,70 @@ class NowPlayingMoviesInteractorTests: XCTestCase {
     
     // MARK: Tests
     
+    func testCurrentMoviesForAllMovies() {
+        // Given
+        sut.state = .allMovies
+        
+        // When
+        let currentMovies = sut.currentMovies
+        
+        // Then
+        XCTAssertEqual(currentMovies, sut.movies)
+    }
+    
+    func testCurrentMoviesForFavorites() {
+        // Given
+        sut.state = .favorites
+        
+        // When
+        let currentMovies = sut.currentMovies
+        
+        // Then
+        XCTAssertEqual(currentMovies, sut.favoriteMovies)
+    }
+    
+    func testLoadNowPlayingMoviesWithEmptyMovies() {
+        // Given
+        let spy = NowPlayingMoviesPresentationLogicSpy()
+        sut.presenter = spy
+
+        sut.movies = []
+        
+        // When
+        sut.loadNowPlayingMovies()
+        
+        wait(for: [spy.presentNowPlayingMoviesExpectation], timeout: 0.1)
+    }
+    
+    func testLoadNowPlayingMoviesWithNotEmptyMovies() {
+        // Given
+        let spy = NowPlayingMoviesPresentationLogicSpy()
+        sut.presenter = spy
+
+        sut.movies = Movie.dummyInstances
+        
+        // When
+        sut.loadNowPlayingMovies()
+        
+        wait(for: [spy.presentNowPlayingMoviesExpectation], timeout: 0.1)
+    }
+    
+    func testFilterMoviesWithEmptySearchText() {
+        // Given
+        let spy = NowPlayingMoviesPresentationLogicSpy()
+        sut.presenter = spy
+        
+        sut.movies = Movie.dummyInstances
+        let request = NowPlayingMovies.FilterMovies.Request(searchText: "", isSearchControllerActive: true)
+        
+        // When
+        sut.filterMovies(request: request)
+        
+        // Then
+        XCTAssertEqual(sut.filteredMovies, sut.currentMovies)
+        XCTAssertTrue(spy.presentFilterMoviesCalled, "filterMovies(request:) should ask the presenter to format the result")
+    }
+    
     func testFilterMoviesWithSearchText() {
         // Given
         let spy = NowPlayingMoviesPresentationLogicSpy()
@@ -78,6 +142,20 @@ class NowPlayingMoviesInteractorTests: XCTestCase {
         
         // Then
         XCTAssertTrue(spy.presentFilterMoviesCalled, "filterMovies(request:) should ask the presenter to format the result")
+    }
+    
+    func testRefreshMovies() {
+        // Given
+        let spy = NowPlayingMoviesPresentationLogicSpy()
+        sut.presenter = spy
+        
+        let request = NowPlayingMovies.RefreshMovies.Request()
+        
+        // When
+        sut.refreshMovies(request: request)
+        
+        // Then
+        XCTAssertEqual(sut.state, .allMovies)
     }
     
     func testLoadFavoriteMovies() {

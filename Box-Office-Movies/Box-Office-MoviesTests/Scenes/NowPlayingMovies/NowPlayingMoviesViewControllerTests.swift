@@ -78,6 +78,16 @@ class NowPlayingMoviesViewControllerTests: XCTestCase {
         }
     }
     
+    class NowPlayingMoviesRouterSpy: NSObject, NowPlayingMoviesRoutingLogic, NowPlayingMoviesDataPassing {
+        
+        var dataStore: NowPlayingMoviesDataStore?
+        var routeToMovieDetailsCalled = false
+        
+        func routeToMovieDetails(segue: UIStoryboardSegue?) {
+            routeToMovieDetailsCalled = true
+        }
+    }
+    
     // MARK: Tests
     
     func testInitWithNibNameAndBundle() {
@@ -105,6 +115,23 @@ class NowPlayingMoviesViewControllerTests: XCTestCase {
         XCTAssertNotNil(sut.nowPlayingMoviesTableView.refreshControl)
         
         XCTAssertTrue(spy.fetchNowPlayingMoviesCalled, "viewDidLoad() should ask the interactor to fetchNowPlayingMovies")
+    }
+    
+    func testPrepareForSegue() {
+        // Given
+        let spy = NowPlayingMoviesRouterSpy()
+        sut.router = spy
+        
+        loadView()
+        
+        let segue = UIStoryboardSegue(identifier: Constants.SegueIdentifier.movieDetails, source: sut, destination: MovieDetailsViewController())
+        let sender: Any? = nil
+
+        // When
+        sut.prepare(for: segue, sender: sender)
+        
+        // Then
+        XCTAssertTrue(spy.routeToMovieDetailsCalled, "prepare for movie details segue should ask the router to routeToMovieDetails")
     }
     
     func testDisplayNowPlayingMovies() {
