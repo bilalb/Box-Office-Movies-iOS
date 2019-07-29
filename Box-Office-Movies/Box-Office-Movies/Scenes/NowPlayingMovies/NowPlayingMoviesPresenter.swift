@@ -59,7 +59,6 @@ extension NowPlayingMoviesPresenter: NowPlayingMoviesPresentationLogic {
     }
     
     func presentRefreshMovies(response: NowPlayingMovies.RefreshMovies.Response) {
-        // TODO: factorise presentRefreshMovies, presentNextPage & presentNowPlayingMovies
         DispatchQueue.main.async {
             let items = self.movieItems(for: response.movies)
             let shouldPresentErrorAlert = response.error != nil

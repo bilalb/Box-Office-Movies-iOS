@@ -9,7 +9,6 @@
 import Box_Office_Movies_Core
 import UIKit
 
-// TODO: rename to MovieList?
 enum NowPlayingMovies {
     
     enum FetchNowPlayingMovies {
