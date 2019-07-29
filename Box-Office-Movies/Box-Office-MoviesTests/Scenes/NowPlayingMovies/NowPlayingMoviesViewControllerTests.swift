@@ -52,6 +52,7 @@ class NowPlayingMoviesViewControllerTests: XCTestCase {
         var refreshMoviesCalled = false
         var loadFavoriteMoviesCalled = false
         var removeMovieFromFavoritesCalled = false
+        var loadEmptyBackgroundViewCalled = false
         
         func fetchNowPlayingMovies(request: NowPlayingMovies.FetchNowPlayingMovies.Request) {
             fetchNowPlayingMoviesCalled = true
@@ -75,6 +76,10 @@ class NowPlayingMoviesViewControllerTests: XCTestCase {
         
         func removeMovieFromFavorites(request: NowPlayingMovies.RemoveMovieFromFavorites.Request) {
             removeMovieFromFavoritesCalled = true
+        }
+        
+        func loadEmptyBackgroundView(request: NowPlayingMovies.LoadEmptyBackgroundView.Request) {
+            loadEmptyBackgroundViewCalled = true
         }
     }
     
@@ -254,8 +259,24 @@ class NowPlayingMoviesViewControllerTests: XCTestCase {
         XCTAssertEqual(sut.movieItems?.count, 2)
     }
     
+    func testDisplayEmptyBackgroundView() {
+        // Given
+        loadView()
+        
+        let viewModel = NowPlayingMovies.LoadEmptyBackgroundView.ViewModel(emptyBackgroundView: nil)
+        
+        // When
+        sut.displayEmptyBackgroundView(viewModel: viewModel)
+        
+        // Then
+        XCTAssertNil(sut.nowPlayingMoviesTableView.backgroundView)
+    }
+    
     func testNumberOfRowsInSection0() {
         // Given
+        let spy = NowPlayingMoviesBusinessLogicSpy()
+        sut.interactor = spy
+
         loadView()
         sut.movieItems = MovieItem.dummyInstances
         
@@ -264,6 +285,7 @@ class NowPlayingMoviesViewControllerTests: XCTestCase {
         
         // Then
         XCTAssertEqual(numberOfRowsInSection0, 2)
+        XCTAssertTrue(spy.loadEmptyBackgroundViewCalled, "tableView(_:, section:) should ask the interactor to loadEmptyBackgroundView")
     }
     
     func testCellForRowAtIndexPath00() {
