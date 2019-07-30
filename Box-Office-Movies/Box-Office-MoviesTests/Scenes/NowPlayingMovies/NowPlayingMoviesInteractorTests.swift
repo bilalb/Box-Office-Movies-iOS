@@ -42,6 +42,8 @@ class NowPlayingMoviesInteractorTests: XCTestCase {
         var presentFilterMoviesCalled = false
         var presentRefreshMoviesExpectation = XCTestExpectation(description: "presentRefreshMovies called")
         var presentTableViewBackgroundViewCalled = false
+        var presentFavoriteMoviesCalled = false
+        var presentRemoveMovieFromFavoritesCalled = true
 
         func presentNowPlayingMovies(response: NowPlayingMovies.FetchNowPlayingMovies.Response) {
             presentNowPlayingMoviesExpectation.fulfill()
@@ -59,12 +61,16 @@ class NowPlayingMoviesInteractorTests: XCTestCase {
             presentRefreshMoviesExpectation.fulfill()
         }
         
-        func presentRemoveMovieFromFavorites(response: NowPlayingMovies.RemoveMovieFromFavorites.Response) {
-            presentFilterMoviesCalled = true
-        }
-        
         func presentTableViewBackgroundView(response: NowPlayingMovies.LoadTableViewBackgroundView.Response) {
             presentTableViewBackgroundViewCalled = true
+        }
+        
+        func presentFavoriteMovies(response: NowPlayingMovies.LoadFavoriteMovies.Response) {
+            presentFavoriteMoviesCalled = true
+        }
+        
+        func presentRemoveMovieFromFavorites(response: NowPlayingMovies.RemoveMovieFromFavorites.Response) {
+            presentRemoveMovieFromFavoritesCalled = true
         }
     }
     
@@ -163,6 +169,21 @@ class NowPlayingMoviesInteractorTests: XCTestCase {
         XCTAssertEqual(sut.state, .allMovies)
     }
     
+    func testLoadFavoriteMoviesWithRequest() {
+        // Given
+        let spy = NowPlayingMoviesPresentationLogicSpy()
+        sut.presenter = spy
+        
+        let request = NowPlayingMovies.LoadFavoriteMovies.Request(editButtonItem: UIBarButtonItem())
+        
+        // When
+        sut.loadFavoriteMovies(request: request)
+        
+        // Then
+        XCTAssertNotNil(sut.editButtonItem, "loadFavoriteMovies(request:) should set editButtonItem")
+        XCTAssertEqual(sut.state, .favorites, "loadFavoriteMovies(request:) should set state")
+    }
+    
     func testLoadFavoriteMovies() {
         // Given
         let spy = NowPlayingMoviesPresentationLogicSpy()
@@ -172,40 +193,7 @@ class NowPlayingMoviesInteractorTests: XCTestCase {
         sut.loadFavoriteMovies()
         
         // Then
-        XCTAssertTrue(spy.presentFilterMoviesCalled, "loadFavoriteMovies() should ask the presenter to format the result")
-    }
-    
-    func testLoadFavoriteMoviesWithRequest() {
-        // Given
-        let spy = NowPlayingMoviesPresentationLogicSpy()
-        sut.presenter = spy
-        
-        let request = NowPlayingMovies.LoadFavoriteMovies.Request()
-        
-        // When
-        sut.loadFavoriteMovies(request: request)
-        
-        // Then
-        XCTAssertEqual(sut.state, .favorites)
-        XCTAssertTrue(spy.presentFilterMoviesCalled, "loadFavoriteMovies() should ask the presenter to format the result")
-    }
-    
-    func testRemoveMovieFromFavorites() {
-        // Given
-        let spy = NowPlayingMoviesPresentationLogicSpy()
-        sut.presenter = spy
-        
-        _ = ManagerProvider.shared.favoritesManager.addMovieToFavorites(Movie.dummyInstance)
-        sut.favoriteMovies = ManagerProvider.shared.favoritesManager.favoriteMovies() ?? []
-        
-        let request = NowPlayingMovies.RemoveMovieFromFavorites.Request(indexPathForMovieToRemove: IndexPath(row: 0, section: 0))
-        
-        // When
-        sut.removeMovieFromFavorites(request: request)
-        
-        // Then
-        XCTAssertTrue(ManagerProvider.shared.favoritesManager.favoriteMovies()?.isEmpty == true)
-        XCTAssertTrue(spy.presentFilterMoviesCalled, "loadFavoriteMovies() should ask the presenter to format the result")
+        XCTAssertTrue(spy.presentFavoriteMoviesCalled, "loadFavoriteMovies() should ask the presenter to format the result")
     }
     
     func testLoadTableViewBackgroundView() {
@@ -220,6 +208,24 @@ class NowPlayingMoviesInteractorTests: XCTestCase {
         
         // Then
         XCTAssertTrue(spy.presentTableViewBackgroundViewCalled, "loadTableViewBackgroundView(request:) should ask the presenter to format the result")
+    }
+    
+    func testRemoveMovieFromFavorites() {
+        // Given
+        let spy = NowPlayingMoviesPresentationLogicSpy()
+        sut.presenter = spy
+        
+        _ = ManagerProvider.shared.favoritesManager.addMovieToFavorites(Movie.dummyInstance)
+        sut.favoriteMovies = ManagerProvider.shared.favoritesManager.favoriteMovies() ?? []
+        
+        let request = NowPlayingMovies.RemoveMovieFromFavorites.Request(indexPathForMovieToRemove: IndexPath(row: 0, section: 0), editButtonItem: UIBarButtonItem())
+        
+        // When
+        sut.removeMovieFromFavorites(request: request)
+        
+        // Then
+        XCTAssertTrue(ManagerProvider.shared.favoritesManager.favoriteMovies()?.isEmpty == true)
+        XCTAssertTrue(spy.presentRemoveMovieFromFavoritesCalled, "removeMovieFromFavorites(request:) should ask the presenter to format the result")
     }
 }
 
