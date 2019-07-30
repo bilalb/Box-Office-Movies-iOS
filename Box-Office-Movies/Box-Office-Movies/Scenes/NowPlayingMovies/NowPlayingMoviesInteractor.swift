@@ -21,6 +21,7 @@ protocol NowPlayingMoviesBusinessLogic {
     func fetchNextPage(request: NowPlayingMovies.FetchNextPage.Request)
     func filterMovies(request: NowPlayingMovies.FilterMovies.Request)
     func refreshMovies(request: NowPlayingMovies.RefreshMovies.Request)
+    func loadTableViewBackgroundView(request: NowPlayingMovies.LoadTableViewBackgroundView.Request)
     
     func loadFavoriteMovies(request: NowPlayingMovies.LoadFavoriteMovies.Request)
     func removeMovieFromFavorites(request: NowPlayingMovies.RemoveMovieFromFavorites.Request)    
@@ -127,6 +128,12 @@ extension NowPlayingMoviesInteractor: NowPlayingMoviesBusinessLogic {
             let response = NowPlayingMovies.RefreshMovies.Response(movies: self?.movies, error: error)
             self?.presenter?.presentRefreshMovies(response: response)
         }
+    }
+    
+    func loadTableViewBackgroundView(request: NowPlayingMovies.LoadTableViewBackgroundView.Request) {
+        let movies = request.searchText?.isEmpty == true ? currentMovies : filteredMovies
+        let response = NowPlayingMovies.LoadTableViewBackgroundView.Response(state: state, searchText: request.searchText, movies: movies)
+        presenter?.presentTableViewBackgroundView(response: response)
     }
 }
 

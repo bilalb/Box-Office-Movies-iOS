@@ -41,6 +41,7 @@ class NowPlayingMoviesInteractorTests: XCTestCase {
         var presentNextPageExpectation = XCTestExpectation(description: "presentNextPage called")
         var presentFilterMoviesCalled = false
         var presentRefreshMoviesExpectation = XCTestExpectation(description: "presentRefreshMovies called")
+        var presentTableViewBackgroundViewCalled = false
 
         func presentNowPlayingMovies(response: NowPlayingMovies.FetchNowPlayingMovies.Response) {
             presentNowPlayingMoviesExpectation.fulfill()
@@ -60,6 +61,10 @@ class NowPlayingMoviesInteractorTests: XCTestCase {
         
         func presentRemoveMovieFromFavorites(response: NowPlayingMovies.RemoveMovieFromFavorites.Response) {
             presentFilterMoviesCalled = true
+        }
+        
+        func presentTableViewBackgroundView(response: NowPlayingMovies.LoadTableViewBackgroundView.Response) {
+            presentTableViewBackgroundViewCalled = true
         }
     }
     
@@ -201,6 +206,20 @@ class NowPlayingMoviesInteractorTests: XCTestCase {
         // Then
         XCTAssertTrue(ManagerProvider.shared.favoritesManager.favoriteMovies()?.isEmpty == true)
         XCTAssertTrue(spy.presentFilterMoviesCalled, "loadFavoriteMovies() should ask the presenter to format the result")
+    }
+    
+    func testLoadTableViewBackgroundView() {
+        // Given
+        let spy = NowPlayingMoviesPresentationLogicSpy()
+        sut.presenter = spy
+        
+        let request = NowPlayingMovies.LoadTableViewBackgroundView.Request(searchText: nil)
+        
+        // When
+        sut.loadTableViewBackgroundView(request: request)
+        
+        // Then
+        XCTAssertTrue(spy.presentTableViewBackgroundViewCalled, "loadTableViewBackgroundView(request:) should ask the presenter to format the result")
     }
 }
 

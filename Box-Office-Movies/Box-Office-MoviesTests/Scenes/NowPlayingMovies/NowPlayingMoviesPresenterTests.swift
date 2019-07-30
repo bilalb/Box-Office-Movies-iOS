@@ -42,6 +42,7 @@ class NowPlayingMoviesPresenterTests: XCTestCase {
         var displayFilterMoviesCalled = false
         var displayRefreshMoviesExpectation = XCTestExpectation(description: "displayRefreshMovies called")
         var displayRemoveMovieFromFavoritesCalled = false
+        var displayTableViewBackgroundViewCalled = false
 
         func displayNowPlayingMovies(viewModel: NowPlayingMovies.FetchNowPlayingMovies.ViewModel) {
             XCTAssertEqual(viewModel.movieItems?.count, 2)
@@ -85,6 +86,10 @@ class NowPlayingMoviesPresenterTests: XCTestCase {
         
         func displayRemoveMovieFromFavorites(viewModel: NowPlayingMovies.RemoveMovieFromFavorites.ViewModel) {
             displayRemoveMovieFromFavoritesCalled = true
+        }
+        
+        func displayTableViewBackgroundView(viewModel: NowPlayingMovies.LoadTableViewBackgroundView.ViewModel) {
+            displayTableViewBackgroundViewCalled = true
         }
     }
     
@@ -153,5 +158,44 @@ class NowPlayingMoviesPresenterTests: XCTestCase {
         
         // Then
         XCTAssertTrue(spy.displayRemoveMovieFromFavoritesCalled, "presentRemoveMovieFromFavorites(response:) should ask the view controller to display the result")
+    }
+    
+    func testPresentTableViewBackgroundViewForAllMovies() {
+        // Given
+        let spy = NowPlayingMoviesDisplayLogicSpy()
+        sut.viewController = spy
+        let response = NowPlayingMovies.LoadTableViewBackgroundView.Response(state: .allMovies, searchText: nil, movies: [])
+        
+        // When
+        sut.presentTableViewBackgroundView(response: response)
+        
+        // Then
+        XCTAssertTrue(spy.displayTableViewBackgroundViewCalled, "presentTableViewBackgroundView(response:) should ask the view controller to display the result")
+    }
+    
+    func testPresentTableViewBackgroundViewForFavoritesWithSearchText() {
+        // Given
+        let spy = NowPlayingMoviesDisplayLogicSpy()
+        sut.viewController = spy
+        let response = NowPlayingMovies.LoadTableViewBackgroundView.Response(state: .favorites, searchText: "A", movies: [])
+        
+        // When
+        sut.presentTableViewBackgroundView(response: response)
+        
+        // Then
+        XCTAssertTrue(spy.displayTableViewBackgroundViewCalled, "presentTableViewBackgroundView(response:) should ask the view controller to display the result")
+    }
+    
+    func testPresentTableViewBackgroundViewForFavoritesWithoutSearchText() {
+        // Given
+        let spy = NowPlayingMoviesDisplayLogicSpy()
+        sut.viewController = spy
+        let response = NowPlayingMovies.LoadTableViewBackgroundView.Response(state: .favorites, searchText: nil, movies: [])
+        
+        // When
+        sut.presentTableViewBackgroundView(response: response)
+        
+        // Then
+        XCTAssertTrue(spy.displayTableViewBackgroundViewCalled, "presentTableViewBackgroundView(response:) should ask the view controller to display the result")
     }
 }

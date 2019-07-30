@@ -28,4 +28,8 @@ struct Constants {
     struct SegueIdentifier {
         static let movieDetails = "MovieDetails"
     }
+    
+    struct NibName {
+        static let emptyBackgroundView = "EmptyBackgroundView"
+    }
 }
