@@ -41,8 +41,9 @@ class NowPlayingMoviesPresenterTests: XCTestCase {
         var displayNextPageExpectation = XCTestExpectation(description: "displayNextPage called")
         var displayFilterMoviesCalled = false
         var displayRefreshMoviesExpectation = XCTestExpectation(description: "displayRefreshMovies called")
-        var displayRemoveMovieFromFavoritesCalled = false
         var displayTableViewBackgroundViewCalled = false
+        var displayFavoriteMoviesCalled = false
+        var displayRemoveMovieFromFavoritesCalled = false
 
         func displayNowPlayingMovies(viewModel: NowPlayingMovies.FetchNowPlayingMovies.ViewModel) {
             XCTAssertEqual(viewModel.movieItems?.count, 2)
@@ -84,12 +85,16 @@ class NowPlayingMoviesPresenterTests: XCTestCase {
             displayRefreshMoviesExpectation.fulfill()
         }
         
-        func displayRemoveMovieFromFavorites(viewModel: NowPlayingMovies.RemoveMovieFromFavorites.ViewModel) {
-            displayRemoveMovieFromFavoritesCalled = true
-        }
-        
         func displayTableViewBackgroundView(viewModel: NowPlayingMovies.LoadTableViewBackgroundView.ViewModel) {
             displayTableViewBackgroundViewCalled = true
+        }
+        
+        func displayFavoriteMovies(viewModel: NowPlayingMovies.LoadFavoriteMovies.ViewModel) {
+            displayFavoriteMoviesCalled = true
+        }
+        
+        func displayRemoveMovieFromFavorites(viewModel: NowPlayingMovies.RemoveMovieFromFavorites.ViewModel) {
+            displayRemoveMovieFromFavoritesCalled = true
         }
     }
     
@@ -147,19 +152,6 @@ class NowPlayingMoviesPresenterTests: XCTestCase {
         wait(for: [spy.displayRefreshMoviesExpectation], timeout: 0.1)
     }
     
-    func testPresentRemoveMovieFromFavorites() {
-        // Given
-        let spy = NowPlayingMoviesDisplayLogicSpy()
-        sut.viewController = spy
-        let response = NowPlayingMovies.RemoveMovieFromFavorites.Response(movies: Movie.dummyInstances, indexPathForMovieToRemove: IndexPath(row: 0, section: 0))
-        
-        // When
-        sut.presentRemoveMovieFromFavorites(response: response)
-        
-        // Then
-        XCTAssertTrue(spy.displayRemoveMovieFromFavoritesCalled, "presentRemoveMovieFromFavorites(response:) should ask the view controller to display the result")
-    }
-    
     func testPresentTableViewBackgroundViewForAllMovies() {
         // Given
         let spy = NowPlayingMoviesDisplayLogicSpy()
@@ -171,6 +163,32 @@ class NowPlayingMoviesPresenterTests: XCTestCase {
         
         // Then
         XCTAssertTrue(spy.displayTableViewBackgroundViewCalled, "presentTableViewBackgroundView(response:) should ask the view controller to display the result")
+    }
+    
+    func testPresentFavoriteMovies() {
+        // Given
+        let spy = NowPlayingMoviesDisplayLogicSpy()
+        sut.viewController = spy
+        let response = NowPlayingMovies.LoadFavoriteMovies.Response(movies: nil, editButtonItem: nil)
+        
+        // When
+        sut.presentFavoriteMovies(response: response)
+        
+        // Then
+        XCTAssertTrue(spy.displayFavoriteMoviesCalled, "presentFavoriteMovies(response:) should ask the view controller to display the result")
+    }
+    
+    func testPresentRemoveMovieFromFavorites() {
+        // Given
+        let spy = NowPlayingMoviesDisplayLogicSpy()
+        sut.viewController = spy
+        let response = NowPlayingMovies.RemoveMovieFromFavorites.Response(movies: Movie.dummyInstances, indexPathForMovieToRemove: IndexPath(row: 0, section: 0), editButtonItem: nil)
+        
+        // When
+        sut.presentRemoveMovieFromFavorites(response: response)
+        
+        // Then
+        XCTAssertTrue(spy.displayRemoveMovieFromFavoritesCalled, "presentRemoveMovieFromFavorites(response:) should ask the view controller to display the result")
     }
     
     func testPresentTableViewBackgroundViewForFavoritesWithSearchText() {

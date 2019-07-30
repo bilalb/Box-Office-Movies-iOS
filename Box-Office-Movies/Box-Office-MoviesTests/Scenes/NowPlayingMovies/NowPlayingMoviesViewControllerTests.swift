@@ -9,6 +9,7 @@
 @testable import Box_Office_Movies
 import XCTest
 
+//swiftlint:disable file_length
 class NowPlayingMoviesViewControllerTests: XCTestCase {
     
     // MARK: Subject under test
@@ -139,6 +140,19 @@ class NowPlayingMoviesViewControllerTests: XCTestCase {
         XCTAssertTrue(spy.routeToMovieDetailsCalled, "prepare for movie details segue should ask the router to routeToMovieDetails")
     }
     
+    func testSetEditing() {
+        // Given
+        loadView()
+        
+        let editing = true
+        
+        // When
+        sut.setEditing(editing, animated: false)
+        
+        // Then
+        XCTAssertTrue(sut.nowPlayingMoviesTableView.isEditing, "setEditing(_:animated:) should update the isEditing")
+    }
+    
     func testDisplayNowPlayingMovies() {
         // Given
         loadView()
@@ -218,6 +232,7 @@ class NowPlayingMoviesViewControllerTests: XCTestCase {
         
         // Then
         XCTAssertEqual(sut.movieItems?.count, 2, "displayRefreshMovies(viewModel:) should update the movieItems")
+        XCTAssertFalse(sut.refreshControl.isRefreshing, "displayRefreshMovies(viewModel:) should update the isRefreshing")
         XCTAssertFalse(sut.hasError, "displayRefreshMovies(viewModel:) should update hasError")
     }
     
@@ -236,27 +251,9 @@ class NowPlayingMoviesViewControllerTests: XCTestCase {
         
         // Then
         XCTAssertNil(sut.movieItems, "displayRefreshMovies(viewModel:) should update the movieItems")
+        XCTAssertFalse(sut.refreshControl.isRefreshing, "displayRefreshMovies(viewModel:) should update the isRefreshing")
         XCTAssertTrue(sut.hasError, "displayRefreshMovies(viewModel:) should update hasError")
         XCTAssertNotNil(sut.presentedViewController, "displayRefreshMovies(viewModel:) should present an alert with there is an error")
-    }
-    
-    func testDisplayRemoveMovieFromFavorites() {
-        // Given
-        loadView()
-        sut.movieItems = [MovieItem(title: "Whiplash"),
-                          MovieItem(title: "Usual Suspects"),
-                          MovieItem(title: "Green book")]
-        sut.isEditing = true
-        
-        _ = sut.movieItems?.removeLast()
-
-        let viewModel = NowPlayingMovies.RemoveMovieFromFavorites.ViewModel(movieItems: sut.movieItems, indexPathsForRowsToDelete: [IndexPath(row: 0, section: 0)])
-        
-        // When
-        sut.displayRemoveMovieFromFavorites(viewModel: viewModel)
-        
-        // Then
-        XCTAssertEqual(sut.movieItems?.count, 2)
     }
     
     func testDisplayTableViewBackgroundView() {
@@ -269,7 +266,48 @@ class NowPlayingMoviesViewControllerTests: XCTestCase {
         sut.displayTableViewBackgroundView(viewModel: viewModel)
         
         // Then
-        XCTAssertNil(sut.nowPlayingMoviesTableView.backgroundView)
+        XCTAssertNil(sut.nowPlayingMoviesTableView.backgroundView, "displayTableViewBackgroundView(viewModel:) should update the backgroundView")
+    }
+    
+    func testDisplayFavoriteMovies() {
+        // Given
+        loadView()
+        sut.movieItems = [MovieItem(title: "Whiplash"),
+                          MovieItem(title: "Usual Suspects"),
+                          MovieItem(title: "Green book")]
+        sut.isEditing = true
+        
+        _ = sut.movieItems?.removeLast()
+        
+        let viewModel = NowPlayingMovies.LoadFavoriteMovies.ViewModel(movieItems: nil, rightBarButtonItem: nil, refreshControl: nil)
+        
+        // When
+        sut.displayFavoriteMovies(viewModel: viewModel)
+        
+        // Then
+        XCTAssertNil(sut.movieItems, "displayFavoriteMovies(viewModel:) should update the movieItems")
+        XCTAssertNil(sut.navigationItem.rightBarButtonItem, "displayFavoriteMovies(viewModel:) should update the rightBarButtonItem")
+        XCTAssertNil(sut.nowPlayingMoviesTableView.refreshControl, "displayFavoriteMovies(viewModel:) should update the refreshControl")
+    }
+    
+    func testDisplayRemoveMovieFromFavorites() {
+        // Given
+        loadView()
+        sut.movieItems = [MovieItem(title: "Whiplash"),
+                          MovieItem(title: "Usual Suspects"),
+                          MovieItem(title: "Green book")]
+        sut.isEditing = true
+        
+        _ = sut.movieItems?.removeLast()
+        
+        let viewModel = NowPlayingMovies.RemoveMovieFromFavorites.ViewModel(movieItems: sut.movieItems, indexPathsForRowsToDelete: [IndexPath(row: 0, section: 0)], rightBarButtonItem: UIBarButtonItem())
+        
+        // When
+        sut.displayRemoveMovieFromFavorites(viewModel: viewModel)
+        
+        // Then
+        XCTAssertEqual(sut.movieItems?.count, 2, "displayRemoveMovieFromFavorites(viewModel:) should update the movieItems")
+        XCTAssertNotNil(sut.navigationItem.rightBarButtonItem, "displayRemoveMovieFromFavorites(viewModel:) should update the rightBarButtonItem")
     }
     
     func testNumberOfRowsInSection0() {
@@ -285,7 +323,7 @@ class NowPlayingMoviesViewControllerTests: XCTestCase {
         
         // Then
         XCTAssertEqual(numberOfRowsInSection0, 2)
-        XCTAssertTrue(spy.loadTableViewBackgroundViewCalled, "tableView(_:, section:) should ask the interactor to loadTableViewBackgroundView")
+        XCTAssertTrue(spy.loadTableViewBackgroundViewCalled, "tableView(_:numberOfRowsInSection:) should ask the interactor to loadTableViewBackgroundView")
     }
     
     func testCellForRowAtIndexPath00() {
@@ -299,6 +337,19 @@ class NowPlayingMoviesViewControllerTests: XCTestCase {
         
         // Then
         XCTAssertEqual(cell.textLabel?.text, "Whiplash")
+    }
+    
+    func testCanEditRowAtIndexPath00() {
+        // Given
+        loadView()
+        sut.movieItems = MovieItem.dummyInstances
+        let indexPath = IndexPath(row: 0, section: 0)
+        
+        // When
+        let isRowEditable = sut.tableView(sut.nowPlayingMoviesTableView, canEditRowAt: indexPath)
+        
+        // Then
+        XCTAssertEqual(isRowEditable, sut.isEditing)
     }
     
     func testCommitEditingStyleForRowAtIndexPath00() {

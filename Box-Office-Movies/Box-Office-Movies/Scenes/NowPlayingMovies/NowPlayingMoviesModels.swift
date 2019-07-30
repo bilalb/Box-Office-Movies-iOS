@@ -105,27 +105,39 @@ extension NowPlayingMovies {
     
     enum LoadFavoriteMovies {
         
-        struct Request { }
+        struct Request {
+            let editButtonItem: UIBarButtonItem
+        }
         
-        struct Response { }
+        struct Response {
+            let movies: [Movie]?
+            let editButtonItem: UIBarButtonItem?
+        }
         
-        struct ViewModel { }
+        struct ViewModel {
+            let movieItems: [MovieItem]?
+            let rightBarButtonItem: UIBarButtonItem?
+            let refreshControl: UIRefreshControl?
+        }
     }
     
     enum RemoveMovieFromFavorites {
         
         struct Request {
             let indexPathForMovieToRemove: IndexPath
+            let editButtonItem: UIBarButtonItem
         }
         
         struct Response {
             let movies: [Movie]?
             let indexPathForMovieToRemove: IndexPath
+            let editButtonItem: UIBarButtonItem?
         }
         
         struct ViewModel {
             let movieItems: [MovieItem]?
             let indexPathsForRowsToDelete: [IndexPath]
+            let rightBarButtonItem: UIBarButtonItem?
         }
     }
 }
