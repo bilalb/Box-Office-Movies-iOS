@@ -15,7 +15,7 @@ protocol NowPlayingMoviesPresentationLogic {
     func presentFilterMovies(response: NowPlayingMovies.FilterMovies.Response)
     func presentRefreshMovies(response: NowPlayingMovies.RefreshMovies.Response)
     func presentRemoveMovieFromFavorites(response: NowPlayingMovies.RemoveMovieFromFavorites.Response)
-    func presentEmptyBackgroundView(response: NowPlayingMovies.LoadEmptyBackgroundView.Response)
+    func presentTableViewBackgroundView(response: NowPlayingMovies.LoadTableViewBackgroundView.Response)
 }
 
 class NowPlayingMoviesPresenter {
@@ -74,8 +74,8 @@ extension NowPlayingMoviesPresenter: NowPlayingMoviesPresentationLogic {
         }
     }
     
-    func presentEmptyBackgroundView(response: NowPlayingMovies.LoadEmptyBackgroundView.Response) {
-        let emptyBackgroundView: EmptyBackgroundView? = {
+    func presentTableViewBackgroundView(response: NowPlayingMovies.LoadTableViewBackgroundView.Response) {
+        let backgroundView: UIView? = {
             guard
                 response.movies.isEmpty,
                 let emptyBackgroundView = EmptyBackgroundView.fromNib(named: Constants.NibName.emptyBackgroundView) as? EmptyBackgroundView
@@ -93,8 +93,8 @@ extension NowPlayingMoviesPresenter: NowPlayingMoviesPresentationLogic {
             emptyBackgroundView.message = message
             return emptyBackgroundView
         }()
-        let viewModel = NowPlayingMovies.LoadEmptyBackgroundView.ViewModel(emptyBackgroundView: emptyBackgroundView)
-        viewController?.displayEmptyBackgroundView(viewModel: viewModel)
+        let viewModel = NowPlayingMovies.LoadTableViewBackgroundView.ViewModel(backgroundView: backgroundView)
+        viewController?.displayTableViewBackgroundView(viewModel: viewModel)
     }
 }
 

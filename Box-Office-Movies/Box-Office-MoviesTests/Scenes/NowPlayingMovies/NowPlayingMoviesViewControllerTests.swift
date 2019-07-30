@@ -52,7 +52,7 @@ class NowPlayingMoviesViewControllerTests: XCTestCase {
         var refreshMoviesCalled = false
         var loadFavoriteMoviesCalled = false
         var removeMovieFromFavoritesCalled = false
-        var loadEmptyBackgroundViewCalled = false
+        var loadTableViewBackgroundViewCalled = false
         
         func fetchNowPlayingMovies(request: NowPlayingMovies.FetchNowPlayingMovies.Request) {
             fetchNowPlayingMoviesCalled = true
@@ -78,8 +78,8 @@ class NowPlayingMoviesViewControllerTests: XCTestCase {
             removeMovieFromFavoritesCalled = true
         }
         
-        func loadEmptyBackgroundView(request: NowPlayingMovies.LoadEmptyBackgroundView.Request) {
-            loadEmptyBackgroundViewCalled = true
+        func loadTableViewBackgroundView(request: NowPlayingMovies.LoadTableViewBackgroundView.Request) {
+            loadTableViewBackgroundViewCalled = true
         }
     }
     
@@ -259,14 +259,14 @@ class NowPlayingMoviesViewControllerTests: XCTestCase {
         XCTAssertEqual(sut.movieItems?.count, 2)
     }
     
-    func testDisplayEmptyBackgroundView() {
+    func testDisplayTableViewBackgroundView() {
         // Given
         loadView()
         
-        let viewModel = NowPlayingMovies.LoadEmptyBackgroundView.ViewModel(emptyBackgroundView: nil)
+        let viewModel = NowPlayingMovies.LoadTableViewBackgroundView.ViewModel(backgroundView: nil)
         
         // When
-        sut.displayEmptyBackgroundView(viewModel: viewModel)
+        sut.displayTableViewBackgroundView(viewModel: viewModel)
         
         // Then
         XCTAssertNil(sut.nowPlayingMoviesTableView.backgroundView)
@@ -285,7 +285,7 @@ class NowPlayingMoviesViewControllerTests: XCTestCase {
         
         // Then
         XCTAssertEqual(numberOfRowsInSection0, 2)
-        XCTAssertTrue(spy.loadEmptyBackgroundViewCalled, "tableView(_:, section:) should ask the interactor to loadEmptyBackgroundView")
+        XCTAssertTrue(spy.loadTableViewBackgroundViewCalled, "tableView(_:, section:) should ask the interactor to loadTableViewBackgroundView")
     }
     
     func testCellForRowAtIndexPath00() {

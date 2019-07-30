@@ -81,7 +81,7 @@ enum NowPlayingMovies {
         }
     }
     
-    enum LoadEmptyBackgroundView {
+    enum LoadTableViewBackgroundView {
         
         struct Request {
             let searchText: String?
@@ -94,7 +94,7 @@ enum NowPlayingMovies {
         }
         
         struct ViewModel {
-            let emptyBackgroundView: EmptyBackgroundView?
+            let backgroundView: UIView?
         }
     }
 }

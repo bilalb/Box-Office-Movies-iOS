@@ -14,7 +14,7 @@ protocol NowPlayingMoviesDisplayLogic: class {
     func displayFilterMovies(viewModel: NowPlayingMovies.FilterMovies.ViewModel)
     func displayRefreshMovies(viewModel: NowPlayingMovies.RefreshMovies.ViewModel)
     func displayRemoveMovieFromFavorites(viewModel: NowPlayingMovies.RemoveMovieFromFavorites.ViewModel)
-    func displayEmptyBackgroundView(viewModel: NowPlayingMovies.LoadEmptyBackgroundView.ViewModel)
+    func displayTableViewBackgroundView(viewModel: NowPlayingMovies.LoadTableViewBackgroundView.ViewModel)
 }
 
 class NowPlayingMoviesViewController: UIViewController {
@@ -193,9 +193,9 @@ private extension NowPlayingMoviesViewController {
         }
     }
     
-    func loadEmptyBackgroundView() {
-        let request = NowPlayingMovies.LoadEmptyBackgroundView.Request(searchText: searchController.searchBar.text)
-        interactor?.loadEmptyBackgroundView(request: request)
+    func loadTableViewBackgroundView() {
+        let request = NowPlayingMovies.LoadTableViewBackgroundView.Request(searchText: searchController.searchBar.text)
+        interactor?.loadTableViewBackgroundView(request: request)
     }
 }
 
@@ -275,8 +275,8 @@ extension NowPlayingMoviesViewController: NowPlayingMoviesDisplayLogic {
         nowPlayingMoviesTableView.deleteRows(at: viewModel.indexPathsForRowsToDelete, with: .automatic)
     }
     
-    func displayEmptyBackgroundView(viewModel: NowPlayingMovies.LoadEmptyBackgroundView.ViewModel) {
-        nowPlayingMoviesTableView.backgroundView = viewModel.emptyBackgroundView
+    func displayTableViewBackgroundView(viewModel: NowPlayingMovies.LoadTableViewBackgroundView.ViewModel) {
+        nowPlayingMoviesTableView.backgroundView = viewModel.backgroundView
     }
 }
 
@@ -284,7 +284,7 @@ extension NowPlayingMoviesViewController: NowPlayingMoviesDisplayLogic {
 extension NowPlayingMoviesViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        loadEmptyBackgroundView()
+        loadTableViewBackgroundView()
         return movieItems?.count ?? 0
     }
     

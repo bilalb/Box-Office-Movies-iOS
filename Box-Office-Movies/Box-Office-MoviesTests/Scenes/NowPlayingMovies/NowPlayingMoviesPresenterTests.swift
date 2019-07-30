@@ -42,7 +42,7 @@ class NowPlayingMoviesPresenterTests: XCTestCase {
         var displayFilterMoviesCalled = false
         var displayRefreshMoviesExpectation = XCTestExpectation(description: "displayRefreshMovies called")
         var displayRemoveMovieFromFavoritesCalled = false
-        var displayEmptyBackgroundViewCalled = false
+        var displayTableViewBackgroundViewCalled = false
 
         func displayNowPlayingMovies(viewModel: NowPlayingMovies.FetchNowPlayingMovies.ViewModel) {
             XCTAssertEqual(viewModel.movieItems?.count, 2)
@@ -88,8 +88,8 @@ class NowPlayingMoviesPresenterTests: XCTestCase {
             displayRemoveMovieFromFavoritesCalled = true
         }
         
-        func displayEmptyBackgroundView(viewModel: NowPlayingMovies.LoadEmptyBackgroundView.ViewModel) {
-            displayEmptyBackgroundViewCalled = true
+        func displayTableViewBackgroundView(viewModel: NowPlayingMovies.LoadTableViewBackgroundView.ViewModel) {
+            displayTableViewBackgroundViewCalled = true
         }
     }
     
@@ -160,42 +160,42 @@ class NowPlayingMoviesPresenterTests: XCTestCase {
         XCTAssertTrue(spy.displayRemoveMovieFromFavoritesCalled, "presentRemoveMovieFromFavorites(response:) should ask the view controller to display the result")
     }
     
-    func testPresentEmptyBackgroundViewForAllMovies() {
+    func testPresentTableViewBackgroundViewForAllMovies() {
         // Given
         let spy = NowPlayingMoviesDisplayLogicSpy()
         sut.viewController = spy
-        let response = NowPlayingMovies.LoadEmptyBackgroundView.Response(state: .allMovies, searchText: nil, movies: [])
+        let response = NowPlayingMovies.LoadTableViewBackgroundView.Response(state: .allMovies, searchText: nil, movies: [])
         
         // When
-        sut.presentEmptyBackgroundView(response: response)
+        sut.presentTableViewBackgroundView(response: response)
         
         // Then
-        XCTAssertTrue(spy.displayEmptyBackgroundViewCalled, "presentEmptyBackgroundView(response:) should ask the view controller to display the result")
+        XCTAssertTrue(spy.displayTableViewBackgroundViewCalled, "presentTableViewBackgroundView(response:) should ask the view controller to display the result")
     }
     
-    func testPresentEmptyBackgroundViewForFavoritesWithSearchText() {
+    func testPresentTableViewBackgroundViewForFavoritesWithSearchText() {
         // Given
         let spy = NowPlayingMoviesDisplayLogicSpy()
         sut.viewController = spy
-        let response = NowPlayingMovies.LoadEmptyBackgroundView.Response(state: .favorites, searchText: "A", movies: [])
+        let response = NowPlayingMovies.LoadTableViewBackgroundView.Response(state: .favorites, searchText: "A", movies: [])
         
         // When
-        sut.presentEmptyBackgroundView(response: response)
+        sut.presentTableViewBackgroundView(response: response)
         
         // Then
-        XCTAssertTrue(spy.displayEmptyBackgroundViewCalled, "presentEmptyBackgroundView(response:) should ask the view controller to display the result")
+        XCTAssertTrue(spy.displayTableViewBackgroundViewCalled, "presentTableViewBackgroundView(response:) should ask the view controller to display the result")
     }
     
-    func testPresentEmptyBackgroundViewForFavoritesWithoutSearchText() {
+    func testPresentTableViewBackgroundViewForFavoritesWithoutSearchText() {
         // Given
         let spy = NowPlayingMoviesDisplayLogicSpy()
         sut.viewController = spy
-        let response = NowPlayingMovies.LoadEmptyBackgroundView.Response(state: .favorites, searchText: nil, movies: [])
+        let response = NowPlayingMovies.LoadTableViewBackgroundView.Response(state: .favorites, searchText: nil, movies: [])
         
         // When
-        sut.presentEmptyBackgroundView(response: response)
+        sut.presentTableViewBackgroundView(response: response)
         
         // Then
-        XCTAssertTrue(spy.displayEmptyBackgroundViewCalled, "presentEmptyBackgroundView(response:) should ask the view controller to display the result")
+        XCTAssertTrue(spy.displayTableViewBackgroundViewCalled, "presentTableViewBackgroundView(response:) should ask the view controller to display the result")
     }
 }

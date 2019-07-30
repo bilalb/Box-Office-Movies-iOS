@@ -41,7 +41,7 @@ class NowPlayingMoviesInteractorTests: XCTestCase {
         var presentNextPageExpectation = XCTestExpectation(description: "presentNextPage called")
         var presentFilterMoviesCalled = false
         var presentRefreshMoviesExpectation = XCTestExpectation(description: "presentRefreshMovies called")
-        var presentEmptyBackgroundViewCalled = false
+        var presentTableViewBackgroundViewCalled = false
 
         func presentNowPlayingMovies(response: NowPlayingMovies.FetchNowPlayingMovies.Response) {
             presentNowPlayingMoviesExpectation.fulfill()
@@ -63,8 +63,8 @@ class NowPlayingMoviesInteractorTests: XCTestCase {
             presentFilterMoviesCalled = true
         }
         
-        func presentEmptyBackgroundView(response: NowPlayingMovies.LoadEmptyBackgroundView.Response) {
-            presentEmptyBackgroundViewCalled = true
+        func presentTableViewBackgroundView(response: NowPlayingMovies.LoadTableViewBackgroundView.Response) {
+            presentTableViewBackgroundViewCalled = true
         }
     }
     
@@ -208,18 +208,18 @@ class NowPlayingMoviesInteractorTests: XCTestCase {
         XCTAssertTrue(spy.presentFilterMoviesCalled, "loadFavoriteMovies() should ask the presenter to format the result")
     }
     
-    func testLoadEmptyBackgroundView() {
+    func testLoadTableViewBackgroundView() {
         // Given
         let spy = NowPlayingMoviesPresentationLogicSpy()
         sut.presenter = spy
         
-        let request = NowPlayingMovies.LoadEmptyBackgroundView.Request(searchText: nil)
+        let request = NowPlayingMovies.LoadTableViewBackgroundView.Request(searchText: nil)
         
         // When
-        sut.loadEmptyBackgroundView(request: request)
+        sut.loadTableViewBackgroundView(request: request)
         
         // Then
-        XCTAssertTrue(spy.presentEmptyBackgroundViewCalled, "loadEmptyBackgroundView(request:) should ask the presenter to format the result")
+        XCTAssertTrue(spy.presentTableViewBackgroundViewCalled, "loadTableViewBackgroundView(request:) should ask the presenter to format the result")
     }
 }
 
