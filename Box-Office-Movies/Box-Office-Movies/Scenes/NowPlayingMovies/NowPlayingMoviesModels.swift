@@ -112,12 +112,17 @@ extension NowPlayingMovies {
         struct Response {
             let movies: [Movie]?
             let editButtonItem: UIBarButtonItem?
+            let indicesForMoviesToInsert: [Int]
+            let indicesForMoviesToDelete: [Int]
         }
         
         struct ViewModel {
             let movieItems: [MovieItem]?
             let rightBarButtonItem: UIBarButtonItem?
             let refreshControl: UIRefreshControl?
+            let indexPathsForRowsToReload: [IndexPath]
+            let indexPathsForRowsToInsert: [IndexPath]
+            let indexPathsForRowsToDelete: [IndexPath]
         }
     }
     

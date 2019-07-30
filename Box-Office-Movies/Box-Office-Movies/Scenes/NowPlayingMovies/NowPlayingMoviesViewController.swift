@@ -25,9 +25,11 @@ class NowPlayingMoviesViewController: UIViewController {
     var router: (NSObjectProtocol & NowPlayingMoviesRoutingLogic & NowPlayingMoviesDataPassing)?
     var hasError = false
     
+    var shouldReloadData = true
+    
     var movieItems: [MovieItem]? {
         didSet {
-            if !isEditing {
+            if !isEditing && shouldReloadData {
                 nowPlayingMoviesTableView.reloadData()
                 DispatchQueue.main.async {
                     let areAllCellsVisible = self.nowPlayingMoviesTableView.visibleCells.count == self.movieItems?.count
@@ -143,6 +145,7 @@ private extension NowPlayingMoviesViewController {
     }
     
     func fetchNowPlayingMovies() {
+        shouldReloadData = true
         setEditing(false, animated: true)
         navigationItem.setRightBarButton(nil, animated: true)
         nowPlayingMoviesTableView.refreshControl = refreshControl
@@ -273,7 +276,14 @@ extension NowPlayingMoviesViewController: NowPlayingMoviesDisplayLogic {
     }
     
     func displayFavoriteMovies(viewModel: NowPlayingMovies.LoadFavoriteMovies.ViewModel) {
+        shouldReloadData = false
         movieItems = viewModel.movieItems
+        // TODO: don't call reloadData
+        nowPlayingMoviesTableView.beginUpdates()
+        nowPlayingMoviesTableView.reloadRows(at: viewModel.indexPathsForRowsToReload, with: .automatic)
+        nowPlayingMoviesTableView.insertRows(at: viewModel.indexPathsForRowsToInsert, with: .automatic)
+        nowPlayingMoviesTableView.deleteRows(at: viewModel.indexPathsForRowsToDelete, with: .automatic)
+        nowPlayingMoviesTableView.endUpdates()
         navigationItem.setRightBarButton(viewModel.rightBarButtonItem, animated: true)
         nowPlayingMoviesTableView.refreshControl = viewModel.refreshControl
     }

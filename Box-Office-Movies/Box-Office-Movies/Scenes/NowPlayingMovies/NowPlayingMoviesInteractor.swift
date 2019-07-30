@@ -149,7 +149,13 @@ extension NowPlayingMoviesInteractor {
     func loadFavoriteMovies(request: NowPlayingMovies.LoadFavoriteMovies.Request) {
         state = .favorites
         favoriteMovies = ManagerProvider.shared.favoritesManager.favoriteMovies() ?? []
-        let response = NowPlayingMovies.LoadFavoriteMovies.Response(movies: favoriteMovies, editButtonItem: request.editButtonItem)
+        let indicesForMoviesToInsert = favoriteMovies.indices.filter { indice -> Bool in
+            return !movies.indices.contains(indice)
+        }
+        let indicesForMoviesToDelete = movies.indices.filter { indice -> Bool in
+            return !favoriteMovies.indices.contains(indice)
+        }
+        let response = NowPlayingMovies.LoadFavoriteMovies.Response(movies: favoriteMovies, editButtonItem: request.editButtonItem, indicesForMoviesToInsert: indicesForMoviesToInsert, indicesForMoviesToDelete: indicesForMoviesToDelete)
         presenter?.presentFavoriteMovies(response: response)
     }
     

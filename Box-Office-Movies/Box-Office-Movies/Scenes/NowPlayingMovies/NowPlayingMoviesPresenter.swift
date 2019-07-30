@@ -117,7 +117,16 @@ extension NowPlayingMoviesPresenter {
     func presentFavoriteMovies(response: NowPlayingMovies.LoadFavoriteMovies.Response) {
         let items = movieItems(for: response.movies)
         let rightBarButtonItem: UIBarButtonItem? = items?.isEmpty == true ? nil : response.editButtonItem
-        let viewModel = NowPlayingMovies.LoadFavoriteMovies.ViewModel(movieItems: items, rightBarButtonItem: rightBarButtonItem, refreshControl: nil)
+        let indexPathsForRowsToReload = response.movies?.indices.compactMap { indice -> IndexPath in
+            return IndexPath(row: indice, section: 0)
+        } ?? []
+        let indexPathsForRowsToInsert = response.indicesForMoviesToInsert.compactMap { indice -> IndexPath in
+            return IndexPath(row: indice, section: 0)
+        }
+        let indexPathsForRowsToDelete = response.indicesForMoviesToDelete.compactMap { indice -> IndexPath in
+            return IndexPath(row: indice, section: 0)
+        }
+        let viewModel = NowPlayingMovies.LoadFavoriteMovies.ViewModel(movieItems: items, rightBarButtonItem: rightBarButtonItem, refreshControl: nil, indexPathsForRowsToReload: indexPathsForRowsToReload, indexPathsForRowsToInsert: indexPathsForRowsToInsert, indexPathsForRowsToDelete: indexPathsForRowsToDelete)
         viewController?.displayFavoriteMovies(viewModel: viewModel)
     }
     
