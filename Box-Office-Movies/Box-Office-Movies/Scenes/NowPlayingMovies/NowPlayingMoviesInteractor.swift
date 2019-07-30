@@ -47,18 +47,7 @@ class NowPlayingMoviesInteractor: NowPlayingMoviesDataStore {
         }
     }
     
-    var state = State.allMovies {
-        didSet {
-            switch state {
-            case .allMovies:
-                loadNowPlayingMovies()
-            case .favorites:
-                loadFavoriteMovies()
-            }
-        }
-    }
-    
-    var editButtonItem: UIBarButtonItem?
+    var state = State.allMovies
 }
 
 enum State {
@@ -68,24 +57,17 @@ enum State {
 
 extension NowPlayingMoviesInteractor: NowPlayingMoviesBusinessLogic {
     
-    func loadNowPlayingMovies() {
+    func fetchNowPlayingMovies(request: NowPlayingMovies.FetchNowPlayingMovies.Request) {
+        state = .allMovies
         if movies.isEmpty {
-            fetchNowPlayingMovies()
+            fetchNowPlayingMovies { [weak self] error in
+                let response = NowPlayingMovies.FetchNowPlayingMovies.Response(movies: self?.movies, error: error)
+                self?.presenter?.presentNowPlayingMovies(response: response)
+            }
         } else {
             let response = NowPlayingMovies.FetchNowPlayingMovies.Response(movies: movies, error: nil)
             presenter?.presentNowPlayingMovies(response: response)
         }
-    }
-    
-    func fetchNowPlayingMovies() {
-        fetchNowPlayingMovies { [weak self] error in
-            let response = NowPlayingMovies.FetchNowPlayingMovies.Response(movies: self?.movies, error: error)
-            self?.presenter?.presentNowPlayingMovies(response: response)
-        }
-    }
-    
-    func fetchNowPlayingMovies(request: NowPlayingMovies.FetchNowPlayingMovies.Request) {
-        state = .allMovies
     }
     
     func fetchNextPage(request: NowPlayingMovies.FetchNextPage.Request) {
@@ -165,13 +147,9 @@ extension NowPlayingMoviesInteractor {
 extension NowPlayingMoviesInteractor {
     
     func loadFavoriteMovies(request: NowPlayingMovies.LoadFavoriteMovies.Request) {
-        editButtonItem = request.editButtonItem
         state = .favorites
-    }
-    
-    func loadFavoriteMovies() {
         favoriteMovies = ManagerProvider.shared.favoritesManager.favoriteMovies() ?? []
-        let response = NowPlayingMovies.LoadFavoriteMovies.Response(movies: favoriteMovies, editButtonItem: editButtonItem)
+        let response = NowPlayingMovies.LoadFavoriteMovies.Response(movies: favoriteMovies, editButtonItem: request.editButtonItem)
         presenter?.presentFavoriteMovies(response: response)
     }
     
