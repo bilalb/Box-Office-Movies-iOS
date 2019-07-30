@@ -21,6 +21,6 @@ extension UIView {
     /// - Parameter name: name of the nib
     /// - Returns: the view associated to the nib
     class func fromNib<T: UIView>(named name: String) -> T? {
-        return Bundle.main.loadNibNamed(String(describing: name), owner: nil, options: nil)?[0] as? T
+        return Bundle.main.loadNibNamed(String(describing: name), owner: nil, options: nil)?.first as? T
     }
 }

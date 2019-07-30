@@ -90,7 +90,7 @@ enum NowPlayingMovies {
         struct Response {
             let state: State
             let searchText: String?
-            let movies: [Movie]?
+            let movies: [Movie]
         }
         
         struct ViewModel {

@@ -77,7 +77,7 @@ extension NowPlayingMoviesPresenter: NowPlayingMoviesPresentationLogic {
     func presentEmptyBackgroundView(response: NowPlayingMovies.LoadEmptyBackgroundView.Response) {
         let emptyBackgroundView: EmptyBackgroundView? = {
             guard
-                response.movies?.isEmpty == true,
+                response.movies.isEmpty,
                 let emptyBackgroundView = EmptyBackgroundView.fromNib(named: Constants.NibName.emptyBackgroundView) as? EmptyBackgroundView
             else {
                 return nil
