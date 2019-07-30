@@ -38,6 +38,7 @@ class NowPlayingMoviesInteractorTests: XCTestCase {
     class NowPlayingMoviesPresentationLogicSpy: NowPlayingMoviesPresentationLogic {
      
         var presentNowPlayingMoviesExpectation = XCTestExpectation(description: "presentNowPlayingMovies called")
+        var presentNowPlayingMoviesCalled = true
         var presentNextPageExpectation = XCTestExpectation(description: "presentNextPage called")
         var presentFilterMoviesCalled = false
         var presentRefreshMoviesExpectation = XCTestExpectation(description: "presentRefreshMovies called")
@@ -47,6 +48,7 @@ class NowPlayingMoviesInteractorTests: XCTestCase {
 
         func presentNowPlayingMovies(response: NowPlayingMovies.FetchNowPlayingMovies.Response) {
             presentNowPlayingMoviesExpectation.fulfill()
+            presentNowPlayingMoviesCalled = true
         }
         
         func presentNextPage(response: NowPlayingMovies.FetchNextPage.Response) {
@@ -98,30 +100,36 @@ class NowPlayingMoviesInteractorTests: XCTestCase {
         XCTAssertEqual(currentMovies, sut.favoriteMovies)
     }
     
-    func testLoadNowPlayingMoviesWithEmptyMovies() {
+    func testFetchNowPlayingMoviesWithEmptyMovies() {
         // Given
         let spy = NowPlayingMoviesPresentationLogicSpy()
         sut.presenter = spy
 
-        sut.movies = []
+        let request = NowPlayingMovies.FetchNowPlayingMovies.Request()
         
         // When
-        sut.loadNowPlayingMovies()
+        sut.fetchNowPlayingMovies(request: request)
         
+        // Then
+        XCTAssertEqual(sut.state, .allMovies, "loadFavoriteMovies(request:) should set state")
         wait(for: [spy.presentNowPlayingMoviesExpectation], timeout: 0.1)
     }
     
-    func testLoadNowPlayingMoviesWithNotEmptyMovies() {
+    func testFetchNowPlayingMoviesWithNotEmptyMovies() {
         // Given
         let spy = NowPlayingMoviesPresentationLogicSpy()
         sut.presenter = spy
 
+        let request = NowPlayingMovies.FetchNowPlayingMovies.Request()
+        
         sut.movies = Movie.dummyInstances
         
         // When
-        sut.loadNowPlayingMovies()
+        sut.fetchNowPlayingMovies(request: request)
         
-        wait(for: [spy.presentNowPlayingMoviesExpectation], timeout: 0.1)
+        // Then
+        XCTAssertEqual(sut.state, .allMovies, "loadFavoriteMovies(request:) should set state")
+        XCTAssertTrue(spy.presentNowPlayingMoviesCalled, "fetchNowPlayingMovies(request:) should ask the presenter to format the result")
     }
     
     func testFilterMoviesWithEmptySearchText() {
@@ -169,7 +177,7 @@ class NowPlayingMoviesInteractorTests: XCTestCase {
         XCTAssertEqual(sut.state, .allMovies)
     }
     
-    func testLoadFavoriteMoviesWithRequest() {
+    func testLoadFavoriteMovies() {
         // Given
         let spy = NowPlayingMoviesPresentationLogicSpy()
         sut.presenter = spy
@@ -180,19 +188,7 @@ class NowPlayingMoviesInteractorTests: XCTestCase {
         sut.loadFavoriteMovies(request: request)
         
         // Then
-        XCTAssertNotNil(sut.editButtonItem, "loadFavoriteMovies(request:) should set editButtonItem")
         XCTAssertEqual(sut.state, .favorites, "loadFavoriteMovies(request:) should set state")
-    }
-    
-    func testLoadFavoriteMovies() {
-        // Given
-        let spy = NowPlayingMoviesPresentationLogicSpy()
-        sut.presenter = spy
-        
-        // When
-        sut.loadFavoriteMovies()
-        
-        // Then
         XCTAssertTrue(spy.presentFavoriteMoviesCalled, "loadFavoriteMovies() should ask the presenter to format the result")
     }
     
