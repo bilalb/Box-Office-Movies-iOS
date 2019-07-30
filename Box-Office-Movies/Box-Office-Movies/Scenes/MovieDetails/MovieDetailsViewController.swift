@@ -58,6 +58,15 @@ class MovieDetailsViewController: UIViewController {
         fetchMovieDetails()
         loadFavoriteToggle()
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let scene = segue.identifier {
+            let selector = NSSelectorFromString("routeTo\(scene)WithSegue:")
+            if let router = router, router.responds(to: selector) {
+                router.perform(selector, with: segue)
+            }
+        }
+    }
 }
 
 // MARK: - Private Functions
@@ -96,6 +105,23 @@ private extension MovieDetailsViewController {
     func toggleFavorite() {
         let request = MovieDetailsScene.ToggleFavorite.Request()
         interactor?.toggleFavorite(request: request)
+    }
+}
+
+class ImageViewController: UIViewController {
+    
+    @IBOutlet var imageView: UIImageView?
+    
+    /// Descriptive text that provides details about the reason for the empty table view.
+    var image: UIImage? = nil {
+        didSet {
+            imageView?.image = image
+        }
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        imageView?.image = image
     }
 }
 

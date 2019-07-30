@@ -17,35 +17,32 @@ class MovieDetailsRouter: NSObject, MovieDetailsDataPassing {
     var dataStore: MovieDetailsDataStore?
 }
 
-// MARK: - Private Functions
-private extension MovieDetailsRouter {
-//    func navigateToSomewhere(source: MovieDetailsViewController, destination: SomewhereViewController) {
-//        source.show(destination, sender: nil)
-//    }
-//
-//    func passDataToSomewhere(source: MovieDetailsDataStore, destination: inout SomewhereDataStore) {
-//        destination.name = source.name
-//    }
-}
-
 @objc protocol MovieDetailsRoutingLogic {
-    //func routeToSomewhere(segue: UIStoryboardSegue?)
+    func routeToPosterImage(segue: UIStoryboardSegue?)
 }
 
 extension MovieDetailsRouter: MovieDetailsRoutingLogic {
-//    func routeToSomewhere(segue: UIStoryboardSegue?) {
-//        if let segue = segue,
-//            let destinationVC = segue.destination as? SomewhereViewController,
-//            var destinationDS = destinationVC.router?.dataStore {
-//
-//            passDataToSomewhere(source: dataStore, destination: &destinationDS)
-//        } else {
-//            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-//            if let destinationVC = storyboard.instantiateViewController(withIdentifier: "SomewhereViewController") as? SomewhereViewController,
-//                var destinationDS = destinationVC.router?.dataStore {
-//                passDataToSomewhere(source: dataStore, destination: &destinationDS)
-//                navigateToSomewhere(source: viewController, destination: destinationVC)
-//            }
-//        }
-//    }
+    
+    func routeToPosterImage(segue: UIStoryboardSegue?) {
+        if let segue = segue,
+            let destinationVC = segue.destination as? ImageViewController,
+            let dataStore = dataStore {
+            passDataToPosterImage(source: dataStore, destination: destinationVC)
+        }
+    }
+}
+
+// MARK: - Private Functions
+private extension MovieDetailsRouter {
+    
+    func navigateToPosterImage(source: MovieDetailsViewController, destination: ImageViewController) {
+        source.present(destination, animated: true)
+    }
+    
+    func passDataToPosterImage(source: MovieDetailsDataStore, destination: ImageViewController) {
+        guard let posterData = source.posterData else {
+            return
+        }
+        destination.image = UIImage(data: posterData)
+    }
 }
