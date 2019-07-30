@@ -57,6 +57,8 @@ class NowPlayingMoviesInteractor: NowPlayingMoviesDataStore {
             }
         }
     }
+    
+    var editButtonItem: UIBarButtonItem?
 }
 
 enum State {
@@ -163,13 +165,14 @@ extension NowPlayingMoviesInteractor {
 extension NowPlayingMoviesInteractor {
     
     func loadFavoriteMovies(request: NowPlayingMovies.LoadFavoriteMovies.Request) {
+        editButtonItem = request.editButtonItem
         state = .favorites
     }
     
     func loadFavoriteMovies() {
         favoriteMovies = ManagerProvider.shared.favoritesManager.favoriteMovies() ?? []
-        let response = NowPlayingMovies.FilterMovies.Response(movies: favoriteMovies)
-        presenter?.presentFilterMovies(response: response)
+        let response = NowPlayingMovies.LoadFavoriteMovies.Response(movies: favoriteMovies, editButtonItem: editButtonItem)
+        presenter?.presentFavoriteMovies(response: response)
     }
     
     func removeMovieFromFavorites(request: NowPlayingMovies.RemoveMovieFromFavorites.Request) {
@@ -180,7 +183,7 @@ extension NowPlayingMoviesInteractor {
         let favoriteMovieToRemove = favoriteMovies.remove(at: request.indexPathForMovieToRemove.row)
         _ = ManagerProvider.shared.favoritesManager.removeMovieFromFavorites(favoriteMovieToRemove)
         
-        let response = NowPlayingMovies.RemoveMovieFromFavorites.Response(movies: favoriteMovies, indexPathForMovieToRemove: request.indexPathForMovieToRemove)
+        let response = NowPlayingMovies.RemoveMovieFromFavorites.Response(movies: favoriteMovies, indexPathForMovieToRemove: request.indexPathForMovieToRemove, editButtonItem: request.editButtonItem)
         presenter?.presentRemoveMovieFromFavorites(response: response)
     }
 }

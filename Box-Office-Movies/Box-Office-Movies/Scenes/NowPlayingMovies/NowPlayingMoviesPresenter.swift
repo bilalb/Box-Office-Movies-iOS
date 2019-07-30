@@ -14,8 +14,10 @@ protocol NowPlayingMoviesPresentationLogic {
     func presentNextPage(response: NowPlayingMovies.FetchNextPage.Response)
     func presentFilterMovies(response: NowPlayingMovies.FilterMovies.Response)
     func presentRefreshMovies(response: NowPlayingMovies.RefreshMovies.Response)
-    func presentRemoveMovieFromFavorites(response: NowPlayingMovies.RemoveMovieFromFavorites.Response)
     func presentTableViewBackgroundView(response: NowPlayingMovies.LoadTableViewBackgroundView.Response)
+
+    func presentFavoriteMovies(response: NowPlayingMovies.LoadFavoriteMovies.Response)
+    func presentRemoveMovieFromFavorites(response: NowPlayingMovies.RemoveMovieFromFavorites.Response)
 }
 
 class NowPlayingMoviesPresenter {
@@ -112,10 +114,18 @@ extension NowPlayingMoviesPresenter {
 
 extension NowPlayingMoviesPresenter {
     
+    func presentFavoriteMovies(response: NowPlayingMovies.LoadFavoriteMovies.Response) {
+        let items = movieItems(for: response.movies)
+        let rightBarButtonItem: UIBarButtonItem? = items?.isEmpty == true ? nil : response.editButtonItem
+        let viewModel = NowPlayingMovies.LoadFavoriteMovies.ViewModel(movieItems: items, rightBarButtonItem: rightBarButtonItem, refreshControl: nil)
+        viewController?.displayFavoriteMovies(viewModel: viewModel)
+    }
+    
     func presentRemoveMovieFromFavorites(response: NowPlayingMovies.RemoveMovieFromFavorites.Response) {
         let items = movieItems(for: response.movies)
         let indexPathsForRowsToDelete = [response.indexPathForMovieToRemove]
-        let viewModel = NowPlayingMovies.RemoveMovieFromFavorites.ViewModel(movieItems: items, indexPathsForRowsToDelete: indexPathsForRowsToDelete)
+        let rightBarButtonItem: UIBarButtonItem? = items?.isEmpty == true ? nil : response.editButtonItem
+        let viewModel = NowPlayingMovies.RemoveMovieFromFavorites.ViewModel(movieItems: items, indexPathsForRowsToDelete: indexPathsForRowsToDelete, rightBarButtonItem: rightBarButtonItem)
         viewController?.displayRemoveMovieFromFavorites(viewModel: viewModel)
     }
 }

@@ -13,8 +13,10 @@ protocol NowPlayingMoviesDisplayLogic: class {
     func displayNextPage(viewModel: NowPlayingMovies.FetchNextPage.ViewModel)
     func displayFilterMovies(viewModel: NowPlayingMovies.FilterMovies.ViewModel)
     func displayRefreshMovies(viewModel: NowPlayingMovies.RefreshMovies.ViewModel)
-    func displayRemoveMovieFromFavorites(viewModel: NowPlayingMovies.RemoveMovieFromFavorites.ViewModel)
     func displayTableViewBackgroundView(viewModel: NowPlayingMovies.LoadTableViewBackgroundView.ViewModel)
+
+    func displayFavoriteMovies(viewModel: NowPlayingMovies.LoadFavoriteMovies.ViewModel)
+    func displayRemoveMovieFromFavorites(viewModel: NowPlayingMovies.RemoveMovieFromFavorites.ViewModel)
 }
 
 class NowPlayingMoviesViewController: UIViewController {
@@ -124,7 +126,6 @@ private extension NowPlayingMoviesViewController {
     
     func configureRefreshControl() {
         refreshControl.addTarget(self, action: #selector(refreshControlTriggered), for: .valueChanged)
-        nowPlayingMoviesTableView.refreshControl = refreshControl
     }
     
     @objc func refreshControlTriggered() {
@@ -211,15 +212,12 @@ private extension NowPlayingMoviesViewController {
     }
     
     func removeMovieFromFavorites(at indexPath: IndexPath) {
-        let request = NowPlayingMovies.RemoveMovieFromFavorites.Request(indexPathForMovieToRemove: indexPath)
+        let request = NowPlayingMovies.RemoveMovieFromFavorites.Request(indexPathForMovieToRemove: indexPath, editButtonItem: editButtonItem)
         interactor?.removeMovieFromFavorites(request: request)
     }
     
     func loadFavoriteMovies() {
-        navigationItem.setRightBarButton(editButtonItem, animated: true)
-        nowPlayingMoviesTableView.refreshControl = nil
-        
-        let request = NowPlayingMovies.LoadFavoriteMovies.Request()
+        let request = NowPlayingMovies.LoadFavoriteMovies.Request(editButtonItem: editButtonItem)
         interactor?.loadFavoriteMovies(request: request)
     }
     
@@ -270,13 +268,20 @@ extension NowPlayingMoviesViewController: NowPlayingMoviesDisplayLogic {
         }
     }
     
+    func displayTableViewBackgroundView(viewModel: NowPlayingMovies.LoadTableViewBackgroundView.ViewModel) {
+        nowPlayingMoviesTableView.backgroundView = viewModel.backgroundView
+    }
+    
+    func displayFavoriteMovies(viewModel: NowPlayingMovies.LoadFavoriteMovies.ViewModel) {
+        movieItems = viewModel.movieItems
+        navigationItem.setRightBarButton(viewModel.rightBarButtonItem, animated: true)
+        nowPlayingMoviesTableView.refreshControl = viewModel.refreshControl
+    }
+    
     func displayRemoveMovieFromFavorites(viewModel: NowPlayingMovies.RemoveMovieFromFavorites.ViewModel) {
         movieItems = viewModel.movieItems
         nowPlayingMoviesTableView.deleteRows(at: viewModel.indexPathsForRowsToDelete, with: .automatic)
-    }
-    
-    func displayTableViewBackgroundView(viewModel: NowPlayingMovies.LoadTableViewBackgroundView.ViewModel) {
-        nowPlayingMoviesTableView.backgroundView = viewModel.backgroundView
+        navigationItem.setRightBarButton(viewModel.rightBarButtonItem, animated: true)
     }
 }
 
