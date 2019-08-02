@@ -273,40 +273,11 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hKI-Bd-Sgn" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tapGestureRecognizer id="Xkp-Xb-R6M">
                     <connections>
-                        <segue destination="6WN-wr-ZHj" kind="presentation" id="Irs-nr-6WN"/>
+                        <action selector="posterImageViewTapGestureRecognizerPressed" destination="tv7-ki-w9G" id="tWu-Gv-p33"/>
                     </connections>
                 </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="708" y="127.28635682158921"/>
-        </scene>
-        <!--Image View Controller-->
-        <scene sceneID="HTc-Lu-j1h">
-            <objects>
-                <viewController id="6WN-wr-ZHj" customClass="ImageViewController" customModule="Box_Office_Movies" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="uTo-I5-s0o">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="j8q-2F-Ejf">
-                                <rect key="frame" x="16" y="36" width="343" height="615"/>
-                            </imageView>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <constraints>
-                            <constraint firstItem="jeh-sh-buJ" firstAttribute="bottom" secondItem="j8q-2F-Ejf" secondAttribute="bottom" constant="16" id="9H1-Oy-QIv"/>
-                            <constraint firstItem="j8q-2F-Ejf" firstAttribute="leading" secondItem="jeh-sh-buJ" secondAttribute="leading" constant="16" id="AyW-EI-NTc"/>
-                            <constraint firstItem="j8q-2F-Ejf" firstAttribute="top" secondItem="jeh-sh-buJ" secondAttribute="top" constant="16" id="Pxj-a5-Bi0"/>
-                            <constraint firstItem="jeh-sh-buJ" firstAttribute="trailing" secondItem="j8q-2F-Ejf" secondAttribute="trailing" constant="16" id="xFA-Oz-ZaY"/>
-                        </constraints>
-                        <viewLayoutGuide key="safeArea" id="jeh-sh-buJ"/>
-                    </view>
-                    <connections>
-                        <outlet property="imageView" destination="j8q-2F-Ejf" id="n2v-za-k8e"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="QM7-uU-StW" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1497" y="128"/>
         </scene>
         <!--Split View Controller-->
         <scene sceneID="Nki-YV-4Qg">
