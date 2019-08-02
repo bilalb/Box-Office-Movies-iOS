@@ -15,6 +15,13 @@
 		9C5AD03C22566826009CC78A /* NowPlayingMoviesInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C5AD03922566826009CC78A /* NowPlayingMoviesInteractorTests.swift */; };
 		9C5AD03D22566826009CC78A /* NowPlayingMoviesPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C5AD03A22566826009CC78A /* NowPlayingMoviesPresenterTests.swift */; };
 		9C648806225538D900A1541F /* ErrorStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C648805225538D900A1541F /* ErrorStackView.swift */; };
+		9C6F39D122F46CCC009D030B /* Poster+SceneSetup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C6F39CB22F46CCC009D030B /* Poster+SceneSetup.swift */; };
+		9C6F39D222F46CCC009D030B /* PosterPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C6F39CC22F46CCC009D030B /* PosterPresenter.swift */; };
+		9C6F39D322F46CCC009D030B /* PosterRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C6F39CD22F46CCC009D030B /* PosterRouter.swift */; };
+		9C6F39D422F46CCC009D030B /* PosterModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C6F39CE22F46CCC009D030B /* PosterModels.swift */; };
+		9C6F39D522F46CCC009D030B /* PosterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C6F39CF22F46CCC009D030B /* PosterViewController.swift */; };
+		9C6F39D622F46CCC009D030B /* PosterInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C6F39D022F46CCC009D030B /* PosterInteractor.swift */; };
+		9C6F39D822F474C9009D030B /* Poster.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9C6F39D722F474C9009D030B /* Poster.storyboard */; };
 		9C90009522510AE600399CF3 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9C90009722510AE600399CF3 /* Localizable.strings */; };
 		9CDB22A522EF115B00B8A2C0 /* EmptyBackgroundView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9CDB22A422EF115B00B8A2C0 /* EmptyBackgroundView.xib */; };
 		9CDB22A722EF172400B8A2C0 /* EmptyBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CDB22A622EF172400B8A2C0 /* EmptyBackgroundView.swift */; };
@@ -85,6 +92,13 @@
 		9C5AD03922566826009CC78A /* NowPlayingMoviesInteractorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NowPlayingMoviesInteractorTests.swift; sourceTree = "<group>"; };
 		9C5AD03A22566826009CC78A /* NowPlayingMoviesPresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NowPlayingMoviesPresenterTests.swift; sourceTree = "<group>"; };
 		9C648805225538D900A1541F /* ErrorStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorStackView.swift; sourceTree = "<group>"; };
+		9C6F39CB22F46CCC009D030B /* Poster+SceneSetup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Poster+SceneSetup.swift"; sourceTree = "<group>"; };
+		9C6F39CC22F46CCC009D030B /* PosterPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PosterPresenter.swift; sourceTree = "<group>"; };
+		9C6F39CD22F46CCC009D030B /* PosterRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PosterRouter.swift; sourceTree = "<group>"; };
+		9C6F39CE22F46CCC009D030B /* PosterModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PosterModels.swift; sourceTree = "<group>"; };
+		9C6F39CF22F46CCC009D030B /* PosterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PosterViewController.swift; sourceTree = "<group>"; };
+		9C6F39D022F46CCC009D030B /* PosterInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PosterInteractor.swift; sourceTree = "<group>"; };
+		9C6F39D722F474C9009D030B /* Poster.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Poster.storyboard; sourceTree = "<group>"; };
 		9C90009622510AE600399CF3 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		9C90009822510AEA00399CF3 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		9CDB22A422EF115B00B8A2C0 /* EmptyBackgroundView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EmptyBackgroundView.xib; sourceTree = "<group>"; };
@@ -182,6 +196,19 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		9C6F39CA22F204E6009D030B /* PosterViewController */ = {
+			isa = PBXGroup;
+			children = (
+				9C6F39CB22F46CCC009D030B /* Poster+SceneSetup.swift */,
+				9C6F39D022F46CCC009D030B /* PosterInteractor.swift */,
+				9C6F39CE22F46CCC009D030B /* PosterModels.swift */,
+				9C6F39CC22F46CCC009D030B /* PosterPresenter.swift */,
+				9C6F39CD22F46CCC009D030B /* PosterRouter.swift */,
+				9C6F39CF22F46CCC009D030B /* PosterViewController.swift */,
+			);
+			path = PosterViewController;
+			sourceTree = "<group>";
+		};
 		9C6F39D922F479A4009D030B /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -189,6 +216,7 @@
 				9CDC95E42243FFB30051925E /* LaunchScreen.storyboard */,
 				9C90009722510AE600399CF3 /* Localizable.strings */,
 				9CDC95DF2243FFB10051925E /* Main.storyboard */,
+				9C6F39D722F474C9009D030B /* Poster.storyboard */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -251,6 +279,7 @@
 			children = (
 				9CDC965E2247DA3F0051925E /* MovieDetails */,
 				9CDC964A2247C2D20051925E /* NowPlayingMovies */,
+				9C6F39CA22F204E6009D030B /* PosterViewController */,
 			);
 			path = Scenes;
 			sourceTree = "<group>";
@@ -412,6 +441,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9CDC95E62243FFB30051925E /* LaunchScreen.storyboard in Resources */,
+				9C6F39D822F474C9009D030B /* Poster.storyboard in Resources */,
 				9C90009522510AE600399CF3 /* Localizable.strings in Resources */,
 				9CDC95E32243FFB30051925E /* Assets.xcassets in Resources */,
 				9CDC95E12243FFB10051925E /* Main.storyboard in Resources */,
@@ -462,6 +492,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9CDC965C2247CAB70051925E /* UIView.swift in Sources */,
+				9C6F39D322F46CCC009D030B /* PosterRouter.swift in Sources */,
 				9CDC96682247DA510051925E /* MovieDetailsModels.swift in Sources */,
 				9CDC96692247DA510051925E /* MovieDetailsViewController.swift in Sources */,
 				9CDC96522247C2DE0051925E /* NowPlayingMoviesPresenter.swift in Sources */,
@@ -472,11 +503,16 @@
 				9CDC96552247C2DE0051925E /* NowPlayingMoviesViewController.swift in Sources */,
 				9CDC96662247DA510051925E /* MovieDetailsPresenter.swift in Sources */,
 				9CDC966A2247DA510051925E /* MovieDetailsInteractor.swift in Sources */,
+				9C6F39D222F46CCC009D030B /* PosterPresenter.swift in Sources */,
 				9CDC95DA2243FFB10051925E /* AppDelegate.swift in Sources */,
 				9C4935EA224A95CD00359378 /* AdditionalInformationTableViewCell.swift in Sources */,
+				9C6F39D122F46CCC009D030B /* Poster+SceneSetup.swift in Sources */,
+				9C6F39D622F46CCC009D030B /* PosterInteractor.swift in Sources */,
 				9CDC96652247DA510051925E /* MovieDetails+SceneSetup.swift in Sources */,
+				9C6F39D522F46CCC009D030B /* PosterViewController.swift in Sources */,
 				9CDB22A722EF172400B8A2C0 /* EmptyBackgroundView.swift in Sources */,
 				9CDC96532247C2DE0051925E /* NowPlayingMoviesRouter.swift in Sources */,
+				9C6F39D422F46CCC009D030B /* PosterModels.swift in Sources */,
 				9C648806225538D900A1541F /* ErrorStackView.swift in Sources */,
 				9CDC96672247DA510051925E /* MovieDetailsRouter.swift in Sources */,
 				9CDC960D2244034B0051925E /* Constants.swift in Sources */,

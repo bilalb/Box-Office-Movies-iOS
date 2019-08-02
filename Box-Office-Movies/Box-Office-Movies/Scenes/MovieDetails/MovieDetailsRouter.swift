@@ -18,16 +18,19 @@ class MovieDetailsRouter: NSObject, MovieDetailsDataPassing {
 }
 
 @objc protocol MovieDetailsRoutingLogic {
-    func routeToPosterImage(segue: UIStoryboardSegue?)
+    func routeToPoster()
 }
 
 extension MovieDetailsRouter: MovieDetailsRoutingLogic {
     
-    func routeToPosterImage(segue: UIStoryboardSegue?) {
-        if let segue = segue,
-            let destinationVC = segue.destination as? ImageViewController,
-            let dataStore = dataStore {
-            passDataToPosterImage(source: dataStore, destination: destinationVC)
+    func routeToPoster() {
+        let storyboard = UIStoryboard(name: Constants.StoryboardName.poster, bundle: Bundle.main)
+        if let dataStore = dataStore,
+            let viewController = viewController,
+            let destinationVC = storyboard.instantiateViewController(withIdentifier: PosterViewController.identifier) as? PosterViewController,
+            var destinationDS = destinationVC.router?.dataStore {
+            passDataToPoster(source: dataStore, destination: &destinationDS)
+            navigateToPoster(source: viewController, destination: destinationVC)
         }
     }
 }
@@ -35,14 +38,13 @@ extension MovieDetailsRouter: MovieDetailsRoutingLogic {
 // MARK: - Private Functions
 private extension MovieDetailsRouter {
     
-    func navigateToPosterImage(source: MovieDetailsViewController, destination: ImageViewController) {
-        source.present(destination, animated: true)
+    func navigateToPoster(source: MovieDetailsViewController, destination: PosterViewController) {
+        let navigationController = UINavigationController(rootViewController: destination)
+        source.present(navigationController, animated: true)
     }
     
-    func passDataToPosterImage(source: MovieDetailsDataStore, destination: ImageViewController) {
-        guard let posterData = source.posterData else {
-            return
-        }
-        destination.image = UIImage(data: posterData)
+    func passDataToPoster(source: MovieDetailsDataStore, destination: inout PosterDataStore) {
+        destination.imageSecureBaseURLPath = source.imageSecureBaseURLPath
+        destination.posterPath = source.posterPath
     }
 }
