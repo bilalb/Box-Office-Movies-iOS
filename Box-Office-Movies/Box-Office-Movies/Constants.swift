@@ -31,6 +31,7 @@ struct Constants {
     }
     
     struct StoryboardName {
+        static let main = "Main"
         static let poster = "Poster"
     }
     
