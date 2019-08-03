@@ -196,7 +196,7 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
-		9C6F39CA22F204E6009D030B /* PosterViewController */ = {
+		9C6F39CA22F204E6009D030B /* Poster */ = {
 			isa = PBXGroup;
 			children = (
 				9C6F39CB22F46CCC009D030B /* Poster+SceneSetup.swift */,
@@ -206,7 +206,7 @@
 				9C6F39CD22F46CCC009D030B /* PosterRouter.swift */,
 				9C6F39CF22F46CCC009D030B /* PosterViewController.swift */,
 			);
-			path = PosterViewController;
+			path = Poster;
 			sourceTree = "<group>";
 		};
 		9C6F39D922F479A4009D030B /* Resources */ = {
@@ -279,7 +279,7 @@
 			children = (
 				9CDC965E2247DA3F0051925E /* MovieDetails */,
 				9CDC964A2247C2D20051925E /* NowPlayingMovies */,
-				9C6F39CA22F204E6009D030B /* PosterViewController */,
+				9C6F39CA22F204E6009D030B /* Poster */,
 			);
 			path = Scenes;
 			sourceTree = "<group>";
