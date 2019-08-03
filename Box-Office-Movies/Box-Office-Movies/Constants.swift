@@ -13,7 +13,8 @@ struct Constants {
     struct Fallback {
         static let languageCode = "en-US"
         static let regionCode = "US"
-        static let posterImageSize = "w185"
+        static let thumbnailPosterImageSize = "w185"
+        static let largePosterImageSize = "w780"
     }
     
     struct CellIdentifier {
@@ -27,6 +28,11 @@ struct Constants {
     
     struct SegueIdentifier {
         static let movieDetails = "MovieDetails"
+    }
+    
+    struct StoryboardName {
+        static let main = "Main"
+        static let poster = "Poster"
     }
     
     struct NibName {

@@ -10,6 +10,8 @@ import Box_Office_Movies_Core
 
 protocol MovieDetailsDataStore {
     var movieIdentifier: Int? { get set }
+    var imageSecureBaseURLPath: String? { get }
+    var posterPath: String? { get }
 }
 
 protocol MovieDetailsBusinessLogic {
@@ -32,6 +34,9 @@ class MovieDetailsInteractor: MovieDetailsDataStore {
     var paginatedSimilarMovieLists = [PaginatedMovieList]()
     var posterData: Data?
     var error: Error?
+    
+    var imageSecureBaseURLPath: String?
+    var posterPath: String?
 }
 
 extension MovieDetailsInteractor: MovieDetailsBusinessLogic {
@@ -44,7 +49,7 @@ extension MovieDetailsInteractor: MovieDetailsBusinessLogic {
         dispatchGroup.notify(queue: .global(qos: .userInitiated)) { [weak self] in
             self?.fetchCasting()
             self?.fetchSimilarMovies()
-            self?.fetchPosterImage()
+            self?.fetchPosterData()
         }
     }
     
@@ -106,6 +111,7 @@ extension MovieDetailsInteractor {
         let regionCode = Locale.current.regionCode ?? Constants.Fallback.regionCode
         ManagerProvider.shared.movieManager.movieDetails(identifier: movieIdentifier, languageCode: languageCode, regionCode: regionCode) { [weak self] (movieDetails, error) in
             self?.movieDetails = movieDetails
+            self?.posterPath = movieDetails?.posterPath
             self?.error = error
             self?.presentMovieDetails()
             dispatchGroup.leave()
@@ -144,20 +150,21 @@ extension MovieDetailsInteractor {
         }
     }
     
-    func fetchPosterImage() {
+    func fetchPosterData() {
         var apiConfiguration: TheMovieDatabaseAPIConfiguration?
         let dispatchGroup = DispatchGroup()
         dispatchGroup.enter()
         
-        ManagerProvider.shared.movieManager.theMovieDatabaseAPIConfiguration { (fetchedAPIConfiguration, _) in
+        ManagerProvider.shared.movieManager.theMovieDatabaseAPIConfiguration { [weak self] (fetchedAPIConfiguration, _) in
             apiConfiguration = fetchedAPIConfiguration
+            self?.imageSecureBaseURLPath = apiConfiguration?.imageData.secureBaseUrl
             dispatchGroup.leave()
         }
         
         dispatchGroup.notify(queue: .global(qos: .userInitiated)) { [weak self] in
-            if let imageSecureBaseURLPath = apiConfiguration?.imageData.secureBaseUrl,
-                let posterPath = self?.movieDetails?.posterPath {
-                ManagerProvider.shared.movieManager.poster(imageSecureBaseURL: imageSecureBaseURLPath, posterSize: Constants.Fallback.posterImageSize, posterPath: posterPath) { [weak self] (posterData, error) in
+            if let imageSecureBaseURLPath = self?.imageSecureBaseURLPath,
+                let posterPath = self?.posterPath {
+                ManagerProvider.shared.movieManager.posterData(imageSecureBaseURL: imageSecureBaseURLPath, posterSize: Constants.Fallback.thumbnailPosterImageSize, posterPath: posterPath) { [weak self] (posterData, error) in
                     self?.posterData = posterData
                     self?.error = error
                     self?.presentMovieDetails()

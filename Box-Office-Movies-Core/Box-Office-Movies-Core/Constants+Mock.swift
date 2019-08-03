@@ -213,5 +213,11 @@ extension Constants {
                                     }
                                     """
         }
+        
+        struct PosterNetworkRequest {
+            static let jsonString = """
+                                    dummy poster data
+                                    """
+        }
     }
 }

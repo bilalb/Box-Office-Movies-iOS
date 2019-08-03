@@ -67,12 +67,16 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="170"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="hO8-Xq-E4M">
+                                                <imageView contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="hO8-Xq-E4M">
                                                     <rect key="frame" x="20" y="10" width="100" height="150"/>
+                                                    <gestureRecognizers/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="150" id="9ek-IN-bu9"/>
                                                         <constraint firstAttribute="width" secondItem="hO8-Xq-E4M" secondAttribute="height" multiplier="2:3" id="KIh-a0-E8F"/>
                                                     </constraints>
+                                                    <connections>
+                                                        <outletCollection property="gestureRecognizers" destination="Xkp-Xb-R6M" appends="YES" id="P4r-bZ-kgy"/>
+                                                    </connections>
                                                 </imageView>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="Q4o-Oq-fYt">
                                                     <rect key="frame" x="128" y="10" width="227" height="150"/>
@@ -267,6 +271,11 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hKI-Bd-Sgn" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="Xkp-Xb-R6M">
+                    <connections>
+                        <action selector="posterImageViewTapGestureRecognizerPressed" destination="tv7-ki-w9G" id="tWu-Gv-p33"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="708" y="127.28635682158921"/>
         </scene>

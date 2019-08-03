@@ -71,6 +71,25 @@ class MovieManagerTests: XCTestCase {
         wait(for: [expectation], timeout: 0.1)
     }
     
+    func testPosterData() {
+        // Given
+        let expectation = XCTestExpectation(description: "completion handler called")
+        
+        let imageSecureBaseURL = "https://image.tmdb.org/t/p/"
+        let posterSize = "foo"
+        let posterPath = "bar"
+        
+        // When
+        sut.posterData(imageSecureBaseURL: imageSecureBaseURL, posterSize: posterSize, posterPath: posterPath) { (data, error) in
+            // Then
+            expectation.fulfill()
+            XCTAssertNotNil(data)
+            XCTAssertNil(error)
+        }
+        
+        wait(for: [expectation], timeout: 0.1)
+    }
+    
     func testCasting() {
         // Given
         let expectation = XCTestExpectation(description: "completion handler called")

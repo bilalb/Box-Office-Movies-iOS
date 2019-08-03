@@ -35,14 +35,14 @@ protocol MovieNetworkControlling: NetworkControlling {
     ///   - completionHandler: The completion handler to call when the request is complete.
     func theMovieDatabaseAPIConfiguration(completionHandler: TheMovieDatabaseAPIConfigurationCompletionHandler?)
     
-    /// Fetches the poster of a movie.
+    /// Fetches the data for the poster of a movie.
     ///
     /// - Parameters:
     ///   - imageSecureBaseURL: Image secure base url.
     ///   - posterSize: Size of the poster to request.
     ///   - posterPath: Path to the poster.
     ///   - completionHandler: The completion handler to call when the request is complete.
-    func poster(imageSecureBaseURL: String, posterSize: String, posterPath: String, completionHandler: PosterDataCompletionHandler?)
+    func posterData(imageSecureBaseURL: String, posterSize: String, posterPath: String, completionHandler: PosterDataCompletionHandler?)
     
     /// Fetches the casting of a movie.
     ///
@@ -106,7 +106,7 @@ class MovieNetworkController: NetworkController, MovieNetworkControlling {
         }
     }
     
-    func poster(imageSecureBaseURL: String, posterSize: String, posterPath: String, completionHandler: PosterDataCompletionHandler?) {
+    func posterData(imageSecureBaseURL: String, posterSize: String, posterPath: String, completionHandler: PosterDataCompletionHandler?) {
         let request = PosterNetworkRequest(environment: environment,
                                            imageSecureBaseURL: imageSecureBaseURL,
                                            posterSize: posterSize,

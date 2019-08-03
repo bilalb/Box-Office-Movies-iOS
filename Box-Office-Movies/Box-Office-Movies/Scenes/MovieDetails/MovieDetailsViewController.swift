@@ -97,6 +97,10 @@ private extension MovieDetailsViewController {
         let request = MovieDetailsScene.ToggleFavorite.Request()
         interactor?.toggleFavorite(request: request)
     }
+    
+    @IBAction func posterImageViewTapGestureRecognizerPressed() {
+        router?.routeToPoster()
+    }
 }
 
 // MARK: - Display Logic

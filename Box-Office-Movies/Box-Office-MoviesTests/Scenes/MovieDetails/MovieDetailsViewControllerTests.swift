@@ -33,7 +33,7 @@ class MovieDetailsViewControllerTests: XCTestCase {
     
     func setupMovieDetailsViewController() {
         let bundle = Bundle.main
-        let storyboard = UIStoryboard(name: "Main", bundle: bundle)
+        let storyboard = UIStoryboard(name: Constants.StoryboardName.main, bundle: bundle)
         sut = storyboard.instantiateViewController(withIdentifier: MovieDetailsViewController.identifier) as? MovieDetailsViewController
     }
     

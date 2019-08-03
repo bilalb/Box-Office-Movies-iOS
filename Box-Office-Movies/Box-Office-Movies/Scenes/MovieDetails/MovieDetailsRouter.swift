@@ -17,35 +17,34 @@ class MovieDetailsRouter: NSObject, MovieDetailsDataPassing {
     var dataStore: MovieDetailsDataStore?
 }
 
-// MARK: - Private Functions
-private extension MovieDetailsRouter {
-//    func navigateToSomewhere(source: MovieDetailsViewController, destination: SomewhereViewController) {
-//        source.show(destination, sender: nil)
-//    }
-//
-//    func passDataToSomewhere(source: MovieDetailsDataStore, destination: inout SomewhereDataStore) {
-//        destination.name = source.name
-//    }
-}
-
 @objc protocol MovieDetailsRoutingLogic {
-    //func routeToSomewhere(segue: UIStoryboardSegue?)
+    func routeToPoster()
 }
 
 extension MovieDetailsRouter: MovieDetailsRoutingLogic {
-//    func routeToSomewhere(segue: UIStoryboardSegue?) {
-//        if let segue = segue,
-//            let destinationVC = segue.destination as? SomewhereViewController,
-//            var destinationDS = destinationVC.router?.dataStore {
-//
-//            passDataToSomewhere(source: dataStore, destination: &destinationDS)
-//        } else {
-//            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-//            if let destinationVC = storyboard.instantiateViewController(withIdentifier: "SomewhereViewController") as? SomewhereViewController,
-//                var destinationDS = destinationVC.router?.dataStore {
-//                passDataToSomewhere(source: dataStore, destination: &destinationDS)
-//                navigateToSomewhere(source: viewController, destination: destinationVC)
-//            }
-//        }
-//    }
+    
+    func routeToPoster() {
+        let storyboard = UIStoryboard(name: Constants.StoryboardName.poster, bundle: Bundle.main)
+        if let dataStore = dataStore,
+            let viewController = viewController,
+            let destinationVC = storyboard.instantiateViewController(withIdentifier: PosterViewController.identifier) as? PosterViewController,
+            var destinationDS = destinationVC.router?.dataStore {
+            passDataToPoster(source: dataStore, destination: &destinationDS)
+            navigateToPoster(source: viewController, destination: destinationVC)
+        }
+    }
+}
+
+// MARK: - Private Functions
+private extension MovieDetailsRouter {
+    
+    func navigateToPoster(source: MovieDetailsViewController, destination: PosterViewController) {
+        let navigationController = UINavigationController(rootViewController: destination)
+        source.present(navigationController, animated: true)
+    }
+    
+    func passDataToPoster(source: MovieDetailsDataStore, destination: inout PosterDataStore) {
+        destination.imageSecureBaseURLPath = source.imageSecureBaseURLPath
+        destination.posterPath = source.posterPath
+    }
 }
