@@ -10,7 +10,6 @@ import Box_Office_Movies_Core
 
 protocol MovieDetailsDataStore {
     var movieIdentifier: Int? { get set }
-    var posterData: Data? { get }
     var imageSecureBaseURLPath: String? { get }
     var posterPath: String? { get }
 }

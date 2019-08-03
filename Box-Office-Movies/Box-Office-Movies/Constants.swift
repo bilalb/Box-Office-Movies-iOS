@@ -14,7 +14,7 @@ struct Constants {
         static let languageCode = "en-US"
         static let regionCode = "US"
         static let thumbnailPosterImageSize = "w185"
-        static let posterImageSize = "w780"
+        static let largePosterImageSize = "w780"
     }
     
     struct CellIdentifier {

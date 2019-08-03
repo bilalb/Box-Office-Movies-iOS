@@ -17,7 +17,7 @@ class PosterViewController: UIViewController {
     var interactor: PosterBusinessLogic?
     var router: (NSObjectProtocol & PosterRoutingLogic & PosterDataPassing)?
     
-    @IBOutlet var imageView: UIImageView?
+    @IBOutlet var posterImageView: UIImageView?
     
     // MARK: Object Life Cycle
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
@@ -58,6 +58,6 @@ private extension PosterViewController {
 extension PosterViewController: PosterDisplayLogic {
     
     func displayPosterImage(viewModel: Poster.LoadPosterImage.ViewModel) {
-        imageView?.image = viewModel.posterImage
+        posterImageView?.image = viewModel.posterImage
     }
 }

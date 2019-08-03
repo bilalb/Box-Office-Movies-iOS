@@ -83,6 +83,6 @@ class PosterViewControllerTests: XCTestCase {
         sut.displayPosterImage(viewModel: viewModel)
         
         // Then
-        XCTAssertNil(sut.imageView?.image, "displayPosterImage(viewModel:) should update the image")
+        XCTAssertNil(sut.posterImageView?.image, "displayPosterImage(viewModel:) should update the image")
     }
 }

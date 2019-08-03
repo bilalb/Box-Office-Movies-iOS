@@ -44,7 +44,7 @@
                     </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
-                        <outlet property="imageView" destination="Ia3-f6-4fO" id="hfn-pt-PZS"/>
+                        <outlet property="posterImageView" destination="Ia3-f6-4fO" id="hfn-pt-PZS"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wsb-bB-bcN" userLabel="First Responder" sceneMemberID="firstResponder"/>
