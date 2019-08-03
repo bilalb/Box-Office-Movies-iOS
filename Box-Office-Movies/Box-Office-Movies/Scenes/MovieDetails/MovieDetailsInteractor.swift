@@ -165,7 +165,7 @@ extension MovieDetailsInteractor {
         dispatchGroup.notify(queue: .global(qos: .userInitiated)) { [weak self] in
             if let imageSecureBaseURLPath = self?.imageSecureBaseURLPath,
                 let posterPath = self?.posterPath {
-                ManagerProvider.shared.movieManager.poster(imageSecureBaseURL: imageSecureBaseURLPath, posterSize: Constants.Fallback.thumbnailPosterImageSize, posterPath: posterPath) { [weak self] (posterData, error) in
+                ManagerProvider.shared.movieManager.posterData(imageSecureBaseURL: imageSecureBaseURLPath, posterSize: Constants.Fallback.thumbnailPosterImageSize, posterPath: posterPath) { [weak self] (posterData, error) in
                     self?.posterData = posterData
                     self?.error = error
                     self?.presentMovieDetails()

@@ -25,7 +25,7 @@ public typealias MovieDetailsCompletionHandler = (_ movieDetails: MovieDetails?,
 /// Completion handler of the data for the poster.
 ///
 /// - Parameters:
-///   - poster: The data for the poster returned by the call.
+///   - posterData: The data for the poster returned by the call.
 ///   - error: The error encountered while executing or validating the request.
 public typealias PosterDataCompletionHandler = (_ posterData: Data?, _ error: Error?) -> Void
 
@@ -76,14 +76,14 @@ public protocol MovieManagement {
     ///   - completionHandler: The completion handler to call when the request is complete.
     func theMovieDatabaseAPIConfiguration(completionHandler: TheMovieDatabaseAPIConfigurationCompletionHandler?)
     
-    /// Fetches the poster of a movie.
+    /// Fetches the data for the poster of a movie.
     ///
     /// - Parameters:
     ///   - imageSecureBaseURL: Image secure base url.
     ///   - posterSize: Size of the poster to request.
     ///   - posterPath: Path to the poster.
     ///   - completionHandler: The completion handler to call when the request is complete.
-    func poster(imageSecureBaseURL: String, posterSize: String, posterPath: String, completionHandler: PosterDataCompletionHandler?)
+    func posterData(imageSecureBaseURL: String, posterSize: String, posterPath: String, completionHandler: PosterDataCompletionHandler?)
     
     /// Fetches the casting of a movie.
     ///
@@ -122,8 +122,8 @@ final class MovieManager: MovieManagement {
         networkController.theMovieDatabaseAPIConfiguration(completionHandler: completionHandler)
     }
     
-    func poster(imageSecureBaseURL: String, posterSize: String, posterPath: String, completionHandler: PosterDataCompletionHandler?) {
-        networkController.poster(imageSecureBaseURL: imageSecureBaseURL, posterSize: posterSize, posterPath: posterPath, completionHandler: completionHandler)
+    func posterData(imageSecureBaseURL: String, posterSize: String, posterPath: String, completionHandler: PosterDataCompletionHandler?) {
+        networkController.posterData(imageSecureBaseURL: imageSecureBaseURL, posterSize: posterSize, posterPath: posterPath, completionHandler: completionHandler)
     }
     
     func casting(identifier: Int, completionHandler: CastingCompletionHandler?) {
