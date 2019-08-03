@@ -23,6 +23,8 @@ class MockedURLSession: URLSession {
                     return Constants.Mock.CastingNetworkRequest.jsonString
                 } else if request.url?.absoluteString.contains("/similar?language=") == true {
                     return Constants.Mock.SimilarMoviesNetworkRequest.jsonString
+                } else if request.url?.absoluteString.contains("https://image.tmdb.org/t/p/") == true {
+                    return Constants.Mock.PosterNetworkRequest.jsonString
                 }
                 return nil
             }()
