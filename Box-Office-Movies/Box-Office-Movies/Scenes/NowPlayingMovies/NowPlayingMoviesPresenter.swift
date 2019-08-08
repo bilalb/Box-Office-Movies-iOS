@@ -79,7 +79,7 @@ extension NowPlayingMoviesPresenter: NowPlayingMoviesPresentationLogic {
     func presentTableViewBackgroundView(response: NowPlayingMovies.LoadTableViewBackgroundView.Response) {
         let backgroundView: UIView? = {
             guard
-                response.movies.isEmpty,
+                response.movies?.isEmpty == true,
                 let emptyBackgroundView = EmptyBackgroundView.fromNib(named: Constants.NibName.emptyBackgroundView) as? EmptyBackgroundView
             else {
                 return nil
