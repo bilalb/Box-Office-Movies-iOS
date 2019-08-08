@@ -18,6 +18,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="aVr-3G-Btv">
+                                <rect key="frame" x="197" y="465" width="20" height="20"/>
+                            </activityIndicatorView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Ia3-f6-4fO">
                                 <rect key="frame" x="16" y="104" width="382" height="742"/>
                                 <gestureRecognizers/>
@@ -26,7 +29,9 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="S7R-XN-Sp2" firstAttribute="trailing" secondItem="Ia3-f6-4fO" secondAttribute="trailing" constant="16" id="MUR-nk-ULY"/>
+                            <constraint firstItem="aVr-3G-Btv" firstAttribute="centerX" secondItem="S7R-XN-Sp2" secondAttribute="centerX" id="NOd-pb-fic"/>
                             <constraint firstItem="Ia3-f6-4fO" firstAttribute="top" secondItem="S7R-XN-Sp2" secondAttribute="top" constant="16" id="QOd-8F-ltD"/>
+                            <constraint firstItem="aVr-3G-Btv" firstAttribute="centerY" secondItem="S7R-XN-Sp2" secondAttribute="centerY" id="pnv-YM-4R7"/>
                             <constraint firstItem="S7R-XN-Sp2" firstAttribute="bottom" secondItem="Ia3-f6-4fO" secondAttribute="bottom" constant="16" id="qF6-Bv-v68"/>
                             <constraint firstItem="Ia3-f6-4fO" firstAttribute="leading" secondItem="S7R-XN-Sp2" secondAttribute="leading" constant="16" id="rQb-fy-HmK"/>
                         </constraints>
