@@ -1,4 +1,4 @@
-<img src="./Box-Office-Movies/Box-Office-Movies/Assets.xcassets/AppIcon.appiconset/Icon-App-40x40@3x.png" alt="icon" width="36" height="36"> Box-Office-Movies iOS
+<img src="./Box-Office-Movies/Box-Office-Movies/Resources/Assets.xcassets/AppIcon.appiconset/Icon-App-40x40@3x.png" alt="app icon" width="36" height="36"> Box-Office-Movies iOS
 ======================================
 [![pipeline](https://gitlab.com/bilal.b/Box-Office-Movies-iOS/badges/master/pipeline.svg)](https://gitlab.com/bilal.b/Box-Office-Movies-iOS/pipelines)
 Box-Office-Movies: [![coverage](https://gitlab.com/bilal.b/Box-Office-Movies-iOS/badges/master/coverage.svg?job=test_project)](https://gitlab.com/bilal.b/Box-Office-Movies-iOS)
