@@ -38,7 +38,7 @@ extension NowPlayingMoviesRouter: NowPlayingMoviesRoutingLogic {
 private extension NowPlayingMoviesRouter {
     
     func passDataToMovieDetails(source: NowPlayingMoviesDataStore, destination: inout MovieDetailsDataStore) {
-        let movies: [Movie] = {
+        let optionalMovies: [Movie]? = {
             if viewController?.searchController.isActive == true {
                 return source.filteredMovies
             } else {
@@ -53,6 +53,7 @@ private extension NowPlayingMoviesRouter {
         
         guard
             let indexForSelectedRow = viewController?.nowPlayingMoviesTableView.indexPathForSelectedRow?.row,
+            let movies = optionalMovies,
             movies.indices.contains(indexForSelectedRow)
         else {
             return

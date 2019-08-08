@@ -10,9 +10,9 @@ import Box_Office_Movies_Core
 import UIKit
 
 protocol NowPlayingMoviesDataStore {
-    var movies: [Movie] { get }
-    var favoriteMovies: [Movie] { get }
-    var filteredMovies: [Movie] { get }
+    var movies: [Movie]? { get }
+    var favoriteMovies: [Movie]? { get }
+    var filteredMovies: [Movie]? { get }
     var state: State { get }
 }
 
@@ -34,11 +34,11 @@ class NowPlayingMoviesInteractor: NowPlayingMoviesDataStore {
     var page = 1
     var paginatedMovieLists = [PaginatedMovieList]()
     
-    var movies = [Movie]()
-    var favoriteMovies = [Movie]()
-    var filteredMovies = [Movie]()
+    var movies: [Movie]?
+    var favoriteMovies: [Movie]?
+    var filteredMovies: [Movie]?
     
-    var currentMovies: [Movie] {
+    var currentMovies: [Movie]? {
         switch state {
         case .allMovies:
             return movies
@@ -59,7 +59,7 @@ extension NowPlayingMoviesInteractor: NowPlayingMoviesBusinessLogic {
     
     func fetchNowPlayingMovies(request: NowPlayingMovies.FetchNowPlayingMovies.Request) {
         state = .allMovies
-        if movies.isEmpty {
+        if movies == nil {
             fetchNowPlayingMovies { [weak self] error in
                 let response = NowPlayingMovies.FetchNowPlayingMovies.Response(movies: self?.movies, error: error)
                 self?.presenter?.presentNowPlayingMovies(response: response)
@@ -90,7 +90,7 @@ extension NowPlayingMoviesInteractor: NowPlayingMoviesBusinessLogic {
         let isFiltering = request.isSearchControllerActive && !request.searchText.isEmpty
         
         if isFiltering {
-            filteredMovies = currentMovies.filter { movie -> Bool in
+            filteredMovies = currentMovies?.filter { movie -> Bool in
                 return movie.title.lowercased().contains(request.searchText.lowercased()) == true
             }
         } else {
@@ -104,8 +104,8 @@ extension NowPlayingMoviesInteractor: NowPlayingMoviesBusinessLogic {
     func refreshMovies(request: NowPlayingMovies.RefreshMovies.Request) {
         page = 1
         paginatedMovieLists.removeAll()
-        movies.removeAll()
-        filteredMovies.removeAll()
+        movies?.removeAll()
+        filteredMovies?.removeAll()
         state = .allMovies
         
         fetchNowPlayingMovies { [weak self] error in
@@ -133,10 +133,10 @@ extension NowPlayingMoviesInteractor {
                 self?.paginatedMovieLists.append(paginatedMovieList)
                 self?.page += 1
             }
-            self?.movies.removeAll()
-            self?.paginatedMovieLists.forEach({ (paginatedMovieList) in
-                self?.movies.append(contentsOf: paginatedMovieList.movies)
-            })
+            self?.movies = []
+            self?.paginatedMovieLists.forEach { (paginatedMovieList) in
+                self?.movies?.append(contentsOf: paginatedMovieList.movies)
+            }
             completionHandler?(error)
         }
     }
@@ -154,11 +154,13 @@ extension NowPlayingMoviesInteractor {
     }
     
     func removeMovieFromFavorites(request: NowPlayingMovies.RemoveMovieFromFavorites.Request) {
-        guard favoriteMovies.indices.contains(request.indexPathForMovieToRemove.row) else {
+        guard
+            favoriteMovies?.indices.contains(request.indexPathForMovieToRemove.row) == true,
+            let favoriteMovieToRemove = favoriteMovies?.remove(at: request.indexPathForMovieToRemove.row)
+        else {
             return
         }
         
-        let favoriteMovieToRemove = favoriteMovies.remove(at: request.indexPathForMovieToRemove.row)
         _ = ManagerProvider.shared.favoritesManager.removeMovieFromFavorites(favoriteMovieToRemove)
         
         let response = NowPlayingMovies.RemoveMovieFromFavorites.Response(movies: favoriteMovies, indexPathForMovieToRemove: request.indexPathForMovieToRemove, editButtonItem: request.editButtonItem)
