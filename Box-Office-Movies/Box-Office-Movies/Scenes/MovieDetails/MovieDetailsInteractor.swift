@@ -33,6 +33,7 @@ class MovieDetailsInteractor: MovieDetailsDataStore {
     var casting: Casting?
     var paginatedSimilarMovieLists = [PaginatedMovieList]()
     var posterData: Data?
+    var trailer: Video?
     var error: Error?
     
     var imageSecureBaseURLPath: String?
@@ -50,6 +51,7 @@ extension MovieDetailsInteractor: MovieDetailsBusinessLogic {
             self?.fetchCasting()
             self?.fetchSimilarMovies()
             self?.fetchPosterData()
+            self?.fetchTrailer()
         }
     }
     
@@ -98,6 +100,7 @@ extension MovieDetailsInteractor {
                                                                     casting: casting,
                                                                     paginatedSimilarMovieLists: paginatedSimilarMovieLists,
                                                                     posterData: posterData,
+                                                                    trailer: trailer,
                                                                     error: error)
         presenter?.presentMovieDetails(response: response)
     }
@@ -170,6 +173,20 @@ extension MovieDetailsInteractor {
                     self?.presentMovieDetails()
                 }
             }
+        }
+    }
+    
+    func fetchTrailer() {
+        guard let movieIdentifier = movieIdentifier else {
+            return
+        }
+        let type: Video.VideoType = .trailer
+        let languageCode = Locale.current.languageCode ?? Constants.Fallback.languageCode
+        let site: Video.Site = .youTube
+        ManagerProvider.shared.movieManager.video(for: type, site: site, identifier: movieIdentifier, languageCode: languageCode) { [weak self] (trailer, error) in
+            self?.trailer = trailer
+            self?.error = error
+            self?.presentMovieDetails()
         }
     }
 }

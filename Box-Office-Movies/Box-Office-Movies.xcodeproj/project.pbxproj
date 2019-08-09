@@ -26,6 +26,7 @@
 		9C6F39DF22F48B6C009D030B /* PosterInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C6F39DC22F48B6C009D030B /* PosterInteractorTests.swift */; };
 		9C6F39E022F48B6C009D030B /* PosterPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C6F39DD22F48B6C009D030B /* PosterPresenterTests.swift */; };
 		9C90009522510AE600399CF3 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9C90009722510AE600399CF3 /* Localizable.strings */; };
+		9CCEACC722FCFB76004620BA /* TrailerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CCEACC622FCFB76004620BA /* TrailerTableViewCell.swift */; };
 		9CD1682222F4B2DF00688215 /* MovieDetailsRouterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CD1682122F4B2DF00688215 /* MovieDetailsRouterTests.swift */; };
 		9CDB22A522EF115B00B8A2C0 /* EmptyBackgroundView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9CDB22A422EF115B00B8A2C0 /* EmptyBackgroundView.xib */; };
 		9CDB22A722EF172400B8A2C0 /* EmptyBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CDB22A622EF172400B8A2C0 /* EmptyBackgroundView.swift */; };
@@ -108,6 +109,7 @@
 		9C6F39DD22F48B6C009D030B /* PosterPresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PosterPresenterTests.swift; sourceTree = "<group>"; };
 		9C90009622510AE600399CF3 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		9C90009822510AEA00399CF3 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
+		9CCEACC622FCFB76004620BA /* TrailerTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrailerTableViewCell.swift; sourceTree = "<group>"; };
 		9CD1682122F4B2DF00688215 /* MovieDetailsRouterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailsRouterTests.swift; sourceTree = "<group>"; };
 		9CDB22A422EF115B00B8A2C0 /* EmptyBackgroundView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EmptyBackgroundView.xib; sourceTree = "<group>"; };
 		9CDB22A622EF172400B8A2C0 /* EmptyBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyBackgroundView.swift; sourceTree = "<group>"; };
@@ -241,6 +243,15 @@
 			path = Poster;
 			sourceTree = "<group>";
 		};
+		9CCEACC522FCFB66004620BA /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				9C4935E9224A95CD00359378 /* AdditionalInformationTableViewCell.swift */,
+				9CCEACC622FCFB76004620BA /* TrailerTableViewCell.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		9CDB22A322EF10BC00B8A2C0 /* EmptyBackgroundView */ = {
 			isa = PBXGroup;
 			children = (
@@ -330,13 +341,13 @@
 		9CDC965E2247DA3F0051925E /* MovieDetails */ = {
 			isa = PBXGroup;
 			children = (
-				9C4935E9224A95CD00359378 /* AdditionalInformationTableViewCell.swift */,
 				9CDC965F2247DA510051925E /* MovieDetails+SceneSetup.swift */,
 				9CDC96642247DA510051925E /* MovieDetailsInteractor.swift */,
 				9CDC96622247DA510051925E /* MovieDetailsModels.swift */,
 				9CDC96602247DA510051925E /* MovieDetailsPresenter.swift */,
 				9CDC96612247DA510051925E /* MovieDetailsRouter.swift */,
 				9CDC96632247DA510051925E /* MovieDetailsViewController.swift */,
+				9CCEACC522FCFB66004620BA /* Views */,
 			);
 			path = MovieDetails;
 			sourceTree = "<group>";
@@ -528,6 +539,7 @@
 				9C4935EA224A95CD00359378 /* AdditionalInformationTableViewCell.swift in Sources */,
 				9C6F39D122F46CCC009D030B /* Poster+SceneSetup.swift in Sources */,
 				9C6F39D622F46CCC009D030B /* PosterInteractor.swift in Sources */,
+				9CCEACC722FCFB76004620BA /* TrailerTableViewCell.swift in Sources */,
 				9CDC96652247DA510051925E /* MovieDetails+SceneSetup.swift in Sources */,
 				9C6F39D522F46CCC009D030B /* PosterViewController.swift in Sources */,
 				9CDB22A722EF172400B8A2C0 /* EmptyBackgroundView.swift in Sources */,

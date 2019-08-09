@@ -208,6 +208,25 @@ class MovieDetailsInteractorTests: XCTestCase {
         // Then
         XCTAssertTrue(spy.presentMovieDetailsCalled, "presentMovieDetails() should ask the presenter to format the result")
     }
+    
+    func testFetchTrailer() {
+        // Given
+        let expectation = XCTestExpectation(description: "video completion handler called")
+        
+        sut.movieIdentifier = 0
+
+        // When
+        sut.fetchTrailer()
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            // Then
+            XCTAssertNotNil(self.sut.trailer, "fetchTrailer() should set the trailer")
+            XCTAssertNil(self.sut.error, "fetchTrailer() should set the error")
+            expectation.fulfill()
+        }
+        
+        wait(for: [expectation], timeout: 0.11)
+    }
 }
 
 extension MovieDetails {
