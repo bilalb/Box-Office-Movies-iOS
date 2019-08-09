@@ -59,6 +59,14 @@ protocol MovieNetworkControlling: NetworkControlling {
     ///   - page: Page to query (minimum: `1`, maximum: `1000`).
     ///   - completionHandler: The completion handler to call when the request is complete.
     func similarMovies(identifier: Int, languageCode: String, page: Int, completionHandler: SimilarMoviesCompletionHandler?)
+    
+    /// Fetches the videos of a movie.
+    ///
+    /// - Parameters:
+    ///   - identifier: Identifier of the movie.
+    ///   - languageCode: Language code in ISO 639-1 format.
+    ///   - completionHandler: The completion handler to call when the request is complete.
+    func videos(identifier: Int, languageCode: String, completionHandler: VideosCompletionHandler?)
 }
 
 class MovieNetworkController: NetworkController, MovieNetworkControlling {
@@ -136,6 +144,17 @@ class MovieNetworkController: NetworkController, MovieNetworkControlling {
                 jsonDecoder.userInfo[managedObjectContextCodingUserInfoKey] = managedObjectContext
                 let paginatedSimilarMovieList = try? jsonDecoder.decode(PaginatedMovieList.self, from: data)
                 completionHandler?(paginatedSimilarMovieList, nil)
+            } else {
+                completionHandler?(nil, error)
+            }
+        }
+    }
+    
+    func videos(identifier: Int, languageCode: String, completionHandler: VideosCompletionHandler?) {
+        let request = VideosNetworkRequest(environment: environment, identifier: identifier, languageCode: languageCode)
+        send(request: request) { (data, _, error) in
+            if let data = data, let videoResponse = try? JSONDecoder().decode(VideoResponse.self, from: data) {
+                completionHandler?(videoResponse.videos, nil)
             } else {
                 completionHandler?(nil, error)
             }

@@ -8,6 +8,7 @@
 
 import Foundation
 
+//swiftlint:disable type_body_length
 extension Constants {
     
     struct Mock {
@@ -217,6 +218,46 @@ extension Constants {
         struct PosterNetworkRequest {
             static let jsonString = """
                                     dummy poster data
+                                    """
+        }
+        
+        struct VideosNetworkRequest {
+            static let jsonString = """
+                                    {
+                                      "id": 420818,
+                                      "results": [
+                                        {
+                                          "id": "5bf75c2f0e0a26266f0e1e04",
+                                          "iso_639_1": "en",
+                                          "iso_3166_1": "US",
+                                          "key": "4CbLXeGSDxg",
+                                          "name": "The Lion King Official Teaser Trailer",
+                                          "site": "YouTube",
+                                          "size": 1080,
+                                          "type": "Teaser"
+                                        },
+                                        {
+                                          "id": "5cade34d0e0a26310d5a7bc5",
+                                          "iso_639_1": "en",
+                                          "iso_3166_1": "US",
+                                          "key": "7TavVZMewpY",
+                                          "name": "The Lion King Official Trailer",
+                                          "site": "YouTube",
+                                          "size": 1080,
+                                          "type": "Trailer"
+                                        },
+                                        {
+                                          "id": "5cfe4318c3a3680e921e7e17",
+                                          "iso_639_1": "en",
+                                          "iso_3166_1": "US",
+                                          "key": "hoGhxfndjpM",
+                                          "name": "The Lion King Sneak Peek - Come Home",
+                                          "site": "YouTube",
+                                          "size": 1080,
+                                          "type": "Featurette"
+                                        }
+                                      ]
+                                    }
                                     """
         }
     }

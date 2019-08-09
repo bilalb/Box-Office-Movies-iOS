@@ -37,6 +37,8 @@
 		9C5AD09E22568812009CC78A /* TheMovieDatabaseAPIConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C5AD08D22568812009CC78A /* TheMovieDatabaseAPIConfiguration.swift */; };
 		9C5AD0AB22568A63009CC78A /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C5AD0AA22568A63009CC78A /* Constants.swift */; };
 		9C8A9B3D22D21A1D0013AE4F /* FavoritesManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C8A9B3C22D21A1D0013AE4F /* FavoritesManagerTests.swift */; };
+		9CCEACC122FCE861004620BA /* Video.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CCEACC022FCE861004620BA /* Video.swift */; };
+		9CCEACC322FCF1AC004620BA /* VideosNetworkRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CCEACC222FCF1AC004620BA /* VideosNetworkRequest.swift */; };
 		9CDB22A222EEF65300B8A2C0 /* MovieDetailsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CDB22A122EEF65300B8A2C0 /* MovieDetailsTests.swift */; };
 		9CFAE4BB22C7868D00893908 /* Movie+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CFAE4B922C7868D00893908 /* Movie+CoreDataProperties.swift */; };
 		9CFAE4BC22C7868D00893908 /* Movie+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CFAE4BA22C7868D00893908 /* Movie+CoreDataClass.swift */; };
@@ -86,6 +88,8 @@
 		9C5AD08D22568812009CC78A /* TheMovieDatabaseAPIConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TheMovieDatabaseAPIConfiguration.swift; sourceTree = "<group>"; };
 		9C5AD0AA22568A63009CC78A /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		9C8A9B3C22D21A1D0013AE4F /* FavoritesManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesManagerTests.swift; sourceTree = "<group>"; };
+		9CCEACC022FCE861004620BA /* Video.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Video.swift; sourceTree = "<group>"; };
+		9CCEACC222FCF1AC004620BA /* VideosNetworkRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideosNetworkRequest.swift; sourceTree = "<group>"; };
 		9CDB22A122EEF65300B8A2C0 /* MovieDetailsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailsTests.swift; sourceTree = "<group>"; };
 		9CFAE4B922C7868D00893908 /* Movie+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Movie+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		9CFAE4BA22C7868D00893908 /* Movie+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Movie+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -208,6 +212,7 @@
 				9C5AD08322568812009CC78A /* PosterNetworkRequest.swift */,
 				9C5AD08022568812009CC78A /* SimilarMoviesNetworkRequest.swift */,
 				9C5AD08222568812009CC78A /* TheMovieDatabaseAPIConfigurationNetworkRequest.swift */,
+				9CCEACC222FCF1AC004620BA /* VideosNetworkRequest.swift */,
 			);
 			path = NetworkRequest;
 			sourceTree = "<group>";
@@ -219,6 +224,7 @@
 				9C5AD08922568812009CC78A /* MovieDetails.swift */,
 				9C5AD08B22568812009CC78A /* PaginatedMovieList.swift */,
 				9C5AD08D22568812009CC78A /* TheMovieDatabaseAPIConfiguration.swift */,
+				9CCEACC022FCE861004620BA /* Video.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -396,7 +402,9 @@
 				9C5AD09722568812009CC78A /* MovieNetworkController.swift in Sources */,
 				9CFAE4BC22C7868D00893908 /* Movie+CoreDataClass.swift in Sources */,
 				9C5AD09622568812009CC78A /* NetworkRequest.swift in Sources */,
+				9CCEACC322FCF1AC004620BA /* VideosNetworkRequest.swift in Sources */,
 				9C5AD08E22568812009CC78A /* MovieManager.swift in Sources */,
+				9CCEACC122FCE861004620BA /* Video.swift in Sources */,
 				9CFAE4BB22C7868D00893908 /* Movie+CoreDataProperties.swift in Sources */,
 				9C2C3FD822E750CB0099FA0B /* MockedURLSessionDataTask.swift in Sources */,
 				9C5AD0AB22568A63009CC78A /* Constants.swift in Sources */,
