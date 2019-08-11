@@ -50,4 +50,8 @@ struct Constants {
     struct SimilarMoviesNetworkRequest {
         static let path = "movie/%d/similar?language=%@&page=%d&api_key=%@"
     }
+    
+    struct VideosNetworkRequest {
+        static let path = "movie/%d/videos?language=%@&api_key=%@"
+    }
 }

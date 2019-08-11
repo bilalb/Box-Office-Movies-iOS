@@ -59,6 +59,14 @@ protocol MovieNetworkControlling: NetworkControlling {
     ///   - page: Page to query (minimum: `1`, maximum: `1000`).
     ///   - completionHandler: The completion handler to call when the request is complete.
     func similarMovies(identifier: Int, languageCode: String, page: Int, completionHandler: SimilarMoviesCompletionHandler?)
+    
+    /// Fetches the videos of a movie.
+    ///
+    /// - Parameters:
+    ///   - identifier: Identifier of the movie.
+    ///   - languageCode: Language code in ISO 639-1 format.
+    ///   - completionHandler: The completion handler to call when the request is complete.
+    func videos(identifier: Int, languageCode: String, completionHandler: VideosCompletionHandler?)
 }
 
 class MovieNetworkController: NetworkController, MovieNetworkControlling {
@@ -74,7 +82,7 @@ class MovieNetworkController: NetworkController, MovieNetworkControlling {
                 let jsonDecoder = JSONDecoder()
                 jsonDecoder.userInfo[managedObjectContextCodingUserInfoKey] = managedObjectContext
                 let paginatedMovieList = try? jsonDecoder.decode(PaginatedMovieList.self, from: data)
-                completionHandler?(paginatedMovieList, nil)
+                completionHandler?(paginatedMovieList, error)
             } else {
                 completionHandler?(nil, error)
             }
@@ -88,7 +96,7 @@ class MovieNetworkController: NetworkController, MovieNetworkControlling {
                                                  regionCode: regionCode)
         send(request: request) { (data, _, error) in
             if let data = data, let movieDetails = try? JSONDecoder().decode(MovieDetails.self, from: data) {
-                completionHandler?(movieDetails, nil)
+                completionHandler?(movieDetails, error)
             } else {
                 completionHandler?(nil, error)
             }
@@ -99,7 +107,7 @@ class MovieNetworkController: NetworkController, MovieNetworkControlling {
         let request = TheMovieDatabaseAPIConfigurationNetworkRequest(environment: environment)
         send(request: request) { (data, _, error) in
             if let data = data, let configuration = try? JSONDecoder().decode(TheMovieDatabaseAPIConfiguration.self, from: data) {
-                completionHandler?(configuration, nil)
+                completionHandler?(configuration, error)
             } else {
                 completionHandler?(nil, error)
             }
@@ -120,7 +128,7 @@ class MovieNetworkController: NetworkController, MovieNetworkControlling {
         let request = CastingNetworkRequest(environment: environment, identifier: identifier)
         send(request: request) { (data, _, error) in
             if let data = data, let casting = try? JSONDecoder().decode(Casting.self, from: data) {
-                completionHandler?(casting, nil)
+                completionHandler?(casting, error)
             } else {
                 completionHandler?(nil, error)
             }
@@ -135,7 +143,18 @@ class MovieNetworkController: NetworkController, MovieNetworkControlling {
                 let jsonDecoder = JSONDecoder()
                 jsonDecoder.userInfo[managedObjectContextCodingUserInfoKey] = managedObjectContext
                 let paginatedSimilarMovieList = try? jsonDecoder.decode(PaginatedMovieList.self, from: data)
-                completionHandler?(paginatedSimilarMovieList, nil)
+                completionHandler?(paginatedSimilarMovieList, error)
+            } else {
+                completionHandler?(nil, error)
+            }
+        }
+    }
+    
+    func videos(identifier: Int, languageCode: String, completionHandler: VideosCompletionHandler?) {
+        let request = VideosNetworkRequest(environment: environment, identifier: identifier, languageCode: languageCode)
+        send(request: request) { (data, _, error) in
+            if let data = data, let videoResponse = try? JSONDecoder().decode(VideoResponse.self, from: data) {
+                completionHandler?(videoResponse.videos, error)
             } else {
                 completionHandler?(nil, error)
             }

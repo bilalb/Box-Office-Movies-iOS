@@ -100,7 +100,7 @@ class MovieDetailsViewControllerTests: XCTestCase {
         sut.displayMovieDetails(viewModel: viewModel)
         
         // Then
-        XCTAssertEqual(sut.detailItems.count, 6, "displayMovieDetails(viewModel:) should append some detailItems to its detailItems")
+        XCTAssertEqual(sut.detailItems.count, 7, "displayMovieDetails(viewModel:) should append some detailItems to its detailItems")
         XCTAssertFalse(sut.activityIndicatorView.isAnimating, "displayMovieDetails(viewModel:) should stop the activityIndicatorView from animating")
         XCTAssertTrue(sut.errorStackView.isHidden, "displayMovieDetails(viewModel:) should set the isHidden property of the errorStackView")
         XCTAssertNil(sut.errorStackView.errorDescription, "displayMovieDetails(viewModel:) should set the errorDescription property of the errorStackView")
@@ -176,7 +176,7 @@ class MovieDetailsViewControllerTests: XCTestCase {
         let numberOfRowsInSection0 = sut.tableView(sut.detailItemsTableView, numberOfRowsInSection: 0)
         
         // Then
-        XCTAssertEqual(numberOfRowsInSection0, 6)
+        XCTAssertEqual(numberOfRowsInSection0, 7)
     }
     
     func testCellForRowAtTitleItemIndexPath() {
@@ -224,11 +224,28 @@ class MovieDetailsViewControllerTests: XCTestCase {
         XCTAssertEqual(cell.detailTextLabel?.text, "review")
     }
     
-    func testCellForRowAtSynopsisItemIndexPath() {
+    func testCellForRowAtTrailerItemIndexPath() {
         // Given
         loadView()
         sut.detailItems = DetailItem.dummyInstances
         let indexPath = IndexPath(row: 3, section: 0)
+        
+        // When
+        let cell = sut.tableView(sut.detailItemsTableView, cellForRowAt: indexPath)
+        
+        // Then
+        guard let trailerCell = cell as? TrailerTableViewCell else {
+            XCTFail("The cell should be an instance of TrailerTableViewCell")
+            return
+        }
+        XCTAssertNotNil(trailerCell.webView)
+    }
+    
+    func testCellForRowAtSynopsisItemIndexPath() {
+        // Given
+        loadView()
+        sut.detailItems = DetailItem.dummyInstances
+        let indexPath = IndexPath(row: 4, section: 0)
         
         // When
         let cell = sut.tableView(sut.detailItemsTableView, cellForRowAt: indexPath)
@@ -241,7 +258,7 @@ class MovieDetailsViewControllerTests: XCTestCase {
         // Given
         loadView()
         sut.detailItems = DetailItem.dummyInstances
-        let indexPath = IndexPath(row: 4, section: 0)
+        let indexPath = IndexPath(row: 5, section: 0)
         
         // When
         let cell = sut.tableView(sut.detailItemsTableView, cellForRowAt: indexPath)
@@ -254,7 +271,7 @@ class MovieDetailsViewControllerTests: XCTestCase {
         // Given
         loadView()
         sut.detailItems = DetailItem.dummyInstances
-        let indexPath = IndexPath(row: 5, section: 0)
+        let indexPath = IndexPath(row: 6, section: 0)
         
         // When
         let cell = sut.tableView(sut.detailItemsTableView, cellForRowAt: indexPath)
@@ -286,6 +303,7 @@ extension DetailItem {
         return [DetailItem.title(title: "Whiplash"),
                 DetailItem.additionalInformation(posterImage: nil, releaseDateAttributedText: NSAttributedString(string: "05/04/2019"), voteAverageAttributedText: NSAttributedString(string: "★★★★☆")),
                 DetailItem.reviewMovie(review: "review"),
+                DetailItem.trailer(urlRequest: URLRequest(url: URL(string: "https://www.youtube.com/embed/7TavVZMewpY")!)),
                 DetailItem.synopsis(synopsis: "masterpiece"),
                 DetailItem.casting(actors: "John Doe, Zinedine Zidane"),
                 DetailItem.similarMovies(similarMovies: "Mo Better Blues, 8 Miles")]

@@ -38,4 +38,8 @@ struct Constants {
     struct NibName {
         static let emptyBackgroundView = "EmptyBackgroundView"
     }
+    
+    struct VideoURL {
+        static let youTube = "https://www.youtube.com/embed/%@"
+    }
 }

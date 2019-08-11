@@ -47,6 +47,9 @@ extension MovieDetailsPresenter: MovieDetailsPresentationLogic {
             let reviewMovieItem = DetailItem.reviewMovie(review: NSLocalizedString("review", comment: "review"))
             var detailItems = [titleItem, additionalInformationDetailItem, reviewMovieItem]
             
+            if let trailerDetailItem = self.trailerItem(for: response.trailer) {
+                detailItems.append(trailerDetailItem)
+            }
             if let synopsisDetailItem = self.synopsisItem(for: movieDetails.synopsis) {
                 detailItems.append(synopsisDetailItem)
             }
@@ -136,6 +139,22 @@ extension MovieDetailsPresenter {
         }
         
         return DetailItem.additionalInformation(posterImage: posterImage, releaseDateAttributedText: releaseDateAttributedString, voteAverageAttributedText: voteAverageAttributedString)
+    }
+    
+    func trailerItem(for trailer: Video?) -> DetailItem? {
+        guard
+            let trailer = trailer,
+            !trailer.key.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty,
+            trailer.site == .youTube
+        else {
+            return nil
+        }
+        let trailerURLString = String(format: Constants.VideoURL.youTube, trailer.key)
+        guard let url = URL(string: trailerURLString) else {
+            return nil
+        }
+        let urlRequest = URLRequest(url: url)
+        return DetailItem.trailer(urlRequest: urlRequest)
     }
     
     func synopsisItem(for synopsis: String?) -> DetailItem? {

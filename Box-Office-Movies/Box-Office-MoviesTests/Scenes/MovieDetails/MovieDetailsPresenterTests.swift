@@ -44,7 +44,7 @@ class MovieDetailsPresenterTests: XCTestCase {
         var displayFavoriteToggleCalled = false
         
         func displayMovieDetails(viewModel: MovieDetailsScene.FetchMovieDetails.ViewModel) {
-            XCTAssertEqual(viewModel.detailItems?.count, 6)
+            XCTAssertEqual(viewModel.detailItems?.count, 7)
             
             displayMovieDetailsExpectation.fulfill()
         }
@@ -90,6 +90,7 @@ class MovieDetailsPresenterTests: XCTestCase {
                                                                                                                                                                                                                   Movie(identifier: 2, title: "8 miles")
                                                                         ])],
                                                                     posterData: Data(),
+                                                                    trailer: Video.dummyInstance,
                                                                     error: nil)
         
         // When
@@ -153,5 +154,12 @@ class MovieDetailsPresenterTests: XCTestCase {
         
         // Then
         XCTAssertTrue(spy.displayToggleFavoriteCalled, "presentToggleFavorite(response:) should ask the view controller to display the result")
+    }
+}
+
+extension Video {
+    
+    static var dummyInstance: Video {
+        return Video(key: "foo", site: .youTube, type: .trailer)
     }
 }

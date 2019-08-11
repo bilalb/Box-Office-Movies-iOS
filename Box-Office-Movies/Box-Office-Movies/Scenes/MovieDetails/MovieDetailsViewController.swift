@@ -180,6 +180,10 @@ extension MovieDetailsViewController: UITableViewDataSource {
             }
         case .reviewMovie(let review):
             cell.detailTextLabel?.text = review
+        case .trailer(let urlRequest):
+            if let cell = cell as? TrailerTableViewCell {
+                cell.webView.load(urlRequest)
+            }
         case .synopsis(let synopsis):
             cell.detailTextLabel?.text = synopsis
         case .casting(let actors):

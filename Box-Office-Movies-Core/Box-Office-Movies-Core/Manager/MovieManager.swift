@@ -50,6 +50,20 @@ public typealias CastingCompletionHandler = (_ casting: Casting?, _ error: Error
 ///   - error: The error encountered while executing or validating the request.
 public typealias SimilarMoviesCompletionHandler = (_ paginatedSimilarMovieList: PaginatedMovieList?, _ error: Error?) -> Void
 
+/// Completion handler of the videos.
+///
+/// - Parameters:
+///   - videos: The response returned by the call.
+///   - error: The error encountered while executing or validating the request.
+public typealias VideosCompletionHandler = (_ videos: [Video]?, _ error: Error?) -> Void
+
+/// Completion handler of the video.
+///
+/// - Parameters:
+///   - video: The response returned by the call.
+///   - error: The error encountered while executing or validating the request.
+public typealias VideoCompletionHandler = (_ video: Video?, _ error: Error?) -> Void
+
 public protocol MovieManagement {
     
     /// Fetches the list of movies now playing in theatres.
@@ -100,6 +114,24 @@ public protocol MovieManagement {
     ///   - page: Page to query (minimum: `1`, maximum: `1000`).
     ///   - completionHandler: The completion handler to call when the request is complete.
     func similarMovies(identifier: Int, languageCode: String, page: Int, completionHandler: SimilarMoviesCompletionHandler?)
+    
+    /// Fetches the videos of a movie.
+    ///
+    /// - Parameters:
+    ///   - identifier: Identifier of the movie.
+    ///   - languageCode: Language code in ISO 639-1 format.
+    ///   - completionHandler: The completion handler to call when the request is complete.
+    func videos(identifier: Int, languageCode: String, completionHandler: VideosCompletionHandler?)
+    
+    /// Fetches the video of a movie.
+    ///
+    /// - Parameters:
+    ///   - type: The type of video to request.
+    ///   - site: The website hosting the video.
+    ///   - identifier: Identifier of the movie.
+    ///   - languageCode: Language code in ISO 639-1 format.
+    ///   - completionHandler: The completion handler to call when the request is complete.
+    func video(for type: Video.VideoType, site: Video.Site, identifier: Int, languageCode: String, completionHandler: VideoCompletionHandler?)
 }
 
 final class MovieManager: MovieManagement {
@@ -132,5 +164,16 @@ final class MovieManager: MovieManagement {
     
     func similarMovies(identifier: Int, languageCode: String, page: Int, completionHandler: SimilarMoviesCompletionHandler?) {
         networkController.similarMovies(identifier: identifier, languageCode: languageCode, page: page, completionHandler: completionHandler)
+    }
+    
+    func videos(identifier: Int, languageCode: String, completionHandler: VideosCompletionHandler?) {
+        networkController.videos(identifier: identifier, languageCode: languageCode, completionHandler: completionHandler)
+    }
+    
+    func video(for type: Video.VideoType, site: Video.Site, identifier: Int, languageCode: String, completionHandler: VideoCompletionHandler?) {
+        videos(identifier: identifier, languageCode: languageCode) { (videos, error) in
+            let video = videos?.first { $0.type == type && $0.site == site }
+            completionHandler?(video, error)
+        }
     }
 }

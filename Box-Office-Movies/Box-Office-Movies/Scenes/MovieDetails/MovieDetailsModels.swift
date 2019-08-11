@@ -20,6 +20,7 @@ enum MovieDetailsScene {
             let casting: Casting?
             let paginatedSimilarMovieLists: [PaginatedMovieList]?
             let posterData: Data?
+            let trailer: Video?
             let error: Error?
         }
         
@@ -92,8 +93,9 @@ enum DetailItem {
     
     case title(title: String)
     case additionalInformation(posterImage: UIImage?, releaseDateAttributedText: NSAttributedString?, voteAverageAttributedText: NSAttributedString?)
-    case synopsis(synopsis: String)
     case reviewMovie(review: String)
+    case trailer(urlRequest: URLRequest)
+    case synopsis(synopsis: String)
     case casting(actors: String)
     case similarMovies(similarMovies: String)
     
@@ -105,6 +107,8 @@ enum DetailItem {
             return AdditionalInformationTableViewCell.identifier
         case .reviewMovie:
             return Constants.CellIdentifier.reviewMovieTableViewCell
+        case .trailer:
+            return TrailerTableViewCell.identifier
         case .synopsis:
             return Constants.CellIdentifier.synopsisTableViewCell
         case .casting:

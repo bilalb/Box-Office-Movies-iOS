@@ -125,4 +125,40 @@ class MovieManagerTests: XCTestCase {
         
         wait(for: [expectation], timeout: 0.1)
     }
+    
+    func testVideos() {
+        // Given
+        let expectation = XCTestExpectation(description: "completion handler called")
+        
+        let identifier = 420818
+        let languageCode = "en-US"
+        
+        // When
+        sut.videos(identifier: identifier, languageCode: languageCode) { (videos, error) in
+            // Then
+            expectation.fulfill()
+            XCTAssertNotNil(videos)
+            XCTAssertNil(error)
+        }
+        
+        wait(for: [expectation], timeout: 0.1)
+    }
+    
+    func testVideo() {
+        // Given
+        let expectation = XCTestExpectation(description: "completion handler called")
+        
+        let identifier = 420818
+        let languageCode = "en-US"
+        
+        // When
+        sut.video(for: .trailer, site: .youTube, identifier: identifier, languageCode: languageCode) { (trailer, error) in
+            // Then
+            expectation.fulfill()
+            XCTAssertNotNil(trailer)
+            XCTAssertNil(error)
+        }
+        
+        wait(for: [expectation], timeout: 0.1)
+    }
 }
