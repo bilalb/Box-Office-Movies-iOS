@@ -144,7 +144,8 @@ extension MovieDetailsPresenter {
     func trailerItem(for trailer: Video?) -> DetailItem? {
         guard
             let trailer = trailer,
-            !trailer.key.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+            !trailer.key.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty,
+            trailer.site == .youTube
         else {
             return nil
         }

@@ -24,7 +24,7 @@ extension UIView {
         return Bundle.main.loadNibNamed(String(describing: name), owner: nil, options: nil)?.first as? T
     }
     
-    /// Adds constraints in order to the view to fill its superview.
+    /// Adds constraints to the view in order to fill its superview.
     ///
     /// - Parameters:
     ///   - padding: The padding for the edges. The default value is `.zero`.
@@ -32,11 +32,11 @@ extension UIView {
         guard let superview = superview else {
             return
         }
-        let left = NSLayoutConstraint(item: self, attribute: .left, relatedBy: .equal, toItem: superview, attribute: .left, multiplier: 1.0, constant: padding.left)
-        let right = NSLayoutConstraint(item: superview, attribute: .right, relatedBy: .equal, toItem: self, attribute: .right, multiplier: 1.0, constant: padding.right)
-        let top = NSLayoutConstraint(item: self, attribute: .top, relatedBy: .equal, toItem: superview, attribute: .top, multiplier: 1.0, constant: padding.top)
-        let bottom = NSLayoutConstraint(item: superview, attribute: .bottom, relatedBy: .equal, toItem: self, attribute: .bottom, multiplier: 1.0, constant: padding.bottom)
+        let leftConstraint = NSLayoutConstraint(item: self, attribute: .left, relatedBy: .equal, toItem: superview, attribute: .left, multiplier: 1.0, constant: padding.left)
+        let rightConstraint = NSLayoutConstraint(item: superview, attribute: .right, relatedBy: .equal, toItem: self, attribute: .right, multiplier: 1.0, constant: padding.right)
+        let topConstraint = NSLayoutConstraint(item: self, attribute: .top, relatedBy: .equal, toItem: superview, attribute: .top, multiplier: 1.0, constant: padding.top)
+        let bottomConstraint = NSLayoutConstraint(item: superview, attribute: .bottom, relatedBy: .equal, toItem: self, attribute: .bottom, multiplier: 1.0, constant: padding.bottom)
         
-        superview.addConstraints([left, right, top, bottom])
+        superview.addConstraints([leftConstraint, rightConstraint, topConstraint, bottomConstraint])
     }
 }
