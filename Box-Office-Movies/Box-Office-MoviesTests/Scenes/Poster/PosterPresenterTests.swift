@@ -38,7 +38,7 @@ class PosterPresenterTests: XCTestCase {
         
         var displayPosterImageExpectation = XCTestExpectation(description: "displayPosterImage called")
         
-        func displayPosterImage(viewModel: Poster.LoadPosterImage.ViewModel) {
+        func displayPosterImage(viewModel: Poster.FetchPosterImage.ViewModel) {
             displayPosterImageExpectation.fulfill()
         }
     }
@@ -49,7 +49,8 @@ class PosterPresenterTests: XCTestCase {
         // Given
         let spy = PosterDisplayLogicSpy()
         sut.viewController = spy
-        let response = Poster.LoadPosterImage.Response(posterData: nil)
+        
+        let response = Poster.FetchPosterImage.Response(posterData: nil)
         
         // When
         sut.presentPosterImage(response: response)

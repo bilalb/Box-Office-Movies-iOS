@@ -10,7 +10,7 @@ import UIKit
 
 enum Poster {
     
-    enum LoadPosterImage {
+    enum FetchPosterImage {
         
         struct Request { }
         

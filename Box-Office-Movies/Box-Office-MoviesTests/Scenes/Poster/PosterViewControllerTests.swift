@@ -45,10 +45,10 @@ class PosterViewControllerTests: XCTestCase {
     
     class PosterBusinessLogicSpy: PosterBusinessLogic {
         
-        var loadPosterImageCalled = false
+        var fetchPosterImageCalled = false
         
-        func loadPosterImage(request: Poster.LoadPosterImage.Request) {
-            loadPosterImageCalled = true
+        func fetchPosterImage(request: Poster.FetchPosterImage.Request) {
+            fetchPosterImageCalled = true
         }
     }
     
@@ -71,12 +71,12 @@ class PosterViewControllerTests: XCTestCase {
         loadView()
         
         // Then
-        XCTAssertTrue(spy.loadPosterImageCalled, "viewDidLoad() should ask the interactor to do loadPosterImage")
+        XCTAssertTrue(spy.fetchPosterImageCalled, "viewDidLoad() should ask the interactor to do fetchPosterImage")
     }
     
     func testDisplayPosterImage() {
         // Given
-        let viewModel = Poster.LoadPosterImage.ViewModel(posterImage: nil)
+        let viewModel = Poster.FetchPosterImage.ViewModel(posterImage: nil)
         
         // When
         loadView()

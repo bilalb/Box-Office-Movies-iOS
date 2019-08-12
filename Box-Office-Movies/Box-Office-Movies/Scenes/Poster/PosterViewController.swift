@@ -9,7 +9,7 @@
 import UIKit
 
 protocol PosterDisplayLogic: class {
-    func displayPosterImage(viewModel: Poster.LoadPosterImage.ViewModel)
+    func displayPosterImage(viewModel: Poster.FetchPosterImage.ViewModel)
 }
 
 class PosterViewController: UIViewController {
@@ -33,16 +33,16 @@ class PosterViewController: UIViewController {
     // MARK: View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        loadPosterImage()
+        fetchPosterImage()
     }
 }
 
 // MARK: - Private Functions
 private extension PosterViewController {
     
-    func loadPosterImage() {
-        let request = Poster.LoadPosterImage.Request()
-        interactor?.loadPosterImage(request: request)
+    func fetchPosterImage() {
+        let request = Poster.FetchPosterImage.Request()
+        interactor?.fetchPosterImage(request: request)
     }
     
     @IBAction func doneButtonItemPressed() {
@@ -57,7 +57,7 @@ private extension PosterViewController {
 // MARK: - Display Logic
 extension PosterViewController: PosterDisplayLogic {
     
-    func displayPosterImage(viewModel: Poster.LoadPosterImage.ViewModel) {
+    func displayPosterImage(viewModel: Poster.FetchPosterImage.ViewModel) {
         posterImageView?.image = viewModel.posterImage
     }
 }

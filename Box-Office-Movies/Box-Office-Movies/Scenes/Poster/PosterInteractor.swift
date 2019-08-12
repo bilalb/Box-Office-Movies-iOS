@@ -15,7 +15,7 @@ protocol PosterDataStore {
 }
 
 protocol PosterBusinessLogic {
-    func loadPosterImage(request: Poster.LoadPosterImage.Request)
+    func fetchPosterImage(request: Poster.FetchPosterImage.Request)
 }
 
 class PosterInteractor: PosterDataStore {
@@ -28,7 +28,7 @@ class PosterInteractor: PosterDataStore {
 
 extension PosterInteractor: PosterBusinessLogic {
     
-    func loadPosterImage(request: Poster.LoadPosterImage.Request) {
+    func fetchPosterImage(request: Poster.FetchPosterImage.Request) {
         guard
             let imageSecureBaseURLPath = imageSecureBaseURLPath,
             let posterPath = posterPath
@@ -36,7 +36,7 @@ extension PosterInteractor: PosterBusinessLogic {
             return
         }
         ManagerProvider.shared.movieManager.posterData(imageSecureBaseURL: imageSecureBaseURLPath, posterSize: Constants.Fallback.largePosterImageSize, posterPath: posterPath) { [weak self] (posterData, error) in
-            let response = Poster.LoadPosterImage.Response(posterData: posterData)
+            let response = Poster.FetchPosterImage.Response(posterData: posterData)
             self?.presenter?.presentPosterImage(response: response)
         }
     }

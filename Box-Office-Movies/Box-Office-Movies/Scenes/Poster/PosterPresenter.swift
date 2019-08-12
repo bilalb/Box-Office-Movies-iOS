@@ -9,7 +9,7 @@
 import UIKit
 
 protocol PosterPresentationLogic {
-    func presentPosterImage(response: Poster.LoadPosterImage.Response)
+    func presentPosterImage(response: Poster.FetchPosterImage.Response)
 }
 
 class PosterPresenter {
@@ -18,10 +18,10 @@ class PosterPresenter {
 
 extension PosterPresenter: PosterPresentationLogic {
     
-    func presentPosterImage(response: Poster.LoadPosterImage.Response) {
+    func presentPosterImage(response: Poster.FetchPosterImage.Response) {
         DispatchQueue.main.async {
             let posterImage = UIImage(data: response.posterData ?? Data())
-            let viewModel = Poster.LoadPosterImage.ViewModel(posterImage: posterImage)
+            let viewModel = Poster.FetchPosterImage.ViewModel(posterImage: posterImage)
             self.viewController?.displayPosterImage(viewModel: viewModel)
         }
     }

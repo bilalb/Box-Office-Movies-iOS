@@ -38,14 +38,14 @@ class PosterInteractorTests: XCTestCase {
         
         var presentPosterImageExpectation = XCTestExpectation(description: "presentPosterImage called")
         
-        func presentPosterImage(response: Poster.LoadPosterImage.Response) {
+        func presentPosterImage(response: Poster.FetchPosterImage.Response) {
             presentPosterImageExpectation.fulfill()
         }
     }
     
     // MARK: Tests
     
-    func testLoadPosterImage() {
+    func testFetchPosterImage() {
         // Given
         let spy = PosterPresentationLogicSpy()
         sut.presenter = spy
@@ -53,10 +53,10 @@ class PosterInteractorTests: XCTestCase {
         sut.imageSecureBaseURLPath = "https://image.tmdb.org/t/p/"
         sut.posterPath = ""
         
-        let request = Poster.LoadPosterImage.Request()
+        let request = Poster.FetchPosterImage.Request()
         
         // When
-        sut.loadPosterImage(request: request)
+        sut.fetchPosterImage(request: request)
         
         // Then
         wait(for: [spy.presentPosterImageExpectation], timeout: 0.1)
