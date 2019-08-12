@@ -72,3 +72,11 @@ extension PosterViewController: PosterDisplayLogic {
         posterImageView?.image = viewModel.posterImage
     }
 }
+
+// MARK: - UIScrollViewDelegate
+extension PosterViewController: UIScrollViewDelegate {
+    
+    func viewForZooming(in scrollView: UIScrollView) -> UIView? {
+        return posterImageView
+    }
+}

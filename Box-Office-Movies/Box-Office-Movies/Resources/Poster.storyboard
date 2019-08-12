@@ -18,17 +18,33 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Ia3-f6-4fO">
-                                <rect key="frame" x="16" y="104" width="382" height="742"/>
-                                <gestureRecognizers/>
-                            </imageView>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" maximumZoomScale="6" translatesAutoresizingMaskIntoConstraints="NO" id="xhE-CT-6oY">
+                                <rect key="frame" x="0.0" y="88" width="414" height="808"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Ia3-f6-4fO">
+                                        <rect key="frame" x="8" y="8" width="398" height="792"/>
+                                        <gestureRecognizers/>
+                                    </imageView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="Ia3-f6-4fO" firstAttribute="top" secondItem="xhE-CT-6oY" secondAttribute="top" constant="8" id="HQv-6H-Itc"/>
+                                    <constraint firstAttribute="trailing" secondItem="Ia3-f6-4fO" secondAttribute="trailing" constant="8" id="OWT-LO-rs2"/>
+                                    <constraint firstAttribute="bottom" secondItem="Ia3-f6-4fO" secondAttribute="bottom" constant="8" id="QXH-H5-pnx"/>
+                                    <constraint firstItem="Ia3-f6-4fO" firstAttribute="width" secondItem="xhE-CT-6oY" secondAttribute="width" constant="-16" id="a5K-ay-YL2"/>
+                                    <constraint firstItem="Ia3-f6-4fO" firstAttribute="leading" secondItem="xhE-CT-6oY" secondAttribute="leading" constant="8" id="g8q-cC-GQW"/>
+                                    <constraint firstItem="Ia3-f6-4fO" firstAttribute="height" secondItem="xhE-CT-6oY" secondAttribute="height" constant="-16" id="wO1-aC-rLK"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="delegate" destination="QF3-jM-bz5" id="fJD-yu-Js3"/>
+                                </connections>
+                            </scrollView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="S7R-XN-Sp2" firstAttribute="trailing" secondItem="Ia3-f6-4fO" secondAttribute="trailing" constant="16" id="MUR-nk-ULY"/>
-                            <constraint firstItem="Ia3-f6-4fO" firstAttribute="top" secondItem="S7R-XN-Sp2" secondAttribute="top" constant="16" id="QOd-8F-ltD"/>
-                            <constraint firstItem="S7R-XN-Sp2" firstAttribute="bottom" secondItem="Ia3-f6-4fO" secondAttribute="bottom" constant="16" id="qF6-Bv-v68"/>
-                            <constraint firstItem="Ia3-f6-4fO" firstAttribute="leading" secondItem="S7R-XN-Sp2" secondAttribute="leading" constant="16" id="rQb-fy-HmK"/>
+                            <constraint firstItem="S7R-XN-Sp2" firstAttribute="trailing" secondItem="xhE-CT-6oY" secondAttribute="trailing" id="Iil-gP-uOF"/>
+                            <constraint firstItem="xhE-CT-6oY" firstAttribute="leading" secondItem="S7R-XN-Sp2" secondAttribute="leading" id="ewW-uZ-FsN"/>
+                            <constraint firstAttribute="bottom" secondItem="xhE-CT-6oY" secondAttribute="bottom" id="gb8-9F-VVd"/>
+                            <constraint firstItem="xhE-CT-6oY" firstAttribute="top" secondItem="S7R-XN-Sp2" secondAttribute="top" id="z9v-UE-CZp"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="S7R-XN-Sp2"/>
                         <connections>
