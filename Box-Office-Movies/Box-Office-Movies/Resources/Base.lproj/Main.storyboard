@@ -26,7 +26,7 @@
             </objects>
             <point key="canvasLocation" x="-38" y="-630"/>
         </scene>
-        <!--Details-->
+        <!--Movie Details View Controller-->
         <scene sceneID="Bgm-3u-835">
             <objects>
                 <viewController storyboardIdentifier="MovieDetailsViewController" id="tv7-ki-w9G" customClass="MovieDetailsViewController" customModule="Box_Office_Movies" customModuleProvider="target" sceneMemberID="viewController">
@@ -290,7 +290,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="prS-A0-1ow"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Details" id="eKw-D0-SvX">
+                    <navigationItem key="navigationItem" id="eKw-D0-SvX">
                         <barButtonItem key="rightBarButtonItem" title="☆" id="42H-Yw-T7n">
                             <connections>
                                 <action selector="toggleFavoriteBarButtonItemPressed" destination="tv7-ki-w9G" id="YWv-bU-PJV"/>

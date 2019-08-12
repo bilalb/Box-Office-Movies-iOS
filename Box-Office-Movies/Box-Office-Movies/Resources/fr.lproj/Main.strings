@@ -35,9 +35,6 @@
 /* Class = "UINavigationController"; title = "Master"; ObjectID = "RMx-3f-FxP"; */
 "RMx-3f-FxP.title" = "Master";
 
-/* Class = "UINavigationItem"; title = "Details"; ObjectID = "eKw-D0-SvX"; */
-"eKw-D0-SvX.title" = "Détails";
-
 /* Class = "UILabel"; text = "Label ★★★☆☆"; ObjectID = "fon-6G-AUB"; */
 "fon-6G-AUB.text" = "Label ★★★☆☆";
 
