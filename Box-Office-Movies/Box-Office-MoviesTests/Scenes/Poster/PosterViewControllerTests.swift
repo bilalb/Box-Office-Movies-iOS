@@ -103,4 +103,17 @@ class PosterViewControllerTests: XCTestCase {
         // Then
         XCTAssertNil(sut.posterImageView?.image, "displayPosterImage(viewModel:) should update the image")
     }
+    
+    func testViewForZooming() {
+        // Given
+        loadView()
+        
+        let scrollView = UIScrollView()
+        
+        // When
+        let view = sut.viewForZooming(in: scrollView)
+        
+        // Then
+        XCTAssertEqual(view, sut.posterImageView, "viewForZooming(in:) should return the posterImageView")
+    }
 }
