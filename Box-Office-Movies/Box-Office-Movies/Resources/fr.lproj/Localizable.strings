@@ -7,7 +7,7 @@
 //
 
 // MARK: List scene
-"all" = "Tous";
+"nowPlaying" = "En salle";
 "favorites" = "Favoris";
 "noResults" = "Aucun résultat";
 "noFavorites" = "Aucun favori";

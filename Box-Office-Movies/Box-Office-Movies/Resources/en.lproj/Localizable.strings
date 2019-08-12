@@ -7,7 +7,7 @@
 //
 
 // MARK: List scene
-"all" = "All";
+"nowPlaying" = "Now Playing";
 "favorites" = "Favorites";
 "noResults" = "No Results";
 "noFavorites" = "No Favorites";

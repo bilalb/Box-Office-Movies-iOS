@@ -110,7 +110,7 @@ private extension NowPlayingMoviesViewController {
         guard segmentedControl.numberOfSegments == 2 else {
             return
         }
-        let titles = [NSLocalizedString("all", comment: "all"),
+        let titles = [NSLocalizedString("nowPlaying", comment: "nowPlaying"),
                       NSLocalizedString("favorites", comment: "favorites")]
         for i in 0 ..< segmentedControl.numberOfSegments {
             segmentedControl.setTitle(titles[i], forSegmentAt: i)
