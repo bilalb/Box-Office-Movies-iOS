@@ -36,7 +36,12 @@ class PosterPresenterTests: XCTestCase {
     
     class PosterDisplayLogicSpy: PosterDisplayLogic {
         
+        var displaySmallSizePosterImageCalled = false
         var displayPosterImageExpectation = XCTestExpectation(description: "displayPosterImage called")
+        
+        func displaySmallSizePosterImage(viewModel: Poster.LoadSmallSizePosterImage.ViewModel) {
+            displaySmallSizePosterImageCalled = true
+        }
         
         func displayPosterImage(viewModel: Poster.FetchPosterImage.ViewModel) {
             displayPosterImageExpectation.fulfill()
@@ -44,6 +49,20 @@ class PosterPresenterTests: XCTestCase {
     }
     
     // MARK: Tests
+    
+    func testPresentSmallSizePosterImage() {
+        // Given
+        let spy = PosterDisplayLogicSpy()
+        sut.viewController = spy
+        
+        let response = Poster.LoadSmallSizePosterImage.Response(smallSizePosterData: nil)
+        
+        // When
+        sut.presentSmallSizePosterImage(response: response)
+        
+        // Then
+        XCTAssertTrue(spy.displaySmallSizePosterImageCalled, "presentSmallSizePosterImage(response:) should ask the view controller to display the result")
+    }
     
     func testPresentPosterImage() {
         // Given

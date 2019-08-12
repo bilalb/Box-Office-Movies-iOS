@@ -36,7 +36,12 @@ class PosterInteractorTests: XCTestCase {
     
     class PosterPresentationLogicSpy: PosterPresentationLogic {
         
+        var presentSmallSizePosterImageCalled = false
         var presentPosterImageExpectation = XCTestExpectation(description: "presentPosterImage called")
+        
+        func presentSmallSizePosterImage(response: Poster.LoadSmallSizePosterImage.Response) {
+            presentSmallSizePosterImageCalled = true
+        }
         
         func presentPosterImage(response: Poster.FetchPosterImage.Response) {
             presentPosterImageExpectation.fulfill()
@@ -44,6 +49,20 @@ class PosterInteractorTests: XCTestCase {
     }
     
     // MARK: Tests
+    
+    func testPresentSmallSizePosterImage() {
+        // Given
+        let spy = PosterPresentationLogicSpy()
+        sut.presenter = spy
+        
+        let request = Poster.LoadSmallSizePosterImage.Request()
+        
+        // When
+        sut.loadSmallSizePosterImage(request: request)
+        
+        // Then
+        XCTAssertTrue(spy.presentSmallSizePosterImageCalled, "loadSmallSizePosterImage(request:) should ask the presenter to format the result")
+    }
     
     func testFetchPosterImage() {
         // Given

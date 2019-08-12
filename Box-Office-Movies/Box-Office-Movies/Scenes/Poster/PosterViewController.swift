@@ -9,6 +9,7 @@
 import UIKit
 
 protocol PosterDisplayLogic: class {
+    func displaySmallSizePosterImage(viewModel: Poster.LoadSmallSizePosterImage.ViewModel)
     func displayPosterImage(viewModel: Poster.FetchPosterImage.ViewModel)
 }
 
@@ -33,12 +34,18 @@ class PosterViewController: UIViewController {
     // MARK: View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        loadSmallSizePosterImage()
         fetchPosterImage()
     }
 }
 
 // MARK: - Private Functions
 private extension PosterViewController {
+    
+    func loadSmallSizePosterImage() {
+        let request = Poster.LoadSmallSizePosterImage.Request()
+        interactor?.loadSmallSizePosterImage(request: request)
+    }
     
     func fetchPosterImage() {
         let request = Poster.FetchPosterImage.Request()
@@ -56,6 +63,10 @@ private extension PosterViewController {
 
 // MARK: - Display Logic
 extension PosterViewController: PosterDisplayLogic {
+    
+    func displaySmallSizePosterImage(viewModel: Poster.LoadSmallSizePosterImage.ViewModel) {
+        posterImageView?.image = viewModel.smallSizePosterImage
+    }
     
     func displayPosterImage(viewModel: Poster.FetchPosterImage.ViewModel) {
         posterImageView?.image = viewModel.posterImage

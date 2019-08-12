@@ -10,6 +10,19 @@ import UIKit
 
 enum Poster {
     
+    enum LoadSmallSizePosterImage {
+        
+        struct Request { }
+        
+        struct Response {
+            let smallSizePosterData: Data?
+        }
+        
+        struct ViewModel {
+            let smallSizePosterImage: UIImage?
+        }
+    }
+    
     enum FetchPosterImage {
         
         struct Request { }

@@ -44,6 +44,7 @@ private extension MovieDetailsRouter {
     }
     
     func passDataToPoster(source: MovieDetailsDataStore, destination: inout PosterDataStore) {
+        destination.smallSizePosterData = source.posterData
         destination.imageSecureBaseURLPath = source.imageSecureBaseURLPath
         destination.posterPath = source.posterPath
     }

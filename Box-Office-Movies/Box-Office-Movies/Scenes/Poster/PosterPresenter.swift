@@ -9,6 +9,7 @@
 import UIKit
 
 protocol PosterPresentationLogic {
+    func presentSmallSizePosterImage(response: Poster.LoadSmallSizePosterImage.Response)
     func presentPosterImage(response: Poster.FetchPosterImage.Response)
 }
 
@@ -17,6 +18,12 @@ class PosterPresenter {
 }
 
 extension PosterPresenter: PosterPresentationLogic {
+    
+    func presentSmallSizePosterImage(response: Poster.LoadSmallSizePosterImage.Response) {
+        let smallSizePosterImage = UIImage(data: response.smallSizePosterData ?? Data())
+        let viewModel = Poster.LoadSmallSizePosterImage.ViewModel(smallSizePosterImage: smallSizePosterImage)
+        viewController?.displaySmallSizePosterImage(viewModel: viewModel)
+    }
     
     func presentPosterImage(response: Poster.FetchPosterImage.Response) {
         DispatchQueue.main.async {

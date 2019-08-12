@@ -45,7 +45,12 @@ class PosterViewControllerTests: XCTestCase {
     
     class PosterBusinessLogicSpy: PosterBusinessLogic {
         
+        var loadSmallSizePosterImageCalled = false
         var fetchPosterImageCalled = false
+        
+        func loadSmallSizePosterImage(request: Poster.LoadSmallSizePosterImage.Request) {
+            loadSmallSizePosterImageCalled = true
+        }
         
         func fetchPosterImage(request: Poster.FetchPosterImage.Request) {
             fetchPosterImageCalled = true
@@ -71,7 +76,20 @@ class PosterViewControllerTests: XCTestCase {
         loadView()
         
         // Then
+        XCTAssertTrue(spy.loadSmallSizePosterImageCalled, "viewDidLoad() should ask the interactor to do loadSmallSizePosterImage")
         XCTAssertTrue(spy.fetchPosterImageCalled, "viewDidLoad() should ask the interactor to do fetchPosterImage")
+    }
+    
+    func testDisplaySmallSizePosterImage() {
+        // Given
+        let viewModel = Poster.LoadSmallSizePosterImage.ViewModel(smallSizePosterImage: nil)
+        
+        // When
+        loadView()
+        sut.displaySmallSizePosterImage(viewModel: viewModel)
+        
+        // Then
+        XCTAssertNil(sut.posterImageView?.image, "displaySmallSizePosterImage(viewModel:) should update the image")
     }
     
     func testDisplayPosterImage() {
