@@ -1,0 +1,35 @@
+{
+  "default": {
+    "title": {
+      "color": "#545454"
+    },
+    "background": "./background.jpg",
+    "padding": 50
+  },
+  "data": [
+    {
+      "filter": "MovieList",
+      "keyword": {
+        "color": "#d21559"
+      }
+    },
+    {
+      "filter": "SearchInput",
+      "keyword": {
+        "color": "#feb909"
+      }
+    },
+    {
+      "filter": "MovieDetails",
+      "keyword": {
+        "color": "#aa4dbc"
+      }
+    },
+    {
+      "filter": "Favorites",
+      "keyword": {
+        "color": "#31bb48"
+      }
+    }
+  ]
+}
