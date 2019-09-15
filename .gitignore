@@ -1,2 +1,3 @@
-Box-Office-Movies/fastlane/screenshots
 builds
+Box-Office-Movies/fastlane/screenshots/*/*.png
+Box-Office-Movies/fastlane/screenshots/screenshots.html
