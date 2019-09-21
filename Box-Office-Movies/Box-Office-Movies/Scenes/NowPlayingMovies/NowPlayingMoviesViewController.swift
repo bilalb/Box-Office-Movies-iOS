@@ -68,6 +68,7 @@ class NowPlayingMoviesViewController: UIViewController {
         configureSearchController()
         configureRefreshControl()
         configureEditButtonItem()
+        configureTableView()
         fetchNowPlayingMovies()
     }
     
@@ -130,6 +131,11 @@ private extension NowPlayingMoviesViewController {
     
     @objc func refreshControlTriggered() {
         refreshMovies()
+    }
+    
+    func configureTableView() {
+        // To change the color (to the default system background color) behind the table's sections and rows
+        nowPlayingMoviesTableView.backgroundView = UIView()
     }
     
     func refreshMovies() {
