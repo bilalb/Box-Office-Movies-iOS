@@ -100,45 +100,33 @@ extension MovieDetailsPresenter: MovieDetailsPresentationLogic {
 extension MovieDetailsPresenter {
     
     func additionalInformationItem(for movieDetails: MovieDetails, posterData: Data?) -> DetailItem {
-        let attributes: [NSAttributedString.Key: Any] = [.foregroundColor: UIColor.darkText,
-                                                         .font: UIFont.boldSystemFont(ofSize: 15)]
-        
         var posterImage: UIImage? {
             if let posterData = posterData {
                 return UIImage(data: posterData)
             }
             return nil
         }
-        var releaseDateAttributedString: NSAttributedString? {
+        
+        var releaseDate: String? {
             let iso8601DateFormatter = ISO8601DateFormatter()
             iso8601DateFormatter.formatOptions = [.withFullDate, .withDashSeparatorInDate]
             if let releaseDate = iso8601DateFormatter.date(from: movieDetails.releaseDate) {
                 let dateFormatter = DateFormatter()
                 dateFormatter.dateStyle = .short
-                dateFormatter.locale = Locale.current
+                dateFormatter.locale = .current
                 let releaseDateString = dateFormatter.string(from: releaseDate)
-                
-                let releaseDateText = "\(NSLocalizedString("releaseDate", comment: "releaseDate"))\n\(releaseDateString)"
-                let releaseDateAttributedString = NSMutableAttributedString(string: releaseDateText)
-                let range = NSRange(location: 0, length: NSLocalizedString("releaseDate", comment: "releaseDate").count)
-                releaseDateAttributedString.addAttributes(attributes, range: range)
-                
-                return releaseDateAttributedString
+                return releaseDateString
             } else {
                 return nil
             }
         }
         
-        var voteAverageAttributedString: NSAttributedString? {
-            let voteAverage = "\(NSLocalizedString("averageVote", comment: "averageVote"))\n\(movieDetails.formattedVoteAverage)"
-            let voteAverageAttributedString = NSMutableAttributedString(string: voteAverage)
-            let range = NSRange(location: 0, length: NSLocalizedString("averageVote", comment: "averageVote").count)
-            voteAverageAttributedString.addAttributes(attributes, range: range)
-            
-            return voteAverageAttributedString
+        var voteAverage: String? {
+            let voteAverage = "\(movieDetails.formattedVoteAverage)"
+            return voteAverage
         }
         
-        return DetailItem.additionalInformation(posterImage: posterImage, releaseDateAttributedText: releaseDateAttributedString, voteAverageAttributedText: voteAverageAttributedString)
+        return DetailItem.additionalInformation(posterImage: posterImage, releaseDate: releaseDate, voteAverage: voteAverage)
     }
     
     func trailerItem(for trailer: Video?) -> DetailItem? {

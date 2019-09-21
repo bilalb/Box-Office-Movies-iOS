@@ -301,7 +301,7 @@ extension DetailItem {
     
     static var dummyInstances: [DetailItem] {
         return [DetailItem.title(title: "Whiplash"),
-                DetailItem.additionalInformation(posterImage: nil, releaseDateAttributedText: NSAttributedString(string: "05/04/2019"), voteAverageAttributedText: NSAttributedString(string: "★★★★☆")),
+                DetailItem.additionalInformation(posterImage: nil, releaseDate: "05/04/2019", voteAverage: "★★★★☆"),
                 DetailItem.reviewMovie(review: "review"),
                 DetailItem.trailer(urlRequest: URLRequest(url: URL(string: "https://www.youtube.com/embed/7TavVZMewpY")!)),
                 DetailItem.synopsis(synopsis: "masterpiece"),
