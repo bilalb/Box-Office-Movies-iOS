@@ -97,6 +97,17 @@ private extension MovieDetailsViewController {
         let request = MovieDetailsScene.ToggleFavorite.Request()
         interactor?.toggleFavorite(request: request)
     }
+
+    func refreshFavoriteMovies() {
+        var nowPlayingMoviesViewController: NowPlayingMoviesViewController?
+        splitViewController?.viewControllers.forEach({ viewController in
+            if let navigationController = viewController as? UINavigationController,
+                let matchingViewController = navigationController.viewControllers.first(where: { $0 is NowPlayingMoviesViewController }) as? NowPlayingMoviesViewController {
+                nowPlayingMoviesViewController = matchingViewController
+            }
+        })
+        nowPlayingMoviesViewController?.refreshFavoriteMovies()
+    }
     
     @IBAction func posterImageViewTapGestureRecognizerPressed() {
         router?.routeToPoster()
@@ -147,6 +158,7 @@ extension MovieDetailsViewController: MovieDetailsDisplayLogic {
     
     func displayToggleFavorite(viewModel: MovieDetailsScene.ToggleFavorite.ViewModel) {
         toggleFavoriteBarButtonItem.title = viewModel.toggleFavoriteBarButtonItemTitle
+        refreshFavoriteMovies()
     }
     
     func displayFavoriteToggle(viewModel: MovieDetailsScene.LoadFavoriteToggle.ViewModel) {

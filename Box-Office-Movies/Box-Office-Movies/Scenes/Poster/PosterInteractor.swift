@@ -43,7 +43,7 @@ extension PosterInteractor: PosterBusinessLogic {
         else {
             return
         }
-        ManagerProvider.shared.movieManager.posterData(imageSecureBaseURL: imageSecureBaseURLPath, posterSize: Constants.Fallback.largePosterImageSize, posterPath: posterPath) { [weak self] (posterData, error) in
+        ManagerProvider.shared.movieManager.posterData(imageSecureBaseURL: imageSecureBaseURLPath, posterSize: Constants.Fallback.largePosterImageSize, posterPath: posterPath) { [weak self] (posterData, _) in
             let response = Poster.FetchPosterImage.Response(posterData: posterData)
             self?.presenter?.presentPosterImage(response: response)
         }

@@ -207,22 +207,22 @@ private extension NowPlayingMoviesViewController {
 }
 
 // MARK: - Favorite movies - Private Functions
-private extension NowPlayingMoviesViewController {
+extension NowPlayingMoviesViewController {
     
-    func configureEditButtonItem() {
+    private func configureEditButtonItem() {
         editButtonItem.action = #selector(editButtonItemPressed)
     }
     
-    @objc func editButtonItemPressed() {
+    @objc private func editButtonItemPressed() {
         setEditing(!isEditing, animated: true)
     }
     
-    func removeMovieFromFavorites(at indexPath: IndexPath) {
+    private func removeMovieFromFavorites(at indexPath: IndexPath) {
         let request = NowPlayingMovies.RemoveMovieFromFavorites.Request(indexPathForMovieToRemove: indexPath, editButtonItem: editButtonItem)
         interactor?.removeMovieFromFavorites(request: request)
     }
     
-    func loadFavoriteMovies() {
+    private func loadFavoriteMovies() {
         let request = NowPlayingMovies.LoadFavoriteMovies.Request(editButtonItem: editButtonItem)
         interactor?.loadFavoriteMovies(request: request)
     }
