@@ -41,10 +41,12 @@ extension PosterInteractor: PosterBusinessLogic {
             let imageSecureBaseURLPath = imageSecureBaseURLPath,
             let posterPath = posterPath
         else {
+            let response = Poster.FetchPosterImage.Response(posterData: nil, error: FetchPosterImageError.posterPathNil)
+            presenter?.presentPosterImage(response: response)
             return
         }
-        ManagerProvider.shared.movieManager.posterData(imageSecureBaseURL: imageSecureBaseURLPath, posterSize: Constants.Fallback.largePosterImageSize, posterPath: posterPath) { [weak self] (posterData, _) in
-            let response = Poster.FetchPosterImage.Response(posterData: posterData)
+        ManagerProvider.shared.movieManager.posterData(imageSecureBaseURL: imageSecureBaseURLPath, posterSize: Constants.Fallback.largePosterImageSize, posterPath: posterPath) { [weak self] (posterData, error) in
+            let response = Poster.FetchPosterImage.Response(posterData: posterData, error: error)
             self?.presenter?.presentPosterImage(response: response)
         }
     }

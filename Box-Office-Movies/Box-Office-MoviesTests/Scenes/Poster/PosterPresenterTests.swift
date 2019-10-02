@@ -69,7 +69,7 @@ class PosterPresenterTests: XCTestCase {
         let spy = PosterDisplayLogicSpy()
         sut.viewController = spy
         
-        let response = Poster.FetchPosterImage.Response(posterData: nil)
+        let response = Poster.FetchPosterImage.Response(posterData: nil, error: nil)
         
         // When
         sut.presentPosterImage(response: response)
