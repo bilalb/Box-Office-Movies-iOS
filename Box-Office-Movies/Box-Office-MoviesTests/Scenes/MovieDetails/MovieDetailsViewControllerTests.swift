@@ -93,7 +93,7 @@ class MovieDetailsViewControllerTests: XCTestCase {
     
     func testDisplayMovieDetails() {
         // Given
-        let viewModel = MovieDetailsScene.FetchMovieDetails.ViewModel(detailItems: DetailItem.dummyInstances, shouldHideErrorView: true, errorDescription: nil)
+        let viewModel = MovieDetailsScene.FetchMovieDetails.ViewModel(detailItems: DetailItem.dummyInstances, shouldHideErrorView: true, errorDescription: nil, shouldShowNetworkActivityIndicator: true)
         
         // When
         loadView()
