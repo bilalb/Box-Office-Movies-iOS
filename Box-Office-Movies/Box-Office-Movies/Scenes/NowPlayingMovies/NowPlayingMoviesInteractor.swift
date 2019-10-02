@@ -13,7 +13,7 @@ protocol NowPlayingMoviesDataStore {
     var movies: [Movie]? { get }
     var favoriteMovies: [Movie]? { get }
     var filteredMovies: [Movie]? { get }
-    var state: State { get }
+    var state: NowPlayingMoviesInteractor.State { get }
 }
 
 protocol NowPlayingMoviesBusinessLogic {
@@ -50,9 +50,12 @@ class NowPlayingMoviesInteractor: NowPlayingMoviesDataStore {
     var state = State.allMovies
 }
 
-enum State {
-    case allMovies
-    case favorites
+extension NowPlayingMoviesInteractor {
+
+    enum State {
+        case allMovies
+        case favorites
+    }
 }
 
 extension NowPlayingMoviesInteractor: NowPlayingMoviesBusinessLogic {

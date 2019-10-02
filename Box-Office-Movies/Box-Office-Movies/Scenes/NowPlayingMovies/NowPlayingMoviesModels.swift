@@ -88,7 +88,7 @@ enum NowPlayingMovies {
         }
         
         struct Response {
-            let state: State
+            let state: NowPlayingMoviesInteractor.State
             let searchText: String?
             let movies: [Movie]?
         }
