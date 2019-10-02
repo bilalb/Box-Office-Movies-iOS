@@ -133,6 +133,7 @@ private extension NowPlayingMoviesViewController {
     }
     
     func refreshMovies() {
+        UIApplication.shared.isNetworkActivityIndicatorVisible = true
         let request = NowPlayingMovies.RefreshMovies.Request()
         interactor?.refreshMovies(request: request)
     }
@@ -147,6 +148,8 @@ private extension NowPlayingMoviesViewController {
         navigationItem.setRightBarButton(nil, animated: true)
         nowPlayingMoviesTableView.refreshControl = refreshControl
         
+        UIApplication.shared.isNetworkActivityIndicatorVisible = true
+
         let request = NowPlayingMovies.FetchNowPlayingMovies.Request()
         interactor?.fetchNowPlayingMovies(request: request)
     }
@@ -154,6 +157,8 @@ private extension NowPlayingMoviesViewController {
     func fetchNextPage() {
         let shouldFetchNextPage = presentedViewController == nil
         if shouldFetchNextPage {
+            UIApplication.shared.isNetworkActivityIndicatorVisible = true
+
             let request = NowPlayingMovies.FetchNextPage.Request()
             interactor?.fetchNextPage(request: request)
         }
@@ -232,6 +237,7 @@ extension NowPlayingMoviesViewController {
 extension NowPlayingMoviesViewController: NowPlayingMoviesDisplayLogic {
     
     func displayNowPlayingMovies(viewModel: NowPlayingMovies.FetchNowPlayingMovies.ViewModel) {
+        UIApplication.shared.isNetworkActivityIndicatorVisible = false
         movieItems = viewModel.movieItems
         hasError = !viewModel.shouldHideErrorView
         errorStackView.isHidden = viewModel.shouldHideErrorView
@@ -239,6 +245,7 @@ extension NowPlayingMoviesViewController: NowPlayingMoviesDisplayLogic {
     }
     
     func displayNextPage(viewModel: NowPlayingMovies.FetchNextPage.ViewModel) {
+        UIApplication.shared.isNetworkActivityIndicatorVisible = false
         movieItems = viewModel.movieItems
         hasError = viewModel.shouldPresentErrorAlert
         if viewModel.shouldPresentErrorAlert {
@@ -255,6 +262,7 @@ extension NowPlayingMoviesViewController: NowPlayingMoviesDisplayLogic {
     }
     
     func displayRefreshMovies(viewModel: NowPlayingMovies.RefreshMovies.ViewModel) {
+        UIApplication.shared.isNetworkActivityIndicatorVisible = false
         movieItems = viewModel.movieItems
         nowPlayingMoviesTableView.refreshControl?.endRefreshing()
         

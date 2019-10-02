@@ -150,3 +150,7 @@ enum SegmentedControlSegmentIndex: Int {
     case all
     case favorites
 }
+
+enum NowPlayingMoviesError: Error {
+    case nothingToFetch
+}

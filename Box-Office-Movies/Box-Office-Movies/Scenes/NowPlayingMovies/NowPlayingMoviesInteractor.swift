@@ -77,6 +77,9 @@ extension NowPlayingMoviesInteractor: NowPlayingMoviesBusinessLogic {
         }
         
         guard shouldFetch, state == .allMovies else {
+            let error = NowPlayingMoviesError.nothingToFetch
+            let response = NowPlayingMovies.FetchNextPage.Response(movies: movies, error: error)
+            presenter?.presentNextPage(response: response)
             return
         }
         
