@@ -13,8 +13,6 @@
 "noFavorites" = "No Favorites";
 
 // MARK: Details scene
-"releaseDate" = "Release date";
-"averageVote" = "Average vote";
 "review" = "Review";
 "reviewTheMovie" = "Review the movie";
 "cancel" = "Cancel";

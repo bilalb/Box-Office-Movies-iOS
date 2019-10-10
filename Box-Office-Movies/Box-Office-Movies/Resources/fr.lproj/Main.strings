@@ -55,3 +55,9 @@
 
 /* Class = "UILabel"; text = "Subtitle"; ObjectID = "xIb-RQ-EYc"; */
 "xIb-RQ-EYc.text" = "Subtitle";
+
+/* Class = "UILabel"; text = "Release date"; ObjectID = "KPh-6A-3Ak"; */
+"KPh-6A-3Ak.text" = "Date de sortie";
+
+/* Class = "UILabel"; text = "Average vote"; ObjectID = "23i-dp-0Ck"; */
+"23i-dp-0Ck.text" = "Note moyenne";

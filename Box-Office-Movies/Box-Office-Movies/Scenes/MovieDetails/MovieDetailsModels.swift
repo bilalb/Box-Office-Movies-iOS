@@ -94,7 +94,7 @@ enum MovieDetailsScene {
 enum DetailItem {
     
     case title(title: String)
-    case additionalInformation(posterImage: UIImage?, releaseDateAttributedText: NSAttributedString?, voteAverageAttributedText: NSAttributedString?)
+    case additionalInformation(posterImage: UIImage?, releaseDate: String?, voteAverage: String?)
     case reviewMovie(review: String)
     case trailer(urlRequest: URLRequest)
     case synopsis(synopsis: String)

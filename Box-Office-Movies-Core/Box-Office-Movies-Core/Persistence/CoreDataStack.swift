@@ -14,13 +14,13 @@ class CoreDataStack {
     static var shared = CoreDataStack()
     
     lazy var persistentContainer: NSPersistentContainer = {
-        let container = NSPersistentContainer(name: Constants.CoreData.dataModelName, bundle: Bundle(for: ManagerProvider.self))
+        let persistentContainer = NSPersistentContainer(name: Constants.CoreData.dataModelName, bundle: Bundle(for: ManagerProvider.self))
 
-        container.loadPersistentStores(completionHandler: { (_, error) in
+        persistentContainer.loadPersistentStores { (_, error) in
             guard let error = error as NSError? else { return }
-            fatalError("Unresolved error: \(error), \(error.userInfo)")
-        })
+            fatalError("Loading of the persistent stores failed: \(error), \(error.userInfo)")
+        }
         
-        return container
+        return persistentContainer
     }()
 }

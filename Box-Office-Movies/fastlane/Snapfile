@@ -1,7 +1,7 @@
 workspace "../Box-Office-Movies.xcworkspace"
 
 devices([
-  "iPhone Xs"
+  "iPhone 11 Pro"
 ])
 
 languages([
