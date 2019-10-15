@@ -47,6 +47,7 @@ class NowPlayingMoviesViewController: UIViewController {
     
     @IBOutlet weak var segmentedControl: UISegmentedControl!
     @IBOutlet weak var nowPlayingMoviesTableView: UITableView!
+    @IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!
     @IBOutlet weak var errorStackView: ErrorStackView!
 
     // MARK: Object Life Cycle
@@ -155,6 +156,7 @@ private extension NowPlayingMoviesViewController {
         nowPlayingMoviesTableView.refreshControl = refreshControl
         
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
+        activityIndicatorView.startAnimating()
 
         let request = NowPlayingMovies.FetchNowPlayingMovies.Request()
         interactor?.fetchNowPlayingMovies(request: request)
@@ -248,6 +250,8 @@ extension NowPlayingMoviesViewController: NowPlayingMoviesDisplayLogic {
     
     func displayNowPlayingMovies(viewModel: NowPlayingMovies.FetchNowPlayingMovies.ViewModel) {
         UIApplication.shared.isNetworkActivityIndicatorVisible = false
+        activityIndicatorView.stopAnimating()
+
         movieItems = viewModel.movieItems
         hasError = !viewModel.shouldHideErrorView
         errorStackView.isHidden = viewModel.shouldHideErrorView

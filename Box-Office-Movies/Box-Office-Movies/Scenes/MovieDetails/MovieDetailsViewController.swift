@@ -65,6 +65,8 @@ private extension MovieDetailsViewController {
     
     func fetchMovieDetails() {
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
+        activityIndicatorView.startAnimating()
+
         let request = MovieDetailsScene.FetchMovieDetails.Request()
         interactor?.fetchMovieDetails(request: request)
     }
@@ -81,7 +83,6 @@ private extension MovieDetailsViewController {
     
     @IBAction func errorActionButtonPressed() {
         fetchMovieDetails()
-        activityIndicatorView.startAnimating()
         errorStackView.isHidden = true
     }
     

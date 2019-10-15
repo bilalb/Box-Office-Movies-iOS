@@ -389,6 +389,9 @@
                                     <outlet property="delegate" destination="0bP-UP-42v" id="XbZ-ed-sGe"/>
                                 </connections>
                             </tableView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="tcG-uH-gBg">
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                            </activityIndicatorView>
                             <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="n3u-tl-o0d" customClass="ErrorStackView" customModule="Box_Office_Movies" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="330.5" width="375" height="50.5"/>
                                 <subviews>
@@ -413,11 +416,15 @@
                             </stackView>
                         </subviews>
                         <constraints>
+                            <constraint firstItem="yo0-iK-Gkw" firstAttribute="trailing" secondItem="tcG-uH-gBg" secondAttribute="trailing" id="07x-9M-sJr"/>
                             <constraint firstItem="n3u-tl-o0d" firstAttribute="centerY" secondItem="yo0-iK-Gkw" secondAttribute="centerY" id="0eg-cM-Uwf"/>
+                            <constraint firstItem="tcG-uH-gBg" firstAttribute="top" secondItem="yo0-iK-Gkw" secondAttribute="top" id="4as-Qo-Ql6"/>
                             <constraint firstItem="yo0-iK-Gkw" firstAttribute="trailing" secondItem="n3u-tl-o0d" secondAttribute="trailing" id="5J6-1A-AH1"/>
                             <constraint firstItem="yo0-iK-Gkw" firstAttribute="trailing" secondItem="iCU-Se-4Gs" secondAttribute="trailing" id="8F1-kW-L8z"/>
                             <constraint firstItem="n3u-tl-o0d" firstAttribute="leading" secondItem="yo0-iK-Gkw" secondAttribute="leading" id="BxF-3W-7Us"/>
+                            <constraint firstItem="tcG-uH-gBg" firstAttribute="leading" secondItem="yo0-iK-Gkw" secondAttribute="leading" id="Ekc-kP-P1w"/>
                             <constraint firstItem="iCU-Se-4Gs" firstAttribute="top" secondItem="yo0-iK-Gkw" secondAttribute="top" id="Liq-Mz-SHj"/>
+                            <constraint firstItem="yo0-iK-Gkw" firstAttribute="bottom" secondItem="tcG-uH-gBg" secondAttribute="bottom" id="Nc6-da-yz2"/>
                             <constraint firstAttribute="bottom" secondItem="iCU-Se-4Gs" secondAttribute="bottom" id="U5h-jO-Xnb"/>
                             <constraint firstItem="iCU-Se-4Gs" firstAttribute="leading" secondItem="yo0-iK-Gkw" secondAttribute="leading" id="nOC-l5-PAp"/>
                         </constraints>
@@ -439,6 +446,7 @@
                         </segmentedControl>
                     </navigationItem>
                     <connections>
+                        <outlet property="activityIndicatorView" destination="tcG-uH-gBg" id="V6u-Xe-eh4"/>
                         <outlet property="errorStackView" destination="n3u-tl-o0d" id="Tnt-cm-r09"/>
                         <outlet property="nowPlayingMoviesTableView" destination="iCU-Se-4Gs" id="Skq-hx-twv"/>
                         <outlet property="segmentedControl" destination="eHv-XQ-ZQ5" id="rp0-M6-Lec"/>
