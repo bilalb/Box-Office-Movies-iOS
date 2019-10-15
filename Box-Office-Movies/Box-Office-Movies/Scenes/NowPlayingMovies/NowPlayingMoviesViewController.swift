@@ -161,13 +161,17 @@ private extension NowPlayingMoviesViewController {
     }
     
     func fetchNextPage() {
-        let shouldFetchNextPage = presentedViewController == nil
-        if shouldFetchNextPage {
-            UIApplication.shared.isNetworkActivityIndicatorVisible = true
-
-            let request = NowPlayingMovies.FetchNextPage.Request()
-            interactor?.fetchNextPage(request: request)
+        guard
+            router?.dataStore?.state == .allMovies,
+            presentedViewController == nil
+        else {
+            return
         }
+
+        UIApplication.shared.isNetworkActivityIndicatorVisible = true
+
+        let request = NowPlayingMovies.FetchNextPage.Request()
+        interactor?.fetchNextPage(request: request)
     }
     
     func selectFirstItem() {
