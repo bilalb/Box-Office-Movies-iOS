@@ -27,7 +27,8 @@ extension MovieDetailsPresenter: MovieDetailsPresentationLogic {
         DispatchQueue.main.async {
             
             func displayMovieDetails(detailItems: [DetailItem]?, shouldHideErrorView: Bool, errorDescription: String?) {
-                let viewModel = MovieDetailsScene.FetchMovieDetails.ViewModel(detailItems: detailItems, shouldHideErrorView: shouldHideErrorView, errorDescription: errorDescription)
+                let shouldShowNetworkActivityIndicator = response.remainingRequestCount > 0
+                let viewModel = MovieDetailsScene.FetchMovieDetails.ViewModel(detailItems: detailItems, shouldHideErrorView: shouldHideErrorView, errorDescription: errorDescription, shouldShowNetworkActivityIndicator: shouldShowNetworkActivityIndicator)
                 self.viewController?.displayMovieDetails(viewModel: viewModel)
             }
             

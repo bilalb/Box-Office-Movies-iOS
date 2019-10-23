@@ -22,12 +22,14 @@ enum MovieDetailsScene {
             let posterData: Data?
             let trailer: Video?
             let error: Error?
+            let remainingRequestCount: Int
         }
         
         struct ViewModel {
             let detailItems: [DetailItem]?
             let shouldHideErrorView: Bool
             let errorDescription: String?
+            let shouldShowNetworkActivityIndicator: Bool
         }
     }
     

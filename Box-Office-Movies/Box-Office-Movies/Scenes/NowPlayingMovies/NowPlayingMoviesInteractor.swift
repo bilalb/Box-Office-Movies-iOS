@@ -13,7 +13,7 @@ protocol NowPlayingMoviesDataStore {
     var movies: [Movie]? { get }
     var favoriteMovies: [Movie]? { get }
     var filteredMovies: [Movie]? { get }
-    var state: State { get }
+    var state: NowPlayingMoviesInteractor.State { get }
 }
 
 protocol NowPlayingMoviesBusinessLogic {
@@ -50,9 +50,12 @@ class NowPlayingMoviesInteractor: NowPlayingMoviesDataStore {
     var state = State.allMovies
 }
 
-enum State {
-    case allMovies
-    case favorites
+extension NowPlayingMoviesInteractor {
+
+    enum State {
+        case allMovies
+        case favorites
+    }
 }
 
 extension NowPlayingMoviesInteractor: NowPlayingMoviesBusinessLogic {
@@ -77,6 +80,9 @@ extension NowPlayingMoviesInteractor: NowPlayingMoviesBusinessLogic {
         }
         
         guard shouldFetch, state == .allMovies else {
+            let error = NowPlayingMoviesError.nothingToFetch
+            let response = NowPlayingMovies.FetchNextPage.Response(movies: movies, error: error)
+            presenter?.presentNextPage(response: response)
             return
         }
         

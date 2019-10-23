@@ -88,7 +88,7 @@ enum NowPlayingMovies {
         }
         
         struct Response {
-            let state: State
+            let state: NowPlayingMoviesInteractor.State
             let searchText: String?
             let movies: [Movie]?
         }
@@ -149,4 +149,8 @@ struct MovieItem {
 enum SegmentedControlSegmentIndex: Int {
     case all
     case favorites
+}
+
+enum NowPlayingMoviesError: Error {
+    case nothingToFetch
 }

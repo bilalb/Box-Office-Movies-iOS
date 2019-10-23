@@ -29,10 +29,15 @@ enum Poster {
         
         struct Response {
             let posterData: Data?
+            let error: Error?
         }
         
         struct ViewModel {
             let posterImage: UIImage?
         }
     }
+}
+
+enum FetchPosterImageError: Error {
+    case posterPathNil
 }
