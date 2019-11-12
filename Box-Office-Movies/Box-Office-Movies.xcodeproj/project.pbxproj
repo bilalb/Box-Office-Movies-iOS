@@ -26,6 +26,7 @@
 		9C6F39DF22F48B6C009D030B /* PosterInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C6F39DC22F48B6C009D030B /* PosterInteractorTests.swift */; };
 		9C6F39E022F48B6C009D030B /* PosterPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C6F39DD22F48B6C009D030B /* PosterPresenterTests.swift */; };
 		9C90009522510AE600399CF3 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9C90009722510AE600399CF3 /* Localizable.strings */; };
+		9C9924E3237AB9F700A519E7 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C9924E2237AB9F700A519E7 /* CloudKit.framework */; };
 		9CCEACC722FCFB76004620BA /* TrailerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CCEACC622FCFB76004620BA /* TrailerTableViewCell.swift */; };
 		9CD1682222F4B2DF00688215 /* MovieDetailsRouterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CD1682122F4B2DF00688215 /* MovieDetailsRouterTests.swift */; };
 		9CDB22A522EF115B00B8A2C0 /* EmptyBackgroundView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9CDB22A422EF115B00B8A2C0 /* EmptyBackgroundView.xib */; };
@@ -109,6 +110,8 @@
 		9C6F39DD22F48B6C009D030B /* PosterPresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PosterPresenterTests.swift; sourceTree = "<group>"; };
 		9C90009622510AE600399CF3 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		9C90009822510AEA00399CF3 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
+		9C9924E0237AB9E400A519E7 /* Box-Office-Movies.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Box-Office-Movies.entitlements"; sourceTree = "<group>"; };
+		9C9924E2237AB9F700A519E7 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		9CCEACC622FCFB76004620BA /* TrailerTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrailerTableViewCell.swift; sourceTree = "<group>"; };
 		9CD1682122F4B2DF00688215 /* MovieDetailsRouterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailsRouterTests.swift; sourceTree = "<group>"; };
 		9CDB22A422EF115B00B8A2C0 /* EmptyBackgroundView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EmptyBackgroundView.xib; sourceTree = "<group>"; };
@@ -149,6 +152,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9CE7AEC222569A1C00C20569 /* Box_Office_Movies_Core.framework in Frameworks */,
+				9C9924E3237AB9F700A519E7 /* CloudKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -243,6 +247,14 @@
 			path = Poster;
 			sourceTree = "<group>";
 		};
+		9C9924E1237AB9F700A519E7 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				9C9924E2237AB9F700A519E7 /* CloudKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		9CCEACC522FCFB66004620BA /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -269,6 +281,7 @@
 				9CDC95EF2243FFB30051925E /* Box-Office-MoviesTests */,
 				9CFAE4C222C78D9600893908 /* Box-Office-MoviesUITests */,
 				9CDC95D72243FFB10051925E /* Products */,
+				9C9924E1237AB9F700A519E7 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -285,6 +298,7 @@
 		9CDC95D82243FFB10051925E /* Box-Office-Movies */ = {
 			isa = PBXGroup;
 			children = (
+				9C9924E0237AB9E400A519E7 /* Box-Office-Movies.entitlements */,
 				9CDC95D92243FFB10051925E /* AppDelegate.swift */,
 				9CDC96002244034A0051925E /* Constants.swift */,
 				9CDC96592247CAB70051925E /* Extensions */,
@@ -433,6 +447,17 @@
 					9CDC95D52243FFB10051925E = {
 						CreatedOnToolsVersion = 10.1;
 						LastSwiftMigration = 1020;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+							com.apple.Push = {
+								enabled = 1;
+							};
+							com.apple.iCloud = {
+								enabled = 1;
+							};
+						};
 					};
 					9CDC95EB2243FFB30051925E = {
 						CreatedOnToolsVersion = 10.1;
@@ -745,8 +770,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "Box-Office-Movies/Box-Office-Movies.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = MU48Q96H48;
+				DEVELOPMENT_TEAM = 5GARSM38JL;
 				INFOPLIST_FILE = "Box-Office-Movies/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -764,8 +790,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "Box-Office-Movies/Box-Office-Movies.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = MU48Q96H48;
+				DEVELOPMENT_TEAM = 5GARSM38JL;
 				INFOPLIST_FILE = "Box-Office-Movies/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
