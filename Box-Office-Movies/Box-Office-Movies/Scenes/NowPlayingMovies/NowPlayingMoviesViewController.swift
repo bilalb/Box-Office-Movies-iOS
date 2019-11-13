@@ -125,7 +125,7 @@ private extension NowPlayingMoviesViewController {
     
     func configureSearchController() {
         searchController.searchResultsUpdater = self
-        searchController.dimsBackgroundDuringPresentation = false
+        searchController.obscuresBackgroundDuringPresentation = false
         nowPlayingMoviesTableView.tableHeaderView = searchController.searchBar
         definesPresentationContext = true
     }
@@ -144,7 +144,9 @@ private extension NowPlayingMoviesViewController {
     }
     
     func refreshMovies() {
-        UIApplication.shared.isNetworkActivityIndicatorVisible = true
+        if #available(iOS 13.0, *) { } else {
+            UIApplication.shared.isNetworkActivityIndicatorVisible = true
+        }
         let request = NowPlayingMovies.RefreshMovies.Request()
         interactor?.refreshMovies(request: request)
     }
@@ -158,8 +160,10 @@ private extension NowPlayingMoviesViewController {
         setEditing(false, animated: true)
         navigationItem.setRightBarButton(nil, animated: true)
         nowPlayingMoviesTableView.refreshControl = refreshControl
-        
-        UIApplication.shared.isNetworkActivityIndicatorVisible = true
+
+        if #available(iOS 13.0, *) { } else {
+            UIApplication.shared.isNetworkActivityIndicatorVisible = true
+        }
         activityIndicatorView.startAnimating()
 
         let request = NowPlayingMovies.FetchNowPlayingMovies.Request()
@@ -174,7 +178,9 @@ private extension NowPlayingMoviesViewController {
             return
         }
 
-        UIApplication.shared.isNetworkActivityIndicatorVisible = true
+        if #available(iOS 13.0, *) { } else {
+            UIApplication.shared.isNetworkActivityIndicatorVisible = true
+        }
 
         let request = NowPlayingMovies.FetchNextPage.Request()
         interactor?.fetchNextPage(request: request)
@@ -253,7 +259,9 @@ extension NowPlayingMoviesViewController {
 extension NowPlayingMoviesViewController: NowPlayingMoviesDisplayLogic {
     
     func displayNowPlayingMovies(viewModel: NowPlayingMovies.FetchNowPlayingMovies.ViewModel) {
-        UIApplication.shared.isNetworkActivityIndicatorVisible = false
+        if #available(iOS 13.0, *) { } else {
+            UIApplication.shared.isNetworkActivityIndicatorVisible = false
+        }
         activityIndicatorView.stopAnimating()
 
         movieItems = viewModel.movieItems
@@ -263,7 +271,9 @@ extension NowPlayingMoviesViewController: NowPlayingMoviesDisplayLogic {
     }
     
     func displayNextPage(viewModel: NowPlayingMovies.FetchNextPage.ViewModel) {
-        UIApplication.shared.isNetworkActivityIndicatorVisible = false
+        if #available(iOS 13.0, *) { } else {
+            UIApplication.shared.isNetworkActivityIndicatorVisible = false
+        }
         movieItems = viewModel.movieItems
         hasError = viewModel.shouldPresentErrorAlert
         if viewModel.shouldPresentErrorAlert {
@@ -280,7 +290,9 @@ extension NowPlayingMoviesViewController: NowPlayingMoviesDisplayLogic {
     }
     
     func displayRefreshMovies(viewModel: NowPlayingMovies.RefreshMovies.ViewModel) {
-        UIApplication.shared.isNetworkActivityIndicatorVisible = false
+        if #available(iOS 13.0, *) { } else {
+            UIApplication.shared.isNetworkActivityIndicatorVisible = false
+        }
         movieItems = viewModel.movieItems
         nowPlayingMoviesTableView.refreshControl?.endRefreshing()
         
