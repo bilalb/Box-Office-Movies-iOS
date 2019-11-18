@@ -34,4 +34,4 @@ This application uses:
 With [GitLab](https://gitlab.com/bilal.b/Box-Office-Movies-iOS).
 
 ## Author
-[Bilal Benlarbi](http://bilal.benlarbi.fr/).
+[Bilal Benlarbi](https://www.bilal.benlarbi.fr/).

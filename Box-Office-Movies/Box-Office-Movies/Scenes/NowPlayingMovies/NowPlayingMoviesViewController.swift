@@ -62,9 +62,13 @@ class NowPlayingMoviesViewController: UIViewController {
     }
     
     // MARK: View Life Cycle
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        configureSplitViewController()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureSplitViewController()
         configureSegmentedControl()
         configureSearchController()
         configureRefreshControl()
