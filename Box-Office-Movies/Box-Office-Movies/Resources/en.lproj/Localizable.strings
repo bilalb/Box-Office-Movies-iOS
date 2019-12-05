@@ -6,6 +6,14 @@
 //  Copyrights © 2019 Bilal Benlarbi. All rights reserved.
 //
 
+// MARK: Menu
+"search" = "Search";
+"refreshMovieList" = "Refresh Movie List";
+"showAllMovies" = "Show Now Playing Movies";
+"showFavorites" = "Show Favorites";
+"addToFavorites" = "Add To Favorites";
+"removeFromFavorites" = "Remove From Favorites";
+
 // MARK: List scene
 "nowPlaying" = "Now Playing";
 "favorites" = "Favorites";

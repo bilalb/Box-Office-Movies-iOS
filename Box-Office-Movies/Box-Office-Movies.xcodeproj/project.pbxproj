@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		7F87DE172CA9230DD4125E5D /* Pods_Box_Office_Movies.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43AAA7F0755C14E7B47FD5C6 /* Pods_Box_Office_Movies.framework */; };
+		9C2371CD239A7E7A00BF8147 /* UIMenuBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C2371CC239A7E7A00BF8147 /* UIMenuBuilder.swift */; };
 		9C4935EA224A95CD00359378 /* AdditionalInformationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C4935E9224A95CD00359378 /* AdditionalInformationTableViewCell.swift */; };
 		9C4C9799242B854800B48C22 /* GoogleService-Info.sample.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9C4C9798242B854800B48C22 /* GoogleService-Info.sample.plist */; };
 		9C5AD034225653ED009CC78A /* MovieDetailsViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C5AD031225653ED009CC78A /* MovieDetailsViewControllerTests.swift */; };
@@ -33,6 +34,7 @@
 		9C93849B243E00FE0098509F /* UIActivityIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C93849A243E00FE0098509F /* UIActivityIndicatorView.swift */; };
 		9C93849D243E01820098509F /* UIApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C93849C243E01820098509F /* UIApplication.swift */; };
 		9C9924E3237AB9F700A519E7 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C9924E2237AB9F700A519E7 /* CloudKit.framework */; };
+		9CB9B08A2399C89A00111F92 /* UIMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CB9B0892399C89A00111F92 /* UIMenu.swift */; };
 		9CCEACC722FCFB76004620BA /* TrailerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CCEACC622FCFB76004620BA /* TrailerTableViewCell.swift */; };
 		9CD1682222F4B2DF00688215 /* MovieDetailsRouterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CD1682122F4B2DF00688215 /* MovieDetailsRouterTests.swift */; };
 		9CDAE7472427AA05002AA780 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9CDAE7462427AA05002AA780 /* GoogleService-Info.plist */; };
@@ -100,6 +102,7 @@
 		40069362EBCCEBA302F41B40 /* Pods-Box-Office-Movies.debug-development.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Box-Office-Movies.debug-development.xcconfig"; path = "Target Support Files/Pods-Box-Office-Movies/Pods-Box-Office-Movies.debug-development.xcconfig"; sourceTree = "<group>"; };
 		43AAA7F0755C14E7B47FD5C6 /* Pods_Box_Office_Movies.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Box_Office_Movies.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		54013E44A5681A0F0039528E /* Pods-Box-Office-Movies.release-staging.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Box-Office-Movies.release-staging.xcconfig"; path = "Target Support Files/Pods-Box-Office-Movies/Pods-Box-Office-Movies.release-staging.xcconfig"; sourceTree = "<group>"; };
+		9C2371CC239A7E7A00BF8147 /* UIMenuBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIMenuBuilder.swift; sourceTree = "<group>"; };
 		9C44111A23C7718A006E1E7A /* Development.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Development.xcconfig; sourceTree = "<group>"; };
 		9C44111C23C771FD006E1E7A /* Staging.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Staging.xcconfig; sourceTree = "<group>"; };
 		9C44111E23C7721A006E1E7A /* Production.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Production.xcconfig; sourceTree = "<group>"; };
@@ -132,6 +135,7 @@
 		9C93849C243E01820098509F /* UIApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIApplication.swift; sourceTree = "<group>"; };
 		9C9924E0237AB9E400A519E7 /* Box-Office-Movies.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Box-Office-Movies.entitlements"; sourceTree = "<group>"; };
 		9C9924E2237AB9F700A519E7 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
+		9CB9B0892399C89A00111F92 /* UIMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIMenu.swift; sourceTree = "<group>"; };
 		9CCEACC622FCFB76004620BA /* TrailerTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrailerTableViewCell.swift; sourceTree = "<group>"; };
 		9CD1682122F4B2DF00688215 /* MovieDetailsRouterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailsRouterTests.swift; sourceTree = "<group>"; };
 		9CDAE7462427AA05002AA780 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -427,6 +431,8 @@
 				9C93849A243E00FE0098509F /* UIActivityIndicatorView.swift */,
 				9C93849C243E01820098509F /* UIApplication.swift */,
 				9C6042A5243BA390006E0106 /* UISplitViewController.swift */,
+				9CB9B0892399C89A00111F92 /* UIMenu.swift */,
+				9C2371CC239A7E7A00BF8147 /* UIMenuBuilder.swift */,
 				9CDC965A2247CAB70051925E /* UIView.swift */,
 				9CDC965B2247CAB70051925E /* UIViewController.swift */,
 			);
@@ -715,9 +721,11 @@
 				9CDC96652247DA510051925E /* MovieDetails+SceneSetup.swift in Sources */,
 				9C6F39D522F46CCC009D030B /* PosterViewController.swift in Sources */,
 				9CDB22A722EF172400B8A2C0 /* EmptyBackgroundView.swift in Sources */,
+				9CB9B08A2399C89A00111F92 /* UIMenu.swift in Sources */,
 				9CDC96532247C2DE0051925E /* NowPlayingMoviesRouter.swift in Sources */,
 				9C6F39D422F46CCC009D030B /* PosterModels.swift in Sources */,
 				9C93849B243E00FE0098509F /* UIActivityIndicatorView.swift in Sources */,
+				9C2371CD239A7E7A00BF8147 /* UIMenuBuilder.swift in Sources */,
 				9C648806225538D900A1541F /* ErrorStackView.swift in Sources */,
 				9CDC96672247DA510051925E /* MovieDetailsRouter.swift in Sources */,
 				9CDC960D2244034B0051925E /* Constants.swift in Sources */,

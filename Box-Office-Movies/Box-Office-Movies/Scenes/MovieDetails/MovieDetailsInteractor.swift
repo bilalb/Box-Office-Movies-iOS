@@ -21,22 +21,24 @@ protocol MovieDetailsBusinessLogic {
     func loadMovieReviews(request: MovieDetailsScene.LoadMovieReviews.Request)
     func reviewMovie(request: MovieDetailsScene.ReviewMovie.Request)
     func loadFavoriteToggle(request: MovieDetailsScene.LoadFavoriteToggle.Request)
+
+    func isMovieAddedToFavorites() -> Bool?
 }
 
 final class MovieDetailsInteractor: MovieDetailsDataStore {
     // MARK: Instance Properties
     var presenter: MovieDetailsPresentationLogic?
-    
+
     var movieIdentifier: Int?
     var similarMoviePage = 1
-    
+
     var movieDetails: MovieDetails?
     var casting: Casting?
     var paginatedSimilarMovieLists = [PaginatedMovieList]()
     var posterData: Data?
     var trailer: Video?
     var error: Error?
-    
+
     var imageSecureBaseURLPath: String?
     var posterPath: String?
 
@@ -45,12 +47,12 @@ final class MovieDetailsInteractor: MovieDetailsDataStore {
 }
 
 extension MovieDetailsInteractor: MovieDetailsBusinessLogic {
-    
+
     func fetchMovieDetails(request: MovieDetailsScene.FetchMovieDetails.Request) {
         let dispatchGroup = DispatchGroup()
-        
+
         fetchDetails(dispatchGroup: dispatchGroup)
-        
+
         dispatchGroup.notify(queue: .global(qos: .userInitiated)) { [weak self] in
             self?.fetchCasting()
             self?.fetchSimilarMovies()
@@ -58,30 +60,34 @@ extension MovieDetailsInteractor: MovieDetailsBusinessLogic {
             self?.fetchTrailer()
         }
     }
-    
+
     func loadMovieReviews(request: MovieDetailsScene.LoadMovieReviews.Request) {
         let response = MovieDetailsScene.LoadMovieReviews.Response(movieReviews: MovieReview.allCases)
         presenter?.presentMovieReviews(response: response)
     }
-    
+
     func reviewMovie(request: MovieDetailsScene.ReviewMovie.Request) {
         let response = MovieDetailsScene.ReviewMovie.Response(movieReview: request.movieReview)
         presenter?.presentReviewMovie(response: response)
     }
-    
+
     func loadFavoriteToggle(request: MovieDetailsScene.LoadFavoriteToggle.Request) {
+        let response = MovieDetailsScene.LoadFavoriteToggle.Response(isFavorite: isMovieAddedToFavorites())
+        presenter?.presentFavoriteToggle(response: response)
+    }
+
+    func isMovieAddedToFavorites() -> Bool? {
         guard let movieIdentifier = movieIdentifier else {
-            return
+            return nil
         }
         let favoriteMovies = ManagerProvider.shared.favoritesManager.favoriteMovies()
         let isFavorite = favoriteMovies?.contains(where: { $0.identifier == Int32(movieIdentifier) })
-        let response = MovieDetailsScene.LoadFavoriteToggle.Response(isFavorite: isFavorite)
-        presenter?.presentFavoriteToggle(response: response)
+        return isFavorite
     }
 }
 
 extension MovieDetailsInteractor {
-    
+
     func presentMovieDetails() {
         let response = MovieDetailsScene.FetchMovieDetails.Response(movieDetails: movieDetails,
                                                                     casting: casting,
@@ -93,7 +99,7 @@ extension MovieDetailsInteractor {
                                                                     isReviewEnabled: isReviewEnabled)
         presenter?.presentMovieDetails(response: response)
     }
-    
+
     func fetchDetails(dispatchGroup: DispatchGroup) {
         guard let movieIdentifier = movieIdentifier else {
             return
@@ -114,7 +120,7 @@ extension MovieDetailsInteractor {
             dispatchGroup.leave()
         }
     }
-    
+
     func fetchCasting() {
         guard let movieIdentifier = movieIdentifier else {
             return
@@ -130,19 +136,19 @@ extension MovieDetailsInteractor {
             self?.presentMovieDetails()
         }
     }
-    
+
     func fetchSimilarMovies() {
         var shouldFetch = paginatedSimilarMovieLists.isEmpty
         if let totalPages = paginatedSimilarMovieLists.last?.totalPages {
             shouldFetch = similarMoviePage <= totalPages
         }
-        
+
         guard shouldFetch, let movieIdentifier = movieIdentifier else {
             return
         }
 
         remainingRequestCount += 1
-        
+
         let languageCode = Locale.current.languageCode ?? Constants.Fallback.languageCode
         ManagerProvider.shared.movieManager.similarMovies(identifier: movieIdentifier, languageCode: languageCode, page: similarMoviePage) { [weak self] (paginatedSimilarMovieList, error) in
             if let paginatedSimilarMovieList = paginatedSimilarMovieList {
@@ -155,12 +161,12 @@ extension MovieDetailsInteractor {
             self?.presentMovieDetails()
         }
     }
-    
+
     func fetchPosterData() {
         var apiConfiguration: TheMovieDatabaseAPIConfiguration?
         let dispatchGroup = DispatchGroup()
         dispatchGroup.enter()
-        
+
         remainingRequestCount += 1
 
         ManagerProvider.shared.movieManager.theMovieDatabaseAPIConfiguration { [weak self] (fetchedAPIConfiguration, _) in
@@ -168,7 +174,7 @@ extension MovieDetailsInteractor {
             self?.imageSecureBaseURLPath = apiConfiguration?.imageData.secureBaseUrl
             dispatchGroup.leave()
         }
-        
+
         dispatchGroup.notify(queue: .global(qos: .userInitiated)) { [weak self] in
             if let imageSecureBaseURLPath = self?.imageSecureBaseURLPath,
                 let posterPath = self?.posterPath {
@@ -182,7 +188,7 @@ extension MovieDetailsInteractor {
             }
         }
     }
-    
+
     func fetchTrailer() {
         guard let movieIdentifier = movieIdentifier else {
             return
