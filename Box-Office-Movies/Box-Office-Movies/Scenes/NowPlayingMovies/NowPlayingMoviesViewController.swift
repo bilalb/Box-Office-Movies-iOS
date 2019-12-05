@@ -47,7 +47,10 @@ final class NowPlayingMoviesViewController: UIViewController {
 
     var indexPathForSelectedRow: IndexPath?
     let searchController = UISearchController(searchResultsController: nil)
+
+    #if !targetEnvironment(macCatalyst)
     let refreshControl = UIRefreshControl()
+    #endif
 
     @IBOutlet weak var segmentedControl: UISegmentedControl!
     @IBOutlet weak var nowPlayingMoviesTableView: UITableView!
@@ -75,7 +78,11 @@ final class NowPlayingMoviesViewController: UIViewController {
         super.viewDidLoad()
         configureSegmentedControl()
         configureSearchController()
+
+        #if !targetEnvironment(macCatalyst)
         configureRefreshControl()
+        #endif
+
         configureEditButtonItem()
         configureTableView()
         configureActivityIndicatorView()
@@ -130,6 +137,9 @@ private extension NowPlayingMoviesViewController {
     func configureSplitViewController() {
         splitViewController?.delegate = self
         splitViewController?.preferredDisplayMode = .allVisible
+        #if targetEnvironment(macCatalyst)
+            splitViewController?.primaryBackgroundStyle = .sidebar
+        #endif
     }
 
     func configureSegmentedControl() {
@@ -144,14 +154,21 @@ private extension NowPlayingMoviesViewController {
     func configureSearchController() {
         searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = false
+        #if targetEnvironment(macCatalyst)
+        navigationItem.searchController = searchController
+        navigationItem.hidesSearchBarWhenScrolling = false
+        #else
         nowPlayingMoviesTableView.tableHeaderView = searchController.searchBar
+        #endif
         definesPresentationContext = true
     }
 
+    #if !targetEnvironment(macCatalyst)
     func configureRefreshControl() {
         refreshControl.addTarget(self, action: #selector(refreshControlTriggered), for: .valueChanged)
     }
-
+    #endif
+    
     @objc func refreshControlTriggered() {
         refreshNowPlayingMovies()
     }
@@ -173,8 +190,11 @@ private extension NowPlayingMoviesViewController {
     func fetchNowPlayingMovies() {
         setEditing(false, animated: true)
         navigationItem.setRightBarButton(nil, animated: true)
+        
+        #if !targetEnvironment(macCatalyst)
         nowPlayingMoviesTableView.refreshControl = refreshControl
-
+        #endif
+        
         UIApplication.shared.setNetworkActivityIndicatorVisibility(true)
         activityIndicatorView.startAnimating()
 
@@ -223,6 +243,9 @@ private extension NowPlayingMoviesViewController {
         default:
             break
         }
+        #if targetEnvironment(macCatalyst)
+            navigationItem.searchController?.isActive = false
+        #endif
     }
 
     func loadTableViewBackgroundView() {
