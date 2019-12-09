@@ -18,6 +18,7 @@ protocol NowPlayingMoviesDataStore {
 
 protocol NowPlayingMoviesBusinessLogic {
     func fetchNowPlayingMovies(request: NowPlayingMovies.FetchNowPlayingMovies.Request)
+    var shouldFetchNextPage: Bool { get }
     func fetchNextPage(request: NowPlayingMovies.FetchNextPage.Request)
     func filterMovies(request: NowPlayingMovies.FilterMovies.Request)
     func refreshMovies(request: NowPlayingMovies.RefreshMovies.Request)
@@ -48,6 +49,14 @@ class NowPlayingMoviesInteractor: NowPlayingMoviesDataStore {
     }
     
     var state = State.allMovies
+
+    var shouldFetchNextPage: Bool {
+        var shouldFetchNextPage = paginatedMovieLists.isEmpty
+        if let totalPages = paginatedMovieLists.last?.totalPages {
+            shouldFetchNextPage = page <= totalPages
+        }
+        return shouldFetchNextPage && state == .allMovies
+    }
 }
 
 extension NowPlayingMoviesInteractor {
@@ -74,12 +83,7 @@ extension NowPlayingMoviesInteractor: NowPlayingMoviesBusinessLogic {
     }
     
     func fetchNextPage(request: NowPlayingMovies.FetchNextPage.Request) {
-        var shouldFetch = paginatedMovieLists.isEmpty
-        if let totalPages = paginatedMovieLists.last?.totalPages {
-            shouldFetch = page <= totalPages
-        }
-        
-        guard shouldFetch, state == .allMovies else {
+        guard shouldFetchNextPage else {
             let error = NowPlayingMoviesError.nothingToFetch
             let response = NowPlayingMovies.FetchNextPage.Response(movies: movies, error: error)
             presenter?.presentNextPage(response: response)

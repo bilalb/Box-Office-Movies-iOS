@@ -172,8 +172,8 @@ private extension NowPlayingMoviesViewController {
     
     func fetchNextPage() {
         guard
-            router?.dataStore?.state == .allMovies,
-            presentedViewController == nil
+            presentedViewController == nil,
+            interactor?.shouldFetchNextPage == true
         else {
             return
         }

@@ -48,6 +48,7 @@ class NowPlayingMoviesViewControllerTests: XCTestCase {
     class NowPlayingMoviesBusinessLogicSpy: NowPlayingMoviesBusinessLogic {
         
         var fetchNowPlayingMoviesCalled = false
+        var shouldFetchNextPage = true
         var fetchNextPageCalled = false
         var filterMoviesCalled = false
         var refreshMoviesCalled = false
