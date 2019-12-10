@@ -74,6 +74,7 @@ class NowPlayingMoviesViewController: UIViewController {
         configureRefreshControl()
         configureEditButtonItem()
         configureTableView()
+        configureActivityIndicatorView()
         fetchNowPlayingMovies()
     }
     
@@ -141,6 +142,14 @@ private extension NowPlayingMoviesViewController {
     func configureTableView() {
         // To change the color (to the default system background color) behind the table's sections and rows
         nowPlayingMoviesTableView.backgroundView = UIView()
+    }
+
+    func configureActivityIndicatorView() {
+        if #available(iOS 13.0, *) {
+            activityIndicatorView.style = .large
+        } else {
+            activityIndicatorView.style = .gray
+        }
     }
     
     func refreshMovies() {

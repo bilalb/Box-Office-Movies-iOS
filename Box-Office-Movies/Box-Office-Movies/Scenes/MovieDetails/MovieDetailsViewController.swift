@@ -47,6 +47,8 @@ class MovieDetailsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        configureActivityIndicatorView()
+
         // When the split view controller is not collapsed this scene is displayed.
         // If no movie is selected (for example when there is a network error and the movie list is empty) this scene is empty and does not display any data.
         // Then we stop the animation of the activity indicator view.
@@ -62,6 +64,14 @@ class MovieDetailsViewController: UIViewController {
 
 // MARK: - Private Functions
 private extension MovieDetailsViewController {
+
+    func configureActivityIndicatorView() {
+        if #available(iOS 13.0, *) {
+            activityIndicatorView.style = .medium
+        } else {
+            activityIndicatorView.style = .gray
+        }
+    }
     
     func fetchMovieDetails() {
         if #available(iOS 13.0, *) { } else {

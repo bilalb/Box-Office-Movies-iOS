@@ -17,6 +17,8 @@ class TrailerTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+
+        configureActivityIndicatorView()
         
         let configuration = WKWebViewConfiguration()
         webView = WKWebView(frame: .zero, configuration: configuration)
@@ -27,6 +29,14 @@ class TrailerTableViewCell: UITableViewCell {
         webView.fillSuperview()
         
         containerView.bringSubviewToFront(activityIndicatorView)
+    }
+
+    func configureActivityIndicatorView() {
+        if #available(iOS 13.0, *) {
+            activityIndicatorView.style = .medium
+        } else {
+            activityIndicatorView.style = .gray
+        }
     }
 }
 
