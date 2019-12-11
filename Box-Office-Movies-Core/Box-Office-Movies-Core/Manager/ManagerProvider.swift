@@ -22,16 +22,28 @@ public class ManagerProvider: ManagerProviding {
     public var favoritesManager: FavoritesManagement!
     
     init() {
-        let environment = Environment(theMovieDatabaseAPIBaseUrl: Constants.Environment.theMovieDatabaseAPIBaseUrl, theMovieDatabaseAPIKey: Constants.Environment.theMovieDatabaseAPIKey)
+        let environment: Environment = {
+            guard
+                let theMovieDatabaseAPIBaseUrl = Bundle.core.object(forInfoDictionaryKey: Constants.InfoDictionaryKey.theMovieDatabaseAPIBaseUrl) as? String,
+                let theMovieDatabaseAPIKey = Bundle.core.object(forInfoDictionaryKey: Constants.InfoDictionaryKey.theMovieDatabaseAPIKey) as? String
+            else {
+                preconditionFailure("failed to read configuration")
+            }
+            // xcconfig files treat the sequence // as a comment delimiter, regardless of whether it’s enclosed in quotation marks. If you try to escape with backslashes \/\/, those backslashes show up literally and must be removed from the resulting value.
+            // I decided to omit the scheme in the xcconfig file and now I have to prepend https://
+            let completeBaseUrl = "https://" + theMovieDatabaseAPIBaseUrl
+            return Environment(theMovieDatabaseAPIBaseUrl: completeBaseUrl, theMovieDatabaseAPIKey: theMovieDatabaseAPIKey)
+        }()
         let session: URLSession = {
+            #if DEBUG
             if ManagerProvider.isTest() {
                 return MockedURLSession()
-            } else {
-                let session = URLSession(configuration: .default)
-                session.configuration.timeoutIntervalForRequest = Constants.Network.timeoutIntervalForRequest
-                session.configuration.timeoutIntervalForResource = Constants.Network.timeoutIntervalForResource
-                return session
             }
+            #endif
+            let session = URLSession(configuration: .default)
+            session.configuration.timeoutIntervalForRequest = Constants.Network.timeoutIntervalForRequest
+            session.configuration.timeoutIntervalForResource = Constants.Network.timeoutIntervalForResource
+            return session
         }()
         let movieNetworkController = MovieNetworkController(environment: environment, session: session)
         movieManager = MovieManager(networkController: movieNetworkController)

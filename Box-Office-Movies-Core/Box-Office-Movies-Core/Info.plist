@@ -20,5 +20,9 @@
 	<string>1.1</string>
 	<key>CFBundleVersion</key>
 	<string>$(CURRENT_PROJECT_VERSION)</string>
+	<key>THE_MOVIE_DATABASE_API_BASE_URL</key>
+	<string>$(THE_MOVIE_DATABASE_API_BASE_URL)</string>
+	<key>THE_MOVIE_DATABASE_API_KEY</key>
+	<string>$(THE_MOVIE_DATABASE_API_KEY)</string>
 </dict>
 </plist>

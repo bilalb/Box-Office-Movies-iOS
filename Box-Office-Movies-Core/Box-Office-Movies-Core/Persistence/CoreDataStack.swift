@@ -16,9 +16,9 @@ class CoreDataStack {
     lazy var persistentContainer: NSPersistentContainer = {
         let persistentContainer: NSPersistentContainer = {
             if #available(iOS 13.0, *) {
-                return NSPersistentCloudKitContainer(name: Constants.CoreData.dataModelName, bundle: Bundle(for: ManagerProvider.self))
+                return NSPersistentCloudKitContainer(name: Constants.CoreData.dataModelName, bundle: Bundle.core)
             } else {
-                return NSPersistentContainer(name: Constants.CoreData.dataModelName, bundle: Bundle(for: ManagerProvider.self))
+                return NSPersistentContainer(name: Constants.CoreData.dataModelName, bundle: Bundle.core)
             }
         }()
 

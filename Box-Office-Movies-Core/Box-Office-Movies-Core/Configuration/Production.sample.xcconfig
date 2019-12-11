@@ -1,0 +1,14 @@
+//
+//  Production.sample.xcconfig
+//  Box-Office-Movies-Core
+//
+//  Created by Bilal on 11/12/2019.
+//  Copyright © 2019 Boxotop. All rights reserved.
+//
+
+// I did not commit configuration files to source code.
+// In place of those files, here is a placeholder file with all of the expected keys.
+// When checking out the repository, copy this file to the non-placeholder location and fill it out accordingly.
+
+THE_MOVIE_DATABASE_API_BASE_URL = api.themoviedb.org/3/
+THE_MOVIE_DATABASE_API_KEY = someApiKey

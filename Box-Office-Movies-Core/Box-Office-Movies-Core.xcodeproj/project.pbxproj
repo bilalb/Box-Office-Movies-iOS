@@ -37,6 +37,7 @@
 		9C5AD09E22568812009CC78A /* TheMovieDatabaseAPIConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C5AD08D22568812009CC78A /* TheMovieDatabaseAPIConfiguration.swift */; };
 		9C5AD0AB22568A63009CC78A /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C5AD0AA22568A63009CC78A /* Constants.swift */; };
 		9C8A9B3D22D21A1D0013AE4F /* FavoritesManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C8A9B3C22D21A1D0013AE4F /* FavoritesManagerTests.swift */; };
+		9CB1070723A0006E00117A75 /* Bundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CB1070623A0006E00117A75 /* Bundle.swift */; };
 		9CCEACC122FCE861004620BA /* Video.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CCEACC022FCE861004620BA /* Video.swift */; };
 		9CCEACC322FCF1AC004620BA /* VideosNetworkRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CCEACC222FCF1AC004620BA /* VideosNetworkRequest.swift */; };
 		9CCEACC922FDC155004620BA /* CastingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CCEACC822FDC155004620BA /* CastingTests.swift */; };
@@ -91,6 +92,11 @@
 		9C5AD08D22568812009CC78A /* TheMovieDatabaseAPIConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TheMovieDatabaseAPIConfiguration.swift; sourceTree = "<group>"; };
 		9C5AD0AA22568A63009CC78A /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		9C8A9B3C22D21A1D0013AE4F /* FavoritesManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesManagerTests.swift; sourceTree = "<group>"; };
+		9CB10704239FF44100117A75 /* Development.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Development.xcconfig; sourceTree = "<group>"; };
+		9CB10705239FFE5C00117A75 /* Development.sample.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Development.sample.xcconfig; sourceTree = "<group>"; };
+		9CB1070623A0006E00117A75 /* Bundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bundle.swift; sourceTree = "<group>"; };
+		9CB1070923A0EE4400117A75 /* Production.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Production.xcconfig; sourceTree = "<group>"; };
+		9CB1070A23A0EE6500117A75 /* Production.sample.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Production.sample.xcconfig; sourceTree = "<group>"; };
 		9CCEACC022FCE861004620BA /* Video.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Video.swift; sourceTree = "<group>"; };
 		9CCEACC222FCF1AC004620BA /* VideosNetworkRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideosNetworkRequest.swift; sourceTree = "<group>"; };
 		9CCEACC822FDC155004620BA /* CastingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CastingTests.swift; sourceTree = "<group>"; };
@@ -165,8 +171,10 @@
 			children = (
 				9C5AD04D22568597009CC78A /* Box_Office_Movies_Core.h */,
 				9C20953722AFE74C0065DA85 /* Box-Office-Movies-Core.xcdatamodeld */,
+				9CB10703239FF42E00117A75 /* Configuration */,
 				9C5AD0AA22568A63009CC78A /* Constants.swift */,
 				9C2C3FD422E749790099FA0B /* Constants+Mock.swift */,
+				9CB1070823A0007300117A75 /* Extensions */,
 				9C5AD04E22568597009CC78A /* Info.plist */,
 				9C5AD07922568812009CC78A /* Manager */,
 				9C5AD08822568812009CC78A /* Model */,
@@ -242,6 +250,25 @@
 				9C2C3FD222E7484A0099FA0B /* MovieManagerTests.swift */,
 			);
 			path = Manager;
+			sourceTree = "<group>";
+		};
+		9CB10703239FF42E00117A75 /* Configuration */ = {
+			isa = PBXGroup;
+			children = (
+				9CB10704239FF44100117A75 /* Development.xcconfig */,
+				9CB10705239FFE5C00117A75 /* Development.sample.xcconfig */,
+				9CB1070923A0EE4400117A75 /* Production.xcconfig */,
+				9CB1070A23A0EE6500117A75 /* Production.sample.xcconfig */,
+			);
+			path = Configuration;
+			sourceTree = "<group>";
+		};
+		9CB1070823A0007300117A75 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				9CB1070623A0006E00117A75 /* Bundle.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		9CDB22A022EEF63E00B8A2C0 /* Model */ = {
@@ -391,6 +418,7 @@
 				9C5AD09222568812009CC78A /* SimilarMoviesNetworkRequest.swift in Sources */,
 				9C20953A22AFE84B0065DA85 /* PaginatedMovieList.swift in Sources */,
 				9C5AD09E22568812009CC78A /* TheMovieDatabaseAPIConfiguration.swift in Sources */,
+				9CB1070723A0006E00117A75 /* Bundle.swift in Sources */,
 				9C5AD08F22568812009CC78A /* ManagerProvider.swift in Sources */,
 				9C20954722B114B80065DA85 /* Box-Office-Movies-Core.xcdatamodeld in Sources */,
 				9C5645E322AA5B34004B405C /* FavoritesDataAccessController.swift in Sources */,
@@ -446,6 +474,7 @@
 /* Begin XCBuildConfiguration section */
 		9C5AD05C22568597009CC78A /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9CB10704239FF44100117A75 /* Development.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -510,6 +539,7 @@
 		};
 		9C5AD05D22568597009CC78A /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9CB1070923A0EE4400117A75 /* Production.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;

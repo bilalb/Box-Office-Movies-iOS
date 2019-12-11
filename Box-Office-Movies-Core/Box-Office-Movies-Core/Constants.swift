@@ -9,10 +9,10 @@
 import Foundation
 
 struct Constants {
-    
-    struct Environment {
-        static let theMovieDatabaseAPIBaseUrl = "https://api.themoviedb.org/3/"
-        static let theMovieDatabaseAPIKey = "6fe58cfe35fd07801b2de4f97e7cd1c8"
+
+    struct InfoDictionaryKey {
+        static let theMovieDatabaseAPIBaseUrl = "THE_MOVIE_DATABASE_API_BASE_URL"
+        static let theMovieDatabaseAPIKey = "THE_MOVIE_DATABASE_API_KEY"
     }
     
     struct Network {

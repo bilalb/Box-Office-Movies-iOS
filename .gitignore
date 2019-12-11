@@ -2,3 +2,5 @@ builds
 Box-Office-Movies/fastlane/screenshots/*/*.png
 Box-Office-Movies/fastlane/screenshots/screenshots.html
 Box-Office-Movies.xcworkspace/xcuserdata/bilal.xcuserdatad
+Development.xcconfig
+Production.xcconfig
