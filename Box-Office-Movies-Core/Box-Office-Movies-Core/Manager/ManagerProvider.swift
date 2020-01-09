@@ -34,10 +34,10 @@ public class ManagerProvider: ManagerProviding {
             let completeBaseUrl = "https://" + theMovieDatabaseAPIBaseUrl
             return Environment(theMovieDatabaseAPIBaseUrl: completeBaseUrl, theMovieDatabaseAPIKey: theMovieDatabaseAPIKey)
         }()
-        let session: URLSession = {
+        let session: NetworkSession = {
             #if DEBUG
             if ManagerProvider.isTest() {
-                return MockedURLSession()
+                return MockedNetworkSession()
             }
             #endif
             let session = URLSession(configuration: .default)

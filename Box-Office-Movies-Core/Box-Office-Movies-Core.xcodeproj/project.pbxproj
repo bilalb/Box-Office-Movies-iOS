@@ -14,8 +14,8 @@
 		9C2190A422B3975F00AE7825 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C2190A322B3975F00AE7825 /* CoreDataStack.swift */; };
 		9C2C3FD322E7484A0099FA0B /* MovieManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C2C3FD222E7484A0099FA0B /* MovieManagerTests.swift */; };
 		9C2C3FD522E749790099FA0B /* Constants+Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C2C3FD422E749790099FA0B /* Constants+Mock.swift */; };
-		9C2C3FD822E750CB0099FA0B /* MockedURLSessionDataTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C2C3FD722E750CB0099FA0B /* MockedURLSessionDataTask.swift */; };
-		9C2C3FDA22E750F80099FA0B /* MockedURLSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C2C3FD922E750F80099FA0B /* MockedURLSession.swift */; };
+		9C4410F623C75484006E1E7A /* NetworkController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C4410F523C75484006E1E7A /* NetworkController.swift */; };
+		9C4410FA23C75A0C006E1E7A /* MockedNetworkSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C4410F923C75A0C006E1E7A /* MockedNetworkSession.swift */; };
 		9C5645DE22AA59E7004B405C /* FavoritesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C5645DD22AA59E7004B405C /* FavoritesManager.swift */; };
 		9C5645E322AA5B34004B405C /* FavoritesDataAccessController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C5645E222AA5B34004B405C /* FavoritesDataAccessController.swift */; };
 		9C5AD05422568597009CC78A /* Box_Office_Movies_Core.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C5AD04A22568597009CC78A /* Box_Office_Movies_Core.framework */; };
@@ -31,7 +31,6 @@
 		9C5AD09622568812009CC78A /* NetworkRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C5AD08422568812009CC78A /* NetworkRequest.swift */; };
 		9C5AD09722568812009CC78A /* MovieNetworkController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C5AD08522568812009CC78A /* MovieNetworkController.swift */; };
 		9C5AD09822568812009CC78A /* Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C5AD08622568812009CC78A /* Environment.swift */; };
-		9C5AD09922568812009CC78A /* NetworkController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C5AD08722568812009CC78A /* NetworkController.swift */; };
 		9C5AD09A22568812009CC78A /* MovieDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C5AD08922568812009CC78A /* MovieDetails.swift */; };
 		9C5AD09D22568812009CC78A /* Casting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C5AD08C22568812009CC78A /* Casting.swift */; };
 		9C5AD09E22568812009CC78A /* TheMovieDatabaseAPIConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C5AD08D22568812009CC78A /* TheMovieDatabaseAPIConfiguration.swift */; };
@@ -65,8 +64,8 @@
 		9C2190A322B3975F00AE7825 /* CoreDataStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		9C2C3FD222E7484A0099FA0B /* MovieManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieManagerTests.swift; sourceTree = "<group>"; };
 		9C2C3FD422E749790099FA0B /* Constants+Mock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Constants+Mock.swift"; sourceTree = "<group>"; };
-		9C2C3FD722E750CB0099FA0B /* MockedURLSessionDataTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockedURLSessionDataTask.swift; sourceTree = "<group>"; };
-		9C2C3FD922E750F80099FA0B /* MockedURLSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockedURLSession.swift; sourceTree = "<group>"; };
+		9C4410F523C75484006E1E7A /* NetworkController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkController.swift; sourceTree = "<group>"; };
+		9C4410F923C75A0C006E1E7A /* MockedNetworkSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockedNetworkSession.swift; sourceTree = "<group>"; };
 		9C5645DD22AA59E7004B405C /* FavoritesManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesManager.swift; sourceTree = "<group>"; };
 		9C5645E222AA5B34004B405C /* FavoritesDataAccessController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesDataAccessController.swift; sourceTree = "<group>"; };
 		9C5AD04A22568597009CC78A /* Box_Office_Movies_Core.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Box_Office_Movies_Core.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -85,7 +84,6 @@
 		9C5AD08422568812009CC78A /* NetworkRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkRequest.swift; sourceTree = "<group>"; };
 		9C5AD08522568812009CC78A /* MovieNetworkController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovieNetworkController.swift; sourceTree = "<group>"; };
 		9C5AD08622568812009CC78A /* Environment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Environment.swift; sourceTree = "<group>"; };
-		9C5AD08722568812009CC78A /* NetworkController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkController.swift; sourceTree = "<group>"; };
 		9C5AD08922568812009CC78A /* MovieDetails.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovieDetails.swift; sourceTree = "<group>"; };
 		9C5AD08B22568812009CC78A /* PaginatedMovieList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaginatedMovieList.swift; sourceTree = "<group>"; };
 		9C5AD08C22568812009CC78A /* Casting.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Casting.swift; sourceTree = "<group>"; };
@@ -129,8 +127,7 @@
 		9C2C3FD622E750B70099FA0B /* TestingSupport */ = {
 			isa = PBXGroup;
 			children = (
-				9C2C3FD922E750F80099FA0B /* MockedURLSession.swift */,
-				9C2C3FD722E750CB0099FA0B /* MockedURLSessionDataTask.swift */,
+				9C4410F923C75A0C006E1E7A /* MockedNetworkSession.swift */,
 			);
 			path = TestingSupport;
 			sourceTree = "<group>";
@@ -209,7 +206,7 @@
 			children = (
 				9C5AD08622568812009CC78A /* Environment.swift */,
 				9C5AD08522568812009CC78A /* MovieNetworkController.swift */,
-				9C5AD08722568812009CC78A /* NetworkController.swift */,
+				9C4410F523C75484006E1E7A /* NetworkController.swift */,
 				9C5AD07D22568812009CC78A /* NetworkRequest */,
 				9C2C3FD622E750B70099FA0B /* TestingSupport */,
 			);
@@ -427,14 +424,13 @@
 				9C5AD09122568812009CC78A /* NowPlayingMoviesNetworkRequest.swift in Sources */,
 				9C5AD09022568812009CC78A /* CastingNetworkRequest.swift in Sources */,
 				9C5AD09A22568812009CC78A /* MovieDetails.swift in Sources */,
+				9C4410F623C75484006E1E7A /* NetworkController.swift in Sources */,
 				9C5AD09322568812009CC78A /* MovieDetailsNetworkRequest.swift in Sources */,
 				9C5AD09522568812009CC78A /* PosterNetworkRequest.swift in Sources */,
 				9C2190A222B38E9200AE7825 /* NSPersistentContainer.swift in Sources */,
 				9C5AD09422568812009CC78A /* TheMovieDatabaseAPIConfigurationNetworkRequest.swift in Sources */,
 				9C5AD09822568812009CC78A /* Environment.swift in Sources */,
 				9C20954622B0E97C0065DA85 /* CodingUserInfoKey.swift in Sources */,
-				9C5AD09922568812009CC78A /* NetworkController.swift in Sources */,
-				9C2C3FDA22E750F80099FA0B /* MockedURLSession.swift in Sources */,
 				9C2190A422B3975F00AE7825 /* CoreDataStack.swift in Sources */,
 				9C5AD09722568812009CC78A /* MovieNetworkController.swift in Sources */,
 				9CFAE4BC22C7868D00893908 /* Movie+CoreDataClass.swift in Sources */,
@@ -442,8 +438,8 @@
 				9CCEACC322FCF1AC004620BA /* VideosNetworkRequest.swift in Sources */,
 				9C5AD08E22568812009CC78A /* MovieManager.swift in Sources */,
 				9CCEACC122FCE861004620BA /* Video.swift in Sources */,
+				9C4410FA23C75A0C006E1E7A /* MockedNetworkSession.swift in Sources */,
 				9CFAE4BB22C7868D00893908 /* Movie+CoreDataProperties.swift in Sources */,
-				9C2C3FD822E750CB0099FA0B /* MockedURLSessionDataTask.swift in Sources */,
 				9C5AD0AB22568A63009CC78A /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

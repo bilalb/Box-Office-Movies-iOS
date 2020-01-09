@@ -9,7 +9,7 @@
 import Foundation
 import CoreData
 
-protocol MovieNetworkControlling: NetworkControlling {
+protocol MovieNetworkControlling {
     
     /// Fetches the list of movies now playing in theatres.
     ///

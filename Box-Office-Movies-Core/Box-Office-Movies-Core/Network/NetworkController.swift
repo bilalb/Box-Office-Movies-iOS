@@ -16,15 +16,8 @@ import Foundation
 ///   - error: The error encountered while executing or validating the request.
 typealias NetworkCompletionHandler = (_ data: Data?, _ response: URLResponse?, _ error: Error?) -> Void
 
-protocol NetworkControlling {
-    
-    /// Init method of the network controller.
-    ///
-    /// - Parameters:
-    ///   - environment: The environment used to initialise the network requests.
-    ///   - session: The URL session to use (Mocked for testing, otherwise default).
-    init(environment: Environment, session: URLSession?)
-    
+protocol NetworkSession {
+
     /// Sends a network request and returns with the results
     ///
     /// - Parameters:
@@ -33,22 +26,30 @@ protocol NetworkControlling {
     func send(request: NetworkRequest, completionHandler: NetworkCompletionHandler?)
 }
 
-class NetworkController: NetworkControlling {
-    
+extension URLSession: NetworkSession {
+
+    func send(request: NetworkRequest, completionHandler: NetworkCompletionHandler?) {
+        guard let urlRequest = request.urlRequest else { return }
+
+        let dataTask = self.dataTask(with: urlRequest) { (data, response, error) in
+            completionHandler?(data, response, error)
+        }
+
+        dataTask.resume()
+    }
+}
+
+class NetworkController {
+
     let environment: Environment
-    let session: URLSession?
-    
-    required init(environment: Environment, session: URLSession?) {
+    let session: NetworkSession
+
+    required init(environment: Environment, session: NetworkSession) {
         self.environment = environment
         self.session = session
     }
-    
+
     func send(request: NetworkRequest, completionHandler: NetworkCompletionHandler?) {
-        if let urlRequest = request.urlRequest {
-            let dataTask = session?.dataTask(with: urlRequest, completionHandler: { (data, response, error) in
-                completionHandler?(data, response, error)
-            })
-            dataTask?.resume()
-        }
+        session.send(request: request, completionHandler: completionHandler)
     }
 }
