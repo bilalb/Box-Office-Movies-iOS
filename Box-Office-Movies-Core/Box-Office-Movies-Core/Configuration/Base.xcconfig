@@ -1,0 +1,12 @@
+//
+//  Base.xcconfig
+//  Box-Office-Movies-Core
+//
+//  Created by Bilal on 24/02/2020.
+//  Copyright © 2020 Boxotop. All rights reserved.
+//
+
+// xcconfig files treat the sequence // as a comment delimiter, regardless of whether it’s enclosed in quotation marks.
+// If you try to escape with backslashes \/\/, those backslashes show up literally and must be removed from the resulting value.
+// The workaround is to use an empty var `$()`.
+BASE_THE_MOVIE_DATABASE_API_BASE_URL = https:/$()/api.themoviedb.org/3/

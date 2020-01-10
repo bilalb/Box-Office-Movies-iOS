@@ -1,0 +1,10 @@
+//
+//  Base.xcconfig
+//  Box-Office-Movies
+//
+//  Created by Bilal on 24/02/2020.
+//  Copyright © 2020 Boxotop. All rights reserved.
+//
+
+BASE_APP_NAME = Boxotop
+BASE_APP_BUNDLE_IDENTIFIER = fr.boxotop.Box-Office-Movies

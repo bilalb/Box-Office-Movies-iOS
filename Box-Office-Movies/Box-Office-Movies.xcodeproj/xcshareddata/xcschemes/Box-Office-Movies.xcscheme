@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "9CDC95D52243FFB10051925E"
-               BuildableName = "Boxotop (dev).app"
+               BuildableName = "Box-Office-Movies.app"
                BlueprintName = "Box-Office-Movies"
                ReferencedContainer = "container:Box-Office-Movies.xcodeproj">
             </BuildableReference>
@@ -23,7 +23,7 @@
       </BuildActionEntries>
    </BuildAction>
    <TestAction
-      buildConfiguration = "Debug (Production)"
+      buildConfiguration = "Debug-Production"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES"
@@ -33,7 +33,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "9CDC95D52243FFB10051925E"
-            BuildableName = "Boxotop (dev).app"
+            BuildableName = "Box-Office-Movies.app"
             BlueprintName = "Box-Office-Movies"
             ReferencedContainer = "container:Box-Office-Movies.xcodeproj">
          </BuildableReference>
@@ -42,7 +42,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "9CDC95D52243FFB10051925E"
-            BuildableName = "Boxotop (dev).app"
+            BuildableName = "Box-Office-Movies.app"
             BlueprintName = "Box-Office-Movies"
             ReferencedContainer = "container:Box-Office-Movies.xcodeproj">
          </BuildableReference>
@@ -71,7 +71,7 @@
       </Testables>
    </TestAction>
    <LaunchAction
-      buildConfiguration = "Debug (Production)"
+      buildConfiguration = "Debug-Production"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       launchStyle = "0"
@@ -85,14 +85,14 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "9CDC95D52243FFB10051925E"
-            BuildableName = "Boxotop (dev).app"
+            BuildableName = "Box-Office-Movies.app"
             BlueprintName = "Box-Office-Movies"
             ReferencedContainer = "container:Box-Office-Movies.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
    <ProfileAction
-      buildConfiguration = "Release (Production)"
+      buildConfiguration = "Release-Production"
       shouldUseLaunchSchemeArgsEnv = "YES"
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
@@ -102,17 +102,17 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "9CDC95D52243FFB10051925E"
-            BuildableName = "Boxotop (dev).app"
+            BuildableName = "Box-Office-Movies.app"
             BlueprintName = "Box-Office-Movies"
             ReferencedContainer = "container:Box-Office-Movies.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
    <AnalyzeAction
-      buildConfiguration = "Debug (Production)">
+      buildConfiguration = "Debug-Production">
    </AnalyzeAction>
    <ArchiveAction
-      buildConfiguration = "Release (Production)"
+      buildConfiguration = "Release-Production"
       revealArchiveInOrganizer = "YES">
    </ArchiveAction>
 </Scheme>

@@ -89,11 +89,8 @@
 
 /* Begin PBXFileReference section */
 		9C44111A23C7718A006E1E7A /* Development.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Development.xcconfig; sourceTree = "<group>"; };
-		9C44111B23C771DE006E1E7A /* Development.sample.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Development.sample.xcconfig; sourceTree = "<group>"; };
 		9C44111C23C771FD006E1E7A /* Staging.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Staging.xcconfig; sourceTree = "<group>"; };
-		9C44111D23C7720E006E1E7A /* Staging.sample.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Staging.sample.xcconfig; sourceTree = "<group>"; };
 		9C44111E23C7721A006E1E7A /* Production.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Production.xcconfig; sourceTree = "<group>"; };
-		9C44111F23C77226006E1E7A /* Production.sample.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Production.sample.xcconfig; sourceTree = "<group>"; };
 		9C4935E9224A95CD00359378 /* AdditionalInformationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdditionalInformationTableViewCell.swift; sourceTree = "<group>"; };
 		9C5AD02A22564FFA009CC78A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
 		9C5AD02E225650BB009CC78A /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Main.strings; sourceTree = "<group>"; };
@@ -145,6 +142,7 @@
 		9CDC96622247DA510051925E /* MovieDetailsModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailsModels.swift; sourceTree = "<group>"; };
 		9CDC96632247DA510051925E /* MovieDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailsViewController.swift; sourceTree = "<group>"; };
 		9CDC96642247DA510051925E /* MovieDetailsInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailsInteractor.swift; sourceTree = "<group>"; };
+		9CE5AD2F2403F87800021EEE /* Base.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Base.xcconfig; sourceTree = "<group>"; };
 		9CE7AEC122569A1C00C20569 /* Box_Office_Movies_Core.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Box_Office_Movies_Core.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9CFAE4C122C78D9600893908 /* Box-Office-MoviesUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Box-Office-MoviesUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9CFAE4C322C78D9600893908 /* Box_Office_MoviesUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Box_Office_MoviesUITests.swift; sourceTree = "<group>"; };
@@ -182,11 +180,9 @@
 		9C44111923C77174006E1E7A /* Configuration */ = {
 			isa = PBXGroup;
 			children = (
-				9C44111B23C771DE006E1E7A /* Development.sample.xcconfig */,
+				9CE5AD2F2403F87800021EEE /* Base.xcconfig */,
 				9C44111A23C7718A006E1E7A /* Development.xcconfig */,
-				9C44111F23C77226006E1E7A /* Production.sample.xcconfig */,
 				9C44111E23C7721A006E1E7A /* Production.xcconfig */,
-				9C44111D23C7720E006E1E7A /* Staging.sample.xcconfig */,
 				9C44111C23C771FD006E1E7A /* Staging.xcconfig */,
 			);
 			path = Configuration;
@@ -668,7 +664,7 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		9C44110723C76EFC006E1E7A /* Debug (Production) */ = {
+		9C44110723C76EFC006E1E7A /* Debug-Production */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 9C44111E23C7721A006E1E7A /* Production.xcconfig */;
 			buildSettings = {
@@ -729,9 +725,9 @@
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
-			name = "Debug (Production)";
+			name = "Debug-Production";
 		};
-		9C44110823C76EFC006E1E7A /* Debug (Production) */ = {
+		9C44110823C76EFC006E1E7A /* Debug-Production */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 9C44111E23C7721A006E1E7A /* Production.xcconfig */;
 			buildSettings = {
@@ -750,9 +746,9 @@
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
-			name = "Debug (Production)";
+			name = "Debug-Production";
 		};
-		9C44110923C76EFC006E1E7A /* Debug (Production) */ = {
+		9C44110923C76EFC006E1E7A /* Debug-Production */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 9C44111E23C7721A006E1E7A /* Production.xcconfig */;
 			buildSettings = {
@@ -772,9 +768,9 @@
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Box-Office-Movies.app/Box-Office-Movies";
 			};
-			name = "Debug (Production)";
+			name = "Debug-Production";
 		};
-		9C44110A23C76EFC006E1E7A /* Debug (Production) */ = {
+		9C44110A23C76EFC006E1E7A /* Debug-Production */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 9C44111E23C7721A006E1E7A /* Production.xcconfig */;
 			buildSettings = {
@@ -793,9 +789,9 @@
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = "Box-Office-Movies";
 			};
-			name = "Debug (Production)";
+			name = "Debug-Production";
 		};
-		9C44110B23C76EFE006E1E7A /* Debug (Staging) */ = {
+		9C44110B23C76EFE006E1E7A /* Debug-Staging */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 9C44111C23C771FD006E1E7A /* Staging.xcconfig */;
 			buildSettings = {
@@ -856,9 +852,9 @@
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
-			name = "Debug (Staging)";
+			name = "Debug-Staging";
 		};
-		9C44110C23C76EFE006E1E7A /* Debug (Staging) */ = {
+		9C44110C23C76EFE006E1E7A /* Debug-Staging */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 9C44111C23C771FD006E1E7A /* Staging.xcconfig */;
 			buildSettings = {
@@ -877,9 +873,9 @@
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
-			name = "Debug (Staging)";
+			name = "Debug-Staging";
 		};
-		9C44110D23C76EFE006E1E7A /* Debug (Staging) */ = {
+		9C44110D23C76EFE006E1E7A /* Debug-Staging */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 9C44111C23C771FD006E1E7A /* Staging.xcconfig */;
 			buildSettings = {
@@ -899,9 +895,9 @@
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Box-Office-Movies.app/Box-Office-Movies";
 			};
-			name = "Debug (Staging)";
+			name = "Debug-Staging";
 		};
-		9C44110E23C76EFE006E1E7A /* Debug (Staging) */ = {
+		9C44110E23C76EFE006E1E7A /* Debug-Staging */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 9C44111C23C771FD006E1E7A /* Staging.xcconfig */;
 			buildSettings = {
@@ -920,9 +916,9 @@
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = "Box-Office-Movies";
 			};
-			name = "Debug (Staging)";
+			name = "Debug-Staging";
 		};
-		9C44110F23C76F02006E1E7A /* Release (Production) */ = {
+		9C44110F23C76F02006E1E7A /* Release-Production */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 9C44111E23C7721A006E1E7A /* Production.xcconfig */;
 			buildSettings = {
@@ -977,9 +973,9 @@
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				VALIDATE_PRODUCT = YES;
 			};
-			name = "Release (Production)";
+			name = "Release-Production";
 		};
-		9C44111023C76F02006E1E7A /* Release (Production) */ = {
+		9C44111023C76F02006E1E7A /* Release-Production */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 9C44111E23C7721A006E1E7A /* Production.xcconfig */;
 			buildSettings = {
@@ -998,9 +994,9 @@
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
-			name = "Release (Production)";
+			name = "Release-Production";
 		};
-		9C44111123C76F02006E1E7A /* Release (Production) */ = {
+		9C44111123C76F02006E1E7A /* Release-Production */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 9C44111E23C7721A006E1E7A /* Production.xcconfig */;
 			buildSettings = {
@@ -1020,9 +1016,9 @@
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Box-Office-Movies.app/Box-Office-Movies";
 			};
-			name = "Release (Production)";
+			name = "Release-Production";
 		};
-		9C44111223C76F02006E1E7A /* Release (Production) */ = {
+		9C44111223C76F02006E1E7A /* Release-Production */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 9C44111E23C7721A006E1E7A /* Production.xcconfig */;
 			buildSettings = {
@@ -1041,9 +1037,9 @@
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = "Box-Office-Movies";
 			};
-			name = "Release (Production)";
+			name = "Release-Production";
 		};
-		9C44111323C76F05006E1E7A /* Release (Staging) */ = {
+		9C44111323C76F05006E1E7A /* Release-Staging */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 9C44111C23C771FD006E1E7A /* Staging.xcconfig */;
 			buildSettings = {
@@ -1098,9 +1094,9 @@
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				VALIDATE_PRODUCT = YES;
 			};
-			name = "Release (Staging)";
+			name = "Release-Staging";
 		};
-		9C44111423C76F05006E1E7A /* Release (Staging) */ = {
+		9C44111423C76F05006E1E7A /* Release-Staging */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 9C44111C23C771FD006E1E7A /* Staging.xcconfig */;
 			buildSettings = {
@@ -1119,9 +1115,9 @@
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
-			name = "Release (Staging)";
+			name = "Release-Staging";
 		};
-		9C44111523C76F05006E1E7A /* Release (Staging) */ = {
+		9C44111523C76F05006E1E7A /* Release-Staging */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 9C44111C23C771FD006E1E7A /* Staging.xcconfig */;
 			buildSettings = {
@@ -1141,9 +1137,9 @@
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Box-Office-Movies.app/Box-Office-Movies";
 			};
-			name = "Release (Staging)";
+			name = "Release-Staging";
 		};
-		9C44111623C76F05006E1E7A /* Release (Staging) */ = {
+		9C44111623C76F05006E1E7A /* Release-Staging */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 9C44111C23C771FD006E1E7A /* Staging.xcconfig */;
 			buildSettings = {
@@ -1162,9 +1158,9 @@
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = "Box-Office-Movies";
 			};
-			name = "Release (Staging)";
+			name = "Release-Staging";
 		};
-		9CDC95F32243FFB30051925E /* Debug (Development) */ = {
+		9CDC95F32243FFB30051925E /* Debug-Development */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 9C44111A23C7718A006E1E7A /* Development.xcconfig */;
 			buildSettings = {
@@ -1225,9 +1221,9 @@
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
-			name = "Debug (Development)";
+			name = "Debug-Development";
 		};
-		9CDC95F42243FFB30051925E /* Release (Development) */ = {
+		9CDC95F42243FFB30051925E /* Release-Development */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 9C44111A23C7718A006E1E7A /* Development.xcconfig */;
 			buildSettings = {
@@ -1284,9 +1280,9 @@
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				VALIDATE_PRODUCT = YES;
 			};
-			name = "Release (Development)";
+			name = "Release-Development";
 		};
-		9CDC95F62243FFB30051925E /* Debug (Development) */ = {
+		9CDC95F62243FFB30051925E /* Debug-Development */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 9C44111A23C7718A006E1E7A /* Development.xcconfig */;
 			buildSettings = {
@@ -1305,9 +1301,9 @@
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
-			name = "Debug (Development)";
+			name = "Debug-Development";
 		};
-		9CDC95F72243FFB30051925E /* Release (Development) */ = {
+		9CDC95F72243FFB30051925E /* Release-Development */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 9C44111A23C7718A006E1E7A /* Development.xcconfig */;
 			buildSettings = {
@@ -1326,9 +1322,9 @@
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
-			name = "Release (Development)";
+			name = "Release-Development";
 		};
-		9CDC95F92243FFB30051925E /* Debug (Development) */ = {
+		9CDC95F92243FFB30051925E /* Debug-Development */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 9C44111A23C7718A006E1E7A /* Development.xcconfig */;
 			buildSettings = {
@@ -1348,9 +1344,9 @@
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Box-Office-Movies.app/Box-Office-Movies";
 			};
-			name = "Debug (Development)";
+			name = "Debug-Development";
 		};
-		9CDC95FA2243FFB30051925E /* Release (Development) */ = {
+		9CDC95FA2243FFB30051925E /* Release-Development */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 9C44111A23C7718A006E1E7A /* Development.xcconfig */;
 			buildSettings = {
@@ -1370,9 +1366,9 @@
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Box-Office-Movies.app/Box-Office-Movies";
 			};
-			name = "Release (Development)";
+			name = "Release-Development";
 		};
-		9CFAE4C822C78D9600893908 /* Debug (Development) */ = {
+		9CFAE4C822C78D9600893908 /* Debug-Development */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 9C44111A23C7718A006E1E7A /* Development.xcconfig */;
 			buildSettings = {
@@ -1391,9 +1387,9 @@
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = "Box-Office-Movies";
 			};
-			name = "Debug (Development)";
+			name = "Debug-Development";
 		};
-		9CFAE4C922C78D9600893908 /* Release (Development) */ = {
+		9CFAE4C922C78D9600893908 /* Release-Development */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 9C44111A23C7718A006E1E7A /* Development.xcconfig */;
 			buildSettings = {
@@ -1412,7 +1408,7 @@
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = "Box-Office-Movies";
 			};
-			name = "Release (Development)";
+			name = "Release-Development";
 		};
 /* End XCBuildConfiguration section */
 
@@ -1420,54 +1416,54 @@
 		9CDC95D12243FFB10051925E /* Build configuration list for PBXProject "Box-Office-Movies" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				9CDC95F32243FFB30051925E /* Debug (Development) */,
-				9C44110B23C76EFE006E1E7A /* Debug (Staging) */,
-				9C44110723C76EFC006E1E7A /* Debug (Production) */,
-				9CDC95F42243FFB30051925E /* Release (Development) */,
-				9C44111323C76F05006E1E7A /* Release (Staging) */,
-				9C44110F23C76F02006E1E7A /* Release (Production) */,
+				9CDC95F32243FFB30051925E /* Debug-Development */,
+				9C44110B23C76EFE006E1E7A /* Debug-Staging */,
+				9C44110723C76EFC006E1E7A /* Debug-Production */,
+				9CDC95F42243FFB30051925E /* Release-Development */,
+				9C44111323C76F05006E1E7A /* Release-Staging */,
+				9C44110F23C76F02006E1E7A /* Release-Production */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = "Release (Development)";
+			defaultConfigurationName = "Release-Development";
 		};
 		9CDC95F52243FFB30051925E /* Build configuration list for PBXNativeTarget "Box-Office-Movies" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				9CDC95F62243FFB30051925E /* Debug (Development) */,
-				9C44110C23C76EFE006E1E7A /* Debug (Staging) */,
-				9C44110823C76EFC006E1E7A /* Debug (Production) */,
-				9CDC95F72243FFB30051925E /* Release (Development) */,
-				9C44111423C76F05006E1E7A /* Release (Staging) */,
-				9C44111023C76F02006E1E7A /* Release (Production) */,
+				9CDC95F62243FFB30051925E /* Debug-Development */,
+				9C44110C23C76EFE006E1E7A /* Debug-Staging */,
+				9C44110823C76EFC006E1E7A /* Debug-Production */,
+				9CDC95F72243FFB30051925E /* Release-Development */,
+				9C44111423C76F05006E1E7A /* Release-Staging */,
+				9C44111023C76F02006E1E7A /* Release-Production */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = "Release (Development)";
+			defaultConfigurationName = "Release-Development";
 		};
 		9CDC95F82243FFB30051925E /* Build configuration list for PBXNativeTarget "Box-Office-MoviesTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				9CDC95F92243FFB30051925E /* Debug (Development) */,
-				9C44110D23C76EFE006E1E7A /* Debug (Staging) */,
-				9C44110923C76EFC006E1E7A /* Debug (Production) */,
-				9CDC95FA2243FFB30051925E /* Release (Development) */,
-				9C44111523C76F05006E1E7A /* Release (Staging) */,
-				9C44111123C76F02006E1E7A /* Release (Production) */,
+				9CDC95F92243FFB30051925E /* Debug-Development */,
+				9C44110D23C76EFE006E1E7A /* Debug-Staging */,
+				9C44110923C76EFC006E1E7A /* Debug-Production */,
+				9CDC95FA2243FFB30051925E /* Release-Development */,
+				9C44111523C76F05006E1E7A /* Release-Staging */,
+				9C44111123C76F02006E1E7A /* Release-Production */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = "Release (Development)";
+			defaultConfigurationName = "Release-Development";
 		};
 		9CFAE4CA22C78D9600893908 /* Build configuration list for PBXNativeTarget "Box-Office-MoviesUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				9CFAE4C822C78D9600893908 /* Debug (Development) */,
-				9C44110E23C76EFE006E1E7A /* Debug (Staging) */,
-				9C44110A23C76EFC006E1E7A /* Debug (Production) */,
-				9CFAE4C922C78D9600893908 /* Release (Development) */,
-				9C44111623C76F05006E1E7A /* Release (Staging) */,
-				9C44111223C76F02006E1E7A /* Release (Production) */,
+				9CFAE4C822C78D9600893908 /* Debug-Development */,
+				9C44110E23C76EFE006E1E7A /* Debug-Staging */,
+				9C44110A23C76EFC006E1E7A /* Debug-Production */,
+				9CFAE4C922C78D9600893908 /* Release-Development */,
+				9C44111623C76F05006E1E7A /* Release-Staging */,
+				9C44111223C76F02006E1E7A /* Release-Production */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = "Release (Development)";
+			defaultConfigurationName = "Release-Development";
 		};
 /* End XCConfigurationList section */
 	};

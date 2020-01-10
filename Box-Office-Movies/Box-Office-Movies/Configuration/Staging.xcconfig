@@ -1,0 +1,12 @@
+//
+//  Staging.xcconfig
+//  Box-Office-Movies
+//
+//  Created by Bilal on 09/01/2020.
+//  Copyright © 2020 Boxotop. All rights reserved.
+//
+
+#include "Base.xcconfig"
+
+APP_NAME = $(BASE_APP_NAME) (staging)
+APP_BUNDLE_IDENTIFIER = $(BASE_APP_BUNDLE_IDENTIFIER).staging
