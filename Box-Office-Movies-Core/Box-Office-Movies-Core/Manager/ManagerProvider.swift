@@ -29,10 +29,7 @@ public class ManagerProvider: ManagerProviding {
             else {
                 preconditionFailure("failed to read configuration")
             }
-            // xcconfig files treat the sequence // as a comment delimiter, regardless of whether it’s enclosed in quotation marks. If you try to escape with backslashes \/\/, those backslashes show up literally and must be removed from the resulting value.
-            // I decided to omit the scheme in the xcconfig file and now I have to prepend https://
-            let completeBaseUrl = "https://" + theMovieDatabaseAPIBaseUrl
-            return Environment(theMovieDatabaseAPIBaseUrl: completeBaseUrl, theMovieDatabaseAPIKey: theMovieDatabaseAPIKey)
+            return Environment(theMovieDatabaseAPIBaseUrl: theMovieDatabaseAPIBaseUrl, theMovieDatabaseAPIKey: theMovieDatabaseAPIKey)
         }()
         let session: NetworkSession = {
             #if DEBUG
