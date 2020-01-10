@@ -10,5 +10,6 @@
 // In place of those files, here is a placeholder file with all of the expected keys.
 // When checking out the repository, copy this file to the non-placeholder location and fill it out accordingly.
 
-THE_MOVIE_DATABASE_API_BASE_URL = api.themoviedb.org/3/
+// xcconfig files treat the sequence // as a comment delimiter, regardless of whether it’s enclosed in quotation marks. If you try to escape with backslashes \/\/, those backslashes show up literally and must be removed from the resulting value. The workaround is to use an empty var `$()` between slashes.
+THE_MOVIE_DATABASE_API_BASE_URL = https:/$()/api.themoviedb.org/3/
 THE_MOVIE_DATABASE_API_KEY = someApiKey

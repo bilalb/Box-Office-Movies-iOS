@@ -1,0 +1,14 @@
+//
+//  Staging.sample.xcconfig
+//  Box-Office-Movies
+//
+//  Created by Bilal on 09/01/2020.
+//  Copyright © 2020 Boxotop. All rights reserved.
+//
+
+// I did not commit configuration files to source code.
+// In place of those files, here is a placeholder file with all of the expected keys.
+// When checking out the repository, copy this file to the non-placeholder location and fill it out accordingly.
+
+APP_NAME = Boxotop (staging)
+APP_BUNDLE_IDENTIFIER = fr.boxotop.Box-Office-Movies.staging
