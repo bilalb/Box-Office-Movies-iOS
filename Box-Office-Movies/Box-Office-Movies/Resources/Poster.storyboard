@@ -39,7 +39,7 @@
                                 </connections>
                             </scrollView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="S7R-XN-Sp2" firstAttribute="trailing" secondItem="xhE-CT-6oY" secondAttribute="trailing" id="Iil-gP-uOF"/>
                             <constraint firstItem="xhE-CT-6oY" firstAttribute="leading" secondItem="S7R-XN-Sp2" secondAttribute="leading" id="ewW-uZ-FsN"/>
