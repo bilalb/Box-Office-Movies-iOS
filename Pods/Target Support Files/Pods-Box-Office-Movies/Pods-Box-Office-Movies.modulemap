@@ -1,0 +1,6 @@
+framework module Pods_Box_Office_Movies {
+  umbrella header "Pods-Box-Office-Movies-umbrella.h"
+
+  export *
+  module * { export * }
+}

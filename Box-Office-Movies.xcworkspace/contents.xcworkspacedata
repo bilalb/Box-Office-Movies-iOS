@@ -10,4 +10,7 @@
    <FileRef
       location = "group:Box-Office-Movies-Core/Box-Office-Movies-Core.xcodeproj">
    </FileRef>
+   <FileRef
+      location = "group:Pods/Pods.xcodeproj">
+   </FileRef>
 </Workspace>
