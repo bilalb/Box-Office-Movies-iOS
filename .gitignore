@@ -1,4 +1,10 @@
 builds
+Box-Office-Movies/Box-Office-Movies/Resources/GoogleServiceInfoPlists/GoogleService-Info-Debug-Development.plist
+Box-Office-Movies/Box-Office-Movies/Resources/GoogleServiceInfoPlists/GoogleService-Info-Debug-Production.plist
+Box-Office-Movies/Box-Office-Movies/Resources/GoogleServiceInfoPlists/GoogleService-Info-Debug-Staging.plist
+Box-Office-Movies/Box-Office-Movies/Resources/GoogleServiceInfoPlists/GoogleService-Info-Release-Development.plist
+Box-Office-Movies/Box-Office-Movies/Resources/GoogleServiceInfoPlists/GoogleService-Info-Release-Production.plist
+Box-Office-Movies/Box-Office-Movies/Resources/GoogleServiceInfoPlists/GoogleService-Info-Release-Staging.plist
 Box-Office-Movies/Box-Office-Movies.xcodeproj/xcuserdata/bilal.xcuserdatad
 Box-Office-Movies/fastlane/screenshots/*/*.png
 Box-Office-Movies/fastlane/screenshots/screenshots.html
@@ -6,3 +12,4 @@ Box-Office-Movies.xcworkspace/xcuserdata/bilal.xcuserdatad
 Box-Office-Movies-Core/Box-Office-Movies-Core.xcodeproj/xcuserdata/bilal.xcuserdatad
 Box-Office-Movies-Core/Box-Office-Movies-Core/Configuration/Production.xcconfig
 Box-Office-Movies-Core/Box-Office-Movies-Core/Configuration/Staging.xcconfig
+Pods/Pods.xcodeproj/xcuserdata/bilal.xcuserdatad

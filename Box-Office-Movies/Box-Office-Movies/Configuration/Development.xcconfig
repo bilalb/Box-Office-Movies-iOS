@@ -7,6 +7,8 @@
 //
 
 #include "Base.xcconfig"
+#include "./../Pods/Target Support Files/Pods-Box-Office-Movies/Pods-Box-Office-Movies.debug-development.xcconfig"
+#include "./../Pods/Target Support Files/Pods-Box-Office-Movies/Pods-Box-Office-Movies.release-development.xcconfig"
 
 APP_NAME = $(BASE_APP_NAME) (dev)
 APP_BUNDLE_IDENTIFIER = $(BASE_APP_BUNDLE_IDENTIFIER).dev
