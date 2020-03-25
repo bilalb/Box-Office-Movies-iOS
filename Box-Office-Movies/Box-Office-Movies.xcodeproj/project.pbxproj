@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		7F87DE172CA9230DD4125E5D /* Pods_Box_Office_Movies.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43AAA7F0755C14E7B47FD5C6 /* Pods_Box_Office_Movies.framework */; };
 		9C4935EA224A95CD00359378 /* AdditionalInformationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C4935E9224A95CD00359378 /* AdditionalInformationTableViewCell.swift */; };
+		9C4C9799242B854800B48C22 /* GoogleService-Info.sample.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9C4C9798242B854800B48C22 /* GoogleService-Info.sample.plist */; };
 		9C5AD034225653ED009CC78A /* MovieDetailsViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C5AD031225653ED009CC78A /* MovieDetailsViewControllerTests.swift */; };
 		9C5AD035225653ED009CC78A /* MovieDetailsInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C5AD032225653ED009CC78A /* MovieDetailsInteractorTests.swift */; };
 		9C5AD036225653ED009CC78A /* MovieDetailsPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C5AD033225653ED009CC78A /* MovieDetailsPresenterTests.swift */; };
@@ -31,12 +32,6 @@
 		9CCEACC722FCFB76004620BA /* TrailerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CCEACC622FCFB76004620BA /* TrailerTableViewCell.swift */; };
 		9CD1682222F4B2DF00688215 /* MovieDetailsRouterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CD1682122F4B2DF00688215 /* MovieDetailsRouterTests.swift */; };
 		9CDAE7472427AA05002AA780 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9CDAE7462427AA05002AA780 /* GoogleService-Info.plist */; };
-		9CDAE74F2427AC02002AA780 /* GoogleService-Info-Debug-Production.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9CDAE7492427AC02002AA780 /* GoogleService-Info-Debug-Production.plist */; };
-		9CDAE7502427AC02002AA780 /* GoogleService-Info-Debug-Development.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9CDAE74A2427AC02002AA780 /* GoogleService-Info-Debug-Development.plist */; };
-		9CDAE7512427AC02002AA780 /* GoogleService-Info-Debug-Staging.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9CDAE74B2427AC02002AA780 /* GoogleService-Info-Debug-Staging.plist */; };
-		9CDAE7522427AC02002AA780 /* GoogleService-Info-Release-Development.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9CDAE74C2427AC02002AA780 /* GoogleService-Info-Release-Development.plist */; };
-		9CDAE7532427AC02002AA780 /* GoogleService-Info-Release-Staging.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9CDAE74D2427AC02002AA780 /* GoogleService-Info-Release-Staging.plist */; };
-		9CDAE7542427AC02002AA780 /* GoogleService-Info-Release-Production.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9CDAE74E2427AC02002AA780 /* GoogleService-Info-Release-Production.plist */; };
 		9CDB22A522EF115B00B8A2C0 /* EmptyBackgroundView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9CDB22A422EF115B00B8A2C0 /* EmptyBackgroundView.xib */; };
 		9CDB22A722EF172400B8A2C0 /* EmptyBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CDB22A622EF172400B8A2C0 /* EmptyBackgroundView.swift */; };
 		9CDC95DA2243FFB10051925E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CDC95D92243FFB10051925E /* AppDelegate.swift */; };
@@ -104,6 +99,7 @@
 		9C44111C23C771FD006E1E7A /* Staging.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Staging.xcconfig; sourceTree = "<group>"; };
 		9C44111E23C7721A006E1E7A /* Production.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Production.xcconfig; sourceTree = "<group>"; };
 		9C4935E9224A95CD00359378 /* AdditionalInformationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdditionalInformationTableViewCell.swift; sourceTree = "<group>"; };
+		9C4C9798242B854800B48C22 /* GoogleService-Info.sample.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.sample.plist"; sourceTree = "<group>"; };
 		9C5AD02A22564FFA009CC78A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
 		9C5AD02E225650BB009CC78A /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Main.strings; sourceTree = "<group>"; };
 		9C5AD031225653ED009CC78A /* MovieDetailsViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailsViewControllerTests.swift; sourceTree = "<group>"; };
@@ -321,6 +317,7 @@
 		9CDAE7482427AC02002AA780 /* GoogleServiceInfoPlists */ = {
 			isa = PBXGroup;
 			children = (
+				9C4C9798242B854800B48C22 /* GoogleService-Info.sample.plist */,
 				9CDAE74A2427AC02002AA780 /* GoogleService-Info-Debug-Development.plist */,
 				9CDAE7492427AC02002AA780 /* GoogleService-Info-Debug-Production.plist */,
 				9CDAE74B2427AC02002AA780 /* GoogleService-Info-Debug-Staging.plist */,
@@ -570,16 +567,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				9CDC95E62243FFB30051925E /* LaunchScreen.storyboard in Resources */,
-				9CDAE7512427AC02002AA780 /* GoogleService-Info-Debug-Staging.plist in Resources */,
-				9CDAE7502427AC02002AA780 /* GoogleService-Info-Debug-Development.plist in Resources */,
 				9C6F39D822F474C9009D030B /* Poster.storyboard in Resources */,
-				9CDAE74F2427AC02002AA780 /* GoogleService-Info-Debug-Production.plist in Resources */,
 				9C90009522510AE600399CF3 /* Localizable.strings in Resources */,
 				9CDC95E32243FFB30051925E /* Assets.xcassets in Resources */,
-				9CDAE7522427AC02002AA780 /* GoogleService-Info-Release-Development.plist in Resources */,
+				9C4C9799242B854800B48C22 /* GoogleService-Info.sample.plist in Resources */,
 				9CDC95E12243FFB10051925E /* Main.storyboard in Resources */,
-				9CDAE7542427AC02002AA780 /* GoogleService-Info-Release-Production.plist in Resources */,
-				9CDAE7532427AC02002AA780 /* GoogleService-Info-Release-Staging.plist in Resources */,
 				9CDB22A522EF115B00B8A2C0 /* EmptyBackgroundView.xib in Resources */,
 				9CDAE7472427AA05002AA780 /* GoogleService-Info.plist in Resources */,
 			);

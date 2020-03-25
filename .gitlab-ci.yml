@@ -4,8 +4,8 @@ stages:
 test_project:
   stage: test
   script:
-    - set -o pipefail && xcodebuild clean -scheme Box-Office-Movies_Development | xcpretty
-    - set -o pipefail && xcodebuild test -scheme Box-Office-Movies_Development -derivedDataPath Build/ -destination 'platform=iOS Simulator,name=iPhone 8,OS=13.3' | xcpretty
+    - set -o pipefail && xcodebuild clean -scheme Box-Office-Movies_CI | xcpretty
+    - set -o pipefail && xcodebuild test -scheme Box-Office-Movies_CI -derivedDataPath Build/ -destination 'platform=iOS Simulator,name=iPhone 8,OS=13.4' | xcpretty
     - set -o pipefail && echo "test_coverage=`xcrun xccov view --report Build/Logs/Test/*.xcresult | grep 'Box-Office-Movies.app' | head -1 | perl -pe 's/.+?(\d+\.\d+%).+/\1/'`"
   tags:
     - iOS-13.3
@@ -15,7 +15,7 @@ test_core:
   stage: test
   script:
     - set -o pipefail && xcodebuild clean -scheme Box-Office-Movies-Core | xcpretty
-    - set -o pipefail && xcodebuild test -scheme Box-Office-Movies-Core -derivedDataPath Build/ -destination 'platform=iOS Simulator,name=iPhone 8,OS=13.3' | xcpretty
+    - set -o pipefail && xcodebuild test -scheme Box-Office-Movies-Core -derivedDataPath Build/ -destination 'platform=iOS Simulator,name=iPhone 8,OS=13.4' | xcpretty
     - set -o pipefail && echo "test_coverage=`xcrun xccov view --report Build/Logs/Test/*.xcresult | grep 'Box_Office_Movies_Core.framework' | head -1 | perl -pe 's/.+?(\d+\.\d+%).+/\1/'`"
   tags:
   - iOS-13.3
