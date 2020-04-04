@@ -45,6 +45,10 @@ final class NowPlayingMoviesViewController: UIViewController {
         return splitViewController?.detailViewController as? MovieDetailsViewController
     }
 
+    var isSplitViewControllerCollapsed: Bool {
+        return splitViewController?.isCollapsed == true
+    }
+    
     var indexPathForSelectedRow: IndexPath?
     let searchController = UISearchController(searchResultsController: nil)
 
@@ -109,6 +113,7 @@ final class NowPlayingMoviesViewController: UIViewController {
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         selectFirstItem()
+        refreshCellsDisclosureIndicatorsDisplay()
     }
 
     override func setEditing(_ editing: Bool, animated: Bool) {
@@ -213,7 +218,7 @@ private extension NowPlayingMoviesViewController {
     }
 
     func selectFirstItem() {
-        if splitViewController?.isCollapsed == false && indexPathForSelectedRow == nil {
+        if !isSplitViewControllerCollapsed && indexPathForSelectedRow == nil {
             let indexPathForFirstRow = IndexPath(row: 0, section: 0)
             guard movieItems?.indices.contains(indexPathForFirstRow.row) == true else { return }
             nowPlayingMoviesTableView.selectRow(at: indexPathForFirstRow, animated: true, scrollPosition: .none)
@@ -223,13 +228,21 @@ private extension NowPlayingMoviesViewController {
     }
 
     func deselectItem(_ animated: Bool) {
-        if splitViewController?.isCollapsed == true {
+        if isSplitViewControllerCollapsed {
             if let indexPathForSelectedRow = nowPlayingMoviesTableView.indexPathForSelectedRow {
                 nowPlayingMoviesTableView.deselectRow(at: indexPathForSelectedRow, animated: animated)
             }
         }
     }
 
+    func refreshCellsDisclosureIndicatorsDisplay() {
+        nowPlayingMoviesTableView.visibleCells.forEach { visibleCell in
+            if let movieTableViewCell = visibleCell as? MovieTableViewCell {
+                movieTableViewCell.setDisclosureIndicator(isSplitViewControllerCollapsed)
+            }
+        }
+    }
+    
     @IBAction func errorActionButtonPressed() {
         fetchNowPlayingMovies()
     }
@@ -372,11 +385,16 @@ extension NowPlayingMoviesViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let movieItem = movieItems?[safe: indexPath.row] else { return UITableViewCell() }
-
-        let cell = tableView.dequeueReusableCell(withIdentifier: Constants.CellIdentifier.movieTableViewCell, for: indexPath)
-        cell.textLabel?.text = movieItem.title
-        return cell
+        guard let movieItem = movieItems?[safe: indexPath.row],
+            let movieTableViewCell = tableView.dequeueReusableCell(withIdentifier: Constants.CellIdentifier.movieTableViewCell, for: indexPath) as? MovieTableViewCell
+        else {
+            return UITableViewCell()
+        }
+        
+        movieTableViewCell.textLabel?.text = movieItem.title
+        movieTableViewCell.setDisclosureIndicator(isSplitViewControllerCollapsed)
+        
+        return movieTableViewCell
     }
 
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
@@ -414,6 +432,6 @@ extension NowPlayingMoviesViewController: UISearchResultsUpdating {
 extension NowPlayingMoviesViewController: UISplitViewControllerDelegate {
 
     func splitViewController(_ splitViewController: UISplitViewController, collapseSecondary secondaryViewController: UIViewController, onto primaryViewController: UIViewController) -> Bool {
-        return indexPathForSelectedRow == nil ? true : false
+        return indexPathForSelectedRow == nil
     }
 }
