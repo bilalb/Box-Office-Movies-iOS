@@ -32,6 +32,8 @@
 		9C6F39E022F48B6C009D030B /* PosterPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C6F39DD22F48B6C009D030B /* PosterPresenterTests.swift */; };
 		9C7995A42438C3C500D386B0 /* MovieTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C7995A32438C3C500D386B0 /* MovieTableViewCell.swift */; };
 		9C7995A62438CAE000D386B0 /* DisclosableTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C7995A52438CAE000D386B0 /* DisclosableTableViewCell.swift */; };
+		9C7995A92438FE2800D386B0 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 9C7995A72438FE2800D386B0 /* Credits.rtf */; };
+		9C7995AC2438FED200D386B0 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9C7995AA2438FED200D386B0 /* InfoPlist.strings */; };
 		9C90009522510AE600399CF3 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9C90009722510AE600399CF3 /* Localizable.strings */; };
 		9C93849B243E00FE0098509F /* UIActivityIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C93849A243E00FE0098509F /* UIActivityIndicatorView.swift */; };
 		9C93849D243E01820098509F /* UIApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C93849C243E01820098509F /* UIApplication.swift */; };
@@ -133,6 +135,10 @@
 		9C6F39DD22F48B6C009D030B /* PosterPresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PosterPresenterTests.swift; sourceTree = "<group>"; };
 		9C7995A32438C3C500D386B0 /* MovieTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieTableViewCell.swift; sourceTree = "<group>"; };
 		9C7995A52438CAE000D386B0 /* DisclosableTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisclosableTableViewCell.swift; sourceTree = "<group>"; };
+		9C7995A82438FE2800D386B0 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
+		9C7995AB2438FED200D386B0 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		9C7995AD2439091500D386B0 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = fr; path = fr.lproj/Credits.rtf; sourceTree = "<group>"; };
+		9C7995AE243909A300D386B0 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		9C90009622510AE600399CF3 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		9C90009822510AEA00399CF3 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		9C93849A243E00FE0098509F /* UIActivityIndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIActivityIndicatorView.swift; sourceTree = "<group>"; };
@@ -297,7 +303,9 @@
 			isa = PBXGroup;
 			children = (
 				9CDC95E22243FFB30051925E /* Assets.xcassets */,
+				9C7995A72438FE2800D386B0 /* Credits.rtf */,
 				9CDAE7482427AC02002AA780 /* GoogleServiceInfoPlists */,
+				9C7995AA2438FED200D386B0 /* InfoPlist.strings */,
 				9CDC95E42243FFB30051925E /* LaunchScreen.storyboard */,
 				9C90009722510AE600399CF3 /* Localizable.strings */,
 				9CDC95DF2243FFB10051925E /* Main.storyboard */,
@@ -601,6 +609,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9CDC95E62243FFB30051925E /* LaunchScreen.storyboard in Resources */,
+				9C7995A92438FE2800D386B0 /* Credits.rtf in Resources */,
 				9C6F39D822F474C9009D030B /* Poster.storyboard in Resources */,
 				9C90009522510AE600399CF3 /* Localizable.strings in Resources */,
 				9CDC95E32243FFB30051925E /* Assets.xcassets in Resources */,
@@ -608,6 +617,7 @@
 				9CDC95E12243FFB10051925E /* Main.storyboard in Resources */,
 				9CDB22A522EF115B00B8A2C0 /* EmptyBackgroundView.xib in Resources */,
 				9CDAE7472427AA05002AA780 /* GoogleService-Info.plist in Resources */,
+				9C7995AC2438FED200D386B0 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -790,6 +800,24 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		9C7995A72438FE2800D386B0 /* Credits.rtf */ = {
+			isa = PBXVariantGroup;
+			children = (
+				9C7995A82438FE2800D386B0 /* en */,
+				9C7995AD2439091500D386B0 /* fr */,
+			);
+			name = Credits.rtf;
+			sourceTree = "<group>";
+		};
+		9C7995AA2438FED200D386B0 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				9C7995AB2438FED200D386B0 /* en */,
+				9C7995AE243909A300D386B0 /* fr */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
 		9C90009722510AE600399CF3 /* Localizable.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
