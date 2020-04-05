@@ -10,6 +10,7 @@ Box-Office-Movies/fastlane/screenshots/*/*.png
 Box-Office-Movies/fastlane/screenshots/screenshots.html
 Box-Office-Movies.xcworkspace/xcuserdata/bilal.xcuserdatad
 Box-Office-Movies-Core/Box-Office-Movies-Core.xcodeproj/xcuserdata/bilal.xcuserdatad
+Box-Office-Movies-Core/Box-Office-Movies-Core/Configuration/Development.xcconfig
 Box-Office-Movies-Core/Box-Office-Movies-Core/Configuration/Production.xcconfig
 Box-Office-Movies-Core/Box-Office-Movies-Core/Configuration/Staging.xcconfig
 Pods/Pods.xcodeproj/xcuserdata/bilal.xcuserdatad

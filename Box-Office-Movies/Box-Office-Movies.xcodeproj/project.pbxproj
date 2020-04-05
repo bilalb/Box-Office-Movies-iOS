@@ -91,6 +91,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		2EC106E2F69BBD1D23317341 /* Pods-Box-Office-Movies.debug-development_ci.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Box-Office-Movies.debug-development_ci.xcconfig"; path = "Target Support Files/Pods-Box-Office-Movies/Pods-Box-Office-Movies.debug-development_ci.xcconfig"; sourceTree = "<group>"; };
 		31A33C18F903C8F2A7009FB3 /* Pods-Box-Office-Movies.debug-production.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Box-Office-Movies.debug-production.xcconfig"; path = "Target Support Files/Pods-Box-Office-Movies/Pods-Box-Office-Movies.debug-production.xcconfig"; sourceTree = "<group>"; };
 		40069362EBCCEBA302F41B40 /* Pods-Box-Office-Movies.debug-development.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Box-Office-Movies.debug-development.xcconfig"; path = "Target Support Files/Pods-Box-Office-Movies/Pods-Box-Office-Movies.debug-development.xcconfig"; sourceTree = "<group>"; };
 		43AAA7F0755C14E7B47FD5C6 /* Pods_Box_Office_Movies.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Box_Office_Movies.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -205,6 +206,7 @@
 				E2FF73FCB85DED40C40B4533 /* Pods-Box-Office-Movies.release-development.xcconfig */,
 				54013E44A5681A0F0039528E /* Pods-Box-Office-Movies.release-staging.xcconfig */,
 				C1020FD59992B141A0314CC8 /* Pods-Box-Office-Movies.release-production.xcconfig */,
+				2EC106E2F69BBD1D23317341 /* Pods-Box-Office-Movies.debug-development_ci.xcconfig */,
 			);
 			name = Pods;
 			path = ../Pods;
@@ -778,6 +780,254 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		9C05D829243A1E3F00610B65 /* Debug-Development_CI */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9C44111A23C7718A006E1E7A /* Development.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = "Debug-Development_CI";
+		};
+		9C05D82A243A1E3F00610B65 /* Debug-Development_CI */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9C44111A23C7718A006E1E7A /* Development.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "Box-Office-Movies/Box-Office-Movies.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 5GARSM38JL;
+				INFOPLIST_FILE = "Box-Office-Movies/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "$(APP_BUNDLE_IDENTIFIER)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_TREAT_WARNINGS_AS_ERRORS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = "Debug-Development_CI";
+		};
+		9C05D82B243A1E3F00610B65 /* Debug-Development_CI */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9C44111A23C7718A006E1E7A /* Development.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = MU48Q96H48;
+				INFOPLIST_FILE = "Box-Office-MoviesTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "fr.boxotop.Box-Office-MoviesTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Box-Office-Movies.app/Box-Office-Movies";
+			};
+			name = "Debug-Development_CI";
+		};
+		9C05D82C243A1E3F00610B65 /* Debug-Development_CI */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9C44111A23C7718A006E1E7A /* Development.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = MU48Q96H48;
+				INFOPLIST_FILE = "Box-Office-MoviesUITests/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "fr.boxotop.Box-Office-MoviesUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "Box-Office-Movies";
+			};
+			name = "Debug-Development_CI";
+		};
+		9C05D82D243A23D000610B65 /* Release-Development_CI */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9C44111A23C7718A006E1E7A /* Development.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = "Release-Development_CI";
+		};
+		9C05D82E243A23D000610B65 /* Release-Development_CI */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9C44111A23C7718A006E1E7A /* Development.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "Box-Office-Movies/Box-Office-Movies.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 5GARSM38JL;
+				INFOPLIST_FILE = "Box-Office-Movies/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "$(APP_BUNDLE_IDENTIFIER)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_TREAT_WARNINGS_AS_ERRORS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = "Release-Development_CI";
+		};
+		9C05D82F243A23D000610B65 /* Release-Development_CI */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9C44111A23C7718A006E1E7A /* Development.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = MU48Q96H48;
+				INFOPLIST_FILE = "Box-Office-MoviesTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "fr.boxotop.Box-Office-MoviesTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Box-Office-Movies.app/Box-Office-Movies";
+			};
+			name = "Release-Development_CI";
+		};
+		9C05D830243A23D000610B65 /* Release-Development_CI */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9C44111A23C7718A006E1E7A /* Development.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = MU48Q96H48;
+				INFOPLIST_FILE = "Box-Office-MoviesUITests/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "fr.boxotop.Box-Office-MoviesUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "Box-Office-Movies";
+			};
+			name = "Release-Development_CI";
+		};
 		9C44110723C76EFC006E1E7A /* Debug-Production */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 9C44111E23C7721A006E1E7A /* Production.xcconfig */;
@@ -1525,9 +1775,11 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				9CDC95F32243FFB30051925E /* Debug-Development */,
+				9C05D829243A1E3F00610B65 /* Debug-Development_CI */,
 				9C44110B23C76EFE006E1E7A /* Debug-Staging */,
 				9C44110723C76EFC006E1E7A /* Debug-Production */,
 				9CDC95F42243FFB30051925E /* Release-Development */,
+				9C05D82D243A23D000610B65 /* Release-Development_CI */,
 				9C44111323C76F05006E1E7A /* Release-Staging */,
 				9C44110F23C76F02006E1E7A /* Release-Production */,
 			);
@@ -1538,9 +1790,11 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				9CDC95F62243FFB30051925E /* Debug-Development */,
+				9C05D82A243A1E3F00610B65 /* Debug-Development_CI */,
 				9C44110C23C76EFE006E1E7A /* Debug-Staging */,
 				9C44110823C76EFC006E1E7A /* Debug-Production */,
 				9CDC95F72243FFB30051925E /* Release-Development */,
+				9C05D82E243A23D000610B65 /* Release-Development_CI */,
 				9C44111423C76F05006E1E7A /* Release-Staging */,
 				9C44111023C76F02006E1E7A /* Release-Production */,
 			);
@@ -1551,9 +1805,11 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				9CDC95F92243FFB30051925E /* Debug-Development */,
+				9C05D82B243A1E3F00610B65 /* Debug-Development_CI */,
 				9C44110D23C76EFE006E1E7A /* Debug-Staging */,
 				9C44110923C76EFC006E1E7A /* Debug-Production */,
 				9CDC95FA2243FFB30051925E /* Release-Development */,
+				9C05D82F243A23D000610B65 /* Release-Development_CI */,
 				9C44111523C76F05006E1E7A /* Release-Staging */,
 				9C44111123C76F02006E1E7A /* Release-Production */,
 			);
@@ -1564,9 +1820,11 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				9CFAE4C822C78D9600893908 /* Debug-Development */,
+				9C05D82C243A1E3F00610B65 /* Debug-Development_CI */,
 				9C44110E23C76EFE006E1E7A /* Debug-Staging */,
 				9C44110A23C76EFC006E1E7A /* Debug-Production */,
 				9CFAE4C922C78D9600893908 /* Release-Development */,
+				9C05D830243A23D000610B65 /* Release-Development_CI */,
 				9C44111623C76F05006E1E7A /* Release-Staging */,
 				9C44111223C76F02006E1E7A /* Release-Production */,
 			);
