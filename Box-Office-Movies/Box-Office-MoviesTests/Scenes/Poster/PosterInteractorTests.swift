@@ -22,10 +22,6 @@ class PosterInteractorTests: XCTestCase {
         setupPosterInteractor()
     }
     
-    override func tearDown() {
-        super.tearDown()
-    }
-    
     // MARK: Test setup
     
     func setupPosterInteractor() {

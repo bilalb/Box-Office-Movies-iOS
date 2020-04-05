@@ -23,10 +23,6 @@ class NowPlayingMoviesPresenterTests: XCTestCase {
         setupNowPlayingMoviesPresenter()
     }
     
-    override func tearDown() {
-        super.tearDown()
-    }
-    
     // MARK: Test setup
     
     func setupNowPlayingMoviesPresenter() {

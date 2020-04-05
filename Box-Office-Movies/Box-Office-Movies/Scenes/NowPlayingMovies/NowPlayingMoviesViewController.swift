@@ -85,6 +85,7 @@ class NowPlayingMoviesViewController: UIViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        super.prepare(for: segue, sender: sender)
         indexPathForSelectedRow = nowPlayingMoviesTableView.indexPathForSelectedRow
         if let scene = segue.identifier {
             let selector = NSSelectorFromString("routeTo\(scene)WithSegue:")

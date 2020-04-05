@@ -13,6 +13,7 @@ class Box_Office_MoviesUITests: XCTestCase {
     var locale: Locale = .french
     
     override func setUp() {
+        super.setUp()
         let application = XCUIApplication()
         setupSnapshot(application)
         application.launch()

@@ -22,10 +22,6 @@ class PosterPresenterTests: XCTestCase {
         setupPosterPresenter()
     }
     
-    override func tearDown() {
-        super.tearDown()
-    }
-    
     // MARK: Test setup
     
     func setupPosterPresenter() {

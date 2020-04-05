@@ -23,10 +23,6 @@ class MovieDetailsPresenterTests: XCTestCase {
         setupMovieDetailsPresenter()
     }
     
-    override func tearDown() {
-        super.tearDown()
-    }
-    
     // MARK: Test setup
     
     func setupMovieDetailsPresenter() {
