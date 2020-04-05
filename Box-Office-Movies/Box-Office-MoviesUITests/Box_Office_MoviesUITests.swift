@@ -33,10 +33,15 @@ class Box_Office_MoviesUITests: XCTestCase {
         application.cells.firstMatch.tap()
         snapshot("03MovieDetails")
         
+        let favoriteBarButtonItem = application.navigationBars.buttons["☆"]
+        favoriteBarButtonItem.tap()
+        snapshot("03MovieDetailsFavorited")
+
         let backButton = application.navigationBars.buttons.element(boundBy: 0)
         backButton.tap()
         
-        let keyboardSearchButton = application.buttons[locale.keyboardSearchButtonIdentifier]
+        let keyboardSearchButtonIdentifier = "Search"
+        let keyboardSearchButton = application.buttons[keyboardSearchButtonIdentifier]
         keyboardSearchButton.tap()
         
         let cancelSearchButton: XCUIElement = {
@@ -64,15 +69,6 @@ extension Box_Office_MoviesUITests {
                 return ["T", "h"]
             case .french:
                 return ["L", "a"]
-            }
-        }
-        
-        var keyboardSearchButtonIdentifier: String {
-            switch self {
-            case .english:
-                return "Search"
-            case .french:
-                return "Rechercher"
             }
         }
         

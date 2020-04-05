@@ -9,3 +9,12 @@ languages([
 ])
 
 clear_previous_screenshots(true)
+
+#
+reinstall_app(true)
+app_identifier(fr.)
+
+#
+erase_simulator(true)
+localize_simulator(true)
+dark_mode(true)
