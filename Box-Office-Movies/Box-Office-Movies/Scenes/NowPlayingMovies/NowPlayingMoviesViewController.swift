@@ -40,6 +40,10 @@ class NowPlayingMoviesViewController: UIViewController {
             }
         }
     }
+
+    lazy var movieDetailsViewController: MovieDetailsViewController? = {
+        return splitViewController?.detailViewController as? MovieDetailsViewController
+    }()
     
     var indexPathForSelectedRow: IndexPath?
     let searchController = UISearchController(searchResultsController: nil)
@@ -252,6 +256,10 @@ extension NowPlayingMoviesViewController {
         let request = NowPlayingMovies.RemoveMovieFromFavorites.Request(indexPathForMovieToRemove: indexPath, editButtonItem: editButtonItem)
         interactor?.removeMovieFromFavorites(request: request)
     }
+
+    private func reloadMovieDetailsFavoriteToggle() {
+        movieDetailsViewController?.loadFavoriteToggle()
+    }
     
     private func loadFavoriteMovies() {
         let request = NowPlayingMovies.LoadFavoriteMovies.Request(editButtonItem: editButtonItem)
@@ -361,6 +369,7 @@ extension NowPlayingMoviesViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             removeMovieFromFavorites(at: indexPath)
+            reloadMovieDetailsFavoriteToggle()
         }
     }
 }

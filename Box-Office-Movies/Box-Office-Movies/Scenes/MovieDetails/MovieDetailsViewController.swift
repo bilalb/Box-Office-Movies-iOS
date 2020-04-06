@@ -26,6 +26,10 @@ class MovieDetailsViewController: UIViewController {
             detailItemsTableView.reloadData()
         }
     }
+
+    lazy var nowPlayingMoviesViewController: NowPlayingMoviesViewController? = {
+        return splitViewController?.masterViewController as? NowPlayingMoviesViewController
+    }()
     
     @IBOutlet weak var toggleFavoriteBarButtonItem: UIBarButtonItem!
     @IBOutlet weak var detailItemsTableView: UITableView!
@@ -59,6 +63,11 @@ class MovieDetailsViewController: UIViewController {
         
         fetchMovieDetails()
         loadFavoriteToggle()
+    }
+
+    func loadFavoriteToggle() {
+        let request = MovieDetailsScene.LoadFavoriteToggle.Request()
+        interactor?.loadFavoriteToggle(request: request)
     }
 }
 
@@ -98,11 +107,6 @@ private extension MovieDetailsViewController {
         errorStackView.isHidden = true
     }
     
-    func loadFavoriteToggle() {
-        let request = MovieDetailsScene.LoadFavoriteToggle.Request()
-        interactor?.loadFavoriteToggle(request: request)
-    }
-    
     @IBAction func toggleFavoriteBarButtonItemPressed() {
         toggleFavorite()
     }
@@ -113,13 +117,6 @@ private extension MovieDetailsViewController {
     }
 
     func refreshFavoriteMovies() {
-        var nowPlayingMoviesViewController: NowPlayingMoviesViewController?
-        splitViewController?.viewControllers.forEach({ viewController in
-            if let navigationController = viewController as? UINavigationController,
-                let matchingViewController = navigationController.viewControllers.first(where: { $0 is NowPlayingMoviesViewController }) as? NowPlayingMoviesViewController {
-                nowPlayingMoviesViewController = matchingViewController
-            }
-        })
         nowPlayingMoviesViewController?.refreshFavoriteMovies()
     }
     
