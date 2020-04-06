@@ -23,6 +23,7 @@ enum MovieDetailsScene {
             let trailer: Video?
             let error: Error?
             let remainingRequestCount: Int
+            let isReviewEnabled: Bool
         }
         
         struct ViewModel {

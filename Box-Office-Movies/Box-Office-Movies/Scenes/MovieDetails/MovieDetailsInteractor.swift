@@ -41,6 +41,7 @@ class MovieDetailsInteractor: MovieDetailsDataStore {
     var posterPath: String?
 
     var remainingRequestCount = 0
+    var isReviewEnabled = Bundle.main.object(forInfoDictionaryKey: Constants.InfoDictionaryKey.isReviewEnabled) as? Bool ?? false
 }
 
 extension MovieDetailsInteractor: MovieDetailsBusinessLogic {
@@ -105,7 +106,8 @@ extension MovieDetailsInteractor {
                                                                     posterData: posterData,
                                                                     trailer: trailer,
                                                                     error: error,
-                                                                    remainingRequestCount: remainingRequestCount)
+                                                                    remainingRequestCount: remainingRequestCount,
+                                                                    isReviewEnabled: isReviewEnabled)
         presenter?.presentMovieDetails(response: response)
     }
     

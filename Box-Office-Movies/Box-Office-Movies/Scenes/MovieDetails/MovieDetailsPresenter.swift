@@ -45,8 +45,12 @@ extension MovieDetailsPresenter: MovieDetailsPresentationLogic {
             
             let titleItem = DetailItem.title(title: movieDetails.title)
             let additionalInformationDetailItem = self.additionalInformationItem(for: movieDetails, posterData: response.posterData)
-            let reviewMovieItem = DetailItem.reviewMovie(review: NSLocalizedString("review", comment: "review"))
-            var detailItems = [titleItem, additionalInformationDetailItem, reviewMovieItem]
+            var detailItems = [titleItem, additionalInformationDetailItem]
+
+            if response.isReviewEnabled {
+                let reviewMovieItem = DetailItem.reviewMovie(review: NSLocalizedString("review", comment: "review"))
+                detailItems.append(reviewMovieItem)
+            }
             
             if let trailerDetailItem = self.trailerItem(for: response.trailer) {
                 detailItems.append(trailerDetailItem)

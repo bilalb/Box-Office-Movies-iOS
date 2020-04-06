@@ -88,7 +88,8 @@ class MovieDetailsPresenterTests: XCTestCase {
                                                                     posterData: Data(),
                                                                     trailer: Video.dummyInstance,
                                                                     error: nil,
-                                                                    remainingRequestCount: 0)
+                                                                    remainingRequestCount: 0,
+                                                                    isReviewEnabled: true)
         
         // When
         sut.presentMovieDetails(response: response)

@@ -25,6 +25,10 @@ struct Constants {
         static let castingTableViewCell =  "CastingTableViewCell"
         static let similarMoviesTableViewCell = "SimilarMoviesTableViewCell"
     }
+
+    struct InfoDictionaryKey {
+        static let isReviewEnabled = "IsReviewEnabled"
+    }
     
     struct SegueIdentifier {
         static let movieDetails = "MovieDetails"
