@@ -17,6 +17,7 @@
 		9C5AD03C22566826009CC78A /* NowPlayingMoviesInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C5AD03922566826009CC78A /* NowPlayingMoviesInteractorTests.swift */; };
 		9C5AD03D22566826009CC78A /* NowPlayingMoviesPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C5AD03A22566826009CC78A /* NowPlayingMoviesPresenterTests.swift */; };
 		9C6042A6243BA390006E0106 /* UISplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C6042A5243BA390006E0106 /* UISplitViewController.swift */; };
+		9C6042AA243CD5B2006E0106 /* Array+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C6042A9243CD5B2006E0106 /* Array+Extension.swift */; };
 		9C648806225538D900A1541F /* ErrorStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C648805225538D900A1541F /* ErrorStackView.swift */; };
 		9C6F39D122F46CCC009D030B /* Poster+SceneSetup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C6F39CB22F46CCC009D030B /* Poster+SceneSetup.swift */; };
 		9C6F39D222F46CCC009D030B /* PosterPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C6F39CC22F46CCC009D030B /* PosterPresenter.swift */; };
@@ -111,6 +112,7 @@
 		9C5AD03922566826009CC78A /* NowPlayingMoviesInteractorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NowPlayingMoviesInteractorTests.swift; sourceTree = "<group>"; };
 		9C5AD03A22566826009CC78A /* NowPlayingMoviesPresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NowPlayingMoviesPresenterTests.swift; sourceTree = "<group>"; };
 		9C6042A5243BA390006E0106 /* UISplitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UISplitViewController.swift; sourceTree = "<group>"; };
+		9C6042A9243CD5B2006E0106 /* Array+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Extension.swift"; sourceTree = "<group>"; };
 		9C648805225538D900A1541F /* ErrorStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorStackView.swift; sourceTree = "<group>"; };
 		9C6F39CB22F46CCC009D030B /* Poster+SceneSetup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Poster+SceneSetup.swift"; sourceTree = "<group>"; };
 		9C6F39CC22F46CCC009D030B /* PosterPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PosterPresenter.swift; sourceTree = "<group>"; };
@@ -417,6 +419,7 @@
 		9CDC96592247CAB70051925E /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				9C6042A9243CD5B2006E0106 /* Array+Extension.swift */,
 				9C6042A5243BA390006E0106 /* UISplitViewController.swift */,
 				9CDC965A2247CAB70051925E /* UIView.swift */,
 				9CDC965B2247CAB70051925E /* UIViewController.swift */,
@@ -693,6 +696,7 @@
 				9CDC96542247C2DE0051925E /* NowPlayingMoviesModels.swift in Sources */,
 				9C6042A6243BA390006E0106 /* UISplitViewController.swift in Sources */,
 				9CDC96552247C2DE0051925E /* NowPlayingMoviesViewController.swift in Sources */,
+				9C6042AA243CD5B2006E0106 /* Array+Extension.swift in Sources */,
 				9CDC96662247DA510051925E /* MovieDetailsPresenter.swift in Sources */,
 				9CDC966A2247DA510051925E /* MovieDetailsInteractor.swift in Sources */,
 				9C6F39D222F46CCC009D030B /* PosterPresenter.swift in Sources */,

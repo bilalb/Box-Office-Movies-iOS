@@ -119,13 +119,11 @@ private extension NowPlayingMoviesViewController {
     }
     
     func configureSegmentedControl() {
-        guard segmentedControl.numberOfSegments == 2 else {
-            return
-        }
+        guard segmentedControl.numberOfSegments == 2 else { return }
         let titles = [NSLocalizedString("nowPlaying", comment: "nowPlaying"),
                       NSLocalizedString("favorites", comment: "favorites")]
         for i in 0 ..< segmentedControl.numberOfSegments {
-            segmentedControl.setTitle(titles[i], forSegmentAt: i)
+            segmentedControl.setTitle(titles[safe: i], forSegmentAt: i)
         }
     }
     
@@ -185,12 +183,8 @@ private extension NowPlayingMoviesViewController {
     }
     
     func fetchNextPage() {
-        guard
-            presentedViewController == nil,
-            interactor?.shouldFetchNextPage == true
-        else {
-            return
-        }
+        guard presentedViewController == nil,
+            interactor?.shouldFetchNextPage == true else { return }
 
         if #available(iOS 13.0, *) { } else {
             UIApplication.shared.isNetworkActivityIndicatorVisible = true
@@ -203,9 +197,7 @@ private extension NowPlayingMoviesViewController {
     func selectFirstItem() {
         if splitViewController?.isCollapsed == false && indexPathForSelectedRow == nil {
             let indexPathForFirstRow = IndexPath(row: 0, section: 0)
-            guard movieItems?.indices.contains(indexPathForFirstRow.row) == true else {
-                return
-            }
+            guard movieItems?.indices.contains(indexPathForFirstRow.row) == true else { return }
             nowPlayingMoviesTableView.selectRow(at: indexPathForFirstRow, animated: true, scrollPosition: .none)
             indexPathForSelectedRow = nowPlayingMoviesTableView.indexPathForSelectedRow
             performSegue(withIdentifier: Constants.SegueIdentifier.movieDetails, sender: nil)
@@ -350,12 +342,7 @@ extension NowPlayingMoviesViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard
-            movieItems?.indices.contains(indexPath.row) == true,
-            let movieItem = movieItems?[indexPath.row]
-        else {
-            return UITableViewCell()
-        }
+        guard let movieItem = movieItems?[safe: indexPath.row] else { return UITableViewCell() }
         
         let cell = tableView.dequeueReusableCell(withIdentifier: Constants.CellIdentifier.movieTableViewCell, for: indexPath)
         cell.textLabel?.text = movieItem.title
@@ -389,9 +376,7 @@ extension NowPlayingMoviesViewController: UITableViewDelegate {
 extension NowPlayingMoviesViewController: UISearchResultsUpdating {
     
     func updateSearchResults(for searchController: UISearchController) {
-        guard let searchText = searchController.searchBar.text else {
-            return
-        }
+        guard let searchText = searchController.searchBar.text else { return }
         filterMovies(with: searchText)
     }
 }

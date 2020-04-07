@@ -189,10 +189,9 @@ extension MovieDetailsViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard detailItems.indices.contains(indexPath.row) else {
+        guard let detailItem = detailItems[safe: indexPath.row] else {
             return UITableViewCell()
         }
-        let detailItem = detailItems[indexPath.row]
         let cellIdentifier = detailItem.cellIdentifier
         let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath)
         
@@ -227,10 +226,9 @@ extension MovieDetailsViewController: UITableViewDataSource {
 extension MovieDetailsViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard detailItems.indices.contains(indexPath.row) else {
+        guard let detailItem = detailItems[safe: indexPath.row] else {
             return
         }
-        let detailItem = detailItems[indexPath.row]
         
         switch detailItem {
         case .reviewMovie:

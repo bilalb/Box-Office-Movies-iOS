@@ -19,8 +19,7 @@ extension UISplitViewController {
 
     /// Returns the details view controller when the child view controllers of the split view controller are navigation controllers.
     var detailViewController: UIViewController? {
-        guard viewControllers.indices.contains(1),
-            let navigationController = viewControllers[1] as? UINavigationController else { return nil }
+        guard let navigationController = viewControllers[safe: 1] as? UINavigationController else { return nil }
 
         return navigationController.viewControllers.first
     }
