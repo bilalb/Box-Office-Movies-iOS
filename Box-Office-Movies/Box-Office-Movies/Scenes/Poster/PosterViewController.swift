@@ -48,9 +48,8 @@ private extension PosterViewController {
     }
     
     func fetchPosterImage() {
-        if #available(iOS 13.0, *) { } else {
-            UIApplication.shared.isNetworkActivityIndicatorVisible = true
-        }
+        UIApplication.shared.setNetworkActivityIndicatorVisibility(true)
+
         let request = Poster.FetchPosterImage.Request()
         interactor?.fetchPosterImage(request: request)
     }
@@ -73,9 +72,7 @@ extension PosterViewController: PosterDisplayLogic {
     
     func displayPosterImage(viewModel: Poster.FetchPosterImage.ViewModel) {
         posterImageView?.image = viewModel.posterImage
-        if #available(iOS 13.0, *) { } else {
-            UIApplication.shared.isNetworkActivityIndicatorVisible = false
-        }
+        UIApplication.shared.setNetworkActivityIndicatorVisibility(false)
     }
 }
 

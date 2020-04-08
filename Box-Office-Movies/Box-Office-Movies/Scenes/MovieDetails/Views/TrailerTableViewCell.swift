@@ -32,11 +32,7 @@ class TrailerTableViewCell: UITableViewCell {
     }
 
     func configureActivityIndicatorView() {
-        if #available(iOS 13.0, *) {
-            activityIndicatorView.style = .medium
-        } else {
-            activityIndicatorView.style = .gray
-        }
+        activityIndicatorView.setStyle(.medium)
     }
 }
 

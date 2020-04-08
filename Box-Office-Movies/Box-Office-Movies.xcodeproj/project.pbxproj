@@ -17,7 +17,7 @@
 		9C5AD03C22566826009CC78A /* NowPlayingMoviesInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C5AD03922566826009CC78A /* NowPlayingMoviesInteractorTests.swift */; };
 		9C5AD03D22566826009CC78A /* NowPlayingMoviesPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C5AD03A22566826009CC78A /* NowPlayingMoviesPresenterTests.swift */; };
 		9C6042A6243BA390006E0106 /* UISplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C6042A5243BA390006E0106 /* UISplitViewController.swift */; };
-		9C6042AA243CD5B2006E0106 /* Array+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C6042A9243CD5B2006E0106 /* Array+Extension.swift */; };
+		9C6042AA243CD5B2006E0106 /* Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C6042A9243CD5B2006E0106 /* Array.swift */; };
 		9C648806225538D900A1541F /* ErrorStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C648805225538D900A1541F /* ErrorStackView.swift */; };
 		9C6F39D122F46CCC009D030B /* Poster+SceneSetup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C6F39CB22F46CCC009D030B /* Poster+SceneSetup.swift */; };
 		9C6F39D222F46CCC009D030B /* PosterPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C6F39CC22F46CCC009D030B /* PosterPresenter.swift */; };
@@ -30,6 +30,8 @@
 		9C6F39DF22F48B6C009D030B /* PosterInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C6F39DC22F48B6C009D030B /* PosterInteractorTests.swift */; };
 		9C6F39E022F48B6C009D030B /* PosterPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C6F39DD22F48B6C009D030B /* PosterPresenterTests.swift */; };
 		9C90009522510AE600399CF3 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9C90009722510AE600399CF3 /* Localizable.strings */; };
+		9C93849B243E00FE0098509F /* UIActivityIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C93849A243E00FE0098509F /* UIActivityIndicatorView.swift */; };
+		9C93849D243E01820098509F /* UIApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C93849C243E01820098509F /* UIApplication.swift */; };
 		9C9924E3237AB9F700A519E7 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C9924E2237AB9F700A519E7 /* CloudKit.framework */; };
 		9CCEACC722FCFB76004620BA /* TrailerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CCEACC622FCFB76004620BA /* TrailerTableViewCell.swift */; };
 		9CD1682222F4B2DF00688215 /* MovieDetailsRouterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CD1682122F4B2DF00688215 /* MovieDetailsRouterTests.swift */; };
@@ -112,7 +114,7 @@
 		9C5AD03922566826009CC78A /* NowPlayingMoviesInteractorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NowPlayingMoviesInteractorTests.swift; sourceTree = "<group>"; };
 		9C5AD03A22566826009CC78A /* NowPlayingMoviesPresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NowPlayingMoviesPresenterTests.swift; sourceTree = "<group>"; };
 		9C6042A5243BA390006E0106 /* UISplitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UISplitViewController.swift; sourceTree = "<group>"; };
-		9C6042A9243CD5B2006E0106 /* Array+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Extension.swift"; sourceTree = "<group>"; };
+		9C6042A9243CD5B2006E0106 /* Array.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Array.swift; sourceTree = "<group>"; };
 		9C648805225538D900A1541F /* ErrorStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorStackView.swift; sourceTree = "<group>"; };
 		9C6F39CB22F46CCC009D030B /* Poster+SceneSetup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Poster+SceneSetup.swift"; sourceTree = "<group>"; };
 		9C6F39CC22F46CCC009D030B /* PosterPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PosterPresenter.swift; sourceTree = "<group>"; };
@@ -126,6 +128,8 @@
 		9C6F39DD22F48B6C009D030B /* PosterPresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PosterPresenterTests.swift; sourceTree = "<group>"; };
 		9C90009622510AE600399CF3 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		9C90009822510AEA00399CF3 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
+		9C93849A243E00FE0098509F /* UIActivityIndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIActivityIndicatorView.swift; sourceTree = "<group>"; };
+		9C93849C243E01820098509F /* UIApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIApplication.swift; sourceTree = "<group>"; };
 		9C9924E0237AB9E400A519E7 /* Box-Office-Movies.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Box-Office-Movies.entitlements"; sourceTree = "<group>"; };
 		9C9924E2237AB9F700A519E7 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		9CCEACC622FCFB76004620BA /* TrailerTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrailerTableViewCell.swift; sourceTree = "<group>"; };
@@ -419,7 +423,9 @@
 		9CDC96592247CAB70051925E /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				9C6042A9243CD5B2006E0106 /* Array+Extension.swift */,
+				9C6042A9243CD5B2006E0106 /* Array.swift */,
+				9C93849A243E00FE0098509F /* UIActivityIndicatorView.swift */,
+				9C93849C243E01820098509F /* UIApplication.swift */,
 				9C6042A5243BA390006E0106 /* UISplitViewController.swift */,
 				9CDC965A2247CAB70051925E /* UIView.swift */,
 				9CDC965B2247CAB70051925E /* UIViewController.swift */,
@@ -696,13 +702,14 @@
 				9CDC96542247C2DE0051925E /* NowPlayingMoviesModels.swift in Sources */,
 				9C6042A6243BA390006E0106 /* UISplitViewController.swift in Sources */,
 				9CDC96552247C2DE0051925E /* NowPlayingMoviesViewController.swift in Sources */,
-				9C6042AA243CD5B2006E0106 /* Array+Extension.swift in Sources */,
+				9C6042AA243CD5B2006E0106 /* Array.swift in Sources */,
 				9CDC96662247DA510051925E /* MovieDetailsPresenter.swift in Sources */,
 				9CDC966A2247DA510051925E /* MovieDetailsInteractor.swift in Sources */,
 				9C6F39D222F46CCC009D030B /* PosterPresenter.swift in Sources */,
 				9CDC95DA2243FFB10051925E /* AppDelegate.swift in Sources */,
 				9C4935EA224A95CD00359378 /* AdditionalInformationTableViewCell.swift in Sources */,
 				9C6F39D122F46CCC009D030B /* Poster+SceneSetup.swift in Sources */,
+				9C93849D243E01820098509F /* UIApplication.swift in Sources */,
 				9C6F39D622F46CCC009D030B /* PosterInteractor.swift in Sources */,
 				9CCEACC722FCFB76004620BA /* TrailerTableViewCell.swift in Sources */,
 				9CDC96652247DA510051925E /* MovieDetails+SceneSetup.swift in Sources */,
@@ -710,6 +717,7 @@
 				9CDB22A722EF172400B8A2C0 /* EmptyBackgroundView.swift in Sources */,
 				9CDC96532247C2DE0051925E /* NowPlayingMoviesRouter.swift in Sources */,
 				9C6F39D422F46CCC009D030B /* PosterModels.swift in Sources */,
+				9C93849B243E00FE0098509F /* UIActivityIndicatorView.swift in Sources */,
 				9C648806225538D900A1541F /* ErrorStackView.swift in Sources */,
 				9CDC96672247DA510051925E /* MovieDetailsRouter.swift in Sources */,
 				9CDC960D2244034B0051925E /* Constants.swift in Sources */,
