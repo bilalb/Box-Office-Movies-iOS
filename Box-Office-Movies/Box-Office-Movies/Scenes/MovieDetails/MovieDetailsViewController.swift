@@ -12,7 +12,6 @@ protocol MovieDetailsDisplayLogic: class {
     func displayMovieDetails(viewModel: MovieDetailsScene.FetchMovieDetails.ViewModel)
     func displayMovieReviews(viewModel: MovieDetailsScene.LoadMovieReviews.ViewModel)
     func displayReviewMovie(viewModel: MovieDetailsScene.ReviewMovie.ViewModel)
-    func displayToggleFavorite(viewModel: MovieDetailsScene.ToggleFavorite.ViewModel)
     func displayFavoriteToggle(viewModel: MovieDetailsScene.LoadFavoriteToggle.ViewModel)
 }
 
@@ -102,16 +101,14 @@ private extension MovieDetailsViewController {
     }
     
     @IBAction func toggleFavoriteBarButtonItemPressed() {
-        toggleFavorite()
+        refreshFavoriteMovies()
     }
     
-    func toggleFavorite() {
-        let request = MovieDetailsScene.ToggleFavorite.Request()
-        interactor?.toggleFavorite(request: request)
-    }
-
     func refreshFavoriteMovies() {
-        nowPlayingMoviesViewController?.refreshFavoriteMovies()
+        guard let movie = router?.dataStore?.movieDetails?.relatedMovie else { return }
+
+        let refreshSource = RefreshSource.movie(movie)
+        nowPlayingMoviesViewController?.refreshFavoriteMovies(with: refreshSource)
     }
     
     @IBAction func posterImageViewTapGestureRecognizerPressed() {
@@ -161,11 +158,6 @@ extension MovieDetailsViewController: MovieDetailsDisplayLogic {
         if let indexOfReviewMovieItem = indexOfReviewMovieItem {
             detailItems[indexOfReviewMovieItem] = viewModel.reviewMovieItem
         }
-    }
-    
-    func displayToggleFavorite(viewModel: MovieDetailsScene.ToggleFavorite.ViewModel) {
-        toggleFavoriteBarButtonItem.title = viewModel.toggleFavoriteBarButtonItemTitle
-        refreshFavoriteMovies()
     }
     
     func displayFavoriteToggle(viewModel: MovieDetailsScene.LoadFavoriteToggle.ViewModel) {

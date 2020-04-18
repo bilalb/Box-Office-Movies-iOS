@@ -17,7 +17,7 @@ protocol NowPlayingMoviesPresentationLogic {
     func presentTableViewBackgroundView(response: NowPlayingMovies.LoadTableViewBackgroundView.Response)
 
     func presentFavoriteMovies(response: NowPlayingMovies.LoadFavoriteMovies.Response)
-    func presentRemoveMovieFromFavorites(response: NowPlayingMovies.RemoveMovieFromFavorites.Response)
+    func presentRefreshFavoriteMovies(response: NowPlayingMovies.RefreshFavoriteMovies.Response)
 }
 
 class NowPlayingMoviesPresenter {
@@ -120,12 +120,31 @@ extension NowPlayingMoviesPresenter {
         let viewModel = NowPlayingMovies.LoadFavoriteMovies.ViewModel(movieItems: items, rightBarButtonItem: rightBarButtonItem, refreshControl: nil)
         viewController?.displayFavoriteMovies(viewModel: viewModel)
     }
-    
-    func presentRemoveMovieFromFavorites(response: NowPlayingMovies.RemoveMovieFromFavorites.Response) {
+
+    func presentRefreshFavoriteMovies(response: NowPlayingMovies.RefreshFavoriteMovies.Response) {
+        let shouldSetMovieItems = response.state == .favorites
         let items = movieItems(for: response.movies)
-        let indexPathsForRowsToDelete = [response.indexPathForMovieToRemove]
+
+        var indexPathsForRowsToDelete: [IndexPath]?
+        var indexPathsForRowsToInsert: [IndexPath]?
+
+        switch response.refreshType {
+        case .insertion(let index):
+            indexPathsForRowsToInsert = [IndexPath(row: index, section: 0)]
+        case .deletion(let index):
+            indexPathsForRowsToDelete = [IndexPath(row: index, section: 0)]
+        case .none:
+            break
+        }
+
+        let shouldSetRightBarButtonItem = response.state == .favorites
         let rightBarButtonItem: UIBarButtonItem? = items?.isEmpty == true ? nil : response.editButtonItem
-        let viewModel = NowPlayingMovies.RemoveMovieFromFavorites.ViewModel(movieItems: items, indexPathsForRowsToDelete: indexPathsForRowsToDelete, rightBarButtonItem: rightBarButtonItem)
-        viewController?.displayRemoveMovieFromFavorites(viewModel: viewModel)
+
+        let viewModel = NowPlayingMovies.RefreshFavoriteMovies.ViewModel(shouldSetMovieItems: shouldSetMovieItems,
+                                                                         movieItems: items,
+                                                                         indexPathsForRowsToDelete: indexPathsForRowsToDelete,
+                                                                         indexPathsForRowsToInsert: indexPathsForRowsToInsert, shouldSetRightBarButtonItem: shouldSetRightBarButtonItem,
+                                                                         rightBarButtonItem: rightBarButtonItem)
+        viewController?.displayRefreshFavoriteMovies(viewModel: viewModel)
     }
 }

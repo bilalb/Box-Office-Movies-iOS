@@ -16,7 +16,7 @@ protocol NowPlayingMoviesDisplayLogic: class {
     func displayTableViewBackgroundView(viewModel: NowPlayingMovies.LoadTableViewBackgroundView.ViewModel)
 
     func displayFavoriteMovies(viewModel: NowPlayingMovies.LoadFavoriteMovies.ViewModel)
-    func displayRemoveMovieFromFavorites(viewModel: NowPlayingMovies.RemoveMovieFromFavorites.ViewModel)
+    func displayRefreshFavoriteMovies(viewModel: NowPlayingMovies.RefreshFavoriteMovies.ViewModel)
 }
 
 class NowPlayingMoviesViewController: UIViewController {
@@ -41,9 +41,9 @@ class NowPlayingMoviesViewController: UIViewController {
         }
     }
 
-    lazy var movieDetailsViewController: MovieDetailsViewController? = {
+    var movieDetailsViewController: MovieDetailsViewController? {
         return splitViewController?.detailViewController as? MovieDetailsViewController
-    }()
+    }
     
     var indexPathForSelectedRow: IndexPath?
     let searchController = UISearchController(searchResultsController: nil)
@@ -107,6 +107,14 @@ class NowPlayingMoviesViewController: UIViewController {
     override func setEditing(_ editing: Bool, animated: Bool) {
         super.setEditing(editing, animated: animated)
         nowPlayingMoviesTableView.setEditing(editing, animated: animated)
+    }
+
+    func refreshFavoriteMovies(with refreshSource: RefreshSource) {
+        let request = NowPlayingMovies.RefreshFavoriteMovies.Request(refreshSource: refreshSource,
+                                                                     editButtonItem: editButtonItem,
+                                                                     searchText: searchController.searchBar.text,
+                                                                     isSearchControllerActive: searchController.isActive)
+        interactor?.refreshFavoriteMovies(request: request)
     }
 }
 
@@ -233,11 +241,6 @@ extension NowPlayingMoviesViewController {
     @objc private func editButtonItemPressed() {
         setEditing(!isEditing, animated: true)
     }
-    
-    private func removeMovieFromFavorites(at indexPath: IndexPath) {
-        let request = NowPlayingMovies.RemoveMovieFromFavorites.Request(indexPathForMovieToRemove: indexPath, editButtonItem: editButtonItem)
-        interactor?.removeMovieFromFavorites(request: request)
-    }
 
     private func reloadMovieDetailsFavoriteToggle() {
         movieDetailsViewController?.loadFavoriteToggle()
@@ -247,7 +250,7 @@ extension NowPlayingMoviesViewController {
         let request = NowPlayingMovies.LoadFavoriteMovies.Request(editButtonItem: editButtonItem)
         interactor?.loadFavoriteMovies(request: request)
     }
-    
+
     func refreshFavoriteMovies() {
         if segmentedControl.selectedSegmentIndex == SegmentedControlSegmentIndex.favorites.rawValue {
             loadFavoriteMovies()
@@ -309,11 +312,31 @@ extension NowPlayingMoviesViewController: NowPlayingMoviesDisplayLogic {
         navigationItem.setRightBarButton(viewModel.rightBarButtonItem, animated: true)
         nowPlayingMoviesTableView.refreshControl = viewModel.refreshControl
     }
-    
-    func displayRemoveMovieFromFavorites(viewModel: NowPlayingMovies.RemoveMovieFromFavorites.ViewModel) {
-        movieItems = viewModel.movieItems
-        nowPlayingMoviesTableView.deleteRows(at: viewModel.indexPathsForRowsToDelete, with: .automatic)
-        navigationItem.setRightBarButton(viewModel.rightBarButtonItem, animated: true)
+
+    func displayRefreshFavoriteMovies(viewModel: NowPlayingMovies.RefreshFavoriteMovies.ViewModel) {
+        if viewModel.shouldSetMovieItems {
+            if isEditing {
+                movieItems = viewModel.movieItems
+            } else {
+                // Set/Reset `isEditing` in order to make the `didSet` of `movieItems` not calling `nowPlayingMoviesTableView.reloadData()`
+                isEditing = true
+                movieItems = viewModel.movieItems
+                isEditing = false
+            }
+        }
+
+        if let indexPathsForRowsToDelete = viewModel.indexPathsForRowsToDelete {
+            nowPlayingMoviesTableView.deleteRows(at: indexPathsForRowsToDelete, with: .automatic)
+        }
+        if let indexPathsForRowsToInsert = viewModel.indexPathsForRowsToInsert {
+            nowPlayingMoviesTableView.insertRows(at: indexPathsForRowsToInsert, with: .automatic)
+        }
+
+        if viewModel.shouldSetRightBarButtonItem {
+            navigationItem.setRightBarButton(viewModel.rightBarButtonItem, animated: true)
+        }
+
+        reloadMovieDetailsFavoriteToggle()
     }
 }
 
@@ -339,8 +362,7 @@ extension NowPlayingMoviesViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            removeMovieFromFavorites(at: indexPath)
-            reloadMovieDetailsFavoriteToggle()
+            refreshFavoriteMovies(with: .indexPathForMovieToRemove(indexPath))
         }
     }
 }

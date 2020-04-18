@@ -13,6 +13,7 @@ protocol MovieDetailsDataStore {
     var posterData: Data? { get }
     var imageSecureBaseURLPath: String? { get }
     var posterPath: String? { get }
+    var movieDetails: MovieDetails? { get }
 }
 
 protocol MovieDetailsBusinessLogic {
@@ -20,7 +21,6 @@ protocol MovieDetailsBusinessLogic {
     func loadMovieReviews(request: MovieDetailsScene.LoadMovieReviews.Request)
     func reviewMovie(request: MovieDetailsScene.ReviewMovie.Request)
     func loadFavoriteToggle(request: MovieDetailsScene.LoadFavoriteToggle.Request)
-    func toggleFavorite(request: MovieDetailsScene.ToggleFavorite.Request)
 }
 
 class MovieDetailsInteractor: MovieDetailsDataStore {
@@ -74,26 +74,9 @@ extension MovieDetailsInteractor: MovieDetailsBusinessLogic {
             return
         }
         let favoriteMovies = ManagerProvider.shared.favoritesManager.favoriteMovies()
-        let isFavorite = favoriteMovies?.contains(where: { $0.identifier == movieIdentifier })
+        let isFavorite = favoriteMovies?.contains(where: { $0.identifier == Int32(movieIdentifier) })
         let response = MovieDetailsScene.LoadFavoriteToggle.Response(isFavorite: isFavorite)
         presenter?.presentFavoriteToggle(response: response)
-    }
-    
-    func toggleFavorite(request: MovieDetailsScene.ToggleFavorite.Request) {
-        guard let movieDetails = movieDetails else {
-            return
-        }
-        var isMovieAddedToFavorite: Bool
-        let favoriteMovies = ManagerProvider.shared.favoritesManager.favoriteMovies()
-        if let movie = favoriteMovies?.first(where: { $0.identifier == movieDetails.identifier }) {
-            _ = ManagerProvider.shared.favoritesManager.removeMovieFromFavorites(movie)
-            isMovieAddedToFavorite = false
-        } else {
-            isMovieAddedToFavorite = ManagerProvider.shared.favoritesManager.addMovieToFavorites(movieDetails.relatedMovie)
-        }
-        
-        let response = MovieDetailsScene.ToggleFavorite.Response(isMovieAddedToFavorite: isMovieAddedToFavorite)
-        presenter?.presentToggleFavorite(response: response)
     }
 }
 

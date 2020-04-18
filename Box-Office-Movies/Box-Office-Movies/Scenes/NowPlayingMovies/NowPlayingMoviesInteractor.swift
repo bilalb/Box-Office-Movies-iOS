@@ -25,7 +25,7 @@ protocol NowPlayingMoviesBusinessLogic {
     func loadTableViewBackgroundView(request: NowPlayingMovies.LoadTableViewBackgroundView.Request)
     
     func loadFavoriteMovies(request: NowPlayingMovies.LoadFavoriteMovies.Request)
-    func removeMovieFromFavorites(request: NowPlayingMovies.RemoveMovieFromFavorites.Request)    
+    func refreshFavoriteMovies(request: NowPlayingMovies.RefreshFavoriteMovies.Request)
 }
 
 class NowPlayingMoviesInteractor: NowPlayingMoviesDataStore {
@@ -97,11 +97,11 @@ extension NowPlayingMoviesInteractor: NowPlayingMoviesBusinessLogic {
     }
     
     func filterMovies(request: NowPlayingMovies.FilterMovies.Request) {
-        let isFiltering = request.isSearchControllerActive && !request.searchText.isEmpty
-        
+        let isFiltering = self.isFiltering(for: request.isSearchControllerActive, searchText: request.searchText)
+
         if isFiltering {
             filteredMovies = currentMovies?.filter { movie -> Bool in
-                return movie.title.lowercased().contains(request.searchText.lowercased()) == true
+                return movie.title.lowercased().contains(request.searchText.lowercased())
             }
         } else {
             filteredMovies = currentMovies
@@ -150,30 +150,151 @@ extension NowPlayingMoviesInteractor {
             completionHandler?(error)
         }
     }
+
+    func isFiltering(for isSearchControllerActive: Bool, searchText: String?) -> Bool {
+        return isSearchControllerActive && searchText?.isEmpty == false
+    }
 }
 
-// MARK: - Favorite movies
+// MARK: - Favorite Movies
+
+typealias RefreshSource = NowPlayingMovies.RefreshFavoriteMovies.Request.RefreshSource
+typealias RefreshType = NowPlayingMovies.RefreshFavoriteMovies.Response.RefreshType
 
 extension NowPlayingMoviesInteractor {
     
     func loadFavoriteMovies(request: NowPlayingMovies.LoadFavoriteMovies.Request) {
         state = .favorites
-        favoriteMovies = ManagerProvider.shared.favoritesManager.favoriteMovies() ?? []
+        favoriteMovies = ManagerProvider.shared.favoritesManager.favoriteMovies()
         let response = NowPlayingMovies.LoadFavoriteMovies.Response(movies: favoriteMovies, editButtonItem: request.editButtonItem)
         presenter?.presentFavoriteMovies(response: response)
     }
-    
-    func removeMovieFromFavorites(request: NowPlayingMovies.RemoveMovieFromFavorites.Request) {
-        guard
-            favoriteMovies?.indices.contains(request.indexPathForMovieToRemove.row) == true,
-            let favoriteMovieToRemove = favoriteMovies?.remove(at: request.indexPathForMovieToRemove.row)
-        else {
-            return
+
+    func refreshFavoriteMovies(request: NowPlayingMovies.RefreshFavoriteMovies.Request) {
+        refreshPersistedData(with: request.refreshSource)
+
+        let refreshType: RefreshType = {
+            switch state {
+            case .allMovies:
+                return .none
+            case .favorites:
+                return refreshMovieLists(with: request.refreshSource,
+                                         isSearchControllerActive: request.isSearchControllerActive,
+                                         searchText: request.searchText)
+            }
+        }()
+
+        let movies: [Movie]? = {
+            let isFiltering = self.isFiltering(for: request.isSearchControllerActive, searchText: request.searchText)
+            return isFiltering ? filteredMovies : currentMovies
+        }()
+
+        let response = NowPlayingMovies.RefreshFavoriteMovies.Response(movies: movies,
+                                                                       refreshType: refreshType,
+                                                                       state: state,
+                                                                       editButtonItem: request.editButtonItem)
+        presenter?.presentRefreshFavoriteMovies(response: response)
+    }
+}
+
+// MARK: Favorite Movies Private Methods
+
+extension NowPlayingMoviesInteractor {
+
+    func refreshPersistedData(with refreshSource: RefreshSource) {
+        switch refreshSource {
+        case .movie(let movie):
+            let favoriteMovies = ManagerProvider.shared.favoritesManager.favoriteMovies()
+            if let movie = favoriteMovies?.first(where: { $0.identifier == movie.identifier }) {
+                _ = ManagerProvider.shared.favoritesManager.removeMovieFromFavorites(movie)
+            } else {
+                _ = ManagerProvider.shared.favoritesManager.addMovieToFavorites(movie)
+            }
+        case .indexPathForMovieToRemove(let indexPathForMovieToRemove):
+            if let favoriteMovieToRemove = favoriteMovies?[safe: indexPathForMovieToRemove.row] {
+                _ = ManagerProvider.shared.favoritesManager.removeMovieFromFavorites(favoriteMovieToRemove)
+            }
         }
-        
-        _ = ManagerProvider.shared.favoritesManager.removeMovieFromFavorites(favoriteMovieToRemove)
-        
-        let response = NowPlayingMovies.RemoveMovieFromFavorites.Response(movies: favoriteMovies, indexPathForMovieToRemove: request.indexPathForMovieToRemove, editButtonItem: request.editButtonItem)
-        presenter?.presentRemoveMovieFromFavorites(response: response)
+    }
+
+    func refreshMovieLists(with refreshSource: RefreshSource,
+                           isSearchControllerActive: Bool,
+                           searchText: String?) -> RefreshType {
+        let favoriteMoviesRefreshType = refreshFavoriteMovies(with: refreshSource)
+        let filteredMoviesRefreshType = refreshFilteredMovies(with: refreshSource,
+                                                              isSearchControllerActive: isSearchControllerActive,
+                                                              searchText: searchText)
+
+        // `filteredMoviesRefreshType` takes precedence over `favoriteMoviesRefreshType`
+        let refreshType = filteredMoviesRefreshType ?? favoriteMoviesRefreshType
+
+        return refreshType
+    }
+
+    func refreshFavoriteMovies(with refreshSource: RefreshSource) -> RefreshType {
+        var refreshType: RefreshType = .none
+
+        switch refreshSource {
+        case .movie(let movie):
+            if let index = removalIndex(for: movie, in: favoriteMovies) {
+                refreshType = removeMovieFrom(&favoriteMovies, at: index)
+            } else {
+                refreshType = append(movie, to: &favoriteMovies)
+            }
+        case .indexPathForMovieToRemove(let indexPathForMovieToRemove):
+            if favoriteMovies?.indices.contains(indexPathForMovieToRemove.row) == true {
+                refreshType = removeMovieFrom(&favoriteMovies, at: indexPathForMovieToRemove.row)
+            }
+        }
+
+        return refreshType
+    }
+
+    func refreshFilteredMovies(with refreshSource: RefreshSource,
+                               isSearchControllerActive: Bool,
+                               searchText: String?) -> RefreshType? {
+        var refreshType: RefreshType?
+
+        switch refreshSource {
+        case .movie(let movie):
+            let isFilteringFavorites: Bool = {
+                let isFiltering = self.isFiltering(for: isSearchControllerActive, searchText: searchText)
+                return isFiltering && state == .favorites
+            }()
+
+            if isFilteringFavorites {
+                if let index = removalIndex(for: movie, in: filteredMovies) {
+                    refreshType = removeMovieFrom(&filteredMovies, at: index)
+                } else if let searchText = searchText, movie.title.lowercased().contains(searchText.lowercased()) {
+                    refreshType = append(movie, to: &filteredMovies)
+                } else {
+                    refreshType = RefreshType.none
+                }
+            }
+        default:
+            break
+        }
+
+        return refreshType
+    }
+
+    func removalIndex(for movie: Movie, in movies: [Movie]?) -> Int? {
+        // When a movie is removed from Core Data, it becomes a fault in the favoriteMovies.
+        let faultIndex = movies?.firstIndex(where: { $0.isFault })
+
+        // When a movie is added to Core Data, it's not a fault and we have to look for its identifier.
+        let matchingIdentifierIndex = movies?.firstIndex(where: { $0.identifier == movie.identifier })
+
+        return faultIndex ?? matchingIdentifierIndex
+    }
+
+    func removeMovieFrom(_ movies: inout [Movie]?, at index: Int) -> RefreshType {
+        _ = movies?.remove(at: index)
+        return .deletion(index: index)
+    }
+
+    func append(_ movie: Movie, to movies: inout [Movie]?) -> RefreshType {
+        movies?.append(movie)
+        return .insertion(index: (movies?.count ?? 0) - 1)
     }
 }

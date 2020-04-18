@@ -14,7 +14,6 @@ protocol MovieDetailsPresentationLogic {
     func presentMovieReviews(response: MovieDetailsScene.LoadMovieReviews.Response)
     func presentReviewMovie(response: MovieDetailsScene.ReviewMovie.Response)
     func presentFavoriteToggle(response: MovieDetailsScene.LoadFavoriteToggle.Response)
-    func presentToggleFavorite(response: MovieDetailsScene.ToggleFavorite.Response)
 }
 
 class MovieDetailsPresenter {
@@ -93,12 +92,6 @@ extension MovieDetailsPresenter: MovieDetailsPresentationLogic {
         let toggleFavoriteBarButtonItemTitle = response.isFavorite == true ? "★" : "☆"
         let viewModel = MovieDetailsScene.LoadFavoriteToggle.ViewModel(toggleFavoriteBarButtonItemTitle: toggleFavoriteBarButtonItemTitle)
         viewController?.displayFavoriteToggle(viewModel: viewModel)
-    }
-    
-    func presentToggleFavorite(response: MovieDetailsScene.ToggleFavorite.Response) {
-        let toggleFavoriteBarButtonItemTitle = response.isMovieAddedToFavorite ? "★" : "☆"
-        let viewModel = MovieDetailsScene.ToggleFavorite.ViewModel(toggleFavoriteBarButtonItemTitle: toggleFavoriteBarButtonItemTitle)
-        viewController?.displayToggleFavorite(viewModel: viewModel)
     }
 }
 

@@ -120,23 +120,40 @@ extension NowPlayingMovies {
             let refreshControl: UIRefreshControl?
         }
     }
-    
-    enum RemoveMovieFromFavorites {
-        
+
+    enum RefreshFavoriteMovies {
+
         struct Request {
-            let indexPathForMovieToRemove: IndexPath
+            let refreshSource: RefreshSource
             let editButtonItem: UIBarButtonItem
+            let searchText: String?
+            let isSearchControllerActive: Bool
+
+            enum RefreshSource {
+                case movie(Movie)
+                case indexPathForMovieToRemove(IndexPath)
+            }
         }
-        
+
         struct Response {
             let movies: [Movie]?
-            let indexPathForMovieToRemove: IndexPath
+            let refreshType: RefreshType
+            let state: NowPlayingMoviesInteractor.State
             let editButtonItem: UIBarButtonItem?
+
+            enum RefreshType {
+                case insertion(index: Int)
+                case deletion(index: Int)
+                case none
+            }
         }
-        
+
         struct ViewModel {
+            let shouldSetMovieItems: Bool
             let movieItems: [MovieItem]?
-            let indexPathsForRowsToDelete: [IndexPath]
+            let indexPathsForRowsToDelete: [IndexPath]?
+            let indexPathsForRowsToInsert: [IndexPath]?
+            let shouldSetRightBarButtonItem: Bool
             let rightBarButtonItem: UIBarButtonItem?
         }
     }

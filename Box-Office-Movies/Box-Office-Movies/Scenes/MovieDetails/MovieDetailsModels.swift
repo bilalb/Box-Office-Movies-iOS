@@ -77,19 +77,6 @@ enum MovieDetailsScene {
             let toggleFavoriteBarButtonItemTitle: String
         }
     }
-    
-    enum ToggleFavorite {
-        
-        struct Request { }
-        
-        struct Response {
-            let isMovieAddedToFavorite: Bool
-        }
-        
-        struct ViewModel {
-            let toggleFavoriteBarButtonItemTitle: String
-        }
-    }
 }
 
 enum DetailItem {
