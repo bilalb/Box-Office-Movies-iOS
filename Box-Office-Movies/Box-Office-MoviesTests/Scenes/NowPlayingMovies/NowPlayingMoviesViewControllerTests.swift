@@ -10,6 +10,7 @@
 import XCTest
 
 //swiftlint:disable file_length
+//swiftlint:disable type_body_length
 class NowPlayingMoviesViewControllerTests: XCTestCase {
     
     // MARK: Subject under test
@@ -48,13 +49,13 @@ class NowPlayingMoviesViewControllerTests: XCTestCase {
     class NowPlayingMoviesBusinessLogicSpy: NowPlayingMoviesBusinessLogic {
         
         var fetchNowPlayingMoviesCalled = false
-        var shouldFetchNextPage = true
+        var shouldFetchNextPage = false
         var fetchNextPageCalled = false
         var filterMoviesCalled = false
         var refreshMoviesCalled = false
         var loadFavoriteMoviesCalled = false
-        var removeMovieFromFavoritesCalled = false
         var loadTableViewBackgroundViewCalled = false
+        var refreshFavoriteMoviesCalled = false
         
         func fetchNowPlayingMovies(request: NowPlayingMovies.FetchNowPlayingMovies.Request) {
             fetchNowPlayingMoviesCalled = true
@@ -75,13 +76,13 @@ class NowPlayingMoviesViewControllerTests: XCTestCase {
         func loadFavoriteMovies(request: NowPlayingMovies.LoadFavoriteMovies.Request) {
             loadFavoriteMoviesCalled = true
         }
-        
-        func removeMovieFromFavorites(request: NowPlayingMovies.RemoveMovieFromFavorites.Request) {
-            removeMovieFromFavoritesCalled = true
-        }
-        
+
         func loadTableViewBackgroundView(request: NowPlayingMovies.LoadTableViewBackgroundView.Request) {
             loadTableViewBackgroundViewCalled = true
+        }
+
+        func refreshFavoriteMovies(request: NowPlayingMovies.RefreshFavoriteMovies.Request) {
+            refreshFavoriteMoviesCalled = true
         }
     }
     
@@ -273,9 +274,7 @@ class NowPlayingMoviesViewControllerTests: XCTestCase {
     func testDisplayFavoriteMovies() {
         // Given
         loadView()
-        sut.movieItems = [MovieItem(title: "Whiplash"),
-                          MovieItem(title: "Usual Suspects"),
-                          MovieItem(title: "Green book")]
+        sut.movieItems = MovieItem.dummyInstances
         sut.isEditing = true
         
         _ = sut.movieItems?.removeLast()
@@ -290,25 +289,41 @@ class NowPlayingMoviesViewControllerTests: XCTestCase {
         XCTAssertNil(sut.navigationItem.rightBarButtonItem, "displayFavoriteMovies(viewModel:) should update the rightBarButtonItem")
         XCTAssertNil(sut.nowPlayingMoviesTableView.refreshControl, "displayFavoriteMovies(viewModel:) should update the refreshControl")
     }
-    
-    func testDisplayRemoveMovieFromFavorites() {
+
+    func test_displayRefreshFavoriteMovies_withIndexPathsForRowsToDelete_shouldUpdateMovieItems_andUpdateRightBarButtonItem() {
         // Given
         loadView()
-        sut.movieItems = [MovieItem(title: "Whiplash"),
-                          MovieItem(title: "Usual Suspects"),
-                          MovieItem(title: "Green book")]
+        sut.movieItems = MovieItem.dummyInstances
         sut.isEditing = true
-        
+
         _ = sut.movieItems?.removeLast()
-        
-        let viewModel = NowPlayingMovies.RemoveMovieFromFavorites.ViewModel(movieItems: sut.movieItems, indexPathsForRowsToDelete: [IndexPath(row: 0, section: 0)], rightBarButtonItem: UIBarButtonItem())
-        
+
+        let viewModel = NowPlayingMovies.RefreshFavoriteMovies.ViewModel(shouldSetMovieItems: true, movieItems: sut.movieItems, indexPathsForRowsToDelete: [IndexPath(row: 0, section: 0)], indexPathsForRowsToInsert: nil, shouldSetRightBarButtonItem: true, rightBarButtonItem: UIBarButtonItem())
+
         // When
-        sut.displayRemoveMovieFromFavorites(viewModel: viewModel)
-        
+        sut.displayRefreshFavoriteMovies(viewModel: viewModel)
+
         // Then
-        XCTAssertEqual(sut.movieItems?.count, 2, "displayRemoveMovieFromFavorites(viewModel:) should update the movieItems")
-        XCTAssertNotNil(sut.navigationItem.rightBarButtonItem, "displayRemoveMovieFromFavorites(viewModel:) should update the rightBarButtonItem")
+        XCTAssertEqual(sut.movieItems?.count, 1, "displayRefreshFavoriteMovies(viewModel:) should update the movieItems")
+        XCTAssertNotNil(sut.navigationItem.rightBarButtonItem, "displayRefreshFavoriteMovies(viewModel:) should update the rightBarButtonItem")
+    }
+
+    func test_displayRefreshFavoriteMovies_withIndexPathsForRowsToInsert_shouldUpdateMovieItems_andUpdateRightBarButtonItem() {
+        // Given
+        loadView()
+        sut.movieItems = MovieItem.dummyInstances
+        sut.isEditing = true
+
+        sut.movieItems?.append(MovieItem.dummyInstance)
+
+        let viewModel = NowPlayingMovies.RefreshFavoriteMovies.ViewModel(shouldSetMovieItems: true, movieItems: sut.movieItems, indexPathsForRowsToDelete: nil, indexPathsForRowsToInsert: [IndexPath(row: 1, section: 0)], shouldSetRightBarButtonItem: true, rightBarButtonItem: UIBarButtonItem())
+
+        // When
+        sut.displayRefreshFavoriteMovies(viewModel: viewModel)
+
+        // Then
+        XCTAssertEqual(sut.movieItems?.count, 3, "displayRefreshFavoriteMovies(viewModel:) should update the movieItems")
+        XCTAssertNotNil(sut.navigationItem.rightBarButtonItem, "displayRefreshFavoriteMovies(viewModel:) should update the rightBarButtonItem")
     }
     
     func testNumberOfRowsInSection0() {
@@ -365,7 +380,7 @@ class NowPlayingMoviesViewControllerTests: XCTestCase {
         sut.tableView(sut.nowPlayingMoviesTableView, commit: .delete, forRowAt: indexPath)
         
         // Then
-        XCTAssertTrue(spy.removeMovieFromFavoritesCalled, "committing delete should call removeMovieFromFavorites")
+        XCTAssertTrue(spy.refreshFavoriteMoviesCalled, "committing delete should call refreshFavoriteMovies")
     }
     
     func testUpdateSearchResults() {
@@ -398,6 +413,10 @@ extension MovieItem {
     static var dummyInstances: [MovieItem] {
         return [MovieItem(title: "Whiplash"),
                 MovieItem(title: "Usual Suspects")]
+    }
+
+    static var dummyInstance: MovieItem {
+        return MovieItem(title: "Split")
     }
 }
 

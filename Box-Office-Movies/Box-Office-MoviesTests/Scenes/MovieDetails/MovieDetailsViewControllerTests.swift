@@ -49,7 +49,6 @@ class MovieDetailsViewControllerTests: XCTestCase {
         var fetchMovieDetailsCalled = false
         var loadMovieReviewsCalled = false
         var reviewMovieCalled = false
-        var toggleFavoriteCalled = false
         var loadFavoriteToggleCalled = false
 
         func fetchMovieDetails(request: MovieDetailsScene.FetchMovieDetails.Request) {
@@ -62,10 +61,6 @@ class MovieDetailsViewControllerTests: XCTestCase {
         
         func reviewMovie(request: MovieDetailsScene.ReviewMovie.Request) {
             reviewMovieCalled = true
-        }
-        
-        func toggleFavorite(request: MovieDetailsScene.ToggleFavorite.Request) {
-            toggleFavoriteCalled = true
         }
         
         func loadFavoriteToggle(request: MovieDetailsScene.LoadFavoriteToggle.Request) {
@@ -143,17 +138,6 @@ class MovieDetailsViewControllerTests: XCTestCase {
         } else {
             XCTFail("The detailItem should be a reviewMovie item")
         }
-    }
-    
-    func testDisplayToggleFavorite() {
-        // Given
-        let viewModel = MovieDetailsScene.ToggleFavorite.ViewModel(toggleFavoriteBarButtonItemTitle: "★")
-        
-        // When
-        sut.displayToggleFavorite(viewModel: viewModel)
-        
-        // Then
-        XCTAssertEqual(sut.toggleFavoriteBarButtonItem.title, "★", "displayToggleFavorite(viewModel:) should set the title of toggleFavoriteBarButtonItem")
     }
     
     func testDisplayFavoriteToggle() {
