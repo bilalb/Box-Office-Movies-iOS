@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AdditionalInformationTableViewCell: UITableViewCell {
+final class AdditionalInformationTableViewCell: UITableViewCell {
 
     @IBOutlet weak var posterImageView: UIImageView?
     @IBOutlet weak var releaseDateLabel: UILabel?

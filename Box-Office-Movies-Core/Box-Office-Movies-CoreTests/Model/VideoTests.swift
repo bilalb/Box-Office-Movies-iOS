@@ -9,7 +9,7 @@
 @testable import Box_Office_Movies_Core
 import XCTest
 
-class VideoTests: XCTestCase {
+final class VideoTests: XCTestCase {
     
     func testInit() {
         // Given

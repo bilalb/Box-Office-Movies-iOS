@@ -9,7 +9,7 @@
 import UIKit
 
 /// The stack view used to display an error. It contains a label and a button.
-class ErrorStackView: UIStackView {
+final class ErrorStackView: UIStackView {
     
     /// The label containing the description of the error.
     @IBOutlet var descriptionLabel: UILabel?

@@ -13,7 +13,7 @@ protocol PosterPresentationLogic {
     func presentPosterImage(response: Poster.FetchPosterImage.Response)
 }
 
-class PosterPresenter {
+final class PosterPresenter {
     weak var viewController: PosterDisplayLogic?
 }
 

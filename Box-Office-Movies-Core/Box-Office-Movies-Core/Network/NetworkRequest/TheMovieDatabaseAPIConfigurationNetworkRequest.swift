@@ -8,7 +8,7 @@
 
 import Foundation
 
-class TheMovieDatabaseAPIConfigurationNetworkRequest: NetworkRequest {
+final class TheMovieDatabaseAPIConfigurationNetworkRequest: NetworkRequest {
     
     override func urlString() -> String {
         let path = String(format: Constants.TheMovieDatabaseAPIConfigurationNetworkRequest.path,

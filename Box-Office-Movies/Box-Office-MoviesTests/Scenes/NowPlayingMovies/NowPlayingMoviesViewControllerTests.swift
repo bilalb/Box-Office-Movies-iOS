@@ -11,7 +11,7 @@ import XCTest
 
 //swiftlint:disable file_length
 //swiftlint:disable type_body_length
-class NowPlayingMoviesViewControllerTests: XCTestCase {
+final class NowPlayingMoviesViewControllerTests: XCTestCase {
     
     // MARK: Subject under test
     
@@ -420,7 +420,7 @@ extension MovieItem {
     }
 }
 
-class DummySearchController: UISearchController {
+final class DummySearchController: UISearchController {
     
     override var searchBar: UISearchBar {
         return UISearchBar()

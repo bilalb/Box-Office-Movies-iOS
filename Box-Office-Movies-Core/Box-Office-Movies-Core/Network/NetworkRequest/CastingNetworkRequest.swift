@@ -8,7 +8,7 @@
 
 import Foundation
 
-class CastingNetworkRequest: NetworkRequest {
+final class CastingNetworkRequest: NetworkRequest {
     
     let identifier: Int
     

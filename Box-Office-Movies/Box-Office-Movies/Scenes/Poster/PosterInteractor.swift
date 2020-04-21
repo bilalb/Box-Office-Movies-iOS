@@ -20,7 +20,7 @@ protocol PosterBusinessLogic {
     func fetchPosterImage(request: Poster.FetchPosterImage.Request)
 }
 
-class PosterInteractor: PosterDataStore {
+final class PosterInteractor: PosterDataStore {
     
     // MARK: Instance Properties
     var presenter: PosterPresentationLogic?

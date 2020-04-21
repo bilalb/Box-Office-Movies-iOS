@@ -9,7 +9,7 @@
 @testable import Box_Office_Movies_Core
 import XCTest
 
-class CastingTests: XCTestCase {
+final class CastingTests: XCTestCase {
     
     func testInit() {
         // Given
@@ -23,7 +23,7 @@ class CastingTests: XCTestCase {
     }
 }
 
-class ActorTests: XCTestCase {
+final class ActorTests: XCTestCase {
     
     func testInit() {
         // Given

@@ -8,7 +8,7 @@
 
 import Foundation
 
-class SimilarMoviesNetworkRequest: NetworkRequest {
+final class SimilarMoviesNetworkRequest: NetworkRequest {
     
     let identifier: Int
     let languageCode: String

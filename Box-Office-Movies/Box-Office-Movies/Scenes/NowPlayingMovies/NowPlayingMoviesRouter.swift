@@ -13,7 +13,7 @@ protocol NowPlayingMoviesDataPassing {
     var dataStore: NowPlayingMoviesDataStore? { get }
 }
 
-class NowPlayingMoviesRouter: NSObject, NowPlayingMoviesDataPassing {
+final class NowPlayingMoviesRouter: NSObject, NowPlayingMoviesDataPassing {
     weak var viewController: NowPlayingMoviesViewController?
     var dataStore: NowPlayingMoviesDataStore?
 }

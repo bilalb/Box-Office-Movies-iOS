@@ -28,7 +28,7 @@ protocol NowPlayingMoviesBusinessLogic {
     func refreshFavoriteMovies(request: NowPlayingMovies.RefreshFavoriteMovies.Request)
 }
 
-class NowPlayingMoviesInteractor: NowPlayingMoviesDataStore {
+final class NowPlayingMoviesInteractor: NowPlayingMoviesDataStore {
     // MARK: Instance Properties
     var presenter: NowPlayingMoviesPresentationLogic?
     

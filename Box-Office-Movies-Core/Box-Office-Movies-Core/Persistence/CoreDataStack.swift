@@ -9,7 +9,7 @@
 import CoreData
 import Foundation
 
-class CoreDataStack {
+final class CoreDataStack {
     
     static var shared = CoreDataStack()
     

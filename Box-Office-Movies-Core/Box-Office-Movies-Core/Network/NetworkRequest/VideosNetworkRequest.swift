@@ -8,7 +8,7 @@
 
 import Foundation
 
-class VideosNetworkRequest: NetworkRequest {
+final class VideosNetworkRequest: NetworkRequest {
     
     let identifier: Int
     let languageCode: String

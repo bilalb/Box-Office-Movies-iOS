@@ -9,7 +9,7 @@
 @testable import Box_Office_Movies
 import XCTest
 
-class MovieDetailsRouterTests: XCTestCase {
+final class MovieDetailsRouterTests: XCTestCase {
 
     var sut: MovieDetailsRouter!
     var movieDetailsViewController: MovieDetailsViewController!

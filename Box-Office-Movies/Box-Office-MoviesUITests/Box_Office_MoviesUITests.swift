@@ -8,7 +8,7 @@
 
 import XCTest
 
-class Box_Office_MoviesUITests: XCTestCase {
+final class Box_Office_MoviesUITests: XCTestCase {
     
     var locale: Locale = .french
     

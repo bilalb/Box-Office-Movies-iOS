@@ -9,7 +9,7 @@
 @testable import Box_Office_Movies
 import XCTest
 
-class MovieDetailsViewControllerTests: XCTestCase {
+final class MovieDetailsViewControllerTests: XCTestCase {
     
     // MARK: Subject under test
     

@@ -12,7 +12,7 @@ protocol MovieDetailsDataPassing {
     var dataStore: MovieDetailsDataStore? { get }
 }
 
-class MovieDetailsRouter: NSObject, MovieDetailsDataPassing {
+final class MovieDetailsRouter: NSObject, MovieDetailsDataPassing {
     weak var viewController: MovieDetailsViewController?
     var dataStore: MovieDetailsDataStore?
 }

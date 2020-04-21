@@ -12,7 +12,7 @@ import XCTest
 
 //swiftlint:disable file_length
 //swiftlint:disable type_body_length
-class NowPlayingMoviesInteractorTests: XCTestCase {
+final class NowPlayingMoviesInteractorTests: XCTestCase {
     
     // MARK: Subject under test
     

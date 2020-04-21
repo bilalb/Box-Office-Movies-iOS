@@ -9,7 +9,7 @@
 import WebKit
 import UIKit
 
-class TrailerTableViewCell: UITableViewCell {
+final class TrailerTableViewCell: UITableViewCell {
     
     @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!

@@ -9,7 +9,7 @@
 import UIKit
 
 /// View used as a table view background view when a table view is empty.
-class EmptyBackgroundView: UIView {
+final class EmptyBackgroundView: UIView {
     
     @IBOutlet var messageLabel: UILabel?
     

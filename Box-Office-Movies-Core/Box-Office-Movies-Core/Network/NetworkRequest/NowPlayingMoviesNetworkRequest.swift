@@ -8,7 +8,7 @@
 
 import Foundation
 
-class NowPlayingMoviesNetworkRequest: NetworkRequest {
+final class NowPlayingMoviesNetworkRequest: NetworkRequest {
     
     let languageCode: String
     let regionCode: String

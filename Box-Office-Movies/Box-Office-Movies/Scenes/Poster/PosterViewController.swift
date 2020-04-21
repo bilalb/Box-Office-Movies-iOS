@@ -13,7 +13,7 @@ protocol PosterDisplayLogic: class {
     func displayPosterImage(viewModel: Poster.FetchPosterImage.ViewModel)
 }
 
-class PosterViewController: UIViewController {
+final class PosterViewController: UIViewController {
     // MARK: Instance Properties
     var interactor: PosterBusinessLogic?
     var router: (NSObjectProtocol & PosterRoutingLogic & PosterDataPassing)?

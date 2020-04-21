@@ -69,7 +69,7 @@ protocol MovieNetworkControlling {
     func videos(identifier: Int, languageCode: String, completionHandler: VideosCompletionHandler?)
 }
 
-class MovieNetworkController: NetworkController, MovieNetworkControlling {
+final class MovieNetworkController: NetworkController, MovieNetworkControlling {
     
     func nowPlayingMovies(languageCode: String, regionCode: String, page: Int, completionHandler: NowPlayingMoviesCompletionHandler?) {
         let request = NowPlayingMoviesNetworkRequest(environment: environment,

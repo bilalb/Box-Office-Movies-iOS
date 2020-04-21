@@ -15,7 +15,7 @@ protocol MovieDetailsDisplayLogic: class {
     func displayFavoriteToggle(viewModel: MovieDetailsScene.LoadFavoriteToggle.ViewModel)
 }
 
-class MovieDetailsViewController: UIViewController {
+final class MovieDetailsViewController: UIViewController {
     // MARK: Instance Properties
     var interactor: MovieDetailsBusinessLogic?
     var router: (NSObjectProtocol & MovieDetailsRoutingLogic & MovieDetailsDataPassing)?

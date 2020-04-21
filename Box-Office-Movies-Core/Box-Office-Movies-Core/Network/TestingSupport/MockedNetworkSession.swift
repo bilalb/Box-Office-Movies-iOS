@@ -8,7 +8,7 @@
 
 import Foundation
 
-class MockedNetworkSession: NetworkSession {
+final class MockedNetworkSession: NetworkSession {
 
     func send(request: NetworkRequest, completionHandler: NetworkCompletionHandler?) {
         let data: Data? = {

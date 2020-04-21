@@ -20,7 +20,7 @@ protocol NowPlayingMoviesPresentationLogic {
     func presentRefreshFavoriteMovies(response: NowPlayingMovies.RefreshFavoriteMovies.Response)
 }
 
-class NowPlayingMoviesPresenter {
+final class NowPlayingMoviesPresenter {
     weak var viewController: NowPlayingMoviesDisplayLogic?
 }
 

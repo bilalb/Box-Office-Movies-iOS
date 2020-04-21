@@ -9,7 +9,7 @@
 @testable import Box_Office_Movies_Core
 import XCTest
 
-class MovieManagerTests: XCTestCase {
+final class MovieManagerTests: XCTestCase {
     
     var sut: MovieManager!
     

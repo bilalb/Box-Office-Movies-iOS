@@ -9,7 +9,7 @@
 @testable import Box_Office_Movies_Core
 import XCTest
 
-class PaginatedMovieListTests: XCTestCase {
+final class PaginatedMovieListTests: XCTestCase {
     
     func testInit() {
         // Given

@@ -9,7 +9,7 @@
 @testable import Box_Office_Movies
 import XCTest
 
-class PosterInteractorTests: XCTestCase {
+final class PosterInteractorTests: XCTestCase {
     
     // MARK: Subject under test
     

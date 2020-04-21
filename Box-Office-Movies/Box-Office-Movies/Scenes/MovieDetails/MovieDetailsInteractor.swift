@@ -23,7 +23,7 @@ protocol MovieDetailsBusinessLogic {
     func loadFavoriteToggle(request: MovieDetailsScene.LoadFavoriteToggle.Request)
 }
 
-class MovieDetailsInteractor: MovieDetailsDataStore {
+final class MovieDetailsInteractor: MovieDetailsDataStore {
     // MARK: Instance Properties
     var presenter: MovieDetailsPresentationLogic?
     

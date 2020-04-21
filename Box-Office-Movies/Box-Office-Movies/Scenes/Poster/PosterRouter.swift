@@ -12,7 +12,7 @@ protocol PosterDataPassing {
     var dataStore: PosterDataStore? { get }
 }
 
-class PosterRouter: NSObject, PosterDataPassing {
+final class PosterRouter: NSObject, PosterDataPassing {
     weak var viewController: PosterViewController?
     var dataStore: PosterDataStore?
 }

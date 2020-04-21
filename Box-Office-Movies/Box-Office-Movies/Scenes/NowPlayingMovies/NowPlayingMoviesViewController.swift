@@ -19,7 +19,7 @@ protocol NowPlayingMoviesDisplayLogic: class {
     func displayRefreshFavoriteMovies(viewModel: NowPlayingMovies.RefreshFavoriteMovies.ViewModel)
 }
 
-class NowPlayingMoviesViewController: UIViewController {
+final class NowPlayingMoviesViewController: UIViewController {
     // MARK: Instance Properties
     var interactor: NowPlayingMoviesBusinessLogic?
     var router: (NSObjectProtocol & NowPlayingMoviesRoutingLogic & NowPlayingMoviesDataPassing)?

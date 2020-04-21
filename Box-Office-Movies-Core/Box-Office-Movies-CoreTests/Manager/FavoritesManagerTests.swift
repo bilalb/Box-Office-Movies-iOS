@@ -9,7 +9,7 @@
 @testable import Box_Office_Movies_Core
 import XCTest
 
-class FavoritesManagerTests: XCTestCase {
+final class FavoritesManagerTests: XCTestCase {
     
     var sut: FavoritesManager!
     

@@ -8,7 +8,7 @@
 
 import Foundation
 
-class PosterNetworkRequest: NetworkRequest {
+final class PosterNetworkRequest: NetworkRequest {
     
     let imageSecureBaseURL: String
     let posterSize: String

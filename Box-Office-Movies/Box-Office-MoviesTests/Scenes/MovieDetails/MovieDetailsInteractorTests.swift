@@ -10,7 +10,7 @@
 import Box_Office_Movies_Core
 import XCTest
 
-class MovieDetailsInteractorTests: XCTestCase {
+final class MovieDetailsInteractorTests: XCTestCase {
     
     // MARK: Subject under test
     

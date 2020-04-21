@@ -16,7 +16,7 @@ protocol MovieDetailsPresentationLogic {
     func presentFavoriteToggle(response: MovieDetailsScene.LoadFavoriteToggle.Response)
 }
 
-class MovieDetailsPresenter {
+final class MovieDetailsPresenter {
     weak var viewController: MovieDetailsDisplayLogic?
 }
 
