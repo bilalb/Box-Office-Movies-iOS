@@ -13,15 +13,12 @@ extension UIMenu {
 
     class var search: UIMenu {
         let command = UIKeyCommand(title: NSLocalizedString("search", comment: "search"),
-                                   image: nil,
                                    action: #selector(AppDelegate.searchMenuAction),
                                    input: "F",
                                    modifierFlags: .command,
                                    propertyList: UIKeyCommand.Kind.search.rawValue)
 
         let menu = UIMenu(title: "",
-                          image: nil,
-                          identifier: nil,
                           options: .displayInline,
                           children: [command])
 
@@ -44,9 +41,6 @@ extension UIMenu {
         let childrenCommands = [toggleMovieListTypeCommand, toggleFavoriteCommand]
 
         let menu = UIMenu(title: NSLocalizedString("favorites", comment: "favorites"),
-                          image: nil,
-                          identifier: nil,
-                          options: [],
                           children: childrenCommands)
         
         return menu
@@ -54,15 +48,12 @@ extension UIMenu {
 
     class var refreshMovieList: UIMenu {
         let command = UIKeyCommand(title: NSLocalizedString("refreshMovieList", comment: "refreshMovieList"),
-                                   image: nil,
                                    action: #selector(AppDelegate.refreshMovieListMenuAction),
                                    input: "R",
                                    modifierFlags: .command,
                                    propertyList: UIKeyCommand.Kind.refreshMovieList.rawValue)
 
         let menu = UIMenu(title: "",
-                          image: nil,
-                          identifier: nil,
                           options: .displayInline,
                           children: [command])
 

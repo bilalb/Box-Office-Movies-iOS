@@ -10,7 +10,7 @@
             ActionType = "Xcode.IDEStandardExecutionActionsCore.ExecutionActionType.ShellScriptAction">
             <ActionContent
                title = "Copy GoogleService-Info.plist"
-               scriptText = "if [ ${IS_MACCATALYST} ]; then&#10;    cp &quot;${SRCROOT}/Box-Office-Movies/Resources/GoogleServiceInfoPlists/macOS/GoogleService-Info_macOS.sample$CONFIGURATION.plist&quot; &quot;${SRCROOT}/Box-Office-Movies/GoogleService-Info.plist&quot;&#10;else&#10;    cp &quot;${SRCROOT}/Box-Office-Movies/Resources/GoogleServiceInfoPlists/macOS/GoogleService-Info_iOS.sample$CONFIGURATION.plist&quot; &quot;${SRCROOT}/Box-Office-Movies/GoogleService-Info.plist&quot;&#10;fi&#10;">
+               scriptText = "if [ ${IS_MACCATALYST} ]; then&#10;    cp &quot;${SRCROOT}/Box-Office-Movies/Resources/GoogleServiceInfoPlists/macOS/GoogleService-Info_macOS.sample.plist&quot; &quot;${SRCROOT}/Box-Office-Movies/GoogleService-Info.plist&quot;&#10;else&#10;    cp &quot;${SRCROOT}/Box-Office-Movies/Resources/GoogleServiceInfoPlists/iOS/GoogleService-Info_iOS.sample.plist&quot; &quot;${SRCROOT}/Box-Office-Movies/GoogleService-Info.plist&quot;&#10;fi&#10;">
                <EnvironmentBuildable>
                   <BuildableReference
                      BuildableIdentifier = "primary"

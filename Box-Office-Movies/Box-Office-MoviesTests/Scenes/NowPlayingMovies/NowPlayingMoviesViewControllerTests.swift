@@ -155,6 +155,19 @@ final class NowPlayingMoviesViewControllerTests: XCTestCase {
         XCTAssertTrue(sut.nowPlayingMoviesTableView.isEditing, "setEditing(_:animated:) should update the isEditing")
     }
     
+    func test_refreshNowPlayingMovies_shouldCallRefreshMovies() {
+        // Given
+        let spy = NowPlayingMoviesBusinessLogicSpy()
+        sut.interactor = spy
+        loadView()
+        
+        // When
+        sut.refreshNowPlayingMovies()
+        
+        // Then
+        XCTAssertTrue(spy.refreshMoviesCalled, "refreshNowPlayingMovies() should call refreshMovies(request:)")
+    }
+    
     func testDisplayNowPlayingMovies() {
         // Given
         loadView()

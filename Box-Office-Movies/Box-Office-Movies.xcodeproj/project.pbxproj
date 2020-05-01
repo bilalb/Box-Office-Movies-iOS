@@ -8,7 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		7F87DE172CA9230DD4125E5D /* Pods_Box_Office_Movies.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43AAA7F0755C14E7B47FD5C6 /* Pods_Box_Office_Movies.framework */; };
+		9C15EE6A245C977D00A8A192 /* UIMenuTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C15EE69245C977D00A8A192 /* UIMenuTests.swift */; };
 		9C2371CD239A7E7A00BF8147 /* UIMenuBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C2371CC239A7E7A00BF8147 /* UIMenuBuilder.swift */; };
+		9C255948245DA58400EC8554 /* DisclosableTableViewCellTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C255947245DA58400EC8554 /* DisclosableTableViewCellTests.swift */; };
 		9C4935EA224A95CD00359378 /* AdditionalInformationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C4935E9224A95CD00359378 /* AdditionalInformationTableViewCell.swift */; };
 		9C5AD034225653ED009CC78A /* MovieDetailsViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C5AD031225653ED009CC78A /* MovieDetailsViewControllerTests.swift */; };
 		9C5AD035225653ED009CC78A /* MovieDetailsInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C5AD032225653ED009CC78A /* MovieDetailsInteractorTests.swift */; };
@@ -106,7 +108,9 @@
 		40069362EBCCEBA302F41B40 /* Pods-Box-Office-Movies.debug-development.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Box-Office-Movies.debug-development.xcconfig"; path = "Target Support Files/Pods-Box-Office-Movies/Pods-Box-Office-Movies.debug-development.xcconfig"; sourceTree = "<group>"; };
 		43AAA7F0755C14E7B47FD5C6 /* Pods_Box_Office_Movies.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Box_Office_Movies.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		54013E44A5681A0F0039528E /* Pods-Box-Office-Movies.release-staging.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Box-Office-Movies.release-staging.xcconfig"; path = "Target Support Files/Pods-Box-Office-Movies/Pods-Box-Office-Movies.release-staging.xcconfig"; sourceTree = "<group>"; };
+		9C15EE69245C977D00A8A192 /* UIMenuTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIMenuTests.swift; sourceTree = "<group>"; };
 		9C2371CC239A7E7A00BF8147 /* UIMenuBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIMenuBuilder.swift; sourceTree = "<group>"; };
+		9C255947245DA58400EC8554 /* DisclosableTableViewCellTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisclosableTableViewCellTests.swift; sourceTree = "<group>"; };
 		9C44111A23C7718A006E1E7A /* Development.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Development.xcconfig; sourceTree = "<group>"; };
 		9C44111C23C771FD006E1E7A /* Staging.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Staging.xcconfig; sourceTree = "<group>"; };
 		9C44111E23C7721A006E1E7A /* Production.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Production.xcconfig; sourceTree = "<group>"; };
@@ -240,6 +244,22 @@
 			path = ../Pods;
 			sourceTree = "<group>";
 		};
+		9C15EE68245C976A00A8A192 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				9C15EE69245C977D00A8A192 /* UIMenuTests.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		9C255946245DA57500EC8554 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				9C255947245DA58400EC8554 /* DisclosableTableViewCellTests.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		9C44111923C77174006E1E7A /* Configuration */ = {
 			isa = PBXGroup;
 			children = (
@@ -254,9 +274,11 @@
 		9C5AD02F225653D1009CC78A /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
+				9C15EE68245C976A00A8A192 /* Extensions */,
 				9C5AD030225653DE009CC78A /* MovieDetails */,
 				9C5AD0372256680C009CC78A /* NowPlayingMovies */,
 				9C6F39DA22F48B51009D030B /* Poster */,
+				9C255946245DA57500EC8554 /* Views */,
 			);
 			path = Scenes;
 			sourceTree = "<group>";
@@ -794,12 +816,14 @@
 			files = (
 				9C5AD036225653ED009CC78A /* MovieDetailsPresenterTests.swift in Sources */,
 				9C6F39DF22F48B6C009D030B /* PosterInteractorTests.swift in Sources */,
+				9C15EE6A245C977D00A8A192 /* UIMenuTests.swift in Sources */,
 				9C6F39E022F48B6C009D030B /* PosterPresenterTests.swift in Sources */,
 				9C5AD035225653ED009CC78A /* MovieDetailsInteractorTests.swift in Sources */,
 				9CD1682222F4B2DF00688215 /* MovieDetailsRouterTests.swift in Sources */,
 				9C6F39DE22F48B6C009D030B /* PosterViewControllerTests.swift in Sources */,
 				9C5AD03D22566826009CC78A /* NowPlayingMoviesPresenterTests.swift in Sources */,
 				9C5AD034225653ED009CC78A /* MovieDetailsViewControllerTests.swift in Sources */,
+				9C255948245DA58400EC8554 /* DisclosableTableViewCellTests.swift in Sources */,
 				9C5AD03C22566826009CC78A /* NowPlayingMoviesInteractorTests.swift in Sources */,
 				9C5AD03B22566826009CC78A /* NowPlayingMoviesViewControllerTests.swift in Sources */,
 			);
