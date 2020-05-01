@@ -15,7 +15,7 @@
                   <BuildableReference
                      BuildableIdentifier = "primary"
                      BlueprintIdentifier = "9CDC95D52243FFB10051925E"
-                     BuildableName = "Boxotop (dev).app"
+                     BuildableName = "Box-Office-Movies.app"
                      BlueprintName = "Box-Office-Movies"
                      ReferencedContainer = "container:Box-Office-Movies.xcodeproj">
                   </BuildableReference>
@@ -33,7 +33,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "9CDC95D52243FFB10051925E"
-               BuildableName = "Boxotop (dev).app"
+               BuildableName = "Box-Office-Movies.app"
                BlueprintName = "Box-Office-Movies"
                ReferencedContainer = "container:Box-Office-Movies.xcodeproj">
             </BuildableReference>
@@ -51,7 +51,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "9CDC95D52243FFB10051925E"
-            BuildableName = "Boxotop (dev).app"
+            BuildableName = "Box-Office-Movies.app"
             BlueprintName = "Box-Office-Movies"
             ReferencedContainer = "container:Box-Office-Movies.xcodeproj">
          </BuildableReference>
@@ -60,7 +60,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "9CDC95D52243FFB10051925E"
-            BuildableName = "Boxotop (dev).app"
+            BuildableName = "Box-Office-Movies.app"
             BlueprintName = "Box-Office-Movies"
             ReferencedContainer = "container:Box-Office-Movies.xcodeproj">
          </BuildableReference>
@@ -103,7 +103,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "9CDC95D52243FFB10051925E"
-            BuildableName = "Boxotop (dev).app"
+            BuildableName = "Box-Office-Movies.app"
             BlueprintName = "Box-Office-Movies"
             ReferencedContainer = "container:Box-Office-Movies.xcodeproj">
          </BuildableReference>
@@ -120,7 +120,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "9CDC95D52243FFB10051925E"
-            BuildableName = "Boxotop (dev).app"
+            BuildableName = "Box-Office-Movies.app"
             BlueprintName = "Box-Office-Movies"
             ReferencedContainer = "container:Box-Office-Movies.xcodeproj">
          </BuildableReference>

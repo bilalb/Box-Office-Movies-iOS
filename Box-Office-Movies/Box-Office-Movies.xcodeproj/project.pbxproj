@@ -164,7 +164,7 @@
 		9CDAE7462427AA05002AA780 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		9CDB22A422EF115B00B8A2C0 /* EmptyBackgroundView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EmptyBackgroundView.xib; sourceTree = "<group>"; };
 		9CDB22A622EF172400B8A2C0 /* EmptyBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyBackgroundView.swift; sourceTree = "<group>"; };
-		9CDC95D62243FFB10051925E /* Boxotop (dev).app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Boxotop (dev).app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		9CDC95D62243FFB10051925E /* Box-Office-Movies.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Box-Office-Movies.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9CDC95D92243FFB10051925E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9CDC95E02243FFB10051925E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		9CDC95E22243FFB30051925E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -418,7 +418,7 @@
 		9CDC95D72243FFB10051925E /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				9CDC95D62243FFB10051925E /* Boxotop (dev).app */,
+				9CDC95D62243FFB10051925E /* Box-Office-Movies.app */,
 				9CDC95EC2243FFB30051925E /* Box-Office-MoviesTests.xctest */,
 				9CFAE4C122C78D9600893908 /* Box-Office-MoviesUITests.xctest */,
 			);
@@ -536,7 +536,7 @@
 			);
 			name = "Box-Office-Movies";
 			productName = "Box-Office-Movies";
-			productReference = 9CDC95D62243FFB10051925E /* Boxotop (dev).app */;
+			productReference = 9CDC95D62243FFB10051925E /* Box-Office-Movies.app */;
 			productType = "com.apple.product-type.application";
 		};
 		9CDC95EB2243FFB30051925E /* Box-Office-MoviesTests */ = {
@@ -956,7 +956,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "$(APP_BUNDLE_IDENTIFIER)";
-				PRODUCT_NAME = "$(APP_NAME)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTS_MACCATALYST = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1080,7 +1080,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "$(APP_BUNDLE_IDENTIFIER)";
-				PRODUCT_NAME = "$(APP_NAME)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTS_MACCATALYST = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1208,7 +1208,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "$(APP_BUNDLE_IDENTIFIER)";
-				PRODUCT_NAME = "$(APP_NAME)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTS_MACCATALYST = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1336,7 +1336,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "$(APP_BUNDLE_IDENTIFIER)";
-				PRODUCT_NAME = "$(APP_NAME)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTS_MACCATALYST = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1458,7 +1458,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "$(APP_BUNDLE_IDENTIFIER)";
-				PRODUCT_NAME = "$(APP_NAME)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTS_MACCATALYST = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1580,7 +1580,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "$(APP_BUNDLE_IDENTIFIER)";
-				PRODUCT_NAME = "$(APP_NAME)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTS_MACCATALYST = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
