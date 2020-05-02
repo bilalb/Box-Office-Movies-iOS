@@ -6,7 +6,7 @@
 //  Copyrights © 2019 Bilal Benlarbi. All rights reserved.
 //
 
-@testable import Box_Office_Movies
+@testable import Boxotop
 import XCTest
 
 final class MovieDetailsViewControllerTests: XCTestCase {
@@ -50,6 +50,7 @@ final class MovieDetailsViewControllerTests: XCTestCase {
         var loadMovieReviewsCalled = false
         var reviewMovieCalled = false
         var loadFavoriteToggleCalled = false
+        var isMovieAddedToFavoritesCalled = false
 
         func fetchMovieDetails(request: MovieDetailsScene.FetchMovieDetails.Request) {
             fetchMovieDetailsCalled = true
@@ -65,6 +66,11 @@ final class MovieDetailsViewControllerTests: XCTestCase {
         
         func loadFavoriteToggle(request: MovieDetailsScene.LoadFavoriteToggle.Request) {
             loadFavoriteToggleCalled = true
+        }
+        
+        func isMovieAddedToFavorites() -> Bool? {
+            isMovieAddedToFavoritesCalled = true
+            return nil
         }
     }
     

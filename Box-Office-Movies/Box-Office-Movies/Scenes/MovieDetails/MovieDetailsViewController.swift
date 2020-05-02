@@ -19,7 +19,7 @@ final class MovieDetailsViewController: UIViewController {
     // MARK: Instance Properties
     var interactor: MovieDetailsBusinessLogic?
     var router: (NSObjectProtocol & MovieDetailsRoutingLogic & MovieDetailsDataPassing)?
-    
+
     var detailItems = [DetailItem]() {
         didSet {
             detailItemsTableView.reloadData()
@@ -29,7 +29,7 @@ final class MovieDetailsViewController: UIViewController {
     lazy var nowPlayingMoviesViewController: NowPlayingMoviesViewController? = {
         return splitViewController?.masterViewController as? NowPlayingMoviesViewController
     }()
-    
+
     @IBOutlet weak var toggleFavoriteBarButtonItem: UIBarButtonItem!
     @IBOutlet weak var detailItemsTableView: UITableView!
     @IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!
@@ -40,16 +40,16 @@ final class MovieDetailsViewController: UIViewController {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         sceneSetup()
     }
-    
+
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         sceneSetup()
     }
-    
+
     // MARK: View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         configureActivityIndicatorView()
 
         // When the split view controller is not collapsed this scene is displayed.
@@ -59,7 +59,7 @@ final class MovieDetailsViewController: UIViewController {
             activityIndicatorView.stopAnimating()
             return
         }
-        
+
         fetchMovieDetails()
         loadFavoriteToggle()
     }
@@ -67,6 +67,13 @@ final class MovieDetailsViewController: UIViewController {
     func loadFavoriteToggle() {
         let request = MovieDetailsScene.LoadFavoriteToggle.Request()
         interactor?.loadFavoriteToggle(request: request)
+    }
+
+    func refreshFavoriteMovies() {
+        guard let movie = router?.dataStore?.movieDetails?.relatedMovie else { return }
+
+        let refreshSource = RefreshSource.movie(movie)
+        nowPlayingMoviesViewController?.refreshFavoriteMovies(with: refreshSource)
     }
 }
 
@@ -76,7 +83,7 @@ private extension MovieDetailsViewController {
     func configureActivityIndicatorView() {
         activityIndicatorView.setStyle(.medium)
     }
-    
+
     func fetchMovieDetails() {
         UIApplication.shared.setNetworkActivityIndicatorVisibility(true)
         activityIndicatorView.startAnimating()
@@ -84,33 +91,26 @@ private extension MovieDetailsViewController {
         let request = MovieDetailsScene.FetchMovieDetails.Request()
         interactor?.fetchMovieDetails(request: request)
     }
-    
+
     func loadMovieReviews() {
         let request = MovieDetailsScene.LoadMovieReviews.Request()
         interactor?.loadMovieReviews(request: request)
     }
-    
+
     func reviewMovie(with movieReview: MovieReview) {
         let request = MovieDetailsScene.ReviewMovie.Request(movieReview: movieReview)
         interactor?.reviewMovie(request: request)
     }
-    
+
     @IBAction func errorActionButtonPressed() {
         fetchMovieDetails()
         errorStackView.isHidden = true
     }
-    
+
     @IBAction func toggleFavoriteBarButtonItemPressed() {
         refreshFavoriteMovies()
     }
-    
-    func refreshFavoriteMovies() {
-        guard let movie = router?.dataStore?.movieDetails?.relatedMovie else { return }
 
-        let refreshSource = RefreshSource.movie(movie)
-        nowPlayingMoviesViewController?.refreshFavoriteMovies(with: refreshSource)
-    }
-    
     @IBAction func posterImageViewTapGestureRecognizerPressed() {
         router?.routeToPoster()
     }
@@ -118,17 +118,17 @@ private extension MovieDetailsViewController {
 
 // MARK: - Display Logic
 extension MovieDetailsViewController: MovieDetailsDisplayLogic {
-    
+
     func displayMovieDetails(viewModel: MovieDetailsScene.FetchMovieDetails.ViewModel) {
         detailItems = viewModel.detailItems ?? []
 
         UIApplication.shared.setNetworkActivityIndicatorVisibility(viewModel.shouldShowNetworkActivityIndicator)
         activityIndicatorView.stopAnimating()
-        
+
         errorStackView.isHidden = viewModel.shouldHideErrorView
         errorStackView.errorDescription = viewModel.errorDescription
     }
-    
+
     func displayMovieReviews(viewModel: MovieDetailsScene.LoadMovieReviews.ViewModel) {
         let alertController = UIAlertController(title: viewModel.alertControllerTitle, message: viewModel.alertControllerMessage, preferredStyle: viewModel.alertControllerPreferredStyle)
         viewModel.actions.forEach({ (alertAction, movieReview) in
@@ -146,7 +146,7 @@ extension MovieDetailsViewController: MovieDetailsDisplayLogic {
         }
         present(alertController, animated: true)
     }
-    
+
     func displayReviewMovie(viewModel: MovieDetailsScene.ReviewMovie.ViewModel) {
         let indexOfReviewMovieItem = detailItems.firstIndex { detailItem -> Bool in
             if case .reviewMovie = detailItem {
@@ -159,7 +159,7 @@ extension MovieDetailsViewController: MovieDetailsDisplayLogic {
             detailItems[indexOfReviewMovieItem] = viewModel.reviewMovieItem
         }
     }
-    
+
     func displayFavoriteToggle(viewModel: MovieDetailsScene.LoadFavoriteToggle.ViewModel) {
         toggleFavoriteBarButtonItem.title = viewModel.toggleFavoriteBarButtonItemTitle
     }
@@ -167,18 +167,18 @@ extension MovieDetailsViewController: MovieDetailsDisplayLogic {
 
 // MARK: - UITableViewDataSource
 extension MovieDetailsViewController: UITableViewDataSource {
-    
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return detailItems.count
     }
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let detailItem = detailItems[safe: indexPath.row] else {
             return UITableViewCell()
         }
         let cellIdentifier = detailItem.cellIdentifier
         let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath)
-        
+
         switch detailItem {
         case .title(let title):
             cell.textLabel?.text = title
@@ -201,19 +201,19 @@ extension MovieDetailsViewController: UITableViewDataSource {
         case .similarMovies(let similarMovies):
             cell.detailTextLabel?.text = similarMovies
         }
-        
+
         return cell
     }
 }
 
 // MARK: - UITableViewDelegate
 extension MovieDetailsViewController: UITableViewDelegate {
-    
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let detailItem = detailItems[safe: indexPath.row] else {
             return
         }
-        
+
         switch detailItem {
         case .reviewMovie:
             loadMovieReviews()

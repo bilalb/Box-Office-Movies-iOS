@@ -6,7 +6,7 @@
 //  Copyrights © 2019 Bilal Benlarbi. All rights reserved.
 //
 
-@testable import Box_Office_Movies
+@testable import Boxotop
 import Box_Office_Movies_Core
 import XCTest
 
@@ -109,29 +109,11 @@ final class MovieDetailsInteractorTests: XCTestCase {
         XCTAssertTrue(spy.presentReviewMovieCalled, "reviewMovie(request:) should ask the presenter to format the result")
     }
     
-    func testLoadFavoriteToggleWithInvalidMovieIdentifier() {
-        // Given
-        let spy = MovieDetailsPresentationLogicSpy()
-        sut.presenter = spy
-        
-        sut.movieIdentifier = nil
-        
-        let request = MovieDetailsScene.LoadFavoriteToggle.Request()
-        
-        // When
-        sut.loadFavoriteToggle(request: request)
-        
-        // Then
-        XCTAssertFalse(spy.presentFavoriteToggleCalled, "loadFavoriteToggle(request:) should not ask the presenter to format the result")
-    }
-    
     func testLoadFavoriteToggle() {
         // Given
         let spy = MovieDetailsPresentationLogicSpy()
         sut.presenter = spy
-        
-        sut.movieIdentifier = 0
-        
+                
         let request = MovieDetailsScene.LoadFavoriteToggle.Request()
         
         // When
@@ -139,6 +121,49 @@ final class MovieDetailsInteractorTests: XCTestCase {
         
         // Then
         XCTAssertTrue(spy.presentFavoriteToggleCalled, "loadFavoriteToggle(request:) should ask the presenter to format the result")
+    }
+    
+    func test_isMovieAddedToFavorites_withNilMovieIdentifier_shouldReturnNil() {
+        // Given
+        let spy = MovieDetailsPresentationLogicSpy()
+        sut.presenter = spy
+        
+        sut.movieIdentifier = nil
+        
+        // When
+        let isMovieAddedToFavorites = sut.isMovieAddedToFavorites()
+        
+        // Then
+        XCTAssertNil(isMovieAddedToFavorites)
+    }
+    
+    func test_isMovieAddedToFavorites_withFavoriteMovie_shouldReturnTrue() {
+        // Given
+        let spy = MovieDetailsPresentationLogicSpy()
+        sut.presenter = spy
+        
+        _ = ManagerProvider.shared.favoritesManager.addMovieToFavorites(Movie.dummyInstance)
+        sut.movieIdentifier = Int(Movie.dummyInstance.identifier)
+        
+        // When
+        let isMovieAddedToFavorites = sut.isMovieAddedToFavorites()
+        
+        // Then
+        XCTAssertEqual(isMovieAddedToFavorites, true)
+    }
+    
+    func test_isMovieAddedToFavorites_withUnfavoriteMovie_shouldReturnFalse() {
+        // Given
+        let spy = MovieDetailsPresentationLogicSpy()
+        sut.presenter = spy
+        
+        sut.movieIdentifier = 42
+        
+        // When
+        let isMovieAddedToFavorites = sut.isMovieAddedToFavorites()
+        
+        // Then
+        XCTAssertEqual(isMovieAddedToFavorites, false)
     }
     
     func testPresentMovieDetails() {

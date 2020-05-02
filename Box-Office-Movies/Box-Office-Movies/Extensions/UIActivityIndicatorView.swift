@@ -14,6 +14,7 @@ extension UIActivityIndicatorView.Style {
         case medium
         case large
         
+        #if !targetEnvironment(macCatalyst)
         var priorIOS13Style: UIActivityIndicatorView.Style {
             switch self {
             case .medium:
@@ -22,7 +23,8 @@ extension UIActivityIndicatorView.Style {
                 return .whiteLarge
             }
         }
-        
+        #endif
+
         @available(iOS 13.0, *)
         var afterIOS13Style: UIActivityIndicatorView.Style {
             switch self {
@@ -41,7 +43,9 @@ extension UIActivityIndicatorView {
         if #available(iOS 13.0, *) {
             self.style = style.afterIOS13Style
         } else {
+            #if !targetEnvironment(macCatalyst)
             self.style = style.priorIOS13Style
+            #endif
         }
     }
 }

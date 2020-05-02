@@ -6,7 +6,7 @@
 //  Copyrights © 2019 Bilal Benlarbi. All rights reserved.
 //
 
-@testable import Box_Office_Movies
+@testable import Boxotop
 import XCTest
 
 //swiftlint:disable file_length
@@ -153,6 +153,19 @@ final class NowPlayingMoviesViewControllerTests: XCTestCase {
         
         // Then
         XCTAssertTrue(sut.nowPlayingMoviesTableView.isEditing, "setEditing(_:animated:) should update the isEditing")
+    }
+    
+    func test_refreshNowPlayingMovies_shouldCallRefreshMovies() {
+        // Given
+        let spy = NowPlayingMoviesBusinessLogicSpy()
+        sut.interactor = spy
+        loadView()
+        
+        // When
+        sut.refreshNowPlayingMovies()
+        
+        // Then
+        XCTAssertTrue(spy.refreshMoviesCalled, "refreshNowPlayingMovies() should call refreshMovies(request:)")
     }
     
     func testDisplayNowPlayingMovies() {
