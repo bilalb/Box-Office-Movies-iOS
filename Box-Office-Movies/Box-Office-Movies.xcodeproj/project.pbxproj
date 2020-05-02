@@ -168,7 +168,7 @@
 		9CDAE7462427AA05002AA780 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		9CDB22A422EF115B00B8A2C0 /* EmptyBackgroundView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EmptyBackgroundView.xib; sourceTree = "<group>"; };
 		9CDB22A622EF172400B8A2C0 /* EmptyBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyBackgroundView.swift; sourceTree = "<group>"; };
-		9CDC95D62243FFB10051925E /* Box-Office-Movies.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Box-Office-Movies.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		9CDC95D62243FFB10051925E /* Boxotop.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Boxotop.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9CDC95D92243FFB10051925E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9CDC95E02243FFB10051925E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		9CDC95E22243FFB30051925E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -440,7 +440,7 @@
 		9CDC95D72243FFB10051925E /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				9CDC95D62243FFB10051925E /* Box-Office-Movies.app */,
+				9CDC95D62243FFB10051925E /* Boxotop.app */,
 				9CDC95EC2243FFB30051925E /* Box-Office-MoviesTests.xctest */,
 				9CFAE4C122C78D9600893908 /* Box-Office-MoviesUITests.xctest */,
 			);
@@ -539,9 +539,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		9CDC95D52243FFB10051925E /* Box-Office-Movies */ = {
+		9CDC95D52243FFB10051925E /* Boxotop */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 9CDC95F52243FFB30051925E /* Build configuration list for PBXNativeTarget "Box-Office-Movies" */;
+			buildConfigurationList = 9CDC95F52243FFB30051925E /* Build configuration list for PBXNativeTarget "Boxotop" */;
 			buildPhases = (
 				38E33EC6215798B5846AA2D3 /* [CP] Check Pods Manifest.lock */,
 				9CDC95D22243FFB10051925E /* Sources */,
@@ -556,9 +556,9 @@
 			);
 			dependencies = (
 			);
-			name = "Box-Office-Movies";
+			name = Boxotop;
 			productName = "Box-Office-Movies";
-			productReference = 9CDC95D62243FFB10051925E /* Box-Office-Movies.app */;
+			productReference = 9CDC95D62243FFB10051925E /* Boxotop.app */;
 			productType = "com.apple.product-type.application";
 		};
 		9CDC95EB2243FFB30051925E /* Box-Office-MoviesTests */ = {
@@ -647,7 +647,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				9CDC95D52243FFB10051925E /* Box-Office-Movies */,
+				9CDC95D52243FFB10051925E /* Boxotop */,
 				9CDC95EB2243FFB30051925E /* Box-Office-MoviesTests */,
 				9CFAE4C022C78D9600893908 /* Box-Office-MoviesUITests */,
 			);
@@ -843,12 +843,12 @@
 /* Begin PBXTargetDependency section */
 		9CDC95EE2243FFB30051925E /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 9CDC95D52243FFB10051925E /* Box-Office-Movies */;
+			target = 9CDC95D52243FFB10051925E /* Boxotop */;
 			targetProxy = 9CDC95ED2243FFB30051925E /* PBXContainerItemProxy */;
 		};
 		9CFAE4C722C78D9600893908 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 9CDC95D52243FFB10051925E /* Box-Office-Movies */;
+			target = 9CDC95D52243FFB10051925E /* Boxotop */;
 			targetProxy = 9CFAE4C622C78D9600893908 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -1005,7 +1005,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Box-Office-Movies.app/Box-Office-Movies";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Boxotop.app/Boxotop";
 			};
 			name = "Debug-Development_CI";
 		};
@@ -1129,7 +1129,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Box-Office-Movies.app/Box-Office-Movies";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Boxotop.app/Boxotop";
 			};
 			name = "Release-Development_CI";
 		};
@@ -1257,7 +1257,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Box-Office-Movies.app/Box-Office-Movies";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Boxotop.app/Boxotop";
 			};
 			name = "Debug-Production";
 		};
@@ -1385,7 +1385,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Box-Office-Movies.app/Box-Office-Movies";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Boxotop.app/Boxotop";
 			};
 			name = "Debug-Staging";
 		};
@@ -1507,7 +1507,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Box-Office-Movies.app/Box-Office-Movies";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Boxotop.app/Boxotop";
 			};
 			name = "Release-Production";
 		};
@@ -1629,7 +1629,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Box-Office-Movies.app/Box-Office-Movies";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Boxotop.app/Boxotop";
 			};
 			name = "Release-Staging";
 		};
@@ -1834,7 +1834,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Box-Office-Movies.app/Box-Office-Movies";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Boxotop.app/Boxotop";
 			};
 			name = "Debug-Development";
 		};
@@ -1856,7 +1856,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Box-Office-Movies.app/Box-Office-Movies";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Boxotop.app/Boxotop";
 			};
 			name = "Release-Development";
 		};
@@ -1920,7 +1920,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = "Release-Development";
 		};
-		9CDC95F52243FFB30051925E /* Build configuration list for PBXNativeTarget "Box-Office-Movies" */ = {
+		9CDC95F52243FFB30051925E /* Build configuration list for PBXNativeTarget "Boxotop" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				9CDC95F62243FFB30051925E /* Debug-Development */,

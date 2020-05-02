@@ -6,7 +6,7 @@
 //  Copyrights © 2019 Bilal Benlarbi. All rights reserved.
 //
 
-@testable import Box_Office_Movies
+@testable import Boxotop
 import Box_Office_Movies_Core
 import XCTest
 

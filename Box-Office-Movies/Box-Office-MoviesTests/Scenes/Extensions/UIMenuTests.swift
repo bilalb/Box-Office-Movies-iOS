@@ -6,7 +6,7 @@
 //  Copyright © 2020 Boxotop. All rights reserved.
 //
 
-@testable import Box_Office_Movies
+@testable import Boxotop
 import XCTest
 
 @available(iOS 13.0, *)

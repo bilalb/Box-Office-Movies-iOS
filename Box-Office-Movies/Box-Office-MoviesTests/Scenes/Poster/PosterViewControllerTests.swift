@@ -6,7 +6,7 @@
 //  Copyright (c) 2019 Boxotop. All rights reserved.
 //
 
-@testable import Box_Office_Movies
+@testable import Boxotop
 import XCTest
 
 final class PosterViewControllerTests: XCTestCase {
