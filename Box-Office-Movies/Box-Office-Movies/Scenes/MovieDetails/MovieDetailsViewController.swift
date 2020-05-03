@@ -61,6 +61,11 @@ final class MovieDetailsViewController: UIViewController {
         }
 
         fetchMovieDetails()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
         loadFavoriteToggle()
     }
 

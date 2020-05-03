@@ -1,12 +1,12 @@
 <img src="./Box-Office-Movies/Box-Office-Movies/Resources/Assets.xcassets/AppIcon.appiconset/Icon-App-40x40@3x.png" alt="app icon" width="36" height="36"> Box-Office-Movies iOS
 ======================================
-[![pipeline](https://gitlab.com/bilal.b/Box-Office-Movies-iOS/badges/master/pipeline.svg)](https://gitlab.com/bilal.b/Box-Office-Movies-iOS/pipelines)
-![platforms](https://img.shields.io/badge/platforms-iOS%20%7C%20macOS-888888.svg)
-![appearances](https://img.shields.io/badge/appearances-Light%20%7C%20Dark-888888.svg)
+[![Pipeline](https://gitlab.com/bilal.b/Box-Office-Movies-iOS/badges/master/pipeline.svg)](https://gitlab.com/bilal.b/Box-Office-Movies-iOS/pipelines)
+![Platforms](https://img.shields.io/badge/platforms-iOS%20%7C%20macOS-888888.svg)
+![Appearances](https://img.shields.io/badge/appearances-Light%20%7C%20Dark-888888.svg)
 [![License](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE.txt)
 
-Box-Office-Movies: [![coverage](https://gitlab.com/bilal.b/Box-Office-Movies-iOS/badges/master/coverage.svg?job=test_project)](https://gitlab.com/bilal.b/Box-Office-Movies-iOS)
-Box-Office-Movies-Core: [![coverage](https://gitlab.com/bilal.b/Box-Office-Movies-iOS/badges/master/coverage.svg?job=test_core)](https://gitlab.com/bilal.b/Box-Office-Movies-iOS)
+Box-Office-Movies: [![Coverage](https://gitlab.com/bilal.b/Box-Office-Movies-iOS/badges/master/coverage.svg?job=test_project)](https://gitlab.com/bilal.b/Box-Office-Movies-iOS)
+Box-Office-Movies-Core: [![Coverage](https://gitlab.com/bilal.b/Box-Office-Movies-iOS/badges/master/coverage.svg?job=test_core)](https://gitlab.com/bilal.b/Box-Office-Movies-iOS)
 
 Box-Office-Movies is an application that uses [The Movie Database (TMDb) API](https://developers.themoviedb.org/). The goal is to play with many iOS development concepts (open source app development, Mac Catalyst, CloudKit, etc.).
 

@@ -84,6 +84,18 @@ final class MovieDetailsViewControllerTests: XCTestCase {
         XCTAssertNotNil(movieDetailsViewController, "init(nibName:, bundle:) should return an instance of MovieDetailsViewController")
     }
     
+    func test_viewWillAppear_shouldCallLoadFavoriteToggle() {
+        // Given
+        let spy = MovieDetailsBusinessLogicSpy()
+        sut.interactor = spy
+        
+        // When
+        sut.viewWillAppear(false)
+        
+        // Then
+        XCTAssertTrue(spy.loadFavoriteToggleCalled)
+    }
+    
     func testShouldStopAnimatingActivityIndicatorViewWhenMovieIdentifierIsNilAndViewIsLoaded() {
         // When
         loadView()

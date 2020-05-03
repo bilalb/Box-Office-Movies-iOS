@@ -27,9 +27,9 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
         return splitViewController?.masterViewController as? NowPlayingMoviesViewController
     }()
     
-    private lazy var movieDetailsViewController: MovieDetailsViewController? = {
+    private var movieDetailsViewController: MovieDetailsViewController? {
         return splitViewController?.detailViewController as? MovieDetailsViewController
-    }()
+    }
 }
 
 // MARK: - macOS Menu
