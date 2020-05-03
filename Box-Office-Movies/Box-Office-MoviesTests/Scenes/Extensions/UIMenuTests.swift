@@ -3,7 +3,7 @@
 //  Box-Office-MoviesTests
 //
 //  Created by Bilal Benlarbi on 01/05/2020.
-//  Copyright © 2020 Boxotop. All rights reserved.
+//  Copyright © 2020 Bilal Benlarbi. All rights reserved.
 //
 
 @testable import Boxotop

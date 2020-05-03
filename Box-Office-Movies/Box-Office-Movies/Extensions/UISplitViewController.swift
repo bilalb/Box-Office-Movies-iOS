@@ -2,8 +2,8 @@
 //  UISplitViewController.swift
 //  Box-Office-Movies
 //
-//  Created by Bilal on 06/04/2020.
-//  Copyright © 2020 Boxotop. All rights reserved.
+//  Created by Bilal Benlarbi on 06/04/2020.
+//  Copyright © 2020 Bilal Benlarbi. All rights reserved.
 //
 
 import UIKit

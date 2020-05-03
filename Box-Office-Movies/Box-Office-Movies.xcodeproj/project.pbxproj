@@ -605,7 +605,7 @@
 			attributes = {
 				LastSwiftUpdateCheck = 1020;
 				LastUpgradeCheck = 1120;
-				ORGANIZATIONNAME = Boxotop;
+				ORGANIZATIONNAME = "Bilal Benlarbi";
 				TargetAttributes = {
 					9CDC95D52243FFB10051925E = {
 						CreatedOnToolsVersion = 10.1;

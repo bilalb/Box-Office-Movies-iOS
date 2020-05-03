@@ -3,7 +3,7 @@
 //  Box-Office-Movies-Core
 //
 //  Created by Bilal Benlarbi on 09/08/2019.
-//  Copyright © 2019 Boxotop. All rights reserved.
+//  Copyright © 2019 Bilal Benlarbi. All rights reserved.
 //
 
 import Foundation

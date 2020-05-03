@@ -3,7 +3,7 @@
 //  Box-Office-Movies
 //
 //  Created by Bilal Benlarbi on 04.04.2019.
-//  Copyrights © 2019 Bilal Benlarbi. All rights reserved.
+//  Copyright © 2019 Bilal Benlarbi. All rights reserved.
 //
 
 @testable import Boxotop

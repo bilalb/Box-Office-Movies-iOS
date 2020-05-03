@@ -2,8 +2,8 @@
 //  MockedNetworkSession.swift
 //  Box-Office-Movies-Core
 //
-//  Created by Bilal on 09/01/2020.
-//  Copyright © 2020 Boxotop. All rights reserved.
+//  Created by Bilal Benlarbi on 09/01/2020.
+//  Copyright © 2020 Bilal Benlarbi. All rights reserved.
 //
 
 import Foundation
