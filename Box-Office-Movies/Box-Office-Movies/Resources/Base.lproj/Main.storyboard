@@ -35,7 +35,7 @@
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="XXe-ET-kIn">
                                 <rect key="frame" x="0.0" y="44" width="375" height="623"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
                                 <view key="tableFooterView" contentMode="scaleToFill" id="hh4-BJ-0o0">
                                     <rect key="frame" x="0.0" y="685" width="375" height="0.0"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -58,6 +58,7 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="AdditionalInformationTableViewCell" rowHeight="170" id="Nkw-vZ-hJr" customClass="AdditionalInformationTableViewCell" customModule="Boxotop" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="72" width="375" height="170"/>
@@ -127,6 +128,7 @@
                                                 <constraint firstItem="Q4o-Oq-fYt" firstAttribute="top" secondItem="hO8-Xq-E4M" secondAttribute="top" id="uFi-Th-nh0"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
                                         <connections>
                                             <outlet property="posterImageView" destination="hO8-Xq-E4M" id="vHW-dU-Bhg"/>
                                             <outlet property="releaseDateLabel" destination="ctp-4X-rSk" id="GZI-93-GvM"/>
@@ -156,6 +158,7 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="TrailerTableViewCell" rowHeight="200" id="t84-13-j62" customClass="TrailerTableViewCell" customModule="Boxotop" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="299" width="375" height="200"/>
@@ -186,6 +189,7 @@
                                                 <constraint firstItem="81G-Eh-L5N" firstAttribute="top" secondItem="mUO-rA-6Ke" secondAttribute="top" id="XA5-HQ-L0n"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
                                         <connections>
                                             <outlet property="activityIndicatorView" destination="mUu-g1-ihQ" id="35e-Dp-KX6"/>
                                             <outlet property="containerView" destination="81G-Eh-L5N" id="zZa-og-oJU"/>
@@ -214,6 +218,7 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="CastingTableViewCell" textLabel="Pfo-g9-MFM" detailTextLabel="xIb-RQ-EYc" style="IBUITableViewCellStyleSubtitle" id="uoR-qy-R21">
                                         <rect key="frame" x="0.0" y="556" width="375" height="57"/>
@@ -238,6 +243,7 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="SimilarMoviesTableViewCell" textLabel="56C-sN-fTI" detailTextLabel="5sj-fL-Jv4" style="IBUITableViewCellStyleSubtitle" id="s6H-OK-N2c">
                                         <rect key="frame" x="0.0" y="613" width="375" height="44"/>
@@ -262,6 +268,7 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>
@@ -357,7 +364,7 @@
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="iCU-Se-4Gs">
                                 <rect key="frame" x="0.0" y="44" width="375" height="623"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="backgroundColor" systemColor="secondarySystemBackgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <view key="tableFooterView" contentMode="scaleToFill" id="cSO-tz-fUN">
                                     <rect key="frame" x="0.0" y="99.5" width="375" height="0.0"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -379,6 +386,7 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
                                         <connections>
                                             <segue destination="vC3-pB-5Vb" kind="showDetail" identifier="MovieDetails" id="M0A-il-uIU"/>
                                         </connections>
@@ -415,6 +423,7 @@
                                 </connections>
                             </stackView>
                         </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="yo0-iK-Gkw" firstAttribute="trailing" secondItem="tcG-uH-gBg" secondAttribute="trailing" id="07x-9M-sJr"/>
                             <constraint firstItem="n3u-tl-o0d" firstAttribute="centerY" secondItem="yo0-iK-Gkw" secondAttribute="centerY" id="0eg-cM-Uwf"/>
