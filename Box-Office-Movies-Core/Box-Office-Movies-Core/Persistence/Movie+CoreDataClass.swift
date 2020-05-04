@@ -21,8 +21,7 @@ public class Movie: NSManagedObject, Decodable {
         guard
             let managedObjectContextCodingUserInfoKey = CodingUserInfoKey.managedObjectContext,
             let managedObjectContext = decoder.userInfo[managedObjectContextCodingUserInfoKey] as? NSManagedObjectContext,
-            let entityName = Movie.entity().name,
-            let entity = NSEntityDescription.entity(forEntityName: entityName, in: managedObjectContext)
+            let entity = NSEntityDescription.entity(forEntityName: Movie.entityName, in: managedObjectContext)
         else {
             fatalError("Failed to decode Movie")
         }
@@ -45,10 +44,7 @@ public extension Movie {
 fileprivate extension Movie {
 
     convenience init(identifier: Int32, title: String, context: NSManagedObjectContext) {
-        guard
-            let entityName = Movie.entity().name,
-            let entity = NSEntityDescription.entity(forEntityName: entityName, in: context)
-        else {
+        guard let entity = NSEntityDescription.entity(forEntityName: Movie.entityName, in: context) else {
             fatalError("Failed to find the Movie entity")
         }
         
@@ -72,5 +68,14 @@ extension Movie {
     enum AttributeKeys: String {
         case identifier
         case title
+    }
+}
+
+extension Movie {
+
+    static let entityName = "Movie"
+
+    class func fetchRequest() -> NSFetchRequest<Movie> {
+        return NSFetchRequest<Movie>(entityName: entityName)
     }
 }
