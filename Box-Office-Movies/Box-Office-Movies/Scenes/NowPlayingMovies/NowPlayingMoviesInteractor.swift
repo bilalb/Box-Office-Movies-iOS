@@ -38,6 +38,8 @@ final class NowPlayingMoviesInteractor: NowPlayingMoviesDataStore {
     var movies: [Movie]?
     var favoriteMovies: [Movie]?
     var filteredMovies: [Movie]?
+
+    var error: Error?
     
     var currentMovies: [Movie]? {
         switch state {
@@ -70,15 +72,18 @@ extension NowPlayingMoviesInteractor {
 extension NowPlayingMoviesInteractor: NowPlayingMoviesBusinessLogic {
     
     func fetchNowPlayingMovies(request: NowPlayingMovies.FetchNowPlayingMovies.Request) {
-        state = .allMovies
-        if movies == nil {
-            fetchNowPlayingMovies { [weak self] error in
-                let response = NowPlayingMovies.FetchNowPlayingMovies.Response(movies: self?.movies, error: error)
-                self?.presenter?.presentNowPlayingMovies(response: response)
-            }
-        } else {
-            let response = NowPlayingMovies.FetchNowPlayingMovies.Response(movies: movies, error: nil)
+        func presentNowPlayingMovies() {
+            let response = NowPlayingMovies.FetchNowPlayingMovies.Response(movies: movies, error: error)
             presenter?.presentNowPlayingMovies(response: response)
+        }
+
+        state = .allMovies
+        if movies?.isEmpty == false {
+            presentNowPlayingMovies()
+        } else {
+            fetchNowPlayingMovies {
+                presentNowPlayingMovies()
+            }
         }
     }
     
@@ -90,8 +95,8 @@ extension NowPlayingMoviesInteractor: NowPlayingMoviesBusinessLogic {
             return
         }
         
-        fetchNowPlayingMovies { [weak self] error in
-            let response = NowPlayingMovies.FetchNextPage.Response(movies: self?.movies, error: error)
+        fetchNowPlayingMovies { [weak self] in
+            let response = NowPlayingMovies.FetchNextPage.Response(movies: self?.movies, error: self?.error)
             self?.presenter?.presentNextPage(response: response)
         }
     }
@@ -118,24 +123,22 @@ extension NowPlayingMoviesInteractor: NowPlayingMoviesBusinessLogic {
         filteredMovies?.removeAll()
         state = .allMovies
         
-        fetchNowPlayingMovies { [weak self] error in
-            let response = NowPlayingMovies.RefreshMovies.Response(movies: self?.movies, error: error)
+        fetchNowPlayingMovies { [weak self] in
+            let response = NowPlayingMovies.RefreshMovies.Response(movies: self?.movies, error: self?.error)
             self?.presenter?.presentRefreshMovies(response: response)
         }
     }
     
     func loadTableViewBackgroundView(request: NowPlayingMovies.LoadTableViewBackgroundView.Request) {
         let movies = request.searchText?.isEmpty == true ? currentMovies : filteredMovies
-        let response = NowPlayingMovies.LoadTableViewBackgroundView.Response(state: state, searchText: request.searchText, movies: movies)
+        let response = NowPlayingMovies.LoadTableViewBackgroundView.Response(state: state, searchText: request.searchText, movies: movies, error: error)
         presenter?.presentTableViewBackgroundView(response: response)
     }
 }
 
 extension NowPlayingMoviesInteractor {
-    
-    typealias MoviesCompletionHandler = (_ error: Error?) -> Void
 
-    func fetchNowPlayingMovies(completionHandler: MoviesCompletionHandler?) {
+    func fetchNowPlayingMovies(completionHandler: (() -> Void)?) {
         let languageCode = Locale.current.languageCode ?? Constants.Fallback.languageCode
         let regionCode = Locale.current.regionCode ?? Constants.Fallback.regionCode
         ManagerProvider.shared.movieManager.nowPlayingMovies(languageCode: languageCode, regionCode: regionCode, page: page) { [weak self] (paginatedMovieList, error) in
@@ -147,7 +150,21 @@ extension NowPlayingMoviesInteractor {
             self?.paginatedMovieLists.forEach { (paginatedMovieList) in
                 self?.movies?.append(contentsOf: paginatedMovieList.movies)
             }
-            completionHandler?(error)
+
+            if let error = error {
+                switch mode {
+                case .fetchFirstPage:
+                    self?.fetchNowPlayingMoviesError = FetchNowPlayingMoviesError.fetchFirstPageError(error)
+                case .fetchNextPage:
+                    self?.fetchNowPlayingMoviesError = FetchNowPlayingMoviesError.fetchNextPageError(error)
+                case .refreshMovieList:
+                    self?.fetchNowPlayingMoviesError = FetchNowPlayingMoviesError.refreshMovieListError(error)
+                }
+            } else {
+                self?.fetchNowPlayingMoviesError = nil
+            }
+
+            self?.presentNowPlayingMovies(mode: mode)
         }
     }
 

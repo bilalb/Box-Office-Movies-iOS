@@ -22,8 +22,7 @@ enum NowPlayingMovies {
         
         struct ViewModel {
             let movieItems: [MovieItem]?
-            let shouldHideErrorView: Bool
-            let errorDescription: String?
+            let hasError: Bool
         }
     }
     
@@ -91,6 +90,7 @@ enum NowPlayingMovies {
             let state: NowPlayingMoviesInteractor.State
             let searchText: String?
             let movies: [Movie]?
+            let error: Error?
         }
         
         struct ViewModel {

@@ -59,7 +59,6 @@ final class NowPlayingMoviesViewController: UIViewController {
     @IBOutlet weak var segmentedControl: UISegmentedControl!
     @IBOutlet weak var nowPlayingMoviesTableView: UITableView!
     @IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!
-    @IBOutlet weak var errorStackView: ErrorStackView!
 
     // MARK: Object Life Cycle
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
@@ -133,6 +132,10 @@ final class NowPlayingMoviesViewController: UIViewController {
         UIApplication.shared.setNetworkActivityIndicatorVisibility(true)
         let request = NowPlayingMovies.RefreshMovies.Request()
         interactor?.refreshMovies(request: request)
+    }
+
+    @objc func retryButtonPressed() {
+        fetchNowPlayingMovies()
     }
 }
 
@@ -302,9 +305,7 @@ extension NowPlayingMoviesViewController: NowPlayingMoviesDisplayLogic {
         activityIndicatorView.stopAnimating()
 
         movieItems = viewModel.movieItems
-        hasError = !viewModel.shouldHideErrorView
-        errorStackView.isHidden = viewModel.shouldHideErrorView
-        errorStackView.errorDescription = viewModel.errorDescription
+        hasError = viewModel.hasError
     }
 
     func displayNextPage(viewModel: NowPlayingMovies.FetchNextPage.ViewModel) {

@@ -25,19 +25,17 @@ final class NowPlayingMoviesPresenter {
 }
 
 extension NowPlayingMoviesPresenter: NowPlayingMoviesPresentationLogic {
-    
+
     func presentNowPlayingMovies(response: NowPlayingMovies.FetchNowPlayingMovies.Response) {
         DispatchQueue.main.async {
             let items = self.movieItems(for: response.movies)
-            let shouldHideErrorView = response.error == nil
-            let errorDescription = response.error?.localizedDescription
+            let hasError = response.error != nil
             let viewModel = NowPlayingMovies.FetchNowPlayingMovies.ViewModel(movieItems: items,
-                                                                             shouldHideErrorView: shouldHideErrorView,
-                                                                             errorDescription: errorDescription)
+                                                                             hasError: hasError)
             self.viewController?.displayNowPlayingMovies(viewModel: viewModel)
         }
     }
-    
+
     func presentNextPage(response: NowPlayingMovies.FetchNextPage.Response) {
         DispatchQueue.main.async {
             let items = self.movieItems(for: response.movies)
@@ -53,13 +51,13 @@ extension NowPlayingMoviesPresenter: NowPlayingMoviesPresentationLogic {
             self.viewController?.displayNextPage(viewModel: viewModel)
         }
     }
-    
+
     func presentFilterMovies(response: NowPlayingMovies.FilterMovies.Response) {
         let items = movieItems(for: response.movies)
         let viewModel = NowPlayingMovies.FilterMovies.ViewModel(movieItems: items)
         viewController?.displayFilterMovies(viewModel: viewModel)
     }
-    
+
     func presentRefreshMovies(response: NowPlayingMovies.RefreshMovies.Response) {
         DispatchQueue.main.async {
             let items = self.movieItems(for: response.movies)
@@ -75,7 +73,7 @@ extension NowPlayingMoviesPresenter: NowPlayingMoviesPresentationLogic {
             self.viewController?.displayRefreshMovies(viewModel: viewModel)
         }
     }
-    
+
     func presentTableViewBackgroundView(response: NowPlayingMovies.LoadTableViewBackgroundView.Response) {
         let backgroundView: UIView? = {
             guard
@@ -85,14 +83,29 @@ extension NowPlayingMoviesPresenter: NowPlayingMoviesPresentationLogic {
                 return nil
             }
             let message: String? = {
-                switch response.state {
-                case .allMovies:
-                    return NSLocalizedString("noResults", comment: "noResults")
-                case .favorites:
-                    return response.searchText?.isEmpty == true ? NSLocalizedString("noFavorites", comment: "noFavorites") : NSLocalizedString("noResults", comment: "noResults")
+                // At the moment, only network errors are handled.
+                // That is the reason for the check `response.state == .allMovies`.
+                if response.error != nil, response.state == .allMovies {
+                    return NSLocalizedString("genericErrorMessage", comment: "genericErrorMessage")
+                } else {
+                    switch response.state {
+                    case .allMovies:
+                        return NSLocalizedString("noResults", comment: "noResults")
+                    case .favorites:
+                        return response.searchText?.isEmpty == true ? NSLocalizedString("noFavorites", comment: "noFavorites") : NSLocalizedString("noResults", comment: "noResults")
+                    }
                 }
             }()
+
             emptyBackgroundView.message = message
+            emptyBackgroundView.shouldDisplayRetryButton = response.error != nil
+
+            if let viewController = viewController as? NowPlayingMoviesViewController {
+                emptyBackgroundView.retryButtonAction = {
+                    viewController.retryButtonPressed()
+                }
+            }
+
             return emptyBackgroundView
         }()
         let viewModel = NowPlayingMovies.LoadTableViewBackgroundView.ViewModel(backgroundView: backgroundView)
@@ -101,7 +114,7 @@ extension NowPlayingMoviesPresenter: NowPlayingMoviesPresentationLogic {
 }
 
 extension NowPlayingMoviesPresenter {
-    
+
     func movieItems(for movies: [Movie]?) -> [MovieItem]? {
         let movieItems = movies?.compactMap({ movie -> MovieItem in
             return MovieItem(title: movie.title)
@@ -113,7 +126,7 @@ extension NowPlayingMoviesPresenter {
 // MARK: - Favorite movies
 
 extension NowPlayingMoviesPresenter {
-    
+
     func presentFavoriteMovies(response: NowPlayingMovies.LoadFavoriteMovies.Response) {
         let items = movieItems(for: response.movies)
         let rightBarButtonItem: UIBarButtonItem? = items?.isEmpty == true ? nil : response.editButtonItem
