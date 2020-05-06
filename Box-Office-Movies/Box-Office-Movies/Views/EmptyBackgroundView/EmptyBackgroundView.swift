@@ -8,15 +8,29 @@
 
 import UIKit
 
-/// View used as a table view background view when a table view is empty.
+/// View used as a table view background view.
 final class EmptyBackgroundView: UIView {
     
-    @IBOutlet var messageLabel: UILabel?
-    
-    /// Descriptive text that provides details about the reason for the empty table view.
+    @IBOutlet private weak var messageLabel: UILabel!
+    @IBOutlet private weak var retryButton: UIButton!
+
+    var retryButtonAction: (() -> Void)?
+
+    /// Descriptive text that provides details about the reason for the empty table view. The default value is `nil`.
     var message: String? = nil {
         didSet {
-            messageLabel?.text = message
+            messageLabel.text = message
         }
+    }
+
+    /// Indicates whether the retry button should be displayed or not. The default value is `false`.
+    var shouldDisplayRetryButton = false {
+        didSet {
+            retryButton.isHidden = !shouldDisplayRetryButton
+        }
+    }
+
+    @IBAction private func retryButtonPressed() {
+        retryButtonAction?()
     }
 }
