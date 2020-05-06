@@ -278,40 +278,17 @@
                             </tableView>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="FX0-DX-h40">
                                 <rect key="frame" x="0.0" y="44" width="375" height="623"/>
+                                <color key="backgroundColor" systemColor="secondarySystemBackgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </activityIndicatorView>
-                            <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Vzv-AE-9ZV" customClass="ErrorStackView" customModule="Boxotop" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="330.5" width="375" height="50.5"/>
-                                <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MOL-Yw-Wko">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="20.5"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hnR-Gq-dUU">
-                                        <rect key="frame" x="0.0" y="20.5" width="375" height="30"/>
-                                        <state key="normal" title="Button"/>
-                                        <connections>
-                                            <action selector="errorActionButtonPressed" destination="tv7-ki-w9G" eventType="touchUpInside" id="qUg-GA-ZRD"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                                <connections>
-                                    <outlet property="descriptionLabel" destination="MOL-Yw-Wko" id="lQ5-nT-aen"/>
-                                    <outlet property="retryButton" destination="hnR-Gq-dUU" id="OQl-gU-tsQ"/>
-                                </connections>
-                            </stackView>
                         </subviews>
                         <constraints>
-                            <constraint firstItem="Vzv-AE-9ZV" firstAttribute="centerY" secondItem="prS-A0-1ow" secondAttribute="centerY" id="1VC-Ir-e4E"/>
+                            <constraint firstAttribute="bottom" secondItem="FX0-DX-h40" secondAttribute="bottom" id="6AY-5Z-OrO"/>
                             <constraint firstItem="FX0-DX-h40" firstAttribute="top" secondItem="prS-A0-1ow" secondAttribute="top" id="Gmo-GV-P79"/>
                             <constraint firstItem="prS-A0-1ow" firstAttribute="trailing" secondItem="FX0-DX-h40" secondAttribute="trailing" id="LcJ-D5-2Fd"/>
-                            <constraint firstItem="Vzv-AE-9ZV" firstAttribute="leading" secondItem="prS-A0-1ow" secondAttribute="leading" id="URL-BG-WMn"/>
                             <constraint firstItem="XXe-ET-kIn" firstAttribute="leading" secondItem="CeM-kl-phU" secondAttribute="leading" id="Xy9-PT-m4b"/>
                             <constraint firstItem="XXe-ET-kIn" firstAttribute="top" secondItem="prS-A0-1ow" secondAttribute="top" id="b0H-ZN-x09"/>
                             <constraint firstAttribute="bottom" secondItem="XXe-ET-kIn" secondAttribute="bottom" id="cYQ-lN-fER"/>
                             <constraint firstItem="FX0-DX-h40" firstAttribute="leading" secondItem="prS-A0-1ow" secondAttribute="leading" id="iZI-Lg-FEQ"/>
-                            <constraint firstItem="prS-A0-1ow" firstAttribute="trailing" secondItem="Vzv-AE-9ZV" secondAttribute="trailing" id="nDC-l0-6Te"/>
                             <constraint firstAttribute="trailing" secondItem="XXe-ET-kIn" secondAttribute="trailing" id="txr-4u-MOR"/>
                             <constraint firstItem="prS-A0-1ow" firstAttribute="bottom" secondItem="FX0-DX-h40" secondAttribute="bottom" id="vpS-CE-WaT"/>
                         </constraints>
@@ -327,7 +304,6 @@
                     <connections>
                         <outlet property="activityIndicatorView" destination="FX0-DX-h40" id="pbR-AF-Oyi"/>
                         <outlet property="detailItemsTableView" destination="XXe-ET-kIn" id="DJ6-pF-AMs"/>
-                        <outlet property="errorStackView" destination="Vzv-AE-9ZV" id="XBa-qi-vit"/>
                         <outlet property="toggleFavoriteBarButtonItem" destination="42H-Yw-T7n" id="0oe-G6-j97"/>
                     </connections>
                 </viewController>

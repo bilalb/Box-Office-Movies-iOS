@@ -28,8 +28,6 @@ enum MovieDetailsScene {
         
         struct ViewModel {
             let detailItems: [DetailItem]?
-            let shouldHideErrorView: Bool
-            let errorDescription: String?
             let shouldShowNetworkActivityIndicator: Bool
         }
     }
@@ -75,6 +73,24 @@ enum MovieDetailsScene {
         
         struct ViewModel {
             let toggleFavoriteBarButtonItemTitle: String
+        }
+    }
+
+    enum LoadTableViewBackgroundView {
+
+        struct Request { }
+
+        struct Response {
+            let movieDetails: MovieDetails?
+            let casting: Casting?
+            let paginatedSimilarMovieLists: [PaginatedMovieList]?
+            let posterData: Data?
+            let trailer: Video?
+            let error: Error?
+        }
+
+        struct ViewModel {
+            let backgroundView: UIView?
         }
     }
 }

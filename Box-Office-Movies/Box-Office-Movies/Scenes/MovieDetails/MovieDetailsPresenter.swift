@@ -14,6 +14,7 @@ protocol MovieDetailsPresentationLogic {
     func presentMovieReviews(response: MovieDetailsScene.LoadMovieReviews.Response)
     func presentReviewMovie(response: MovieDetailsScene.ReviewMovie.Response)
     func presentFavoriteToggle(response: MovieDetailsScene.LoadFavoriteToggle.Response)
+    func presentTableViewBackgroundView(response: MovieDetailsScene.LoadTableViewBackgroundView.Response)
 }
 
 final class MovieDetailsPresenter {
@@ -25,20 +26,14 @@ extension MovieDetailsPresenter: MovieDetailsPresentationLogic {
     func presentMovieDetails(response: MovieDetailsScene.FetchMovieDetails.Response) {
         DispatchQueue.main.async {
             
-            func displayMovieDetails(detailItems: [DetailItem]?, shouldHideErrorView: Bool, errorDescription: String?) {
+            func displayMovieDetails(detailItems: [DetailItem]?) {
                 let shouldShowNetworkActivityIndicator = response.remainingRequestCount > 0
-                let viewModel = MovieDetailsScene.FetchMovieDetails.ViewModel(detailItems: detailItems, shouldHideErrorView: shouldHideErrorView, errorDescription: errorDescription, shouldShowNetworkActivityIndicator: shouldShowNetworkActivityIndicator)
+                let viewModel = MovieDetailsScene.FetchMovieDetails.ViewModel(detailItems: detailItems, shouldShowNetworkActivityIndicator: shouldShowNetworkActivityIndicator)
                 self.viewController?.displayMovieDetails(viewModel: viewModel)
             }
             
-            guard response.error == nil else {
-                let errorDescription = response.error?.localizedDescription
-                displayMovieDetails(detailItems: nil, shouldHideErrorView: false, errorDescription: errorDescription)
-                return
-            }
-            
-            guard let movieDetails = response.movieDetails else {
-                displayMovieDetails(detailItems: nil, shouldHideErrorView: false, errorDescription: nil)
+            guard response.error == nil, let movieDetails = response.movieDetails else {
+                displayMovieDetails(detailItems: nil)
                 return
             }
             
@@ -64,7 +59,7 @@ extension MovieDetailsPresenter: MovieDetailsPresentationLogic {
                 detailItems.append(similarMoviesDetailItem)
             }
             
-            displayMovieDetails(detailItems: detailItems, shouldHideErrorView: true, errorDescription: nil)
+            displayMovieDetails(detailItems: detailItems)
         }
     }
     
@@ -92,6 +87,31 @@ extension MovieDetailsPresenter: MovieDetailsPresentationLogic {
         let toggleFavoriteBarButtonItemTitle = response.isFavorite == true ? "★" : "☆"
         let viewModel = MovieDetailsScene.LoadFavoriteToggle.ViewModel(toggleFavoriteBarButtonItemTitle: toggleFavoriteBarButtonItemTitle)
         viewController?.displayFavoriteToggle(viewModel: viewModel)
+    }
+
+    func presentTableViewBackgroundView(response: MovieDetailsScene.LoadTableViewBackgroundView.Response) {
+        let backgroundView: UIView? = {
+            guard response.movieDetails == nil &&
+                response.casting == nil &&
+                response.paginatedSimilarMovieLists?.isEmpty == true &&
+                response.posterData == nil &&
+                response.trailer == nil,
+                let emptyBackgroundView = EmptyBackgroundView.fromNib(named: Constants.NibName.emptyBackgroundView) as? EmptyBackgroundView
+            else { return nil }
+
+            emptyBackgroundView.message = response.error?.localizedDescription
+            emptyBackgroundView.shouldDisplayRetryButton = true
+
+            if let viewController = viewController as? MovieDetailsViewController {
+                emptyBackgroundView.retryButtonAction = {
+                    viewController.retryButtonPressed()
+                }
+            }
+
+            return emptyBackgroundView
+        }()
+        let viewModel = MovieDetailsScene.LoadTableViewBackgroundView.ViewModel(backgroundView: backgroundView)
+        viewController?.displayTableViewBackgroundView(viewModel: viewModel)
     }
 }
 

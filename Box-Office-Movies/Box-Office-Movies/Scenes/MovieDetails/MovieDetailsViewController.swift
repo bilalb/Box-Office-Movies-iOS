@@ -13,6 +13,7 @@ protocol MovieDetailsDisplayLogic: class {
     func displayMovieReviews(viewModel: MovieDetailsScene.LoadMovieReviews.ViewModel)
     func displayReviewMovie(viewModel: MovieDetailsScene.ReviewMovie.ViewModel)
     func displayFavoriteToggle(viewModel: MovieDetailsScene.LoadFavoriteToggle.ViewModel)
+    func displayTableViewBackgroundView(viewModel: MovieDetailsScene.LoadTableViewBackgroundView.ViewModel)
 }
 
 final class MovieDetailsViewController: UIViewController {
@@ -33,7 +34,6 @@ final class MovieDetailsViewController: UIViewController {
     @IBOutlet weak var toggleFavoriteBarButtonItem: UIBarButtonItem!
     @IBOutlet weak var detailItemsTableView: UITableView!
     @IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!
-    @IBOutlet weak var errorStackView: ErrorStackView!
 
     // MARK: Object Life Cycle
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
@@ -80,13 +80,17 @@ final class MovieDetailsViewController: UIViewController {
         let refreshSource = RefreshSource.movie(movie)
         nowPlayingMoviesViewController?.refreshFavoriteMovies(with: refreshSource)
     }
+
+    @objc func retryButtonPressed() {
+        fetchMovieDetails()
+    }
 }
 
 // MARK: - Private Functions
 private extension MovieDetailsViewController {
 
     func configureActivityIndicatorView() {
-        activityIndicatorView.setStyle(.medium)
+        activityIndicatorView.setStyle(.large)
     }
 
     func fetchMovieDetails() {
@@ -107,17 +111,17 @@ private extension MovieDetailsViewController {
         interactor?.reviewMovie(request: request)
     }
 
-    @IBAction func errorActionButtonPressed() {
-        fetchMovieDetails()
-        errorStackView.isHidden = true
-    }
-
     @IBAction func toggleFavoriteBarButtonItemPressed() {
         refreshFavoriteMovies()
     }
 
     @IBAction func posterImageViewTapGestureRecognizerPressed() {
         router?.routeToPoster()
+    }
+
+    func loadTableViewBackgroundView() {
+        let request = MovieDetailsScene.LoadTableViewBackgroundView.Request()
+        interactor?.loadTableViewBackgroundView(request: request)
     }
 }
 
@@ -129,9 +133,6 @@ extension MovieDetailsViewController: MovieDetailsDisplayLogic {
 
         UIApplication.shared.setNetworkActivityIndicatorVisibility(viewModel.shouldShowNetworkActivityIndicator)
         activityIndicatorView.stopAnimating()
-
-        errorStackView.isHidden = viewModel.shouldHideErrorView
-        errorStackView.errorDescription = viewModel.errorDescription
     }
 
     func displayMovieReviews(viewModel: MovieDetailsScene.LoadMovieReviews.ViewModel) {
@@ -168,12 +169,17 @@ extension MovieDetailsViewController: MovieDetailsDisplayLogic {
     func displayFavoriteToggle(viewModel: MovieDetailsScene.LoadFavoriteToggle.ViewModel) {
         toggleFavoriteBarButtonItem.title = viewModel.toggleFavoriteBarButtonItemTitle
     }
+
+    func displayTableViewBackgroundView(viewModel: MovieDetailsScene.LoadTableViewBackgroundView.ViewModel) {
+        detailItemsTableView.backgroundView = viewModel.backgroundView
+    }
 }
 
 // MARK: - UITableViewDataSource
 extension MovieDetailsViewController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        loadTableViewBackgroundView()
         return detailItems.count
     }
 

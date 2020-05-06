@@ -21,8 +21,8 @@ protocol MovieDetailsBusinessLogic {
     func loadMovieReviews(request: MovieDetailsScene.LoadMovieReviews.Request)
     func reviewMovie(request: MovieDetailsScene.ReviewMovie.Request)
     func loadFavoriteToggle(request: MovieDetailsScene.LoadFavoriteToggle.Request)
-
     func isMovieAddedToFavorites() -> Bool?
+    func loadTableViewBackgroundView(request: MovieDetailsScene.LoadTableViewBackgroundView.Request)
 }
 
 final class MovieDetailsInteractor: MovieDetailsDataStore {
@@ -54,6 +54,8 @@ extension MovieDetailsInteractor: MovieDetailsBusinessLogic {
         fetchDetails(dispatchGroup: dispatchGroup)
 
         dispatchGroup.notify(queue: .global(qos: .userInitiated)) { [weak self] in
+            guard self?.movieDetails != nil else { return }
+            
             self?.fetchCasting()
             self?.fetchSimilarMovies()
             self?.fetchPosterData()
@@ -83,6 +85,17 @@ extension MovieDetailsInteractor: MovieDetailsBusinessLogic {
         let favoriteMovies = ManagerProvider.shared.favoritesManager.favoriteMovies()
         let isFavorite = favoriteMovies?.contains(where: { $0.identifier == Int32(movieIdentifier) })
         return isFavorite
+    }
+
+    func loadTableViewBackgroundView(request: MovieDetailsScene.LoadTableViewBackgroundView.Request) {
+        let response = MovieDetailsScene.LoadTableViewBackgroundView.Response(
+            movieDetails: movieDetails,
+            casting: casting,
+            paginatedSimilarMovieLists: paginatedSimilarMovieLists,
+            posterData: posterData,
+            trailer: trailer,
+            error: error)
+        presenter?.presentTableViewBackgroundView(response: response)
     }
 }
 
