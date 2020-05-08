@@ -73,9 +73,9 @@ private extension AppDelegate {
     func validateToggleMovieList(_ command: UICommand) {
         let title: String = {
             switch nowPlayingMoviesViewController?.segmentedControl.selectedSegmentIndex {
-            case SegmentedControlSegmentIndex.all.rawValue:
+            case NowPlayingMovies.SegmentedControlSegmentIndex.all.rawValue:
                 return NSLocalizedString("showFavorites", comment: "showFavorites")
-            case SegmentedControlSegmentIndex.favorites.rawValue:
+            case NowPlayingMovies.SegmentedControlSegmentIndex.favorites.rawValue:
                 return NSLocalizedString("showAllMovies", comment: "showAllMovies")
             default:
                 return ""
@@ -115,6 +115,6 @@ extension AppDelegate {
     }
 
     @objc func refreshMovieListMenuAction() {
-        nowPlayingMoviesViewController?.refreshNowPlayingMovies()
+        nowPlayingMoviesViewController?.fetchNowPlayingMovies(mode: .refreshMovieList)
     }
 }

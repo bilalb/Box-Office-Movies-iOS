@@ -33,15 +33,24 @@
                         </button>
                     </subviews>
                 </stackView>
+                <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="Hsp-2R-VjS">
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                    <color key="backgroundColor" systemColor="secondarySystemBackgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                </activityIndicatorView>
             </subviews>
             <color key="backgroundColor" systemColor="secondarySystemBackgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="h53-sg-i5q" secondAttribute="trailing" constant="16" id="0gN-tz-W8D"/>
+                <constraint firstAttribute="bottom" secondItem="Hsp-2R-VjS" secondAttribute="bottom" id="DlJ-8X-h9D"/>
                 <constraint firstItem="h53-sg-i5q" firstAttribute="centerY" secondItem="vUN-kp-3ea" secondAttribute="centerY" id="Erz-zX-Plf"/>
                 <constraint firstItem="h53-sg-i5q" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="16" id="JLa-bm-FI3"/>
+                <constraint firstItem="Hsp-2R-VjS" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="d1w-Hi-Ygd"/>
+                <constraint firstAttribute="trailing" secondItem="Hsp-2R-VjS" secondAttribute="trailing" id="eQR-E0-zVd"/>
+                <constraint firstItem="Hsp-2R-VjS" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="eZ3-fF-EA9"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <connections>
+                <outlet property="activityIndicatorView" destination="Hsp-2R-VjS" id="guv-7d-s7z"/>
                 <outlet property="messageLabel" destination="KLu-jc-EAN" id="AJj-zs-80m"/>
                 <outlet property="retryButton" destination="9Pe-og-8aj" id="yqc-f7-3II"/>
             </connections>

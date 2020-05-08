@@ -99,7 +99,7 @@ extension MovieDetailsPresenter: MovieDetailsPresentationLogic {
                 let emptyBackgroundView = EmptyBackgroundView.fromNib(named: Constants.NibName.emptyBackgroundView) as? EmptyBackgroundView
             else { return nil }
 
-            emptyBackgroundView.message = response.error?.localizedDescription
+            emptyBackgroundView.message = NSLocalizedString("genericErrorMessage", comment: "genericErrorMessage")
             emptyBackgroundView.shouldDisplayRetryButton = true
 
             if let viewController = viewController as? MovieDetailsViewController {

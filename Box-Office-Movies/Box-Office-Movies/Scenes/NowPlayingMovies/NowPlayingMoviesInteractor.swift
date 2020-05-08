@@ -18,10 +18,9 @@ protocol NowPlayingMoviesDataStore {
 
 protocol NowPlayingMoviesBusinessLogic {
     func fetchNowPlayingMovies(request: NowPlayingMovies.FetchNowPlayingMovies.Request)
+    func loadNowPlayingMovies(request: NowPlayingMovies.LoadNowPlayingMovies.Request)
     var shouldFetchNextPage: Bool { get }
-    func fetchNextPage(request: NowPlayingMovies.FetchNextPage.Request)
     func filterMovies(request: NowPlayingMovies.FilterMovies.Request)
-    func refreshMovies(request: NowPlayingMovies.RefreshMovies.Request)
     func loadTableViewBackgroundView(request: NowPlayingMovies.LoadTableViewBackgroundView.Request)
     
     func loadFavoriteMovies(request: NowPlayingMovies.LoadFavoriteMovies.Request)
@@ -39,8 +38,8 @@ final class NowPlayingMoviesInteractor: NowPlayingMoviesDataStore {
     var favoriteMovies: [Movie]?
     var filteredMovies: [Movie]?
 
-    var error: Error?
-    
+    var networkError: NowPlayingMovies.NetworkError?
+
     var currentMovies: [Movie]? {
         switch state {
         case .allMovies:
@@ -57,7 +56,7 @@ final class NowPlayingMoviesInteractor: NowPlayingMoviesDataStore {
         if let totalPages = paginatedMovieLists.last?.totalPages {
             shouldFetchNextPage = page <= totalPages
         }
-        return shouldFetchNextPage && state == .allMovies
+        return networkError == nil && shouldFetchNextPage && state == .allMovies
     }
 }
 
@@ -70,37 +69,33 @@ extension NowPlayingMoviesInteractor {
 }
 
 extension NowPlayingMoviesInteractor: NowPlayingMoviesBusinessLogic {
-    
+
     func fetchNowPlayingMovies(request: NowPlayingMovies.FetchNowPlayingMovies.Request) {
-        func presentNowPlayingMovies() {
-            let response = NowPlayingMovies.FetchNowPlayingMovies.Response(movies: movies, error: error)
-            presenter?.presentNowPlayingMovies(response: response)
+        state = .allMovies
+
+        switch request.mode {
+        case .fetchFirstPage:
+            if movies?.isEmpty == false {
+                presentNowPlayingMovies(mode: request.mode)
+                return
+            }
+        case .fetchNextPage:
+            break
+        case .refreshMovieList:
+            page = 1
+            paginatedMovieLists.removeAll()
+            movies?.removeAll()
+            filteredMovies?.removeAll()
         }
 
+        fetchNowPlayingMovies(mode: request.mode)
+    }
+
+    func loadNowPlayingMovies(request: NowPlayingMovies.LoadNowPlayingMovies.Request) {
         state = .allMovies
-        if movies?.isEmpty == false {
-            presentNowPlayingMovies()
-        } else {
-            fetchNowPlayingMovies {
-                presentNowPlayingMovies()
-            }
-        }
+        presentNowPlayingMovies(mode: nil)
     }
-    
-    func fetchNextPage(request: NowPlayingMovies.FetchNextPage.Request) {
-        guard shouldFetchNextPage else {
-            let error = NowPlayingMoviesError.nothingToFetch
-            let response = NowPlayingMovies.FetchNextPage.Response(movies: movies, error: error)
-            presenter?.presentNextPage(response: response)
-            return
-        }
-        
-        fetchNowPlayingMovies { [weak self] in
-            let response = NowPlayingMovies.FetchNextPage.Response(movies: self?.movies, error: self?.error)
-            self?.presenter?.presentNextPage(response: response)
-        }
-    }
-    
+
     func filterMovies(request: NowPlayingMovies.FilterMovies.Request) {
         let isFiltering = self.isFiltering(for: request.isSearchControllerActive, searchText: request.searchText)
 
@@ -116,32 +111,36 @@ extension NowPlayingMoviesInteractor: NowPlayingMoviesBusinessLogic {
         presenter?.presentFilterMovies(response: response)
     }
     
-    func refreshMovies(request: NowPlayingMovies.RefreshMovies.Request) {
-        page = 1
-        paginatedMovieLists.removeAll()
-        movies?.removeAll()
-        filteredMovies?.removeAll()
-        state = .allMovies
-        
-        fetchNowPlayingMovies { [weak self] in
-            let response = NowPlayingMovies.RefreshMovies.Response(movies: self?.movies, error: self?.error)
-            self?.presenter?.presentRefreshMovies(response: response)
-        }
-    }
-    
     func loadTableViewBackgroundView(request: NowPlayingMovies.LoadTableViewBackgroundView.Request) {
         let movies = request.searchText?.isEmpty == true ? currentMovies : filteredMovies
-        let response = NowPlayingMovies.LoadTableViewBackgroundView.Response(state: state, searchText: request.searchText, movies: movies, error: error)
+        let response = NowPlayingMovies.LoadTableViewBackgroundView.Response(
+            state: state,
+            searchText: request.searchText,
+            movies: movies,
+            networkError: networkError)
         presenter?.presentTableViewBackgroundView(response: response)
     }
 }
 
 extension NowPlayingMoviesInteractor {
 
-    func fetchNowPlayingMovies(completionHandler: (() -> Void)?) {
+    func presentNowPlayingMovies(mode: NowPlayingMovies.FetchNowPlayingMovies.Request.Mode?) {
+        guard state == .allMovies else { return }
+
+        let response = NowPlayingMovies.FetchNowPlayingMovies.Response(movies: movies,
+                                                                       networkError: networkError,
+                                                                       mode: mode)
+        presenter?.presentNowPlayingMovies(response: response)
+    }
+
+    func fetchNowPlayingMovies(mode: NowPlayingMovies.FetchNowPlayingMovies.Request.Mode) {
+        networkError = nil
+
         let languageCode = Locale.current.languageCode ?? Constants.Fallback.languageCode
         let regionCode = Locale.current.regionCode ?? Constants.Fallback.regionCode
-        ManagerProvider.shared.movieManager.nowPlayingMovies(languageCode: languageCode, regionCode: regionCode, page: page) { [weak self] (paginatedMovieList, error) in
+        let isRefreshing = mode == .refreshMovieList
+
+        ManagerProvider.shared.movieManager.nowPlayingMovies(languageCode: languageCode, regionCode: regionCode, page: page, isRefreshing: isRefreshing) { [weak self] (paginatedMovieList, error) in
             if let paginatedMovieList = paginatedMovieList {
                 self?.paginatedMovieLists.append(paginatedMovieList)
                 self?.page += 1
@@ -154,14 +153,12 @@ extension NowPlayingMoviesInteractor {
             if let error = error {
                 switch mode {
                 case .fetchFirstPage:
-                    self?.fetchNowPlayingMoviesError = FetchNowPlayingMoviesError.fetchFirstPageError(error)
+                    self?.networkError = .fetchFirstPageError(error)
                 case .fetchNextPage:
-                    self?.fetchNowPlayingMoviesError = FetchNowPlayingMoviesError.fetchNextPageError(error)
+                    self?.networkError = .fetchNextPageError(error)
                 case .refreshMovieList:
-                    self?.fetchNowPlayingMoviesError = FetchNowPlayingMoviesError.refreshMovieListError(error)
+                    self?.networkError = .refreshMovieListError(error)
                 }
-            } else {
-                self?.fetchNowPlayingMoviesError = nil
             }
 
             self?.presentNowPlayingMovies(mode: mode)

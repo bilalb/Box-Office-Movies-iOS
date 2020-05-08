@@ -11,9 +11,11 @@ import Foundation
 class NetworkRequest {
     
     let environment: Environment
+    let isRefreshing: Bool
     
-    init(environment: Environment) {
+    init(environment: Environment, isRefreshing: Bool = false) {
         self.environment = environment
+        self.isRefreshing = isRefreshing
     }
     
     func urlString() -> String {
@@ -22,7 +24,8 @@ class NetworkRequest {
     
     var urlRequest: URLRequest? {
         if let url = URL(string: urlString()) {
-            return URLRequest(url: url)
+            let cachePolicy: URLRequest.CachePolicy = isRefreshing ? .reloadIgnoringLocalCacheData : .useProtocolCachePolicy
+            return URLRequest(url: url, cachePolicy: cachePolicy)
         }
         return nil
     }

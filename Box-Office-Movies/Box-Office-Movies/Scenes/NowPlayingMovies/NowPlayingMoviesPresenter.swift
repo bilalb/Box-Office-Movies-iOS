@@ -11,9 +11,7 @@ import UIKit
 
 protocol NowPlayingMoviesPresentationLogic {
     func presentNowPlayingMovies(response: NowPlayingMovies.FetchNowPlayingMovies.Response)
-    func presentNextPage(response: NowPlayingMovies.FetchNextPage.Response)
     func presentFilterMovies(response: NowPlayingMovies.FilterMovies.Response)
-    func presentRefreshMovies(response: NowPlayingMovies.RefreshMovies.Response)
     func presentTableViewBackgroundView(response: NowPlayingMovies.LoadTableViewBackgroundView.Response)
 
     func presentFavoriteMovies(response: NowPlayingMovies.LoadFavoriteMovies.Response)
@@ -21,6 +19,7 @@ protocol NowPlayingMoviesPresentationLogic {
 }
 
 final class NowPlayingMoviesPresenter {
+    typealias MovieListItem = NowPlayingMovies.MovieListItem
     weak var viewController: NowPlayingMoviesDisplayLogic?
 }
 
@@ -28,27 +27,16 @@ extension NowPlayingMoviesPresenter: NowPlayingMoviesPresentationLogic {
 
     func presentNowPlayingMovies(response: NowPlayingMovies.FetchNowPlayingMovies.Response) {
         DispatchQueue.main.async {
-            let items = self.movieItems(for: response.movies)
-            let hasError = response.error != nil
-            let viewModel = NowPlayingMovies.FetchNowPlayingMovies.ViewModel(movieItems: items,
-                                                                             hasError: hasError)
-            self.viewController?.displayNowPlayingMovies(viewModel: viewModel)
-        }
-    }
+            var items = self.movieItems(for: response.movies)
 
-    func presentNextPage(response: NowPlayingMovies.FetchNextPage.Response) {
-        DispatchQueue.main.async {
-            let items = self.movieItems(for: response.movies)
-            let shouldPresentErrorAlert = response.error != nil
-            let errorAlertMessage = response.error?.localizedDescription
-            let errorAlertActions = [UIAlertAction(title: NSLocalizedString("ok", comment: "ok"), style: .cancel)]
-            let viewModel = NowPlayingMovies.FetchNextPage.ViewModel(movieItems: items,
-                                                                     shouldPresentErrorAlert: shouldPresentErrorAlert,
-                                                                     errorAlertTitle: nil,
-                                                                     errorAlertMessage: errorAlertMessage,
-                                                                     errorAlertStyle: .alert,
-                                                                     errorAlertActions: errorAlertActions)
-            self.viewController?.displayNextPage(viewModel: viewModel)
+            if case .fetchNextPageError = response.networkError, let mode = response.mode {
+                let errorItem = MovieListItem.error(description: NSLocalizedString("genericErrorMessage", comment: "genericErrorMessage"), mode: mode)
+                items?.append(errorItem)
+            }
+            // `.fetchFirstPageError` & `.refreshMovieListError` do not need to append an error item as `items` is empty and the table view background view takes care of displaying the error
+
+            let viewModel = NowPlayingMovies.FetchNowPlayingMovies.ViewModel(movieItems: items)
+            self.viewController?.displayNowPlayingMovies(viewModel: viewModel)
         }
     }
 
@@ -58,26 +46,10 @@ extension NowPlayingMoviesPresenter: NowPlayingMoviesPresentationLogic {
         viewController?.displayFilterMovies(viewModel: viewModel)
     }
 
-    func presentRefreshMovies(response: NowPlayingMovies.RefreshMovies.Response) {
-        DispatchQueue.main.async {
-            let items = self.movieItems(for: response.movies)
-            let shouldPresentErrorAlert = response.error != nil
-            let errorAlertMessage = response.error?.localizedDescription
-            let errorAlertActions = [UIAlertAction(title: NSLocalizedString("ok", comment: "ok"), style: .cancel)]
-            let viewModel = NowPlayingMovies.RefreshMovies.ViewModel(movieItems: items,
-                                                                     shouldPresentErrorAlert: shouldPresentErrorAlert,
-                                                                     errorAlertTitle: nil,
-                                                                     errorAlertMessage: errorAlertMessage,
-                                                                     errorAlertStyle: .alert,
-                                                                     errorAlertActions: errorAlertActions)
-            self.viewController?.displayRefreshMovies(viewModel: viewModel)
-        }
-    }
-
     func presentTableViewBackgroundView(response: NowPlayingMovies.LoadTableViewBackgroundView.Response) {
         let backgroundView: UIView? = {
             guard
-                response.movies?.isEmpty == true,
+                response.movies?.isEmpty != false,
                 let emptyBackgroundView = EmptyBackgroundView.fromNib(named: Constants.NibName.emptyBackgroundView) as? EmptyBackgroundView
             else {
                 return nil
@@ -85,7 +57,7 @@ extension NowPlayingMoviesPresenter: NowPlayingMoviesPresentationLogic {
             let message: String? = {
                 // At the moment, only network errors are handled.
                 // That is the reason for the check `response.state == .allMovies`.
-                if response.error != nil, response.state == .allMovies {
+                if response.networkError != nil, response.state == .allMovies {
                     return NSLocalizedString("genericErrorMessage", comment: "genericErrorMessage")
                 } else {
                     switch response.state {
@@ -98,28 +70,39 @@ extension NowPlayingMoviesPresenter: NowPlayingMoviesPresentationLogic {
             }()
 
             emptyBackgroundView.message = message
-            emptyBackgroundView.shouldDisplayRetryButton = response.error != nil
+
+            let shouldDisplayRetryButton = response.state == .allMovies && response.networkError != nil
+            emptyBackgroundView.shouldDisplayRetryButton = shouldDisplayRetryButton
+
+            let displayType: EmptyBackgroundView.DisplayType = {
+                if response.networkError == nil && response.state == .allMovies {
+                    return .loading
+                }
+                return .message
+            }()
+            emptyBackgroundView.displayType = displayType
 
             if let viewController = viewController as? NowPlayingMoviesViewController {
                 emptyBackgroundView.retryButtonAction = {
-                    viewController.retryButtonPressed()
+                    viewController.fetchNowPlayingMovies()
                 }
             }
 
             return emptyBackgroundView
         }()
-        let viewModel = NowPlayingMovies.LoadTableViewBackgroundView.ViewModel(backgroundView: backgroundView)
+
+        let isSearchBarEnabled = response.movies?.isEmpty == false
+        let viewModel = NowPlayingMovies.LoadTableViewBackgroundView.ViewModel(
+            backgroundView: backgroundView,
+            isSearchBarEnabled: isSearchBarEnabled)
         viewController?.displayTableViewBackgroundView(viewModel: viewModel)
     }
 }
 
 extension NowPlayingMoviesPresenter {
 
-    func movieItems(for movies: [Movie]?) -> [MovieItem]? {
-        let movieItems = movies?.compactMap({ movie -> MovieItem in
-            return MovieItem(title: movie.title)
-        })
-        return movieItems
+    func movieItems(for movies: [Movie]?) -> [MovieListItem]? {
+        return movies?.compactMap { MovieListItem.movie(title: $0.title) }
     }
 }
 

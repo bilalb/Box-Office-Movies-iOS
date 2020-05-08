@@ -19,6 +19,7 @@
 "favorites" = "Favorites";
 "noResults" = "No Results";
 "noFavorites" = "No Favorites";
+"genericErrorMessage" = "An error occurred";
 
 // MARK: Details scene
 "review" = "Review";

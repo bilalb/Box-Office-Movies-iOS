@@ -41,6 +41,7 @@ struct Constants {
     
     struct NibName {
         static let emptyBackgroundView = "EmptyBackgroundView"
+        static let errorTableViewCell = "ErrorTableViewCell"
     }
     
     struct VideoURL {

@@ -14,11 +14,11 @@ final class NowPlayingMoviesNetworkRequest: NetworkRequest {
     let regionCode: String
     let page: Int
     
-    init(environment: Environment, languageCode: String, regionCode: String, page: Int) {
+    init(environment: Environment, isRefreshing: Bool, languageCode: String, regionCode: String, page: Int) {
         self.languageCode = languageCode
         self.regionCode = regionCode
         self.page = page
-        super.init(environment: environment)
+        super.init(environment: environment, isRefreshing: isRefreshing)
     }
     
     override func urlString() -> String {

@@ -10,9 +10,7 @@ import UIKit
 
 protocol NowPlayingMoviesDisplayLogic: class {
     func displayNowPlayingMovies(viewModel: NowPlayingMovies.FetchNowPlayingMovies.ViewModel)
-    func displayNextPage(viewModel: NowPlayingMovies.FetchNextPage.ViewModel)
     func displayFilterMovies(viewModel: NowPlayingMovies.FilterMovies.ViewModel)
-    func displayRefreshMovies(viewModel: NowPlayingMovies.RefreshMovies.ViewModel)
     func displayTableViewBackgroundView(viewModel: NowPlayingMovies.LoadTableViewBackgroundView.ViewModel)
 
     func displayFavoriteMovies(viewModel: NowPlayingMovies.LoadFavoriteMovies.ViewModel)
@@ -23,15 +21,17 @@ final class NowPlayingMoviesViewController: UIViewController {
     // MARK: Instance Properties
     var interactor: NowPlayingMoviesBusinessLogic?
     var router: (NSObjectProtocol & NowPlayingMoviesRoutingLogic & NowPlayingMoviesDataPassing)?
-    var hasError = false
 
-    var movieItems: [MovieItem]? {
+    typealias MovieListItem = NowPlayingMovies.MovieListItem
+    typealias SegmentedControlSegmentIndex = NowPlayingMovies.SegmentedControlSegmentIndex
+
+    var movieItems: [MovieListItem]? {
         didSet {
             if !isEditing {
                 nowPlayingMoviesTableView.reloadData()
                 DispatchQueue.main.async {
-                    let areAllCellsVisible = self.nowPlayingMoviesTableView.visibleCells.count == self.movieItems?.count
-                    if areAllCellsVisible && !self.hasError {
+                    let allCellsAreVisible = self.nowPlayingMoviesTableView.visibleCells.count == self.movieItems?.count
+                    if self.movieItems?.isEmpty == false && allCellsAreVisible {
                         self.fetchNextPage()
                     } else {
                         self.selectFirstItem()
@@ -58,7 +58,6 @@ final class NowPlayingMoviesViewController: UIViewController {
 
     @IBOutlet weak var segmentedControl: UISegmentedControl!
     @IBOutlet weak var nowPlayingMoviesTableView: UITableView!
-    @IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!
 
     // MARK: Object Life Cycle
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
@@ -88,7 +87,6 @@ final class NowPlayingMoviesViewController: UIViewController {
 
         configureEditButtonItem()
         configureTableView()
-        configureActivityIndicatorView()
         fetchNowPlayingMovies()
     }
 
@@ -128,14 +126,12 @@ final class NowPlayingMoviesViewController: UIViewController {
         interactor?.refreshFavoriteMovies(request: request)
     }
 
-    @objc func refreshNowPlayingMovies() {
+    func fetchNowPlayingMovies(mode: NowPlayingMovies.FetchNowPlayingMovies.Request.Mode = .fetchFirstPage) {
+        prepareNowPlayingMovies()
         UIApplication.shared.setNetworkActivityIndicatorVisibility(true)
-        let request = NowPlayingMovies.RefreshMovies.Request()
-        interactor?.refreshMovies(request: request)
-    }
 
-    @objc func retryButtonPressed() {
-        fetchNowPlayingMovies()
+        let request = NowPlayingMovies.FetchNowPlayingMovies.Request(mode: mode)
+        interactor?.fetchNowPlayingMovies(request: request)
     }
 }
 
@@ -178,16 +174,15 @@ private extension NowPlayingMoviesViewController {
     #endif
     
     @objc func refreshControlTriggered() {
-        refreshNowPlayingMovies()
+        fetchNowPlayingMovies(mode: .refreshMovieList)
     }
 
     func configureTableView() {
         // To change the color (to the default system background color) behind the table's sections and rows
         nowPlayingMoviesTableView.backgroundView = UIView()
-    }
 
-    func configureActivityIndicatorView() {
-        activityIndicatorView.setStyle(.large)
+        let nib = UINib(nibName: Constants.NibName.errorTableViewCell, bundle: Bundle.main)
+        nowPlayingMoviesTableView.register(nib, forCellReuseIdentifier: ErrorTableViewCell.identifier)
     }
 
     func filterMovies(with searchText: String) {
@@ -195,29 +190,27 @@ private extension NowPlayingMoviesViewController {
         interactor?.filterMovies(request: request)
     }
 
-    func fetchNowPlayingMovies() {
+    func prepareNowPlayingMovies() {
         setEditing(false, animated: true)
         navigationItem.setRightBarButton(nil, animated: true)
         
         #if !targetEnvironment(macCatalyst)
         nowPlayingMoviesTableView.refreshControl = refreshControl
         #endif
-        
-        UIApplication.shared.setNetworkActivityIndicatorVisibility(true)
-        activityIndicatorView.startAnimating()
+    }
 
-        let request = NowPlayingMovies.FetchNowPlayingMovies.Request()
-        interactor?.fetchNowPlayingMovies(request: request)
+    func loadNowPlayingMovies() {
+        prepareNowPlayingMovies()
+
+        let request = NowPlayingMovies.LoadNowPlayingMovies.Request()
+        interactor?.loadNowPlayingMovies(request: request)
     }
 
     func fetchNextPage() {
         guard presentedViewController == nil,
             interactor?.shouldFetchNextPage == true else { return }
 
-        UIApplication.shared.setNetworkActivityIndicatorVisibility(true)
-
-        let request = NowPlayingMovies.FetchNextPage.Request()
-        interactor?.fetchNextPage(request: request)
+        fetchNowPlayingMovies(mode: .fetchNextPage)
     }
 
     func selectFirstItem() {
@@ -245,15 +238,11 @@ private extension NowPlayingMoviesViewController {
             }
         }
     }
-    
-    @IBAction func errorActionButtonPressed() {
-        fetchNowPlayingMovies()
-    }
 
     @IBAction func segmentedControlValueChanged(_ segmentedControl: UISegmentedControl) {
         switch segmentedControl.selectedSegmentIndex {
         case SegmentedControlSegmentIndex.all.rawValue:
-            fetchNowPlayingMovies()
+            loadNowPlayingMovies()
         case SegmentedControlSegmentIndex.favorites.rawValue:
             loadFavoriteMovies()
         default:
@@ -267,6 +256,15 @@ private extension NowPlayingMoviesViewController {
     func loadTableViewBackgroundView() {
         let request = NowPlayingMovies.LoadTableViewBackgroundView.Request(searchText: searchController.searchBar.text)
         interactor?.loadTableViewBackgroundView(request: request)
+    }
+
+    // TODO: to improve
+    func animateActivityIndicators(_ animated: Bool) {
+        UIApplication.shared.setNetworkActivityIndicatorVisibility(animated)
+
+        if !animated {
+            nowPlayingMoviesTableView.refreshControl?.endRefreshing()
+        }
     }
 }
 
@@ -286,6 +284,7 @@ extension NowPlayingMoviesViewController {
     }
 
     private func loadFavoriteMovies() {
+        animateActivityIndicators(false)
         let request = NowPlayingMovies.LoadFavoriteMovies.Request(editButtonItem: editButtonItem)
         interactor?.loadFavoriteMovies(request: request)
     }
@@ -301,47 +300,22 @@ extension NowPlayingMoviesViewController {
 extension NowPlayingMoviesViewController: NowPlayingMoviesDisplayLogic {
 
     func displayNowPlayingMovies(viewModel: NowPlayingMovies.FetchNowPlayingMovies.ViewModel) {
-        UIApplication.shared.setNetworkActivityIndicatorVisibility(false)
-        activityIndicatorView.stopAnimating()
+        animateActivityIndicators(false)
 
         movieItems = viewModel.movieItems
-        hasError = viewModel.hasError
-    }
-
-    func displayNextPage(viewModel: NowPlayingMovies.FetchNextPage.ViewModel) {
-        UIApplication.shared.setNetworkActivityIndicatorVisibility(false)
-        movieItems = viewModel.movieItems
-        hasError = viewModel.shouldPresentErrorAlert
-        if viewModel.shouldPresentErrorAlert {
-            let alertController = UIAlertController(title: viewModel.errorAlertTitle, message: viewModel.errorAlertMessage, preferredStyle: viewModel.errorAlertStyle)
-            viewModel.errorAlertActions.forEach { alertAction in
-                alertController.addAction(alertAction)
-            }
-            present(alertController, animated: true)
-        }
     }
 
     func displayFilterMovies(viewModel: NowPlayingMovies.FilterMovies.ViewModel) {
         movieItems = viewModel.movieItems
     }
 
-    func displayRefreshMovies(viewModel: NowPlayingMovies.RefreshMovies.ViewModel) {
-        UIApplication.shared.setNetworkActivityIndicatorVisibility(false)
-        movieItems = viewModel.movieItems
-        nowPlayingMoviesTableView.refreshControl?.endRefreshing()
-
-        hasError = viewModel.shouldPresentErrorAlert
-        if viewModel.shouldPresentErrorAlert {
-            let alertController = UIAlertController(title: viewModel.errorAlertTitle, message: viewModel.errorAlertMessage, preferredStyle: viewModel.errorAlertStyle)
-            viewModel.errorAlertActions.forEach { alertAction in
-                alertController.addAction(alertAction)
-            }
-            present(alertController, animated: true)
-        }
-    }
-
     func displayTableViewBackgroundView(viewModel: NowPlayingMovies.LoadTableViewBackgroundView.ViewModel) {
         nowPlayingMoviesTableView.backgroundView = viewModel.backgroundView
+        #if targetEnvironment(macCatalyst)
+        navigationItem.searchController = viewModel.searchController
+        #else
+        searchController.searchBar.setEnabled(viewModel.isSearchBarEnabled)
+        #endif
     }
 
     func displayFavoriteMovies(viewModel: NowPlayingMovies.LoadFavoriteMovies.ViewModel) {
@@ -386,16 +360,31 @@ extension NowPlayingMoviesViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let movieItem = movieItems?[safe: indexPath.row],
-            let movieTableViewCell = tableView.dequeueReusableCell(withIdentifier: Constants.CellIdentifier.movieTableViewCell, for: indexPath) as? MovieTableViewCell
-        else {
-            return UITableViewCell()
+        guard let movieItem = movieItems?[safe: indexPath.row] else { return UITableViewCell() }
+
+        let cellIdentifier = movieItem.cellIdentifier
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath)
+
+        switch movieItem {
+        case .movie(let title):
+            if let movieTableViewCell = cell as? MovieTableViewCell {
+                movieTableViewCell.textLabel?.text = title
+                movieTableViewCell.setDisclosureIndicator(isSplitViewControllerCollapsed)
+            }
+        case .error(let description, let mode):
+            if let errorTableViewCell = cell as? ErrorTableViewCell {
+                errorTableViewCell.messageLabel?.text = description
+                errorTableViewCell.retryButtonAction = { [weak self] in
+                    _ = self?.movieItems?.removeLast()
+                    self?.movieItems?.append(.loader)
+                    self?.fetchNowPlayingMovies(mode: mode)
+                }
+            }
+        case .loader:
+            break
         }
-        
-        movieTableViewCell.textLabel?.text = movieItem.title
-        movieTableViewCell.setDisclosureIndicator(isSplitViewControllerCollapsed)
-        
-        return movieTableViewCell
+
+        return cell
     }
 
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
@@ -413,10 +402,11 @@ extension NowPlayingMoviesViewController: UITableViewDataSource {
 extension NowPlayingMoviesViewController: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        guard let movieItems = movieItems else { return }
-        if (tableView.isTracking || tableView.isDecelerating), indexPath.row == (movieItems.count - 1) {
-            fetchNextPage()
-        }
+        guard tableView.isTracking || tableView.isDecelerating,
+            let movieItems = movieItems,
+            indexPath.row == (movieItems.count - 1) else { return }
+
+        fetchNextPage()
     }
 }
 
@@ -434,5 +424,13 @@ extension NowPlayingMoviesViewController: UISplitViewControllerDelegate {
 
     func splitViewController(_ splitViewController: UISplitViewController, collapseSecondary secondaryViewController: UIViewController, onto primaryViewController: UIViewController) -> Bool {
         return indexPathForSelectedRow == nil
+    }
+}
+
+extension UISearchBar {
+
+    func setEnabled(_ enabled: Bool) {
+        isUserInteractionEnabled = enabled
+        alpha = enabled ? 1 : 0.5
     }
 }

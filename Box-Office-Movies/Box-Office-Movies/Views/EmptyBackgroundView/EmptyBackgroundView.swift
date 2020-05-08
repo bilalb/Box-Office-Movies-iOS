@@ -13,6 +13,7 @@ final class EmptyBackgroundView: UIView {
     
     @IBOutlet private weak var messageLabel: UILabel!
     @IBOutlet private weak var retryButton: UIButton!
+    @IBOutlet private weak var activityIndicatorView: UIActivityIndicatorView!
 
     var retryButtonAction: (() -> Void)?
 
@@ -30,7 +31,34 @@ final class EmptyBackgroundView: UIView {
         }
     }
 
+    var displayType: DisplayType = .message {
+        didSet {
+            switch displayType {
+            case .loading:
+                activityIndicatorView.startAnimating()
+            case .message:
+                activityIndicatorView.stopAnimating()
+            }
+        }
+    }
+
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        activityIndicatorView.setStyle(.large)
+    }
+
     @IBAction private func retryButtonPressed() {
         retryButtonAction?()
+        activityIndicatorView.startAnimating()
+    }
+}
+
+extension EmptyBackgroundView {
+
+    enum DisplayType {
+        /// Used to display a loader.
+        case loading
+        /// Used to display a message.
+        case message
     }
 }

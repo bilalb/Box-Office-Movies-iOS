@@ -13,36 +13,30 @@ enum NowPlayingMovies {
     
     enum FetchNowPlayingMovies {
         
-        struct Request { }
+        struct Request {
+            let mode: Mode
+
+            enum Mode {
+                case fetchFirstPage
+                case fetchNextPage
+                case refreshMovieList
+            }
+        }
         
         struct Response {
             let movies: [Movie]?
-            let error: Error?
+            let networkError: NetworkError?
+            let mode: NowPlayingMovies.FetchNowPlayingMovies.Request.Mode?
         }
         
         struct ViewModel {
-            let movieItems: [MovieItem]?
-            let hasError: Bool
+            let movieItems: [MovieListItem]?
         }
     }
-    
-    enum FetchNextPage {
-        
+
+    enum LoadNowPlayingMovies {
+
         struct Request { }
-        
-        struct Response {
-            let movies: [Movie]?
-            let error: Error?
-        }
-        
-        struct ViewModel {
-            let movieItems: [MovieItem]?
-            let shouldPresentErrorAlert: Bool
-            let errorAlertTitle: String?
-            let errorAlertMessage: String?
-            let errorAlertStyle: UIAlertController.Style
-            let errorAlertActions: [UIAlertAction]
-        }
     }
     
     enum FilterMovies {
@@ -57,26 +51,7 @@ enum NowPlayingMovies {
         }
         
         struct ViewModel {
-            let movieItems: [MovieItem]?
-        }
-    }
-    
-    enum RefreshMovies {
-        
-        struct Request { }
-        
-        struct Response {
-            let movies: [Movie]?
-            let error: Error?
-        }
-        
-        struct ViewModel {
-            let movieItems: [MovieItem]?
-            let shouldPresentErrorAlert: Bool
-            let errorAlertTitle: String?
-            let errorAlertMessage: String?
-            let errorAlertStyle: UIAlertController.Style
-            let errorAlertActions: [UIAlertAction]
+            let movieItems: [MovieListItem]?
         }
     }
     
@@ -90,11 +65,12 @@ enum NowPlayingMovies {
             let state: NowPlayingMoviesInteractor.State
             let searchText: String?
             let movies: [Movie]?
-            let error: Error?
+            let networkError: NetworkError?
         }
         
         struct ViewModel {
             let backgroundView: UIView?
+            let isSearchBarEnabled: Bool
         }
     }
 }
@@ -115,7 +91,7 @@ extension NowPlayingMovies {
         }
         
         struct ViewModel {
-            let movieItems: [MovieItem]?
+            let movieItems: [MovieListItem]?
             let rightBarButtonItem: UIBarButtonItem?
             let refreshControl: UIRefreshControl?
         }
@@ -150,7 +126,7 @@ extension NowPlayingMovies {
 
         struct ViewModel {
             let shouldSetMovieItems: Bool
-            let movieItems: [MovieItem]?
+            let movieItems: [MovieListItem]?
             let indexPathsForRowsToDelete: [IndexPath]?
             let indexPathsForRowsToInsert: [IndexPath]?
             let shouldSetRightBarButtonItem: Bool
@@ -159,15 +135,39 @@ extension NowPlayingMovies {
     }
 }
 
-struct MovieItem {
-    let title: String?
+extension NowPlayingMovies {
+
+    enum NetworkError {
+        case fetchFirstPageError(_ error: Error)
+        case fetchNextPageError(_ error: Error)
+        case refreshMovieListError(_ error: Error)
+    }
 }
 
-enum SegmentedControlSegmentIndex: Int {
-    case all
-    case favorites
+extension NowPlayingMovies {
+
+    enum MovieListItem {
+        case movie(title: String?)
+        case error(description: String?, mode: NowPlayingMovies.FetchNowPlayingMovies.Request.Mode)
+        case loader
+
+        var cellIdentifier: String {
+            switch self {
+            case .movie:
+                return MovieTableViewCell.identifier
+            case .error:
+                return ErrorTableViewCell.identifier
+            case .loader:
+                return LoaderTableViewCell.identifier
+            }
+        }
+    }
 }
 
-enum NowPlayingMoviesError: Error {
-    case nothingToFetch
+extension NowPlayingMovies {
+
+    enum SegmentedControlSegmentIndex: Int {
+        case all
+        case favorites
+    }
 }

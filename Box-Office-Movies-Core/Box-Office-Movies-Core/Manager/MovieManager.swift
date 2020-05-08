@@ -72,8 +72,9 @@ public protocol MovieManagement {
     ///   - languageCode: Language code in ISO 639-1 format.
     ///   - regionCode: Region code in ISO 3166-1 format.
     ///   - page: Page to query (minimum: `1`, maximum: `1000`).
+    ///   - isRefreshing: Indicates whether the goal of the request is to refresh the data.
     ///   - completionHandler: The completion handler to call when the request is complete.
-    func nowPlayingMovies(languageCode: String, regionCode: String, page: Int, completionHandler: NowPlayingMoviesCompletionHandler?)
+    func nowPlayingMovies(languageCode: String, regionCode: String, page: Int, isRefreshing: Bool, completionHandler: NowPlayingMoviesCompletionHandler?)
     
     /// Fetches the details of a movie.
     ///
@@ -142,8 +143,8 @@ final class MovieManager: MovieManagement {
         self.networkController = networkController
     }
     
-    func nowPlayingMovies(languageCode: String, regionCode: String, page: Int, completionHandler: NowPlayingMoviesCompletionHandler?) {
-        networkController.nowPlayingMovies(languageCode: languageCode, regionCode: regionCode, page: page, completionHandler: completionHandler)
+    func nowPlayingMovies(languageCode: String, regionCode: String, page: Int, isRefreshing: Bool, completionHandler: NowPlayingMoviesCompletionHandler?) {
+        networkController.nowPlayingMovies(languageCode: languageCode, regionCode: regionCode, page: page, isRefreshing: isRefreshing, completionHandler: completionHandler)
     }
     
     func movieDetails(identifier: Int, languageCode: String, regionCode: String, completionHandler: MovieDetailsCompletionHandler?) {

@@ -36,29 +36,17 @@
                             </button>
                         </subviews>
                     </stackView>
-                    <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="xlm-z9-bpf">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="70"/>
-                        <color key="backgroundColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="70" id="Qpe-tl-OE1"/>
-                        </constraints>
-                    </activityIndicatorView>
                 </subviews>
                 <constraints>
                     <constraint firstItem="pDT-Ec-eFo" firstAttribute="bottom" secondItem="H2p-sc-9uM" secondAttribute="bottomMargin" constant="8" id="ClF-EI-Mx4"/>
-                    <constraint firstAttribute="bottom" secondItem="xlm-z9-bpf" secondAttribute="bottom" id="ICO-b8-wnh"/>
                     <constraint firstAttribute="trailing" secondItem="pDT-Ec-eFo" secondAttribute="trailing" constant="20" symbolic="YES" id="Wy4-bi-wCF"/>
                     <constraint firstItem="pDT-Ec-eFo" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="gUM-MB-wRb"/>
-                    <constraint firstItem="xlm-z9-bpf" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="mV5-iI-Ap4"/>
-                    <constraint firstItem="xlm-z9-bpf" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="osU-w8-Xhe"/>
-                    <constraint firstAttribute="trailing" secondItem="xlm-z9-bpf" secondAttribute="trailing" id="tej-FV-fj6"/>
                     <constraint firstItem="pDT-Ec-eFo" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" symbolic="YES" id="xCF-PR-ygg"/>
                 </constraints>
             </tableViewCellContentView>
             <color key="backgroundColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
-                <outlet property="activityIndicatorView" destination="xlm-z9-bpf" id="ZOO-5k-shg"/>
                 <outlet property="messageLabel" destination="Egn-De-efx" id="0NT-2W-xlv"/>
             </connections>
             <point key="canvasLocation" x="130.43478260869566" y="187.5"/>
