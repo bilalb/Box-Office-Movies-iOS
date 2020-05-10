@@ -10,7 +10,7 @@ import Foundation
 
 final class MockedNetworkSession: NetworkSession {
 
-    func send(request: NetworkRequest, completionHandler: NetworkCompletionHandler?) {
+    func send(request: NetworkRequest, completionHandler: @escaping NetworkCompletionHandler) {
         let data: Data? = {
             let jsonString: String? = {
                 if request.urlRequest?.url?.absoluteString.contains("movie/now_playing?language=") == true {
@@ -34,14 +34,9 @@ final class MockedNetworkSession: NetworkSession {
             return jsonString?.data(using: .utf8)
         }()
 
-        let response: URLResponse? = {
-            return nil
-        }()
+        let response: URLResponse? = nil
+        let error: Error? = nil
 
-        let error: Error? = {
-            return nil
-        }()
-
-        completionHandler?(data, response, error)
+        completionHandler(data, response, error)
     }
 }

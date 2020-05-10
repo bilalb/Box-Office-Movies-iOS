@@ -37,9 +37,12 @@ public class ManagerProvider: ManagerProviding {
                 return MockedNetworkSession()
             }
             #endif
-            let session = URLSession(configuration: .default)
-            session.configuration.timeoutIntervalForRequest = Constants.Network.timeoutIntervalForRequest
-            session.configuration.timeoutIntervalForResource = Constants.Network.timeoutIntervalForResource
+            let configuration = URLSessionConfiguration.default
+            configuration.timeoutIntervalForRequest = Constants.Network.timeoutIntervalForRequest
+            configuration.timeoutIntervalForResource = Constants.Network.timeoutIntervalForResource
+
+            let session = URLSession(configuration: configuration)
+            
             return session
         }()
         let movieNetworkController = MovieNetworkController(environment: environment, session: session)

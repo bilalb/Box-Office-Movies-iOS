@@ -23,17 +23,15 @@ protocol NetworkSession {
     /// - Parameters:
     ///   - request: The network request to send.
     ///   - completionHandler: The completion handler to call when the request is complete.
-    func send(request: NetworkRequest, completionHandler: NetworkCompletionHandler?)
+    func send(request: NetworkRequest, completionHandler: @escaping NetworkCompletionHandler)
 }
 
 extension URLSession: NetworkSession {
 
-    func send(request: NetworkRequest, completionHandler: NetworkCompletionHandler?) {
+    func send(request: NetworkRequest, completionHandler: @escaping NetworkCompletionHandler) {
         guard let urlRequest = request.urlRequest else { return }
 
-        let dataTask = self.dataTask(with: urlRequest) { (data, response, error) in
-            completionHandler?(data, response, error)
-        }
+        let dataTask = self.dataTask(with: urlRequest, completionHandler: completionHandler)
 
         dataTask.resume()
     }
@@ -49,7 +47,7 @@ class NetworkController {
         self.session = session
     }
 
-    func send(request: NetworkRequest, completionHandler: NetworkCompletionHandler?) {
+    func send(request: NetworkRequest, completionHandler: @escaping NetworkCompletionHandler) {
         session.send(request: request, completionHandler: completionHandler)
     }
 }

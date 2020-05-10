@@ -16,8 +16,8 @@ struct Constants {
     }
     
     struct Network {
-        static let timeoutIntervalForRequest: TimeInterval = 3
-        static let timeoutIntervalForResource: TimeInterval = 5
+        static let timeoutIntervalForRequest: TimeInterval = 6
+        static let timeoutIntervalForResource: TimeInterval = 10
     }
     
     struct CoreData {
