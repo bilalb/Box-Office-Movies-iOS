@@ -37,6 +37,7 @@ final class MovieDetailsPresenterTests: XCTestCase {
         var displayMovieReviewsCalled = false
         var displayReviewMovieCalled = false
         var displayFavoriteToggleCalled = false
+        var displayTableViewBackgroundViewCalled = false
         
         func displayMovieDetails(viewModel: MovieDetailsScene.FetchMovieDetails.ViewModel) {
             XCTAssertEqual(viewModel.detailItems?.count, 7)
@@ -66,6 +67,10 @@ final class MovieDetailsPresenterTests: XCTestCase {
         
         func displayFavoriteToggle(viewModel: MovieDetailsScene.LoadFavoriteToggle.ViewModel) {
             displayFavoriteToggleCalled = true
+        }
+
+        func displayTableViewBackgroundView(viewModel: MovieDetailsScene.LoadTableViewBackgroundView.ViewModel) {
+            displayTableViewBackgroundViewCalled = true
         }
     }
     
@@ -133,6 +138,26 @@ final class MovieDetailsPresenterTests: XCTestCase {
         
         // Then
         XCTAssertTrue(spy.displayFavoriteToggleCalled, "presentFavoriteToggle(response:) should ask the view controller to display the result")
+    }
+
+    func test_presentTableViewBackgroundView_shouldCallDisplayTableViewBackgroundView() {
+        // Given
+        let spy = MovieDetailsDisplayLogicSpy()
+        sut.viewController = spy
+
+        let response = MovieDetailsScene.LoadTableViewBackgroundView.Response(
+            movieDetails: nil,
+            casting: nil,
+            paginatedSimilarMovieLists: nil,
+            posterData: nil,
+            trailer: nil,
+            error: nil)
+
+        // When
+        sut.presentTableViewBackgroundView(response: response)
+
+        // Then
+        XCTAssertTrue(spy.displayTableViewBackgroundViewCalled, "presentTableViewBackgroundView(response:) should ask the view controller to display the result")
     }
 }
 

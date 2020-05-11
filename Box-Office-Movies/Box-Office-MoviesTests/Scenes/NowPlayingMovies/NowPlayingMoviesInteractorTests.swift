@@ -10,8 +10,8 @@
 import Box_Office_Movies_Core
 import XCTest
 
-//swiftlint:disable file_length
 //swiftlint:disable type_body_length
+//swiftlint:disable file_length
 final class NowPlayingMoviesInteractorTests: XCTestCase {
     
     // MARK: Subject under test
@@ -43,9 +43,7 @@ final class NowPlayingMoviesInteractorTests: XCTestCase {
 
         var presentNowPlayingMoviesExpectation = XCTestExpectation(description: "presentNowPlayingMovies called")
         var presentNowPlayingMoviesCalled = false
-        var presentNextPageExpectation = XCTestExpectation(description: "presentNextPage called")
         var presentFilterMoviesCalled = false
-        var presentRefreshMoviesExpectation = XCTestExpectation(description: "presentRefreshMovies called")
         var presentTableViewBackgroundViewCalled = false
         var presentFavoriteMoviesCalled = false
         var presentRefreshFavoriteMoviesCalled = false
@@ -55,16 +53,8 @@ final class NowPlayingMoviesInteractorTests: XCTestCase {
             presentNowPlayingMoviesCalled = true
         }
         
-        func presentNextPage(response: NowPlayingMovies.FetchNextPage.Response) {
-            presentNextPageExpectation.fulfill()
-        }
-        
         func presentFilterMovies(response: NowPlayingMovies.FilterMovies.Response) {
             presentFilterMoviesCalled = true
-        }
-        
-        func presentRefreshMovies(response: NowPlayingMovies.RefreshMovies.Response) {
-            presentRefreshMoviesExpectation.fulfill()
         }
         
         func presentTableViewBackgroundView(response: NowPlayingMovies.LoadTableViewBackgroundView.Response) {
@@ -103,37 +93,77 @@ final class NowPlayingMoviesInteractorTests: XCTestCase {
         // Then
         XCTAssertEqual(currentMovies, sut.favoriteMovies)
     }
-    
-    func testFetchNowPlayingMoviesWithEmptyMovies() {
+
+    func test_fetchNowPlayingMovies_withFetchFirstPageMode() {
         // Given
         let spy = NowPlayingMoviesPresentationLogicSpy()
         sut.presenter = spy
 
-        let request = NowPlayingMovies.FetchNowPlayingMovies.Request()
-        
-        // When
-        sut.fetchNowPlayingMovies(request: request)
-        
-        // Then
-        XCTAssertEqual(sut.state, .allMovies, "loadFavoriteMovies(request:) should set state")
-        wait(for: [spy.presentNowPlayingMoviesExpectation], timeout: 0.1)
-    }
-    
-    func testFetchNowPlayingMoviesWithNotEmptyMovies() {
-        // Given
-        let spy = NowPlayingMoviesPresentationLogicSpy()
-        sut.presenter = spy
+        let request = NowPlayingMovies.FetchNowPlayingMovies.Request(mode: .fetchFirstPage)
 
-        let request = NowPlayingMovies.FetchNowPlayingMovies.Request()
-        
         sut.movies = Movie.dummyInstances
-        
+
         // When
         sut.fetchNowPlayingMovies(request: request)
         
         // Then
-        XCTAssertEqual(sut.state, .allMovies, "loadFavoriteMovies(request:) should set state")
+        XCTAssertEqual(sut.state, .allMovies, "fetchNowPlayingMovies(request:) should set state")
         XCTAssertTrue(spy.presentNowPlayingMoviesCalled, "fetchNowPlayingMovies(request:) should ask the presenter to format the result")
+    }
+
+    func test_fetchNowPlayingMovies_withFetchNextPageMode() {
+        // Given
+        let spy = NowPlayingMoviesPresentationLogicSpy()
+        sut.presenter = spy
+
+        let request = NowPlayingMovies.FetchNowPlayingMovies.Request(mode: .fetchNextPage)
+        
+        // When
+        sut.fetchNowPlayingMovies(request: request)
+
+        // Then
+        XCTAssertEqual(sut.state, .allMovies, "fetchNowPlayingMovies(request:) should set state")
+        XCTAssertTrue(spy.presentNowPlayingMoviesCalled, "fetchNowPlayingMovies(request:) should ask the presenter to format the result")
+    }
+
+    func test_fetchNowPlayingMovies_withRefreshMovieListMode_shouldResetSomeProperties() {
+        // Given
+        let spy = NowPlayingMoviesPresentationLogicSpy()
+        sut.presenter = spy
+
+        let request = NowPlayingMovies.FetchNowPlayingMovies.Request(mode: .refreshMovieList)
+
+        sut.page = 42
+        sut.movies = Movie.dummyInstances
+        sut.filteredMovies = Movie.dummyInstances
+
+        // When
+        sut.fetchNowPlayingMovies(request: request)
+        
+        // Then
+        XCTAssertEqual(sut.state, .allMovies, "fetchNowPlayingMovies(request:) should set state")
+
+//        XCTAssertEqual(sut.page, 1, "fetchNowPlayingMovies(request:) with refreshMovieList mode should reset page")
+//        XCTAssertTrue(sut.paginatedMovieLists.isEmpty, "fetchNowPlayingMovies(request:) with refreshMovieList mode should reset paginatedMovieLists")
+//        XCTAssertTrue(sut.movies?.isEmpty == true, "fetchNowPlayingMovies(request:) with refreshMovieList mode should reset movies")
+        XCTAssertTrue(sut.filteredMovies?.isEmpty == true, "fetchNowPlayingMovies(request:) with refreshMovieList mode should reset filteredMovies")
+
+        XCTAssertTrue(spy.presentNowPlayingMoviesCalled, "fetchNowPlayingMovies(request:) should ask the presenter to format the result")
+    }
+
+    func test_loadNowPlayingMovies_shouldSetStateAndCallPresentNowPlayingMovies() {
+        // Given
+        let spy = NowPlayingMoviesPresentationLogicSpy()
+        sut.presenter = spy
+
+        let request = NowPlayingMovies.LoadNowPlayingMovies.Request()
+
+        // When
+        sut.loadNowPlayingMovies(request: request)
+
+        // Then
+        XCTAssertEqual(sut.state, .allMovies, "loadNowPlayingMovies(request:) should set state")
+        XCTAssertTrue(spy.presentNowPlayingMoviesCalled, "loadNowPlayingMovies(request:) should ask the presenter to format the result")
     }
     
     func testFilterMoviesWithEmptySearchText() {
@@ -167,20 +197,6 @@ final class NowPlayingMoviesInteractorTests: XCTestCase {
         XCTAssertTrue(spy.presentFilterMoviesCalled, "filterMovies(request:) should ask the presenter to format the result")
     }
     
-    func testRefreshMovies() {
-        // Given
-        let spy = NowPlayingMoviesPresentationLogicSpy()
-        sut.presenter = spy
-        
-        let request = NowPlayingMovies.RefreshMovies.Request()
-        
-        // When
-        sut.refreshMovies(request: request)
-        
-        // Then
-        XCTAssertEqual(sut.state, .allMovies)
-    }
-    
     func testLoadFavoriteMovies() {
         // Given
         let spy = NowPlayingMoviesPresentationLogicSpy()
@@ -193,7 +209,7 @@ final class NowPlayingMoviesInteractorTests: XCTestCase {
         
         // Then
         XCTAssertEqual(sut.state, .favorites, "loadFavoriteMovies(request:) should set state")
-        XCTAssertTrue(spy.presentFavoriteMoviesCalled, "loadFavoriteMovies() should ask the presenter to format the result")
+        XCTAssertTrue(spy.presentFavoriteMoviesCalled, "loadFavoriteMovies(request:) should ask the presenter to format the result")
     }
     
     func testLoadTableViewBackgroundView() {
@@ -208,6 +224,34 @@ final class NowPlayingMoviesInteractorTests: XCTestCase {
         
         // Then
         XCTAssertTrue(spy.presentTableViewBackgroundViewCalled, "loadTableViewBackgroundView(request:) should ask the presenter to format the result")
+    }
+
+    func test_presentNowPlayingMovies_withAllMoviesState_shouldCallTheRelatedPresenterMethod() {
+        // Given
+        let spy = NowPlayingMoviesPresentationLogicSpy()
+        sut.presenter = spy
+
+        sut.state = .allMovies
+
+        // When
+        sut.presentNowPlayingMovies(mode: nil)
+
+        // Then
+        XCTAssertTrue(spy.presentNowPlayingMoviesCalled, "presentNowPlayingMovies(mode:) should ask the presenter to format the result")
+    }
+
+    func test_presentNowPlayingMovies_withoutAllMoviesState_shouldNotCallTheRelatedPresenterMethod() {
+        // Given
+        let spy = NowPlayingMoviesPresentationLogicSpy()
+        sut.presenter = spy
+
+        sut.state = .favorites
+
+        // When
+        sut.presentNowPlayingMovies(mode: nil)
+
+        // Then
+        XCTAssertFalse(spy.presentNowPlayingMoviesCalled, "presentNowPlayingMovies(mode:) should not ask the presenter to format the result")
     }
 
     func test_refreshFavoriteMovies_withAllMoviesState_shouldRefreshPersistedData_andCallPresentRefreshFavoriteMovies() {

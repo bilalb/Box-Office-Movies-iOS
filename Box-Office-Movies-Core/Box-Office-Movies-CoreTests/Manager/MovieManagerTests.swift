@@ -25,9 +25,10 @@ final class MovieManagerTests: XCTestCase {
         let languageCode = "en-US"
         let regionCode = "US"
         let page = 0
+        let isRefreshing = false
         
         // When
-        sut.nowPlayingMovies(languageCode: languageCode, regionCode: regionCode, page: page) { (paginatedMovieList, error) in
+        sut.nowPlayingMovies(languageCode: languageCode, regionCode: regionCode, page: page, isRefreshing: isRefreshing) { (paginatedMovieList, error) in
             // Then
             expectation.fulfill()
             XCTAssertNotNil(paginatedMovieList)

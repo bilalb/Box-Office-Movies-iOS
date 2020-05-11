@@ -51,6 +51,7 @@ final class MovieDetailsViewControllerTests: XCTestCase {
         var reviewMovieCalled = false
         var loadFavoriteToggleCalled = false
         var isMovieAddedToFavoritesCalled = false
+        var loadTableViewBackgroundViewCalled = false
 
         func fetchMovieDetails(request: MovieDetailsScene.FetchMovieDetails.Request) {
             fetchMovieDetailsCalled = true
@@ -71,6 +72,10 @@ final class MovieDetailsViewControllerTests: XCTestCase {
         func isMovieAddedToFavorites() -> Bool? {
             isMovieAddedToFavoritesCalled = true
             return nil
+        }
+
+        func loadTableViewBackgroundView(request: MovieDetailsScene.LoadTableViewBackgroundView.Request) {
+            loadTableViewBackgroundViewCalled = true
         }
     }
     
@@ -106,7 +111,7 @@ final class MovieDetailsViewControllerTests: XCTestCase {
     
     func testDisplayMovieDetails() {
         // Given
-        let viewModel = MovieDetailsScene.FetchMovieDetails.ViewModel(detailItems: DetailItem.dummyInstances, shouldHideErrorView: true, errorDescription: nil, shouldShowNetworkActivityIndicator: true)
+        let viewModel = MovieDetailsScene.FetchMovieDetails.ViewModel(detailItems: DetailItem.dummyInstances, shouldShowNetworkActivityIndicator: true)
         
         // When
         loadView()
@@ -115,8 +120,6 @@ final class MovieDetailsViewControllerTests: XCTestCase {
         // Then
         XCTAssertEqual(sut.detailItems.count, 7, "displayMovieDetails(viewModel:) should append some detailItems to its detailItems")
         XCTAssertFalse(sut.activityIndicatorView.isAnimating, "displayMovieDetails(viewModel:) should stop the activityIndicatorView from animating")
-        XCTAssertTrue(sut.errorStackView.isHidden, "displayMovieDetails(viewModel:) should set the isHidden property of the errorStackView")
-        XCTAssertNil(sut.errorStackView.errorDescription, "displayMovieDetails(viewModel:) should set the errorDescription property of the errorStackView")
     }
     
     func testDisplayMovieReviews() {
@@ -167,6 +170,19 @@ final class MovieDetailsViewControllerTests: XCTestCase {
         
         // Then
         XCTAssertEqual(sut.toggleFavoriteBarButtonItem.title, "★", "displayFavoriteToggle(viewModel:) should set the title of toggleFavoriteBarButtonItem")
+    }
+
+    func test_displayTableViewBackgroundView() {
+        // Given
+        loadView()
+
+        let viewModel = MovieDetailsScene.LoadTableViewBackgroundView.ViewModel(backgroundView: nil)
+
+        // When
+        sut.displayTableViewBackgroundView(viewModel: viewModel)
+
+        // Then
+        XCTAssertNil(sut.detailItemsTableView.backgroundView, "displayTableViewBackgroundView(viewModel:) should update the backgroundView")
     }
     
     func testNumberOfRowsInSection0() {

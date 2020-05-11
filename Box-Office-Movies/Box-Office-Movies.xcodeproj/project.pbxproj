@@ -436,8 +436,8 @@
 		9CDB22A322EF10BC00B8A2C0 /* EmptyBackgroundView */ = {
 			isa = PBXGroup;
 			children = (
-				9C9B5BA32463248800A755B3 /* EmptyBackgroundView.xib */,
 				9CDB22A622EF172400B8A2C0 /* EmptyBackgroundView.swift */,
+				9C9B5BA32463248800A755B3 /* EmptyBackgroundView.xib */,
 			);
 			path = EmptyBackgroundView;
 			sourceTree = "<group>";

@@ -44,6 +44,7 @@ final class MovieDetailsInteractorTests: XCTestCase {
         var presentMovieReviewsCalled = false
         var presentReviewMovieCalled = false
         var presentFavoriteToggleCalled = false
+        var presentTableViewBackgroundViewCalled = false
 
         func presentMovieDetails(response: MovieDetailsScene.FetchMovieDetails.Response) {
             presentMovieDetailsExpectation.fulfill()
@@ -64,6 +65,10 @@ final class MovieDetailsInteractorTests: XCTestCase {
         
         func presentFavoriteToggle(response: MovieDetailsScene.LoadFavoriteToggle.Response) {
             presentFavoriteToggleCalled = true
+        }
+
+        func presentTableViewBackgroundView(response: MovieDetailsScene.LoadTableViewBackgroundView.Response) {
+            presentTableViewBackgroundViewCalled = true
         }
     }
     
@@ -164,6 +169,20 @@ final class MovieDetailsInteractorTests: XCTestCase {
         
         // Then
         XCTAssertEqual(isMovieAddedToFavorites, false)
+    }
+
+    func test_loadTableViewBackgroundView_shouldCallPresentTableViewBackgroundView() {
+        // Given
+        let spy = MovieDetailsPresentationLogicSpy()
+        sut.presenter = spy
+
+        let request = MovieDetailsScene.LoadTableViewBackgroundView.Request()
+
+        // When
+        sut.loadTableViewBackgroundView(request: request)
+
+        // Then
+        XCTAssertTrue(spy.presentTableViewBackgroundViewCalled, "loadTableViewBackgroundView(request:) should ask the presenter to format the result")
     }
     
     func testPresentMovieDetails() {

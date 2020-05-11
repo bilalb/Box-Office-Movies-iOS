@@ -9,8 +9,8 @@
 @testable import Boxotop
 import XCTest
 
-//swiftlint:disable file_length
-//swiftlint:disable type_body_length
+typealias MovieListItem = NowPlayingMovies.MovieListItem
+
 final class NowPlayingMoviesViewControllerTests: XCTestCase {
     
     // MARK: Subject under test
@@ -49,10 +49,9 @@ final class NowPlayingMoviesViewControllerTests: XCTestCase {
     class NowPlayingMoviesBusinessLogicSpy: NowPlayingMoviesBusinessLogic {
         
         var fetchNowPlayingMoviesCalled = false
+        var loadNowPlayingMoviesCalled = false
         var shouldFetchNextPage = false
-        var fetchNextPageCalled = false
         var filterMoviesCalled = false
-        var refreshMoviesCalled = false
         var loadFavoriteMoviesCalled = false
         var loadTableViewBackgroundViewCalled = false
         var refreshFavoriteMoviesCalled = false
@@ -60,17 +59,13 @@ final class NowPlayingMoviesViewControllerTests: XCTestCase {
         func fetchNowPlayingMovies(request: NowPlayingMovies.FetchNowPlayingMovies.Request) {
             fetchNowPlayingMoviesCalled = true
         }
-        
-        func fetchNextPage(request: NowPlayingMovies.FetchNextPage.Request) {
-            fetchNextPageCalled = true
+
+        func loadNowPlayingMovies(request: NowPlayingMovies.LoadNowPlayingMovies.Request) {
+            loadNowPlayingMoviesCalled = true
         }
         
         func filterMovies(request: NowPlayingMovies.FilterMovies.Request) {
             filterMoviesCalled = true
-        }
-        
-        func refreshMovies(request: NowPlayingMovies.RefreshMovies.Request) {
-            refreshMoviesCalled = true
         }
         
         func loadFavoriteMovies(request: NowPlayingMovies.LoadFavoriteMovies.Request) {
@@ -155,120 +150,28 @@ final class NowPlayingMoviesViewControllerTests: XCTestCase {
         XCTAssertTrue(sut.nowPlayingMoviesTableView.isEditing, "setEditing(_:animated:) should update the isEditing")
     }
     
-    func test_refreshNowPlayingMovies_shouldCallRefreshMovies() {
-        // Given
-        let spy = NowPlayingMoviesBusinessLogicSpy()
-        sut.interactor = spy
-        loadView()
-        
-        // When
-        sut.refreshNowPlayingMovies()
-        
-        // Then
-        XCTAssertTrue(spy.refreshMoviesCalled, "refreshNowPlayingMovies() should call refreshMovies(request:)")
-    }
-    
     func testDisplayNowPlayingMovies() {
         // Given
         loadView()
-        let viewModel = NowPlayingMovies.FetchNowPlayingMovies.ViewModel(movieItems: MovieItem.dummyInstances, shouldHideErrorView: true, errorDescription: nil)
+        let viewModel = NowPlayingMovies.FetchNowPlayingMovies.ViewModel(movieItems: MovieListItem.dummyInstances)
         
         // When
         sut.displayNowPlayingMovies(viewModel: viewModel)
         
         // Then
-        XCTAssertEqual(sut.movieItems?.count, 2, "displayNowPlayingMovies(viewModel:) should update the movieItems")
-        XCTAssertFalse(sut.hasError, "displayNowPlayingMovies(viewModel:) should update hasError")
-        XCTAssertTrue(sut.errorStackView.isHidden, "displayNowPlayingMovies(viewModel:) should update the isHidden of the errorStackView")
-        XCTAssertNil(sut.errorStackView.errorDescription, "displayNowPlayingMovies(viewModel:) should update the errorDescription of the errorStackView")
-    }
-    
-    func testDisplayNextPageWithoutError() {
-        // Given
-        loadView()
-        let viewModel = NowPlayingMovies.FetchNextPage.ViewModel(movieItems: MovieItem.dummyInstances,
-                                                                 shouldPresentErrorAlert: false,
-                                                                 errorAlertTitle: nil,
-                                                                 errorAlertMessage: nil,
-                                                                 errorAlertStyle: .alert,
-                                                                 errorAlertActions: [])
-        
-        // When
-        sut.displayNextPage(viewModel: viewModel)
-        
-        // Then
-        XCTAssertEqual(sut.movieItems?.count, 2, "displayNextPage(viewModel:) should update the movieItems")
-        XCTAssertFalse(sut.hasError, "displayNextPage(viewModel:) should update hasError")
-    }
-    
-    func testDisplayNextPageWithError() {
-        // Given
-        loadView()
-        let viewModel = NowPlayingMovies.FetchNextPage.ViewModel(movieItems: nil,
-                                                                 shouldPresentErrorAlert: true,
-                                                                 errorAlertTitle: "Foo",
-                                                                 errorAlertMessage: "Bar",
-                                                                 errorAlertStyle: .alert,
-                                                                 errorAlertActions: [UIAlertAction(title: "cancel", style: .cancel)])
-        
-        // When
-        sut.displayNextPage(viewModel: viewModel)
-        
-        // Then
-        XCTAssertNil(sut.movieItems, "displayNextPage(viewModel:) should update the movieItems")
-        XCTAssertTrue(sut.hasError, "displayNextPage(viewModel:) should update hasError")
-        XCTAssertNotNil(sut.presentedViewController, "displayNextPage(viewModel:) should present an alert with there is an error")
+        XCTAssertEqual(sut.movieItems?.count, 3, "displayNowPlayingMovies(viewModel:) should update the movieItems")
     }
     
     func testDisplayFilterMovies() {
         // Given
         loadView()
-        let viewModel = NowPlayingMovies.FilterMovies.ViewModel(movieItems: MovieItem.dummyInstances)
+        let viewModel = NowPlayingMovies.FilterMovies.ViewModel(movieItems: MovieListItem.dummyInstances)
         
         // When
         sut.displayFilterMovies(viewModel: viewModel)
         
         // Then
-        XCTAssertEqual(sut.movieItems?.count, 2, "displayFilterMovies(viewModel:) should update the movieItems")
-    }
-    
-    func testDisplayRefreshMoviesWithoutError() {
-        // Given
-        loadView()
-        let viewModel = NowPlayingMovies.RefreshMovies.ViewModel(movieItems: MovieItem.dummyInstances,
-                                                                 shouldPresentErrorAlert: false,
-                                                                 errorAlertTitle: nil,
-                                                                 errorAlertMessage: nil,
-                                                                 errorAlertStyle: .alert,
-                                                                 errorAlertActions: [])
-        
-        // When
-        sut.displayRefreshMovies(viewModel: viewModel)
-        
-        // Then
-        XCTAssertEqual(sut.movieItems?.count, 2, "displayRefreshMovies(viewModel:) should update the movieItems")
-        XCTAssertFalse(sut.refreshControl.isRefreshing, "displayRefreshMovies(viewModel:) should update the isRefreshing")
-        XCTAssertFalse(sut.hasError, "displayRefreshMovies(viewModel:) should update hasError")
-    }
-    
-    func testDisplayRefreshMoviesWithError() {
-        // Given
-        loadView()
-        let viewModel = NowPlayingMovies.RefreshMovies.ViewModel(movieItems: nil,
-                                                                 shouldPresentErrorAlert: true,
-                                                                 errorAlertTitle: "Foo",
-                                                                 errorAlertMessage: "Bar",
-                                                                 errorAlertStyle: .alert,
-                                                                 errorAlertActions: [UIAlertAction(title: "cancel", style: .cancel)])
-        
-        // When
-        sut.displayRefreshMovies(viewModel: viewModel)
-        
-        // Then
-        XCTAssertNil(sut.movieItems, "displayRefreshMovies(viewModel:) should update the movieItems")
-        XCTAssertFalse(sut.refreshControl.isRefreshing, "displayRefreshMovies(viewModel:) should update the isRefreshing")
-        XCTAssertTrue(sut.hasError, "displayRefreshMovies(viewModel:) should update hasError")
-        XCTAssertNotNil(sut.presentedViewController, "displayRefreshMovies(viewModel:) should present an alert with there is an error")
+        XCTAssertEqual(sut.movieItems?.count, 3, "displayFilterMovies(viewModel:) should update the movieItems")
     }
     
     func testDisplayTableViewBackgroundView() {
@@ -287,7 +190,7 @@ final class NowPlayingMoviesViewControllerTests: XCTestCase {
     func testDisplayFavoriteMovies() {
         // Given
         loadView()
-        sut.movieItems = MovieItem.dummyInstances
+        sut.movieItems = MovieListItem.dummyInstances
         sut.isEditing = true
         
         _ = sut.movieItems?.removeLast()
@@ -306,7 +209,7 @@ final class NowPlayingMoviesViewControllerTests: XCTestCase {
     func test_displayRefreshFavoriteMovies_withIndexPathsForRowsToDelete_shouldUpdateMovieItems_andUpdateRightBarButtonItem() {
         // Given
         loadView()
-        sut.movieItems = MovieItem.dummyInstances
+        sut.movieItems = MovieListItem.dummyInstances
         sut.isEditing = true
 
         _ = sut.movieItems?.removeLast()
@@ -317,17 +220,17 @@ final class NowPlayingMoviesViewControllerTests: XCTestCase {
         sut.displayRefreshFavoriteMovies(viewModel: viewModel)
 
         // Then
-        XCTAssertEqual(sut.movieItems?.count, 1, "displayRefreshFavoriteMovies(viewModel:) should update the movieItems")
+        XCTAssertEqual(sut.movieItems?.count, 2, "displayRefreshFavoriteMovies(viewModel:) should update the movieItems")
         XCTAssertNotNil(sut.navigationItem.rightBarButtonItem, "displayRefreshFavoriteMovies(viewModel:) should update the rightBarButtonItem")
     }
 
     func test_displayRefreshFavoriteMovies_withIndexPathsForRowsToInsert_shouldUpdateMovieItems_andUpdateRightBarButtonItem() {
         // Given
         loadView()
-        sut.movieItems = MovieItem.dummyInstances
+        sut.movieItems = MovieListItem.dummyInstances
         sut.isEditing = true
 
-        sut.movieItems?.append(MovieItem.dummyInstance)
+        sut.movieItems?.append(MovieListItem.dummyInstance)
 
         let viewModel = NowPlayingMovies.RefreshFavoriteMovies.ViewModel(shouldSetMovieItems: true, movieItems: sut.movieItems, indexPathsForRowsToDelete: nil, indexPathsForRowsToInsert: [IndexPath(row: 1, section: 0)], shouldSetRightBarButtonItem: true, rightBarButtonItem: UIBarButtonItem())
 
@@ -335,7 +238,7 @@ final class NowPlayingMoviesViewControllerTests: XCTestCase {
         sut.displayRefreshFavoriteMovies(viewModel: viewModel)
 
         // Then
-        XCTAssertEqual(sut.movieItems?.count, 3, "displayRefreshFavoriteMovies(viewModel:) should update the movieItems")
+        XCTAssertEqual(sut.movieItems?.count, 4, "displayRefreshFavoriteMovies(viewModel:) should update the movieItems")
         XCTAssertNotNil(sut.navigationItem.rightBarButtonItem, "displayRefreshFavoriteMovies(viewModel:) should update the rightBarButtonItem")
     }
     
@@ -345,20 +248,20 @@ final class NowPlayingMoviesViewControllerTests: XCTestCase {
         sut.interactor = spy
 
         loadView()
-        sut.movieItems = MovieItem.dummyInstances
+        sut.movieItems = MovieListItem.dummyInstances
         
         // When
         let numberOfRowsInSection0 = sut.tableView(sut.nowPlayingMoviesTableView, numberOfRowsInSection: 0)
         
         // Then
-        XCTAssertEqual(numberOfRowsInSection0, 2)
+        XCTAssertEqual(numberOfRowsInSection0, 3)
         XCTAssertTrue(spy.loadTableViewBackgroundViewCalled, "tableView(_:numberOfRowsInSection:) should ask the interactor to loadTableViewBackgroundView")
     }
-    
-    func testCellForRowAtIndexPath00() {
+
+    func test_cellForRowAtMovieItemIndexPath() {
         // Given
         loadView()
-        sut.movieItems = MovieItem.dummyInstances
+        sut.movieItems = MovieListItem.dummyInstances
         let indexPath = IndexPath(row: 0, section: 0)
         
         // When
@@ -367,11 +270,34 @@ final class NowPlayingMoviesViewControllerTests: XCTestCase {
         // Then
         XCTAssertEqual(cell.textLabel?.text, "Whiplash")
     }
+
+    func test_cellForRowAtErrorItemIndexPath() {
+        // Given
+        let spy = NowPlayingMoviesBusinessLogicSpy()
+        sut.interactor = spy
+
+        loadView()
+        sut.movieItems = MovieListItem.dummyInstances
+        let indexPath = IndexPath(row: 2, section: 0)
+
+        // When
+        let cell = sut.tableView(sut.nowPlayingMoviesTableView, cellForRowAt: indexPath)
+
+        // Then
+        guard let errorTableViewCell = cell as? ErrorTableViewCell else {
+            XCTFail("The cell should be an instance of ErrorTableViewCell")
+            return
+        }
+        XCTAssertEqual(errorTableViewCell.messageLabel.text, "An error occurred")
+
+        errorTableViewCell.retryButtonAction?()
+        XCTAssertTrue(spy.fetchNowPlayingMoviesCalled, "The retryButtonAction should ask the interactor to fetchNowPlayingMovies")
+    }
     
     func testCanEditRowAtIndexPath00() {
         // Given
         loadView()
-        sut.movieItems = MovieItem.dummyInstances
+        sut.movieItems = MovieListItem.dummyInstances
         let indexPath = IndexPath(row: 0, section: 0)
         
         // When
@@ -386,7 +312,7 @@ final class NowPlayingMoviesViewControllerTests: XCTestCase {
         let spy = NowPlayingMoviesBusinessLogicSpy()
         sut.interactor = spy
         loadView()
-        sut.movieItems = MovieItem.dummyInstances
+        sut.movieItems = MovieListItem.dummyInstances
         let indexPath = IndexPath(row: 0, section: 0)
         
         // When
@@ -421,15 +347,16 @@ final class NowPlayingMoviesViewControllerTests: XCTestCase {
     }
 }
 
-extension MovieItem {
+extension MovieListItem {
     
-    static var dummyInstances: [MovieItem] {
-        return [MovieItem(title: "Whiplash"),
-                MovieItem(title: "Usual Suspects")]
+    static var dummyInstances: [MovieListItem] {
+        return [MovieListItem.movie(title: "Whiplash"),
+                MovieListItem.movie(title: "Usual Suspects"),
+                MovieListItem.error(description: "An error occurred", mode: .refreshMovieList)]
     }
 
-    static var dummyInstance: MovieItem {
-        return MovieItem(title: "Split")
+    static var dummyInstance: MovieListItem {
+        return MovieListItem.movie(title: "Split")
     }
 }
 
