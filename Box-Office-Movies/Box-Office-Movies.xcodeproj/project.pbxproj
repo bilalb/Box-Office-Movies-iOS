@@ -45,6 +45,7 @@
 		9C9B5BA12463248800A755B3 /* EmptyBackgroundView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9C9B5BA32463248800A755B3 /* EmptyBackgroundView.xib */; };
 		9C9B5BB724671FC400A755B3 /* ErrorTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C9B5BB524671FC400A755B3 /* ErrorTableViewCell.swift */; };
 		9CB9B08A2399C89A00111F92 /* UIMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CB9B0892399C89A00111F92 /* UIMenu.swift */; };
+		9CC983682471B5CF00B5CB10 /* UISearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CC983672471B5CF00B5CB10 /* UISearchBar.swift */; };
 		9CCEACC722FCFB76004620BA /* TrailerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CCEACC622FCFB76004620BA /* TrailerTableViewCell.swift */; };
 		9CD1682222F4B2DF00688215 /* MovieDetailsRouterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CD1682122F4B2DF00688215 /* MovieDetailsRouterTests.swift */; };
 		9CDAE7472427AA05002AA780 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9CDAE7462427AA05002AA780 /* GoogleService-Info.plist */; };
@@ -172,6 +173,7 @@
 		9C9B5BA92463268D00A755B3 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/EmptyBackgroundView.strings; sourceTree = "<group>"; };
 		9C9B5BB524671FC400A755B3 /* ErrorTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorTableViewCell.swift; sourceTree = "<group>"; };
 		9CB9B0892399C89A00111F92 /* UIMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIMenu.swift; sourceTree = "<group>"; };
+		9CC983672471B5CF00B5CB10 /* UISearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UISearchBar.swift; sourceTree = "<group>"; };
 		9CCEACC622FCFB76004620BA /* TrailerTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrailerTableViewCell.swift; sourceTree = "<group>"; };
 		9CD1682122F4B2DF00688215 /* MovieDetailsRouterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailsRouterTests.swift; sourceTree = "<group>"; };
 		9CDAE7462427AA05002AA780 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -521,9 +523,10 @@
 				9C6042A9243CD5B2006E0106 /* Array.swift */,
 				9C93849A243E00FE0098509F /* UIActivityIndicatorView.swift */,
 				9C93849C243E01820098509F /* UIApplication.swift */,
-				9C6042A5243BA390006E0106 /* UISplitViewController.swift */,
 				9CB9B0892399C89A00111F92 /* UIMenu.swift */,
 				9C2371CC239A7E7A00BF8147 /* UIMenuBuilder.swift */,
+				9CC983672471B5CF00B5CB10 /* UISearchBar.swift */,
+				9C6042A5243BA390006E0106 /* UISplitViewController.swift */,
 				9CDC965A2247CAB70051925E /* UIView.swift */,
 				9CDC965B2247CAB70051925E /* UIViewController.swift */,
 			);
@@ -797,6 +800,7 @@
 				9CDC96682247DA510051925E /* MovieDetailsModels.swift in Sources */,
 				9CDC96692247DA510051925E /* MovieDetailsViewController.swift in Sources */,
 				9CDC96522247C2DE0051925E /* NowPlayingMoviesPresenter.swift in Sources */,
+				9CC983682471B5CF00B5CB10 /* UISearchBar.swift in Sources */,
 				9CDC965D2247CAB70051925E /* UIViewController.swift in Sources */,
 				9CDC96562247C2DE0051925E /* NowPlayingMoviesInteractor.swift in Sources */,
 				9CDC96512247C2DE0051925E /* NowPlayingMovies+SceneSetup.swift in Sources */,

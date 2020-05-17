@@ -270,9 +270,18 @@ private extension NowPlayingMoviesViewController {
     }
 
     func replaceErrorCellByLoaderCell() {
-        // prefer using `nowPlayingMoviesTableView.deleteRows(at:with:)` / `nowPlayingMoviesTableView.insertRows(at:with:)` instead
         _ = movieItems?.removeLast()
         movieItems?.append(.loader)
+
+        if let endIndex = movieItems?.endIndex {
+            nowPlayingMoviesTableView.beginUpdates()
+
+            let endIndexPath = IndexPath(row: endIndex - 1, section: 0)
+            nowPlayingMoviesTableView.deleteRows(at: [endIndexPath], with: .none)
+            nowPlayingMoviesTableView.insertRows(at: [endIndexPath], with: .none)
+
+            nowPlayingMoviesTableView.endUpdates()
+        }
     }
 }
 
@@ -310,6 +319,7 @@ extension NowPlayingMoviesViewController: NowPlayingMoviesDisplayLogic {
     func displayNowPlayingMovies(viewModel: NowPlayingMovies.FetchNowPlayingMovies.ViewModel) {
         animateActivityIndicators(false)
 
+        // FIXME: When fetching next page, the scrolling introduces glitches
         movieItems = viewModel.movieItems
         reloadTableViewData()
     }
@@ -427,13 +437,5 @@ extension NowPlayingMoviesViewController: UISplitViewControllerDelegate {
 
     func splitViewController(_ splitViewController: UISplitViewController, collapseSecondary secondaryViewController: UIViewController, onto primaryViewController: UIViewController) -> Bool {
         return indexPathForSelectedRow == nil
-    }
-}
-
-extension UISearchBar {
-
-    func setEnabled(_ enabled: Bool) {
-        isUserInteractionEnabled = enabled
-        alpha = enabled ? 1 : 0.5
     }
 }
