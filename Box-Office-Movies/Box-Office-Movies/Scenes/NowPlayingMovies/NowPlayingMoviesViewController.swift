@@ -25,21 +25,7 @@ final class NowPlayingMoviesViewController: UIViewController {
     typealias MovieListItem = NowPlayingMovies.MovieListItem
     typealias SegmentedControlSegmentIndex = NowPlayingMovies.SegmentedControlSegmentIndex
 
-    var movieItems: [MovieListItem]? {
-        didSet {
-            if !isEditing {
-                nowPlayingMoviesTableView.reloadData()
-                DispatchQueue.main.async {
-                    let allCellsAreVisible = self.nowPlayingMoviesTableView.visibleCells.count == self.movieItems?.count
-                    if self.movieItems?.isEmpty == false && allCellsAreVisible {
-                        self.fetchNextPage()
-                    } else {
-                        self.selectFirstItem()
-                    }
-                }
-            }
-        }
-    }
+    var movieItems: [MovieListItem]?
 
     var movieDetailsViewController: MovieDetailsViewController? {
         return splitViewController?.detailViewController as? MovieDetailsViewController
@@ -185,6 +171,22 @@ private extension NowPlayingMoviesViewController {
         nowPlayingMoviesTableView.register(nib, forCellReuseIdentifier: ErrorTableViewCell.identifier)
     }
 
+    func reloadTableViewData() {
+        nowPlayingMoviesTableView.reloadData()
+        DispatchQueue.main.async {
+            self.completeReloadTableViewData()
+        }
+    }
+
+    func completeReloadTableViewData() {
+        let allCellsAreVisible = nowPlayingMoviesTableView.visibleCells.count == movieItems?.count
+        if movieItems?.isEmpty == false && allCellsAreVisible {
+            fetchNextPage()
+        } else {
+            selectFirstItem()
+        }
+    }
+
     func filterMovies(with searchText: String) {
         let request = NowPlayingMovies.FilterMovies.Request(searchText: searchText, isSearchControllerActive: searchController.isActive)
         interactor?.filterMovies(request: request)
@@ -266,6 +268,12 @@ private extension NowPlayingMoviesViewController {
             nowPlayingMoviesTableView.refreshControl?.endRefreshing()
         }
     }
+
+    func replaceErrorCellByLoaderCell() {
+        // prefer using `nowPlayingMoviesTableView.deleteRows(at:with:)` / `nowPlayingMoviesTableView.insertRows(at:with:)` instead
+        _ = movieItems?.removeLast()
+        movieItems?.append(.loader)
+    }
 }
 
 // MARK: - Favorite movies - Private Functions
@@ -303,10 +311,12 @@ extension NowPlayingMoviesViewController: NowPlayingMoviesDisplayLogic {
         animateActivityIndicators(false)
 
         movieItems = viewModel.movieItems
+        reloadTableViewData()
     }
 
     func displayFilterMovies(viewModel: NowPlayingMovies.FilterMovies.ViewModel) {
         movieItems = viewModel.movieItems
+        reloadTableViewData()
     }
 
     func displayTableViewBackgroundView(viewModel: NowPlayingMovies.LoadTableViewBackgroundView.ViewModel) {
@@ -320,20 +330,14 @@ extension NowPlayingMoviesViewController: NowPlayingMoviesDisplayLogic {
 
     func displayFavoriteMovies(viewModel: NowPlayingMovies.LoadFavoriteMovies.ViewModel) {
         movieItems = viewModel.movieItems
+        reloadTableViewData()
         navigationItem.setRightBarButton(viewModel.rightBarButtonItem, animated: true)
         nowPlayingMoviesTableView.refreshControl = viewModel.refreshControl
     }
 
     func displayRefreshFavoriteMovies(viewModel: NowPlayingMovies.RefreshFavoriteMovies.ViewModel) {
         if viewModel.shouldSetMovieItems {
-            if isEditing {
-                movieItems = viewModel.movieItems
-            } else {
-                // Set/Reset `isEditing` in order to make the `didSet` of `movieItems` not calling `nowPlayingMoviesTableView.reloadData()`
-                isEditing = true
-                movieItems = viewModel.movieItems
-                isEditing = false
-            }
+            movieItems = viewModel.movieItems
         }
 
         if let indexPathsForRowsToDelete = viewModel.indexPathsForRowsToDelete {
@@ -375,8 +379,7 @@ extension NowPlayingMoviesViewController: UITableViewDataSource {
             if let errorTableViewCell = cell as? ErrorTableViewCell {
                 errorTableViewCell.messageLabel?.text = description
                 errorTableViewCell.retryButtonAction = { [weak self] in
-                    _ = self?.movieItems?.removeLast()
-                    self?.movieItems?.append(.loader)
+                    self?.replaceErrorCellByLoaderCell()
                     self?.fetchNowPlayingMovies(mode: mode)
                 }
             }

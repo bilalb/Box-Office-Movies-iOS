@@ -49,3 +49,5 @@ extension UIActivityIndicatorView {
         }
     }
 }
+
+// TODO: prefer setting the right style automatically: on init, awakeFromNib, ...?
